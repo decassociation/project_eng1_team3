@@ -106,6 +106,24 @@ public class CookTests {
 
     }
 
+    @Test
+    public void testFullCookStack(){
+        Cook cook = new Cook(new Vector2(15, 15), 1);
+
+        // Test when cook stack is below max
+        cook.heldItems.setSize(1);
+        assertFalse("Cook stack / no. items held should be 1 -less than 5 (max)- but isn't", cook.full());
+        // Test when cook stack is just below max threshold (so is okay)
+        cook.heldItems.setSize(4);
+        assertFalse("Cook stack / no. items held should be 3 -less than 5 (max)- but isn't", cook.full());
+        // Test when cook stack is at max
+        cook.heldItems.setSize(5);
+        assertTrue("Cook stack / no. items held should be 5 (max) but isn't", cook.full());
+        // Test when cook stack is above max
+        cook.heldItems.setSize(10);
+        assertTrue("Cook stack / no. items held should be 10 (above max) but isn't", cook.full());
+    }
+
     public void testPlace(){
 
     }
