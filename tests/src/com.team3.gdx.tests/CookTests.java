@@ -1,15 +1,17 @@
 package com.team3.gdx.tests;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.team3gdx.game.entity.Cook;
+import com.team3gdx.game.food.Ingredient;
+import com.team3gdx.game.food.Ingredients;
 import com.team3gdx.game.util.CollisionTile;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import com.team3gdx.game.util.Control;
+
+import static org.junit.Assert.*;
 
 @RunWith(GdxTestRunner.class)
 public class CookTests {
@@ -65,17 +67,50 @@ public class CookTests {
         }
     }
 
+//    @Test
+//    public void testPickUp(){
+//        Cook cook = new Cook(new Vector2(15, 15), 1);
+//        cook.pickUpItem(Ingredients.unformedPatty);
+//        assertFalse("unformedPatty.cooking = true but should be false", Ingredients.unformedPatty.cooking);
+//        assertFalse("unformedPatty.slicing = true but should be false", Ingredients.tomato.slicing);
+//    }
+
     @Test
-    public void testPickUp(){
+    public void testDropItem(){
+        Cook cook = new Cook(new Vector2(15, 15), 1);
+
+        // Test when the cook is holding 1 item and drops the item
+        cook.heldItems.setSize(1);
+        cook.dropItem();
+        assertEquals("Cook should be holding 0 items after dropping one but is not",
+                0, cook.heldItems.size(), 0.5f);
+        assertFalse("Cook.holding should be false but is true", cook.holding);
+
+        // Test when the cook is holding more than 1 items and drops an item
+        cook.heldItems.setSize(2);
+        cook.dropItem();
+        assertEquals("Cook should be holding 1 item after dropping one but is not",
+                1, cook.heldItems.size(), 0.5f);
+
+        cook.heldItems.setSize(10);
+        cook.dropItem();
+        assertEquals("Cook should be holding 9 items after dropping one but is not",
+                9, cook.heldItems.size(), 0.5f);
+
+        // Test when the cook is holding 0 items and tries to drop an item
+        cook.heldItems.setSize(0);
+        cook.dropItem();
+        assertEquals("Cook should be holding 0 items after dropping none but is not",
+                0, cook.heldItems.size(), 0.5f);
+        assertFalse("Cook.holding should be false but is true", cook.holding);
 
     }
 
-    @Test
     public void testPlace(){
 
     }
 
-    private void testCollisionAttempt(Cook cook, Control control, CollisionTile[][] cltiles, String assertMessage){
+    public void testCollisionAttempt(Cook cook, Control control, CollisionTile[][] cltiles, String assertMessage){
         cook.update(control, 1f, cltiles);
         assertTrue(assertMessage, cook.pos.x == 50 && cook.pos.y == 50);
         cook.pos.x = 50;
