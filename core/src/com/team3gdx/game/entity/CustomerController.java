@@ -114,7 +114,7 @@ public class CustomerController {
 	public void spawnCustomer() {
 		for (int i = 0; i < this.customers.length; i++) {
 			if (customers[i] == null) {
-				customers[i] = new Customer(this.xCoordinate, this.bottom, this.top - i, 3);
+				customers[i] = new Customer(this.xCoordinate, this.bottom, this.top - i, i);
 				amountActiveCustomers += 1;
 				break;
 			}
