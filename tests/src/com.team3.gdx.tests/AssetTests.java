@@ -114,6 +114,94 @@ public class AssetTests {
 
     }
 
+    @Test
+    public void testMapAssetsExist(){
+
+        // Files in map
+        assertTrue("2layers.PNG in map", Gdx.files.internal("map/2layers.PNG").exists());
+        assertTrue("ENG1_tiles.tsx in map", Gdx.files.internal("map/ENG1_tiles.tsx").exists());
+        assertTrue("ExampleBottomLayer.PNG in map", Gdx.files.internal("map/ExampleBottomLayer.PNG").exists());
+        assertTrue("ExampleTopLayer.PNG in map", Gdx.files.internal("map/ExampleTopLayer.PNG").exists());
+        assertTrue("tilemapinstructions.txt in map", Gdx.files.internal("map/tilemapinstructions.txt").exists());
+        assertTrue("untitled.tmx in map", Gdx.files.internal("map/untitled.tmx").exists());
+
+        // Files in map/art_map
+        assertTrue("art_tileset.tsx in map/art_map", Gdx.files.internal("map/art_map/art_tileset.tsx").exists());
+        assertTrue("art_version.tiled-project in map/art_map", Gdx.files.internal("map/art_map/art_version.tiled-project").exists());
+        assertTrue("art_version.tiled-session in map/art_map", Gdx.files.internal("map/art_map/art_version.tiled-session").exists());
+        assertTrue("customertest.tmx in map/art_map", Gdx.files.internal("map/art_map/customertest.tmx").exists());
+
+        // Files in map/art_map/art_images
+        assertTrue("bunsbox.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/bunsbox.png").exists());
+        assertTrue("burgercrafter.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/burgercrafter.png").exists());
+        assertTrue("chef1 - back.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef1 - back.png").exists());
+        assertTrue("chef1 - back - hold up.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef1 - back - hold up.png").exists());
+        assertTrue("chef1 - front.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef1 - front.png").exists());
+        assertTrue("chef1 - front - hold up.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef1 - front - hold up.png").exists());
+        assertTrue("chef 1 - facing left.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef 1 - facing left.png").exists());
+        assertTrue("chef 1 - facing left - hold up..png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef 1 - facing left - hold up..png").exists());
+        assertTrue("chef 1 - facing right.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef 1 - facing right.png").exists());
+        assertTrue("chef 1 - facing right - hold up.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef 1 - facing right - hold up.png").exists());
+        assertTrue("chef2 - back.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef2 - back.png").exists());
+        assertTrue("chef2 - back - hold up.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef2 - back - hold up.png").exists());
+        assertTrue("chef2 - front.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef2 - front.png").exists());
+        assertTrue("chef2 - front - hold up.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef2 - front - hold up.png").exists());
+        assertTrue("chef 2 - facing left.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef 2 - facing left.png").exists());
+        assertTrue("chef 2 - facing left - hold up..png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef 2 - facing left - hold up.png").exists());
+        assertTrue("chef 2 - facing right.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef 2 - facing right.png").exists());
+        assertTrue("chef 2 - facing right - hold up.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef 2 - facing right - hold up.png").exists());
+        assertTrue("chef3 - back.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef3 - back.png").exists());
+        assertTrue("chef3 - back - hold up.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef3 - back - hold up.png").exists());
+        assertTrue("chef3 - front.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef3 - front.png").exists());
+        assertTrue("chef3 - front - hold up.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef3 - front - hold up.png").exists());
+        assertTrue("chef 3 - facing left.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef 3 - facing left.png").exists());
+        assertTrue("chef 3 - facing left - hold up..png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef 3 - facing left - hold up.png").exists());
+        assertTrue("chef 3 - facing right.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef 3 - facing right.png").exists());
+        assertTrue("chef 3 - facing right - hold up.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chef 3 - facing right - hold up.png").exists());
+        assertTrue("chopping.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/chopping.png").exists());
+        assertTrue("cnr.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/cnr.png").exists());
+        assertTrue("ctrfr.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/ctrfr.png").exists());
+        assertTrue("ctrtl.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/ctrtl.png").exists());
+        assertTrue("ctrtr.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/ctrtr.png").exists());
+        assertTrue("customer tile 1.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/customer tile 1.png").exists());
+        assertTrue("customer tile 2.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/customer tile 2.png").exists());
+        assertTrue("customer tile 3.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/customer tile 3.png").exists());
+        assertTrue("Double Counter.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Double Counter.png").exists());
+        assertTrue("Double Counter and chopping bar..png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Double Counter and chopping bar..png").exists());
+        assertTrue("Double Counter and Salad bar..png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Double Counter and Salad bar..png").exists());
+        assertTrue("Double Counter burger bar.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Double Counter burger bar.png").exists());
+        assertTrue("Double Counter w burger crate.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Double Counter w burger crate.png").exists());
+        assertTrue("Double Counter w food crate.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Double Counter w food crate.png").exists());
+        assertTrue("emptygrill.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/emptygrill.png").exists());
+        assertTrue("Floor tile.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Floor tile.png").exists());
+        assertTrue("Front desk counter.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Front desk counter.png").exists());
+        assertTrue("lettuce.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/lettuce.png").exists());
+        assertTrue("linectr.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/linectr.png").exists());
+        assertTrue("onioncrate.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/onioncrate.png").exists());
+        assertTrue("Oven (clean).png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Oven (clean).png").exists());
+        assertTrue("Oven (messy).png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Oven (messy).png").exists());
+        assertTrue("ovenbotcln.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/ovenbotcln.png").exists());
+        assertTrue("ovenbotmes.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/ovenbotmes.png").exists());
+        assertTrue("oventopmes.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/oventopmes.png").exists());
+        assertTrue("ovtopcln.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/ovtopcln.png").exists());
+        assertTrue("pattypile.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/pattypile.png").exists());
+        assertTrue("pln.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/pln.png").exists());
+        assertTrue("register.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/register.png").exists());
+        assertTrue("Salad_top.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Salad_top.png").exists());
+        assertTrue("Single Counter.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Single Counter.png").exists());
+        assertTrue("Single Counter Sideways.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Single Counter Sideways.png").exists());
+        assertTrue("tomato.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/tomato.png").exists());
+        assertTrue("Top Counter.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Top Counter.png").exists());
+        assertTrue("Top Oven.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Top Oven.png").exists());
+        assertTrue("Trash can.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Trash can.png").exists());
+
+        // map/old files
+        assertTrue("64pxshittytiles.png in map/old", Gdx.files.internal("map/old/64pxshittytiles.png").exists());
+        assertTrue("64pxshittytiles.tsx in map/old", Gdx.files.internal("map/old/64pxshittytiles.tsx").exists());
+        assertTrue("test.tmx in map/old", Gdx.files.internal("map/old/test.tmx").exists());
+        assertTrue("test (1).tmx in map/old", Gdx.files.internal("map/old/test (1).tmx").exists());
+    }
+
 
 
 
