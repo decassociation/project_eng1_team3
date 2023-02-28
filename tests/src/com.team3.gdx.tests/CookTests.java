@@ -75,6 +75,13 @@ public class CookTests {
     }
 
     @Test
+    public void testCreateCook(){ //
+        int testnum = 2; //just to have an easy comparison
+        Cook cook = new Cook(new Vector2(15, 15), testnum);
+        assertTrue("Checks if the cook is created by checking if the cookno is equal to the given testnum",cook.getCookNo() == testnum);
+    }
+
+    @Test
     public void testDropItem(){
         Cook cook = new Cook(new Vector2(15, 15), 1);
 
