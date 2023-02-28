@@ -202,6 +202,55 @@ public class AssetTests {
         assertTrue("test (1).tmx in map/old", Gdx.files.internal("map/old/test (1).tmx").exists());
     }
 
+    @Test
+    public void testParticlesAssetsExist(){
+        assertTrue("flame.png", Gdx.files.internal("particles/flame.png").exists());
+        assertTrue("flames.party", Gdx.files.internal("particles/flames.party").exists());
+        assertTrue("smoke.png", Gdx.files.internal("particles/smoke.png").exists());
+        assertTrue("smokes.party", Gdx.files.internal("particles/smokes.party").exists());
+    }
+
+    @Test
+    public void testUIElementsExist(){
+        assertTrue("audio.jpg in uielements", Gdx.files.internal("uielements/audio.jpg").exists());
+        assertTrue("audio.png in uielements", Gdx.files.internal("uielements/audio.png").exists());
+        assertTrue("audio2.png in uielements", Gdx.files.internal("uielements/audio2.png").exists());
+        assertTrue("background.jpg in uielements", Gdx.files.internal("uielements/background.jpg").exists());
+        assertTrue("background.png in uielements", Gdx.files.internal("uielements/background.png").exists());
+        assertTrue("background1.png in uielements", Gdx.files.internal("uielements/background1.png").exists());
+        assertTrue("backtomainscreen.jpg in uielements", Gdx.files.internal("uielements/backtomainscreen.jpg").exists());
+        assertTrue("badlogic.jpg in uielements", Gdx.files.internal("uielements/badlogic.jpg").exists());
+        assertTrue("dragonflight.jpg in uielements", Gdx.files.internal("uielements/dragonflight.jpg").exists());
+        assertTrue("Eng1sound.wav in uielements", Gdx.files.internal("uielements/Eng1sound.wav").exists());
+        assertTrue("ESC.jpg in uielements", Gdx.files.internal("uielements/ESC.jpg").exists());
+        assertTrue("Exit.jpg in uielements", Gdx.files.internal("uielements/Exit.jpg").exists());
+        assertTrue("exitgame.png in uielements", Gdx.files.internal("uielements/exitgame.png").exists());
+        assertTrue("exitmenu.png in uielements", Gdx.files.internal("uielements/exitmenu.png").exists());
+        assertTrue("font.fnt in uielements", Gdx.files.internal("uielements/font.fnt").exists());
+        assertTrue("font.png in uielements", Gdx.files.internal("uielements/font.png").exists());
+        assertTrue("GameMusic.mp3 in uielements", Gdx.files.internal("uielements/GameMusic.mp3").exists());
+        assertTrue("GameMusic.ogg in uielements", Gdx.files.internal("uielements/GameMusic.ogg").exists());
+        assertTrue("leaderBoard.jpg in uielements", Gdx.files.internal("uielements/leaderBoard.jpg").exists());
+        assertTrue("LeaderBoard.png in uielements", Gdx.files.internal("uielements/LeaderBoard.png").exists());
+        assertTrue("leaderboard .jpg in uielements", Gdx.files.internal("uielements/leaderboard .jpg").exists());
+        assertTrue("leaderboard1.png in uielements", Gdx.files.internal("uielements/leaderboard1.png").exists());
+        assertTrue("line.jpg in uielements", Gdx.files.internal("uielements/line.jpg").exists());
+        assertTrue("Main.jpg in uielements", Gdx.files.internal("uielements/Main.jpg").exists());
+        assertTrue("MainScreenBackground.jpg in uielements", Gdx.files.internal("uielements/MainScreenBackground.jpg").exists());
+        assertTrue("MainScreenMusic.ogg in uielements", Gdx.files.internal("uielements/MainScreenMusic.ogg").exists());
+        assertTrue("MENU.jpg in uielements", Gdx.files.internal("uielements/MENU.jpg").exists());
+        assertTrue("music.mp3 in uielements", Gdx.files.internal("uielements/music.mp3").exists());
+        assertTrue("newgame.png in uielements", Gdx.files.internal("uielements/newgame.png").exists());
+        assertTrue("resume.jpg in uielements", Gdx.files.internal("uielements/resume.jpg").exists());
+        assertTrue("resume.png in uielements", Gdx.files.internal("uielements/resume.png").exists());
+        assertTrue("settings.png in uielements", Gdx.files.internal("uielements/settings.png").exists());
+        assertTrue("startButton.jpg in uielements", Gdx.files.internal("uielements/startButton.jpg").exists());
+        assertTrue("testsound.mp3 in uielements", Gdx.files.internal("uielements/testsound.mp3").exists());
+        assertTrue("vButton.jpg in uielements", Gdx.files.internal("uielements/vButton.jpg").exists());
+        assertTrue("vControl.jpg in uielements", Gdx.files.internal("uielements/vControl.jpg").exists());
+        assertTrue("vControl.png in uielements", Gdx.files.internal("uielements/vControl.png").exists());
+
+    }
 
 
 
