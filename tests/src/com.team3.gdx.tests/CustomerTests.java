@@ -70,6 +70,12 @@ public class CustomerTests {
     public void testCustomerDeletion(){
         TiledMap map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
         CustomerController cc = new CustomerController(map1);
+
+        cc.spawnCustomer();
+        assertEquals("Number of active customers (amountActiveCustomers) should be 1 but isn't", 1, cc.amountActiveCustomers);
+        cc.delCustomer(0);
+        assertEquals("Number of active customers (amountActiveCustomers) should be 0 but isn't", 0, cc.amountActiveCustomers);
+
     }
 
 
