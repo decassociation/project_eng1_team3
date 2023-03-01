@@ -139,6 +139,7 @@ public class CookTests {
 
     }
 
+    // This test doesn't work at the moment
     public void testCollisionAttempt(Cook cook, Control control, CollisionTile[][] cltiles, String assertMessage){
         cook.update(control, 1f, cltiles);
         assertTrue(assertMessage, cook.pos.x == 50 && cook.pos.y == 50);
