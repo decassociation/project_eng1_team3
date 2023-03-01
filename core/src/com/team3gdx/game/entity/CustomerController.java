@@ -18,7 +18,7 @@ public class CustomerController {
 	int lockout;
 	int amountActiveCustomers;
 	ArrayList<ArrayList<Integer>> customerCells;
-	Customer[] customers = new Customer[5];
+	public Customer[] customers = new Customer[5];
 	Customer[] leavingcustomers = new Customer[5];
 	TiledMap gameMap;
 	int top;
