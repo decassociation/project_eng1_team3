@@ -36,6 +36,7 @@ public class MainScreen implements Screen {
 	Button lb;
 	Button ad;
 	Button eg;
+	Button end;
 
 	Rectangle volSlide;
 	Rectangle volSlideBackgr;
@@ -53,11 +54,12 @@ public class MainScreen implements Screen {
 	Texture exitGame;
 	Texture audio;
 	Texture audioEdit;
-
+	Texture newGame;
+	Texture endlessGame;
 	Stage stage;
 
 	enum STATE {
-		main, audio, leaderboard, new_game;
+		main, audio, leaderboard, new_game
 	}
 
 	STATE state;
@@ -124,21 +126,26 @@ public class MainScreen implements Screen {
 		audio = new Texture(Gdx.files.internal("uielements/audio.png"));
 		audioEdit = new Texture(Gdx.files.internal("uielements/background.png"));
 		exitGame = new Texture(Gdx.files.internal("uielements/exitgame.png"));
+		endlessGame = new Texture(Gdx.files.internal("uielements/newgame.png"));
+
 
 		sb = new Button(new TextureRegionDrawable(startButton));
 		lb = new Button(new TextureRegionDrawable(leaderBoard));
 		ad = new Button(new TextureRegionDrawable(audio));
 		eg = new Button(new TextureRegionDrawable(exitGame));
+		end = new Button(new TextureRegionDrawable(endlessGame));
 
 		sb.setPosition(gameResolutionX / 10.0f, 4 * gameResolutionY / 5.0f - buttonheight / 2);
 		lb.setPosition(gameResolutionX / 10.0f, 3 * gameResolutionY / 5.0f - buttonheight / 2);
 		ad.setPosition(gameResolutionX / 10.0f, 2 * gameResolutionY / 5.0f - buttonheight / 2);
 		eg.setPosition(gameResolutionX / 10.0f, gameResolutionY / 5.0f - buttonheight / 2);
+		end.setPosition(gameResolutionX / 10.0f, 6 * gameResolutionY / 5.0f - buttonheight / 2);
 
 		lb.setSize(buttonwidth, buttonheight);
 		ad.setSize(buttonwidth, buttonheight);
 		eg.setSize(buttonwidth, buttonheight);
 		sb.setSize(buttonwidth, buttonheight);
+		end.setSize(buttonwidth, buttonheight);
 
 		ad.addListener(new ClickListener() {
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -166,6 +173,12 @@ public class MainScreen implements Screen {
 				super.touchUp(event, x, y, pointer, button);
 			}
 		});
+		end.addListener(new ClickListener() {
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				state = STATE.new_game;
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
 
 		stage = new Stage(viewport, game.batch);
 		Gdx.input.setInputProcessor(stage);
@@ -174,6 +187,7 @@ public class MainScreen implements Screen {
 		stage.addActor(lb);
 		stage.addActor(ad);
 		stage.addActor(eg);
+		stage.addActor(end);
 	}
 
 	/**
@@ -273,8 +287,6 @@ public class MainScreen implements Screen {
 				if (s < 0.01) {
 					s = 0;
 				}
-				// game.sound.setVolume(game.soundid, s);
-				MainGameClass.gameVolumeScale = s;
 				MainGameClass.gameVolumeScale = s;
 			}
 		}
