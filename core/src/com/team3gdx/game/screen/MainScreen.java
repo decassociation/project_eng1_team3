@@ -144,7 +144,7 @@ public class MainScreen implements Screen {
 		load.setPosition(gameResolutionX / 10.0f, 2 * gameResolutionY / 5.0f - buttonheight / 2);
 		lb.setPosition(gameResolutionX / 10.0f, gameResolutionY / 5.0f - buttonheight / 2);
 		eg.setPosition(gameResolutionX / 10.0f + 250, 2 * gameResolutionY / 50f + buttonheight / 2);
-		ad.setPosition(gameResolutionX / 10.0f + 250, 15 * gameResolutionY / 50f + buttonheight / 2);
+		ad.setPosition(gameResolutionX / 10.0f + 250, 12 * gameResolutionY / 50f + buttonheight / 2);
 
 
 
