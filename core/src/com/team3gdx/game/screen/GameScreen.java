@@ -216,7 +216,15 @@ public class GameScreen implements Screen {
 
 	}
 
-	ShapeRenderer selectedPlayerBox = new ShapeRenderer();
+	static ShapeRenderer _selectedPlayerBox = new ShapeRenderer();
+
+	private static ShapeRenderer getSelectedPlayerBox() {
+		if (_selectedPlayerBox == null) {
+			_selectedPlayerBox = new ShapeRenderer();
+		}
+		return _selectedPlayerBox;
+	}
+
 
 	/**
 	 * Render method for main game
@@ -330,6 +338,7 @@ public class GameScreen implements Screen {
      * Draw UI elements
      */
 	private void drawUI() {
+		ShapeRenderer selectedPlayerBox = getSelectedPlayerBox();
 		if (currentWaitingCustomer != null && currentWaitingCustomer.waitTime() < MAX_WAIT_TIME) {
 			Menu.RECIPES.get(currentWaitingCustomer.order).displayRecipe(game.batch, new Vector2(64, 256));
 		}
