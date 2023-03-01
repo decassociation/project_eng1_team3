@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.team3.gdx.tests.CookTests" tests="1" skipped="0" failures="1" errors="0" timestamp="2023-02-28T11:22:54" hostname="GAMING-PC" time="0.046">
+<testsuite name="com.team3.gdx.tests.CookTests" tests="1" skipped="0" failures="1" errors="0" timestamp="2023-03-01T11:10:40" hostname="DESKTOP-7A0IUD0" time="0.03">
   <properties/>
-  <testcase name="testPickUp" classname="com.team3.gdx.tests.CookTests" time="0.046">
+  <testcase name="testPickUp" classname="com.team3.gdx.tests.CookTests" time="0.03">
     <failure message="java.lang.ExceptionInInitializerError" type="java.lang.ExceptionInInitializerError">java.lang.ExceptionInInitializerError
-	at com.team3gdx.game.food.Ingredients.&lt;clinit&gt;(Ingredients.java:12)
-	at com.team3.gdx.tests.CookTests.testPickUp(CookTests.java:73)
+	at com.team3.gdx.tests.CookTests.testPickUp(CookTests.java:78)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -30,7 +29,7 @@ Caused by: java.lang.NullPointerException
 	at com.badlogic.gdx.graphics.glutils.ShapeRenderer.&lt;init&gt;(ShapeRenderer.java:111)
 	at com.badlogic.gdx.graphics.glutils.ShapeRenderer.&lt;init&gt;(ShapeRenderer.java:107)
 	at com.team3gdx.game.food.Ingredient.&lt;clinit&gt;(Ingredient.java:42)
-	... 17 more
+	... 16 more
 </failure>
   </testcase>
   <system-out><![CDATA[]]></system-out>

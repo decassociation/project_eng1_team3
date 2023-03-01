@@ -2,14 +2,19 @@ package com.team3.gdx.tests;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.team3gdx.game.MainGameClass;
 import com.team3gdx.game.entity.Cook;
 import com.team3gdx.game.food.Ingredient;
 import com.team3gdx.game.food.Ingredients;
+import com.team3gdx.game.screen.GameScreen;
+import com.team3gdx.game.screen.MainScreen;
 import com.team3gdx.game.util.CollisionTile;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.team3gdx.game.util.Control;
+
+import java.util.Stack;
 
 import static org.junit.Assert.*;
 
@@ -70,8 +75,9 @@ public class CookTests {
     @Test
     public void testPickUp(){
         Cook cook = new Cook(new Vector2(15, 15), 1);
-        cook.pickUpItem(new Ingredient(Ingredients.tomato));
-        assertTrue("Top item on stack should be a tomato", cook.heldItems.peek().equals(Ingredients.tomato));
+        Ingredient ingredient = new Ingredient(null, 32, 32, "tomato", 1, 0);
+        cook.pickUpItem(ingredient);
+        assertTrue("Top item on stack should be a tomato", cook.heldItems.peek().equals(ingredient));
     }
 
     @Test
@@ -128,10 +134,6 @@ public class CookTests {
         // Test when cook stack is above max
         cook.heldItems.setSize(10);
         assertTrue("Cook stack / no. items held should be 10 (above max) but isn't", cook.full());
-    }
-
-    public void testPlace(){
-
     }
 
     public void testCollisionAttempt(Cook cook, Control control, CollisionTile[][] cltiles, String assertMessage){
@@ -205,5 +207,20 @@ public class CookTests {
         control.down = true;
         control.right = true;
         testCollisionAttempt(cook, control, cltiles, "down and right pressed");
+    }
+
+    @Test
+    public void testCookSwitch(){
+        MainGameClass mainGameClass = new MainGameClass();
+        MainScreen mainScreen = new MainScreen(mainGameClass);
+        GameScreen gameScreen = new GameScreen(mainGameClass, mainScreen);
+
+        for(int i = 0; i < gameScreen.cooks.length; i++){
+            assertTrue("Cook is " + (i + 1), gameScreen.cook.equals(gameScreen.cooks[i]));
+            gameScreen.control.tab = true;
+            gameScreen.control.tab = false;
+        }
+        assertTrue("Cook cycles back to start after last", gameScreen.cook.equals(gameScreen.cooks[0]));
+
     }
 }
