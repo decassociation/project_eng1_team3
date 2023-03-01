@@ -37,6 +37,7 @@ public class MainScreen implements Screen {
 	Button ad;
 	Button eg;
 	Button end;
+	Button load;
 
 	Rectangle volSlide;
 	Rectangle volSlideBackgr;
@@ -56,6 +57,7 @@ public class MainScreen implements Screen {
 	Texture audioEdit;
 	Texture newGame;
 	Texture endlessGame;
+	Texture loadGame;
 	Stage stage;
 
 	enum STATE {
@@ -126,7 +128,8 @@ public class MainScreen implements Screen {
 		audio = new Texture(Gdx.files.internal("uielements/audio.png"));
 		audioEdit = new Texture(Gdx.files.internal("uielements/background.png"));
 		exitGame = new Texture(Gdx.files.internal("uielements/exitgame.png"));
-		endlessGame = new Texture(Gdx.files.internal("uielements/newgame.png"));
+		endlessGame = new Texture(Gdx.files.internal("uielements/endlessgame.png"));
+		loadGame = new Texture(Gdx.files.internal("uielements/loadgame.png"));
 
 
 		sb = new Button(new TextureRegionDrawable(startButton));
@@ -134,18 +137,23 @@ public class MainScreen implements Screen {
 		ad = new Button(new TextureRegionDrawable(audio));
 		eg = new Button(new TextureRegionDrawable(exitGame));
 		end = new Button(new TextureRegionDrawable(endlessGame));
+		load = new Button(new TextureRegionDrawable(loadGame));
 
 		sb.setPosition(gameResolutionX / 10.0f, 4 * gameResolutionY / 5.0f - buttonheight / 2);
-		lb.setPosition(gameResolutionX / 10.0f, 3 * gameResolutionY / 5.0f - buttonheight / 2);
-		ad.setPosition(gameResolutionX / 10.0f, 2 * gameResolutionY / 5.0f - buttonheight / 2);
-		eg.setPosition(gameResolutionX / 10.0f, gameResolutionY / 5.0f - buttonheight / 2);
-		end.setPosition(gameResolutionX / 10.0f, 6 * gameResolutionY / 5.0f - buttonheight / 2);
+		end.setPosition(gameResolutionX / 10.0f, 3 * gameResolutionY / 5.0f - buttonheight / 2);
+		load.setPosition(gameResolutionX / 10.0f, 2 * gameResolutionY / 5.0f - buttonheight / 2);
+		lb.setPosition(gameResolutionX / 10.0f, gameResolutionY / 5.0f - buttonheight / 2);
+		eg.setPosition(gameResolutionX / 10.0f + 250, 2 * gameResolutionY / 50f + buttonheight / 2);
+		ad.setPosition(gameResolutionX / 10.0f + 250, 15 * gameResolutionY / 50f + buttonheight / 2);
+
+
 
 		lb.setSize(buttonwidth, buttonheight);
 		ad.setSize(buttonwidth, buttonheight);
 		eg.setSize(buttonwidth, buttonheight);
 		sb.setSize(buttonwidth, buttonheight);
 		end.setSize(buttonwidth, buttonheight);
+		load.setSize(buttonwidth, buttonheight);
 
 		ad.addListener(new ClickListener() {
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -179,7 +187,12 @@ public class MainScreen implements Screen {
 				super.touchUp(event, x, y, pointer, button);
 			}
 		});
-
+		load.addListener(new ClickListener() {
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				state = STATE.new_game;
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
 		stage = new Stage(viewport, game.batch);
 		Gdx.input.setInputProcessor(stage);
 
@@ -188,6 +201,7 @@ public class MainScreen implements Screen {
 		stage.addActor(ad);
 		stage.addActor(eg);
 		stage.addActor(end);
+		stage.addActor(load);
 	}
 
 	/**
