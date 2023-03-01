@@ -75,9 +75,8 @@ public class CookTests {
     @Test
     public void testPickUp(){
         Cook cook = new Cook(new Vector2(15, 15), 1);
-        Ingredient ingredient = new Ingredient(null, 32, 32, "tomato", 1, 0);
-        cook.pickUpItem(ingredient);
-        assertTrue("Top item on stack should be a tomato", cook.heldItems.peek().equals(ingredient));
+        cook.pickUpItem(Ingredients.tomato);
+        assertTrue("Top item on stack should be a tomato", cook.heldItems.peek().equals(Ingredients.tomato));
     }
 
     @Test
@@ -134,6 +133,10 @@ public class CookTests {
         // Test when cook stack is above max
         cook.heldItems.setSize(10);
         assertTrue("Cook stack / no. items held should be 10 (above max) but isn't", cook.full());
+    }
+
+    public void testPlace(){
+
     }
 
     public void testCollisionAttempt(Cook cook, Control control, CollisionTile[][] cltiles, String assertMessage){

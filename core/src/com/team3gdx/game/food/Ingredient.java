@@ -39,7 +39,23 @@ public class Ingredient extends Entity {
 	 */
 	public String name;
 
-	private static ShapeRenderer shapeRenderer = new ShapeRenderer();
+	private static ShapeRenderer _shapeRenderer = null; //If needing this method you need
+	//Lazy initialisation
+	//Basically leaves the shapeRendered as null until it is needed
+	/**Lazy initialisation
+	 *Basically leaves the shapeRendered as null until it is needed
+	 * When it is needed call the below function which will mean that the shaperender is initialised and
+	 * becomes usable. Until it is necessary however the shaperender stays null and doesn't cause any errors,
+	 * and handily means that there is less overhead.
+	 */
+
+
+	private static ShapeRenderer getShapeRenderer() {
+		if (_shapeRenderer == null) {
+			_shapeRenderer = new ShapeRenderer();
+		}
+		return _shapeRenderer;
+	}
 
 	private BitmapFont font = new BitmapFont();
 
@@ -103,7 +119,7 @@ public class Ingredient extends Entity {
 	 */
 	public boolean slice(SpriteBatch batch, float dT) {
 
-		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+		getShapeRenderer().setProjectionMatrix(batch.getProjectionMatrix());
 
 		if (dT / width * width <= width) {
 			drawStatusBar(dT / width, 0, 1);
@@ -131,7 +147,7 @@ public class Ingredient extends Entity {
 	 * @return A double representing the current {@link this#cookedTime}.
 	 */
 	public double cook(float dT, SpriteBatch batch) {
-		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+		getShapeRenderer().setProjectionMatrix(batch.getProjectionMatrix());
 		if (!flipped && cookedTime / idealCookedTime * width > idealCookedTime * width * .65f) {
 			batch.begin();
 			flipText.draw(batch, "Flip [f]", pos.x, pos.y);
@@ -161,6 +177,8 @@ public class Ingredient extends Entity {
 	 * @param optimum    The optimal status to reach (shown by a black bar).
 	 */
 	private void drawStatusBar(float percentage, float optimumLower, float optimumUpper) {
+		ShapeRenderer shapeRenderer = getShapeRenderer();
+
 		shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setColor(Color.WHITE);
 		shapeRenderer.rect(pos.x - width / 2, pos.y + height + height / 10, width * 2, height / 4);
