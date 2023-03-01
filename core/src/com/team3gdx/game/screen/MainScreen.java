@@ -38,6 +38,7 @@ public class MainScreen implements Screen {
 	Button eg;
 	Button end;
 	Button load;
+	Button web;
 
 	Rectangle volSlide;
 	Rectangle volSlideBackgr;
@@ -57,6 +58,7 @@ public class MainScreen implements Screen {
 	Texture audioEdit;
 	Texture endlessGame;
 	Texture loadGame;
+	Texture website;
 	Stage stage;
 
 	enum STATE {
@@ -129,6 +131,7 @@ public class MainScreen implements Screen {
 		exitGame = new Texture(Gdx.files.internal("uielements/exitgame.png"));
 		endlessGame = new Texture(Gdx.files.internal("uielements/endlessgame.png"));
 		loadGame = new Texture(Gdx.files.internal("uielements/loadgame.png"));
+		website = new Texture(Gdx.files.internal("uielements/logo.png"));
 
 
 		sb = new Button(new TextureRegionDrawable(startButton));
@@ -137,6 +140,7 @@ public class MainScreen implements Screen {
 		eg = new Button(new TextureRegionDrawable(exitGame));
 		end = new Button(new TextureRegionDrawable(endlessGame));
 		load = new Button(new TextureRegionDrawable(loadGame));
+		web = new Button(new TextureRegionDrawable(website));
 
 		sb.setPosition(gameResolutionX / 10.0f, 4 * gameResolutionY / 5.0f - buttonheight / 2);
 		end.setPosition(gameResolutionX / 10.0f, 3 * gameResolutionY / 5.0f - buttonheight / 2);
@@ -144,6 +148,7 @@ public class MainScreen implements Screen {
 		lb.setPosition(gameResolutionX / 10.0f, gameResolutionY / 5.0f - buttonheight / 2);
 		eg.setPosition(gameResolutionX / 10.0f + 250, 2 * gameResolutionY / 50f + buttonheight / 2);
 		ad.setPosition(gameResolutionX / 10.0f + 250, 12 * gameResolutionY / 50f + buttonheight / 2);
+		web.setPosition(350, 250 );
 
 
 
@@ -153,6 +158,7 @@ public class MainScreen implements Screen {
 		sb.setSize(buttonwidth, buttonheight);
 		end.setSize(buttonwidth, buttonheight);
 		load.setSize(buttonwidth, buttonheight);
+		web.setSize(150, 150);
 
 		ad.addListener(new ClickListener() {
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -192,6 +198,12 @@ public class MainScreen implements Screen {
 				super.touchUp(event, x, y, pointer, button);
 			}
 		});
+		web.addListener(new ClickListener(){
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				Gdx.net.openURI("https://decassociation.github.io/project_eng1_team3/");
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
 		stage = new Stage(viewport, game.batch);
 		Gdx.input.setInputProcessor(stage);
 
@@ -201,6 +213,7 @@ public class MainScreen implements Screen {
 		stage.addActor(eg);
 		stage.addActor(end);
 		stage.addActor(load);
+		stage.addActor(web);
 	}
 
 	/**
