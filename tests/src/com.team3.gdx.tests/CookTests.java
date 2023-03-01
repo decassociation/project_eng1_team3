@@ -213,18 +213,18 @@ public class CookTests {
         testCollisionAttempt(cook, control, cltiles, "down and right pressed");
     }
 
-//    @Test
-//    public void testCookSwitch(){
-//        MainGameClass mainGameClass = new MainGameClass();
-//        MainScreen mainScreen = new MainScreen(mainGameClass);
-//        GameScreen gameScreen = new GameScreen(mainGameClass, mainScreen);
-//
-//        for(int i = 0; i < gameScreen.cooks.length; i++){
-//            assertTrue("Cook is " + (i + 1), gameScreen.cook.equals(gameScreen.cooks[i]));
-//            gameScreen.control.tab = true;
-//            gameScreen.control.tab = false;
-//        }
-//        assertTrue("Cook cycles back to start after last", gameScreen.cook.equals(gameScreen.cooks[0]));
-//
-//    }
+    @Test
+    public void testCookSwitch(){
+        MainGameClass mainGameClass = new MainGameClass();
+        MainScreen mainScreen = new MainScreen(mainGameClass);
+        GameScreen gameScreen = new GameScreen(mainGameClass, mainScreen);
+
+        for(int i = 0; i < gameScreen.cooks.length; i++){
+            assertTrue("Cook is " + (i + 1), gameScreen.cook.equals(gameScreen.cooks[i]));
+            gameScreen.control.tab = true;
+            gameScreen.control.tab = false;
+        }
+        assertTrue("Cook cycles back to start after last", gameScreen.cook.equals(gameScreen.cooks[0]));
+
+    }
 }

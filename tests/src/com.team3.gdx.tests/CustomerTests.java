@@ -71,10 +71,24 @@ public class CustomerTests {
         TiledMap map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
         CustomerController cc = new CustomerController(map1);
 
+        // Testing the customer deletion method with signature, 'public void delCustomer(int num)':
         cc.spawnCustomer();
         assertEquals("Number of active customers (amountActiveCustomers) should be 1 but isn't", 1, cc.amountActiveCustomers);
+        // A customer has to be locked for it to be deleted (think when a customer is locked it means that they're ordering)
+        cc.customers[0].locked = true;
         cc.delCustomer(0);
+        assertNull("First customer should have been deleted but it hasn't ", cc.customers[0]);
         assertEquals("Number of active customers (amountActiveCustomers) should be 0 but isn't", 0, cc.amountActiveCustomers);
+
+        // Testing the customer deletion method with signature, 'public void delCustomer(Customer customer)':
+        cc.spawnCustomer();
+        assertEquals("Number of active customers (amountActiveCustomers) should be 1 but isn't", 1, cc.amountActiveCustomers);
+        Customer testCustomer1 = cc.customers[0];
+        // A customer has to be locked for it to be deleted (think when a customer is locked it means that they're ordering)
+        testCustomer1.locked = true;
+        cc.delCustomer(testCustomer1);
+        assertEquals("Number of active customers (amountActiveCustomers) should be 0 but isn't", 0, cc.amountActiveCustomers);
+        assertNull("There should be no existing customers but at least one exists", cc.customers[0]);
 
     }
 
