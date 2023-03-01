@@ -55,7 +55,6 @@ public class MainScreen implements Screen {
 	Texture exitGame;
 	Texture audio;
 	Texture audioEdit;
-	Texture newGame;
 	Texture endlessGame;
 	Texture loadGame;
 	Stage stage;
