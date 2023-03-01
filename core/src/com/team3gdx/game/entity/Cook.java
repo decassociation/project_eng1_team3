@@ -260,4 +260,6 @@ public class Cook extends Entity {
 		return direction;
 	}
 
+	public int getCookNo() {return cookno;}
+
 }
