@@ -67,6 +67,7 @@ public class GameScreen implements Screen {
 	Button rs;
 	Button ad;
 	Button btms;
+	Button end;
 	public static CollisionTile[][] CLTiles;
 	Viewport uiViewport;
 	Viewport worldViewport;
