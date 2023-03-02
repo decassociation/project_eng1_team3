@@ -62,7 +62,7 @@ public class MainScreen implements Screen {
 	Stage stage;
 
 	enum STATE {
-		main, audio, leaderboard, new_game
+		main, audio, leaderboard, new_game, endless_game
 	}
 
 	STATE state;
@@ -188,7 +188,7 @@ public class MainScreen implements Screen {
 		});
 		end.addListener(new ClickListener() {
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				state = STATE.new_game;
+				state = STATE.endless_game;
 				super.touchUp(event, x, y, pointer, button);
 			}
 		});
@@ -248,8 +248,14 @@ public class MainScreen implements Screen {
 	public void changeScreen(STATE state) {
 		if (state == STATE.new_game) {
 			game.mainScreenMusic.dispose();
+			game.setScreen(new GameScreen(game, game.getMainScreen(), 0));
+		}
+
+		if (state == STATE.endless_game) {
+			game.mainScreenMusic.dispose();
 			game.setScreen(game.getGameScreen());
 		}
+
 		if (state == STATE.leaderboard) {
 			game.mainScreenMusic.dispose();
 			game.setScreen(game.getLeaderBoardScreen());

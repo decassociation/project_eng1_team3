@@ -111,14 +111,15 @@ public class CustomerController {
 		this.xCoordinate = xvalues[0]; // We can do this because the search scans left to right, 0th value will be left
 	}
 
-	public void spawnCustomer() {
+	public Customer spawnCustomer() {
 		for (int i = 0; i < this.customers.length; i++) {
 			if (customers[i] == null) {
 				customers[i] = new Customer(this.xCoordinate, this.bottom, this.top - i, i);
 				amountActiveCustomers += 1;
-				break;
+				return customers[i];
 			}
 		}
+		return null;
 	}
 
 	public void delCustomer(int num) {

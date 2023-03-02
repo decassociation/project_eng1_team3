@@ -42,7 +42,9 @@ import com.team3gdx.game.util.Control;
 
 public class GameScreen implements Screen {
 
-	public static final int NUMBER_OF_WAVES = 5;
+	public static int NUMBER_OF_WAVES;
+
+	public static boolean ENDLESS;
 
 	final MainGameClass game;
 	final MainScreen ms;
@@ -116,6 +118,21 @@ public class GameScreen implements Screen {
 	 * @param game - Main entry point class
 	 * @param ms   - Title screen class
 	 */
+	public GameScreen(MainGameClass game, MainScreen ms, int num_waves) {
+		this.game = game;
+		this.ms = ms;
+		this.calculateBoxMaths();
+		control = new Control();
+		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
+		map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
+		tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
+		constructCollisionData(map1);
+		cc = new CustomerController(map1);
+		currentWaitingCustomer = cc.spawnCustomer();
+		NUMBER_OF_WAVES = num_waves;
+		ENDLESS = false;
+	}
+
 	public GameScreen(MainGameClass game, MainScreen ms) {
 		this.game = game;
 		this.ms = ms;
@@ -126,7 +143,8 @@ public class GameScreen implements Screen {
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
 		constructCollisionData(map1);
 		cc = new CustomerController(map1);
-		cc.spawnCustomer();
+		currentWaitingCustomer = cc.spawnCustomer();
+		ENDLESS = true;
 	}
 
 	/**
@@ -295,7 +313,7 @@ public class GameScreen implements Screen {
 		checkCookSwitch();
 		checkCustomerWaitTime();
 		// =========================================CHECK=GAME=OVER======================================================
-		checkGameOver();
+		if(!ENDLESS) checkGameOver();
 
 	}
 
@@ -325,15 +343,15 @@ public class GameScreen implements Screen {
 		if (currentWaitingCustomer != null
 				&& currentWaitingCustomer.waitTime() > MAX_WAIT_TIME ) {
 			cc.delCustomer(currentWaitingCustomer);
-			if (currentWave < NUMBER_OF_WAVES) {
-				cc.spawnCustomer();
+			if (ENDLESS || currentWave < NUMBER_OF_WAVES) {
+				currentWaitingCustomer = cc.spawnCustomer();
 			}
 			currentWave++;
 			currentWaitingCustomer = null;
 		}
 	}
 
-	public static final float MAX_WAIT_TIME = 1000000; //Customer wait time in ms
+	public static final float MAX_WAIT_TIME = 30000; //Customer wait time in ms
 
     /**
      * Draw UI elements
