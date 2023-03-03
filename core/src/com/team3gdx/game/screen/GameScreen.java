@@ -235,7 +235,7 @@ public class GameScreen implements Screen {
 
 	}
 
-	static ShapeRenderer _selectedPlayerBox = new ShapeRenderer();
+	static ShapeRenderer _selectedPlayerBox = null;
 
 	private static ShapeRenderer getSelectedPlayerBox() {
 		if (_selectedPlayerBox == null) {

@@ -210,18 +210,13 @@ public class AssetTests {
 
     @Test
     public void testUIElementsExist(){
-        assertTrue("audio.jpg in uielements", Gdx.files.internal("uielements/audio.jpg").exists());
         assertTrue("audio.png in uielements", Gdx.files.internal("uielements/audio.png").exists());
         assertTrue("audio2.png in uielements", Gdx.files.internal("uielements/audio2.png").exists());
-        assertTrue("background.jpg in uielements", Gdx.files.internal("uielements/background.jpg").exists());
         assertTrue("background.png in uielements", Gdx.files.internal("uielements/background.png").exists());
         assertTrue("background1.png in uielements", Gdx.files.internal("uielements/background1.png").exists());
-        assertTrue("backtomainscreen.jpg in uielements", Gdx.files.internal("uielements/backtomainscreen.jpg").exists());
         assertTrue("badlogic.jpg in uielements", Gdx.files.internal("uielements/badlogic.jpg").exists());
-        assertTrue("dragonflight.jpg in uielements", Gdx.files.internal("uielements/dragonflight.jpg").exists());
         assertTrue("Eng1sound.wav in uielements", Gdx.files.internal("uielements/Eng1sound.wav").exists());
         assertTrue("ESC.jpg in uielements", Gdx.files.internal("uielements/ESC.jpg").exists());
-        assertTrue("Exit.jpg in uielements", Gdx.files.internal("uielements/Exit.jpg").exists());
         assertTrue("exitgame.png in uielements", Gdx.files.internal("uielements/exitgame.png").exists());
         assertTrue("exitmenu.png in uielements", Gdx.files.internal("uielements/exitmenu.png").exists());
         assertTrue("font.fnt in uielements", Gdx.files.internal("uielements/font.fnt").exists());

@@ -250,7 +250,7 @@ public class MainScreen implements Screen {
 	public void changeScreen(STATE state) {
 		if (state == STATE.new_game) {
 			game.mainScreenMusic.dispose();
-			game.setScreen(new GameScreen(game, game.getMainScreen(), 0));
+			game.setScreen(new GameScreen(game, game.getMainScreen(), 1));
 		}
 
 		if (state == STATE.endless_game) {
