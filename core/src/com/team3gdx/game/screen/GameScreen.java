@@ -128,7 +128,7 @@ public class GameScreen implements Screen {
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
 		constructCollisionData(map1);
 		cc = new CustomerController(map1);
-		currentWaitingCustomer = cc.spawnCustomer();
+		cc.spawnCustomer();
 		NUMBER_OF_WAVES = num_waves;
 		ENDLESS = false;
 	}
@@ -143,7 +143,7 @@ public class GameScreen implements Screen {
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
 		constructCollisionData(map1);
 		cc = new CustomerController(map1);
-		currentWaitingCustomer = cc.spawnCustomer();
+		cc.spawnCustomer();
 		ENDLESS = true;
 	}
 
@@ -344,7 +344,7 @@ public class GameScreen implements Screen {
 				&& currentWaitingCustomer.waitTime() > MAX_WAIT_TIME ) {
 			cc.delCustomer(currentWaitingCustomer);
 			if (ENDLESS || currentWave < NUMBER_OF_WAVES) {
-				currentWaitingCustomer = cc.spawnCustomer();
+				cc.spawnCustomer();
 			}
 			currentWave++;
 			currentWaitingCustomer = null;
