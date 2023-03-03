@@ -384,7 +384,7 @@ public class GameScreen implements Screen {
 				gameResolutionX / 2f + gameResolutionX / 10f, 19 * gameResolutionY / 20f);
 		game.font.draw(game.batch, "Time in s:", gameResolutionX / 2f, 19 * gameResolutionY / 20f);
 		game.font.draw(game.batch, Integer.toString(reputationPoints),
-				gameResolutionX / 2f + gameResolutionX / 10f, 18 * gameResolutionY / 20f);
+				gameResolutionX / 2f + gameResolutionX / 9f, 18 * gameResolutionY / 20f);
 		game.font.draw(game.batch, "Reputation:", gameResolutionX / 2f, 18 * gameResolutionY / 20f);
 		game.batch.end();
 	}
