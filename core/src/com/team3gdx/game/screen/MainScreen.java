@@ -142,13 +142,15 @@ public class MainScreen implements Screen {
 		load = new Button(new TextureRegionDrawable(loadGame));
 		web = new Button(new TextureRegionDrawable(website));
 
-		sb.setPosition(gameResolutionX / 10.0f, 4 * gameResolutionY / 5.0f - buttonheight / 2);
-		end.setPosition(gameResolutionX / 10.0f, 3 * gameResolutionY / 5.0f - buttonheight / 2);
-		load.setPosition(gameResolutionX / 10.0f, 2 * gameResolutionY / 5.0f - buttonheight / 2);
-		lb.setPosition(gameResolutionX / 10.0f, gameResolutionY / 5.0f - buttonheight / 2);
-		eg.setPosition(gameResolutionX / 10.0f + 250, 2 * gameResolutionY / 50f + buttonheight / 2);
-		ad.setPosition(gameResolutionX / 10.0f + 250, 12 * gameResolutionY / 50f + buttonheight / 2);
-		web.setPosition(350, 250 );
+		float totalButtonHeight = buttonheight * 6;
+		float startY = (gameResolutionY - totalButtonHeight) / 2;
+		sb.setPosition(gameResolutionX / 10.0f, startY + 5 * buttonheight);
+		end.setPosition(gameResolutionX / 10.0f, startY + 4 * buttonheight);
+		load.setPosition(gameResolutionX / 10.0f, startY + 3 * buttonheight);
+		lb.setPosition(gameResolutionX / 10.0f, startY + 2 * buttonheight);
+		eg.setPosition(gameResolutionX / 10.0f, startY + buttonheight);
+		ad.setPosition(gameResolutionX / 10.0f, startY);
+		web.setPosition(1000, 500);
 
 
 
@@ -158,7 +160,7 @@ public class MainScreen implements Screen {
 		sb.setSize(buttonwidth, buttonheight);
 		end.setSize(buttonwidth, buttonheight);
 		load.setSize(buttonwidth, buttonheight);
-		web.setSize(150, 150);
+		web.setSize(250, 250);
 
 		ad.addListener(new ClickListener() {
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
