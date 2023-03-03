@@ -128,7 +128,7 @@ public class GameScreen implements Screen {
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
 		constructCollisionData(map1);
 		cc = new CustomerController(map1);
-		currentWaitingCustomer = cc.spawnCustomer();
+		cc.spawnCustomer();
 		NUMBER_OF_WAVES = num_waves;
 		ENDLESS = false;
 	}
@@ -143,7 +143,7 @@ public class GameScreen implements Screen {
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
 		constructCollisionData(map1);
 		cc = new CustomerController(map1);
-		currentWaitingCustomer = cc.spawnCustomer();
+		cc.spawnCustomer();
 		ENDLESS = true;
 	}
 
