@@ -344,7 +344,7 @@ public class GameScreen implements Screen {
 				&& currentWaitingCustomer.waitTime() > MAX_WAIT_TIME ) {
 			cc.delCustomer(currentWaitingCustomer);
 			if (ENDLESS || currentWave < NUMBER_OF_WAVES) {
-				currentWaitingCustomer = cc.spawnCustomer();
+				cc.spawnCustomer();
 			}
 			currentWave++;
 			currentWaitingCustomer = null;
