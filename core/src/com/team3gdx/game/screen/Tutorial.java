@@ -54,7 +54,24 @@ public class Tutorial {
 	 */
 	public static int stage = 0;
 
-	private static final ShapeRenderer shapeRenderer = new ShapeRenderer();
+	private static ShapeRenderer shapeRenderer = null; //If needing this method you need
+	//Lazy initialisation
+	//Basically leaves the shapeRendered as null until it is needed
+	/**Lazy initialisation
+	 *Basically leaves the shapeRendered as null until it is needed
+	 * When it is needed call the below function which will mean that the shaperender is initialised and
+	 * becomes usable. Until it is necessary however the shaperender stays null and doesn't cause any errors,
+	 * and handily means that there is less overhead.
+	 */
+
+
+	private static ShapeRenderer getShapeRenderer() {
+		if (shapeRenderer == null) {
+			shapeRenderer = new ShapeRenderer();
+		}
+		return shapeRenderer;
+	}
+
 	private static final BitmapFont bitmapFont = new BitmapFont();
 	private static GlyphLayout layout = new GlyphLayout();
 	/**
@@ -87,17 +104,17 @@ public class Tutorial {
 	 */
 	public static void drawBox(SpriteBatch batch, float dT) {
 		curText = stages.get(stage).text.substring(0, Math.round(nextCharTimer));
-		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-		shapeRenderer.begin(ShapeType.Filled);
-		shapeRenderer.setColor(Color.WHITE);
-		shapeRenderer.rect(Gdx.graphics.getWidth() / 10f, 1 * Gdx.graphics.getHeight() / 10f,
+		getShapeRenderer().setProjectionMatrix(batch.getProjectionMatrix());
+		getShapeRenderer().begin(ShapeType.Filled);
+		getShapeRenderer().setColor(Color.WHITE);
+		getShapeRenderer().rect(Gdx.graphics.getWidth() / 10f, 1 * Gdx.graphics.getHeight() / 10f,
 				4 * Gdx.graphics.getWidth() / 5f, Gdx.graphics.getHeight() / 5f);
-		shapeRenderer.end();
-		shapeRenderer.setProjectionMatrix(GameScreen.worldCamera.combined);
-		shapeRenderer.begin(ShapeType.Line);
-		shapeRenderer.setColor(Color.GREEN);
-		shapeRenderer.rect(getStagePos().x, getStagePos().y, 64, 64);
-		shapeRenderer.end();
+		getShapeRenderer().end();
+		getShapeRenderer().setProjectionMatrix(GameScreen.worldCamera.combined);
+		getShapeRenderer().begin(ShapeType.Line);
+		getShapeRenderer().setColor(Color.GREEN);
+		getShapeRenderer().rect(getStagePos().x, getStagePos().y, 64, 64);
+		getShapeRenderer().end();
 		batch.begin();
 		bitmapFont.draw(batch, curText, Gdx.graphics.getWidth() / 10f,
 				Gdx.graphics.getHeight() / 10f + Gdx.graphics.getHeight() / 5f - bitmapFont.getCapHeight() / 2);

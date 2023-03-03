@@ -320,7 +320,7 @@ public class GameScreen implements Screen {
     /**
      * Change selected cook
      */
-	private void checkCookSwitch() {
+	public static void checkCookSwitch() {
 		if (control.tab && Tutorial.complete) {
 			cook.locked = false;
 			currentCookIndex += currentCookIndex < cooks.length - 1 ? 1 : -currentCookIndex;

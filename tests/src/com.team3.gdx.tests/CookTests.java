@@ -8,6 +8,7 @@ import com.team3gdx.game.food.Ingredient;
 import com.team3gdx.game.food.Ingredients;
 import com.team3gdx.game.screen.GameScreen;
 import com.team3gdx.game.screen.MainScreen;
+import com.team3gdx.game.screen.Tutorial;
 import com.team3gdx.game.util.CollisionTile;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -215,18 +216,34 @@ public class CookTests {
 
     @Test
     public void testCookSwitch(){
-        MainGameClass mainGameClass = new MainGameClass();
-        MainScreen mainScreen = new MainScreen(mainGameClass);
-//        GameScreen gameScreen = new GameScreen(mainGameClass, mainScreen);
+        // This function uses the static instances of GameScreen and Tutorial so don't need to instantiate
 
+        GameScreen.control = new Control();
+        // Need to manually make a new Control instance bc when we test it hasn't already been created
+
+        //-----------------------------------TESTS FOR TAB SWITCH-------------------------------------------------------
+        // *Automatic version of cook switch tests*:
+        for(int i = 0; i < GameScreen.cooks.length; i++){
+            assertTrue("Current cook should be cook " + i, GameScreen.cook.equals(GameScreen.cooks[i]));
+            GameScreen.control.tab = true;
+            Tutorial.complete = true;
+            GameScreen.checkCookSwitch();
+        }
+        // *Manual version of cook switch tests*:
+        // Tests below test another cycle of changes after the automatic set to ensure you can go from cook 3 to 1
         assertTrue("Current cook should be gameScreen.cooks[0] (first one)", GameScreen.cook.equals(GameScreen.cooks[0]));
+        GameScreen.control.tab = true;
+        Tutorial.complete = true;
+        GameScreen.checkCookSwitch();
+        assertTrue("Current cook should be gameScreen.cooks[1] (second one)", GameScreen.cook.equals(GameScreen.cooks[1]));
+        GameScreen.control.tab = true;
+        Tutorial.complete = true;
+        GameScreen.checkCookSwitch();
+        assertTrue("Current cook should be gameScreen.cooks[2] (third one)", GameScreen.cook.equals(GameScreen.cooks[2]));
+        GameScreen.control.tab = true;
+        Tutorial.complete = true;
+        GameScreen.checkCookSwitch();
 
-//        for(int i = 0; i < gameScreen.cooks.length; i++){
-//            assertTrue("Cook is " + (i + 1), gameScreen.cook.equals(gameScreen.cooks[i]));
-//            gameScreen.control.tab = true;
-//            gameScreen.checkCookSwitch();
-//            gameScreen.control.tab = false;
-//        }
-//        assertTrue("Cook cycles back to start after last", gameScreen.cook.equals(gameScreen.cooks[0]));
+        //-----------------------------------TESTS FOR TAB SWITCH-------------------------------------------------------
     }
 }
