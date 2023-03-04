@@ -64,7 +64,7 @@ public class MainScreen implements Screen {
 	Stage stage;
 
 	enum STATE {
-		main, audio, leaderboard, new_game, endless_game
+		main, audio, leaderboard, new_game, endless_game, credits
 	}
 
 	STATE state;
@@ -214,7 +214,7 @@ public class MainScreen implements Screen {
 		});
 		cred.addListener(new ClickListener(){
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				Gdx.net.openURI("https://decassociation.github.io/project_eng1_team3/");
+				state = STATE.credits;
 				super.touchUp(event, x, y, pointer, button);
 			}
 		});
@@ -295,6 +295,10 @@ public class MainScreen implements Screen {
 					musSlide.height);
 
 			game.batch.end();
+		}
+		if (state == STATE.credits) {
+			game.mainScreenMusic.dispose();
+			game.setScreen(game.getCreditsScreen());
 		}
 	}
 

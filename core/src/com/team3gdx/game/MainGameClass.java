@@ -2,15 +2,13 @@ package com.team3gdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.team3gdx.game.screen.GameScreen;
-import com.team3gdx.game.screen.LeaderBoard;
-import com.team3gdx.game.screen.MainScreen;
-import com.team3gdx.game.screen.WaveSelectScreen;
+import com.team3gdx.game.screen.*;
 import com.team3gdx.game.util.AudioController;
 
 public class MainGameClass extends Game {
@@ -24,6 +22,7 @@ public class MainGameClass extends Game {
 	private GameScreen gameScreen1;
 	private LeaderBoard leaderBoardScreen1;
 	private WaveSelectScreen waveSelectScreen1;
+	private CreditScreen CreditScreen1;
 	public AudioController sounds;
 	public ShapeRenderer shapeRenderer;
 
@@ -50,6 +49,7 @@ public class MainGameClass extends Game {
 		gameScreen1 = new GameScreen(this, mainScreen1);
 		leaderBoardScreen1 = new LeaderBoard(this, mainScreen1);
 		waveSelectScreen1 = new WaveSelectScreen(this, mainScreen1);
+		CreditScreen1 = new CreditScreen(this);
 		this.setScreen(mainScreen1);
 		// ==============================================================================================================
 	}
@@ -80,5 +80,9 @@ public class MainGameClass extends Game {
 	@Override
 	public void dispose() {
 		batch.dispose();
+	}
+
+	public Screen getCreditsScreen() {
+		return (Screen) CreditScreen1;
 	}
 }
