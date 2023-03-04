@@ -142,6 +142,7 @@ public class WaveSelectScreen implements Screen {
     @Override
     public void show() {
         state = STATE.none;
+        waves = 5;
 
         stage = new Stage(viewport, game.batch);
         Gdx.input.setInputProcessor(stage);
@@ -160,7 +161,7 @@ public class WaveSelectScreen implements Screen {
 
         game.batch.begin();
         game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        game.font.draw(game.batch, Integer.toString(waves) + " waves", Gdx.graphics.getWidth() / 4f, 11 * Gdx.graphics.getHeight() / 20f);
+        game.font.draw(game.batch, Integer.toString(waves) + " waves", Gdx.graphics.getWidth() / 7f, 17 * Gdx.graphics.getHeight() / 20f);
         game.batch.end();
         stage.act();
         stage.draw();
