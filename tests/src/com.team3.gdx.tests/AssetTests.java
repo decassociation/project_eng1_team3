@@ -242,6 +242,9 @@ public class AssetTests {
         assertTrue("vButton.jpg in uielements", Gdx.files.internal("uielements/vButton.jpg").exists());
         assertTrue("vControl.jpg in uielements", Gdx.files.internal("uielements/vControl.jpg").exists());
         assertTrue("vControl.png in uielements", Gdx.files.internal("uielements/vControl.png").exists());
+        assertTrue("downArrow.png in uielements", Gdx.files.internal("uielements/downArrow.png").exists());
+        assertTrue("upArrow.png in uielements", Gdx.files.internal("uielements/upArrow.png").exists());
+        assertTrue("go.png in uielements", Gdx.files.internal("uielements/go.png").exists());
 
     }
 
