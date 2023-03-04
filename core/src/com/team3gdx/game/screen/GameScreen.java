@@ -145,6 +145,7 @@ public class GameScreen implements Screen {
 		constructCollisionData(map1);
 		cc = new CustomerController(map1);
 		cc.spawnCustomer();
+		NUMBER_OF_WAVES = -1;
 		ENDLESS = true;
 	}
 
@@ -314,7 +315,7 @@ public class GameScreen implements Screen {
 		checkCookSwitch();
 		checkCustomerWaitTime();
 		// =========================================CHECK=GAME=OVER======================================================
-		if(!ENDLESS) checkGameOver();
+		checkGameOver();
 
 	}
 
@@ -344,7 +345,7 @@ public class GameScreen implements Screen {
 		if (currentWaitingCustomer != null
 				&& currentWaitingCustomer.waitTime() > MAX_WAIT_TIME ) {
 			cc.delCustomer(currentWaitingCustomer);
-			if (ENDLESS || currentWave < NUMBER_OF_WAVES) {
+			if (ENDLESS || currentWave < NUMBER_OF_WAVES - 1) {
 				cc.spawnCustomer();
 			}
 			currentWave++;
@@ -664,7 +665,7 @@ public class GameScreen implements Screen {
 	}
 
 	public void checkGameOver() {
-		if (currentWave == NUMBER_OF_WAVES + 1 || reputationPoints == 0) {
+		if (currentWave == NUMBER_OF_WAVES || reputationPoints == 0) {
 			game.getLeaderBoardScreen().addLeaderBoardData("PLAYER1",
 					(int) Math.floor((startTime - timeOnStartup) / 1000f));
 			game.resetGameScreen();
