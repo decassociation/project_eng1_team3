@@ -18,6 +18,8 @@ public class CreditScreen implements Screen {
     public CreditScreen(MainGameClass mainGameClass) {
         this.batch = mainGameClass.batch;
         this.creditsImg = new Texture(Gdx.files.internal("uielements/Credits.png"));
+        this.mainGameClass = mainGameClass;
+        this.mainScreen = new MainScreen(mainGameClass);
     }
 
     @Override
