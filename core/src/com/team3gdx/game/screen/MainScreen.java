@@ -39,6 +39,7 @@ public class MainScreen implements Screen {
 	Button end;
 	Button load;
 	Button web;
+	Button cred;
 
 	Rectangle volSlide;
 	Rectangle volSlideBackgr;
@@ -59,6 +60,7 @@ public class MainScreen implements Screen {
 	Texture endlessGame;
 	Texture loadGame;
 	Texture website;
+	Texture credits;
 	Stage stage;
 
 	enum STATE {
@@ -132,6 +134,7 @@ public class MainScreen implements Screen {
 		endlessGame = new Texture(Gdx.files.internal("uielements/endlessgame.png"));
 		loadGame = new Texture(Gdx.files.internal("uielements/loadgame.png"));
 		website = new Texture(Gdx.files.internal("uielements/logo.png"));
+		credits = new Texture(Gdx.files.internal("uielements/logo.png"));
 
 
 		sb = new Button(new TextureRegionDrawable(startButton));
@@ -141,6 +144,7 @@ public class MainScreen implements Screen {
 		end = new Button(new TextureRegionDrawable(endlessGame));
 		load = new Button(new TextureRegionDrawable(loadGame));
 		web = new Button(new TextureRegionDrawable(website));
+		cred = new Button(new TextureRegionDrawable(credits));
 
 		float totalButtonHeight = buttonheight * 6;
 		float startY = (gameResolutionY - totalButtonHeight) / 2;
@@ -151,6 +155,7 @@ public class MainScreen implements Screen {
 		eg.setPosition(gameResolutionX / 10.0f, startY + buttonheight);
 		ad.setPosition(gameResolutionX / 10.0f, startY);
 		web.setPosition(1000, 500);
+		cred.setPosition(1000, 800);
 
 
 
@@ -161,6 +166,7 @@ public class MainScreen implements Screen {
 		end.setSize(buttonwidth, buttonheight);
 		load.setSize(buttonwidth, buttonheight);
 		web.setSize(250, 250);
+		cred.setSize(250, 250);
 
 		ad.addListener(new ClickListener() {
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -206,6 +212,12 @@ public class MainScreen implements Screen {
 				super.touchUp(event, x, y, pointer, button);
 			}
 		});
+		cred.addListener(new ClickListener(){
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				Gdx.net.openURI("https://decassociation.github.io/project_eng1_team3/");
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
 		stage = new Stage(viewport, game.batch);
 		Gdx.input.setInputProcessor(stage);
 
@@ -216,6 +228,7 @@ public class MainScreen implements Screen {
 		stage.addActor(end);
 		stage.addActor(load);
 		stage.addActor(web);
+		stage.addActor(cred);
 	}
 
 	/**
