@@ -134,7 +134,7 @@ public class MainScreen implements Screen {
 		endlessGame = new Texture(Gdx.files.internal("uielements/endlessgame.png"));
 		loadGame = new Texture(Gdx.files.internal("uielements/loadgame.png"));
 		website = new Texture(Gdx.files.internal("uielements/logo.png"));
-		credits = new Texture(Gdx.files.internal("uielements/logo.png"));
+		credits = new Texture(Gdx.files.internal("uielements/CreditsButton.png"));
 
 
 		sb = new Button(new TextureRegionDrawable(startButton));
@@ -154,8 +154,8 @@ public class MainScreen implements Screen {
 		lb.setPosition(gameResolutionX / 10.0f, startY + 2 * buttonheight);
 		eg.setPosition(gameResolutionX / 10.0f, startY + buttonheight);
 		ad.setPosition(gameResolutionX / 10.0f, startY);
-		web.setPosition(1000, 500);
-		cred.setPosition(1000, 800);
+		web.setPosition(1130, 400);
+		cred.setPosition(1000, 700);
 
 
 
@@ -166,7 +166,7 @@ public class MainScreen implements Screen {
 		end.setSize(buttonwidth, buttonheight);
 		load.setSize(buttonwidth, buttonheight);
 		web.setSize(250, 250);
-		cred.setSize(250, 250);
+		cred.setSize(buttonwidth, buttonheight);
 
 		ad.addListener(new ClickListener() {
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
