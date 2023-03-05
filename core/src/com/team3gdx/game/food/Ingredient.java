@@ -22,7 +22,7 @@ public class Ingredient extends Entity {
 	 */
 	public int slices = 0;
 	private int idealSlices;
-	private float cookedTime = 0;
+	public float cookedTime = 0;
 	private float idealCookedTime;
 
 	public Status status = Status.RAW;
