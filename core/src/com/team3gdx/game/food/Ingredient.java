@@ -176,7 +176,7 @@ public class Ingredient extends Entity {
 	 * @param percentage The current progress of the status bar.
 	 * @param optimum    The optimal status to reach (shown by a black bar).
 	 */
-	private void drawStatusBar(float percentage, float optimumLower, float optimumUpper) {
+	public void drawStatusBar(float percentage, float optimumLower, float optimumUpper) {
 		ShapeRenderer shapeRenderer = getShapeRenderer();
 
 		shapeRenderer.begin(ShapeType.Filled);

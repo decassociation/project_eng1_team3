@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 
 /**
  * Tests Ingredient.java and Ingredients.java without testing interactions with any cooking stations
+ * NOT SURE IF ANYMORE OF Ingredient.java can be tested as methods take a SpriteBatch parameter
  */
 @RunWith(GdxTestRunner.class)
 public class IngredientTests {
@@ -37,6 +38,13 @@ public class IngredientTests {
         assertTrue("The cloned formedPatty ingredient should be flipped",
                 formedPattyClone.flipped);
 
+    }
+
+    @Test
+    public void testEquals(){
+        Ingredient formedPattyClone = new Ingredient(Ingredients.formedPatty);
+        assertTrue("formedPatty clone should be exactly the same as the origninal",
+                formedPattyClone.equals(Ingredients.formedPatty));
     }
 
 }
