@@ -50,4 +50,11 @@ public class Ingredients {
 		cooked_bun.flipped = true;
 	}
 
+	// Potatoes
+	public static Ingredient potato = new Ingredient(new Vector2(0, 0), 32, 32, "potato", 0, .5f);
+	// Baked potatoes
+	public static Ingredient cooked_potato = new Ingredient(new Vector2(0, 0), 32, 32, "potato", 0, .5f);
+	static {
+		cooked_potato.status = Status.COOKED;
+	}
 }

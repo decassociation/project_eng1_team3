@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.team3.gdx.tests.CustomerTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-03-04T11:30:51" hostname="DESKTOP-7A0IUD0" time="0.098">
+  <properties/>
+  <testcase name="testCustomerDeletion" classname="com.team3.gdx.tests.CustomerTests" time="0.047"/>
+  <testcase name="testCustomerSpawn" classname="com.team3.gdx.tests.CustomerTests" time="0.034"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
