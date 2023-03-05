@@ -5,7 +5,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.team3gdx.game.entity.Customer;
 import com.team3gdx.game.entity.CustomerController;
+import org.hamcrest.CoreMatchers;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
@@ -90,6 +93,28 @@ public class CustomerTests {
         assertEquals("Number of active customers (amountActiveCustomers) should be 0 but isn't", 0, cc.amountActiveCustomers);
         assertNull("There should be no existing customers but at least one exists", cc.customers[0]);
 
+    }
+
+
+    /** NOTE: There are a few other exceptions that could be thrown by the computeCustomerZone method, but
+     * we would have to create multiple, very specific tile maps to cover all of them. The one tested below is the
+     * first exception that occurs */
+    @Rule // Used by testIncorrectCustomerZone
+    public ExpectedException exceptionRule = ExpectedException.none(); // .none() is deprecated
+
+    /**
+     * Tests that the correct exception is thrown when a tilemap is loaded which has no area for customers
+     */
+    @Test
+    public void testIncorrectCustomerZone(){
+        exceptionRule.expect(IllegalArgumentException.class);
+        exceptionRule.expectMessage(CoreMatchers.equalTo("No customer zone was included in the tile map"));
+        /** Have to use 'CoreMatchers.equalTo' as the version of Mockito we use doesn't have the containsString method
+         * that expectMessage(String substring) uses.  We're using expectMessage(Matcher<String> matcher) instead */
+
+
+        TiledMap wrongMap = new TmxMapLoader().load("map/customerTestMap.tmx");
+        CustomerController cc = new CustomerController(wrongMap);
     }
 
 

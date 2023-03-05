@@ -136,11 +136,6 @@ public class CookTests {
         assertTrue("Cook stack / no. items held should be 10 (above max) but isn't", cook.full());
     }
 
-    public void testPlace(){
-
-    }
-
-    // This test doesn't work at the moment
     public void testCollisionAttempt(Cook cook, Control control, CollisionTile[][] cltiles, String assertMessage){
         cook.update(control, 1f, cltiles);
         assertTrue(assertMessage, cook.pos.x == 50 && cook.pos.y == 50);
