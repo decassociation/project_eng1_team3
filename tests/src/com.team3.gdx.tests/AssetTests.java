@@ -90,6 +90,8 @@ public class AssetTests {
         assertTrue("patty.png in items", Gdx.files.internal("items/patty.png").exists());
         assertTrue("patty_burned.png in items", Gdx.files.internal("items/patty_burned.png").exists());
         assertTrue("patty_cooked.png in items", Gdx.files.internal("items/patty_cooked.png").exists());
+        assertTrue("potato.png in items", Gdx.files.internal("items/potato.png").exists());
+        assertTrue("potato_cooked.png in items", Gdx.files.internal("items/potato_cooked.png").exists());
         assertTrue("salad.png in items", Gdx.files.internal("items/salad.png").exists());
         assertTrue("tomato.png in items", Gdx.files.internal("items/tomato.png").exists());
         assertTrue("tomato_burned.png in items", Gdx.files.internal("items/tomato_burned.png").exists());

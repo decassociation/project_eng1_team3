@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.team3.gdx.tests.AssetTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-03-04T11:30:50" hostname="DESKTOP-7A0IUD0" time="0.15">
+<testsuite name="com.team3.gdx.tests.AssetTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-03-05T10:36:42" hostname="LAPTOP-RNM4V4HG" time="0.025">
   <properties/>
-  <testcase name="testMapAssetsExist" classname="com.team3.gdx.tests.AssetTests" time="0.029"/>
-  <testcase name="testLeaderboardData" classname="com.team3.gdx.tests.AssetTests" time="0.001"/>
-  <testcase name="testChefAssetsExist" classname="com.team3.gdx.tests.AssetTests" time="0.001"/>
-  <testcase name="testAudioAssetsExist" classname="com.team3.gdx.tests.AssetTests" time="0.002"/>
-  <testcase name="testUIElementsExist" classname="com.team3.gdx.tests.AssetTests" time="0.005"/>
-  <testcase name="testParticlesAssetsExist" classname="com.team3.gdx.tests.AssetTests" time="0.001"/>
-  <testcase name="testItemAssets" classname="com.team3.gdx.tests.AssetTests" time="0.003"/>
-  <testcase name="testCustAssetsExist" classname="com.team3.gdx.tests.AssetTests" time="0.003"/>
+  <testcase name="testItemAssets" classname="com.team3.gdx.tests.AssetTests" time="0.025"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
