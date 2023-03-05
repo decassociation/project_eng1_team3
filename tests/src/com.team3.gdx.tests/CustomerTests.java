@@ -3,6 +3,7 @@ package com.team3.gdx.tests;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Vector2;
 import com.team3gdx.game.entity.Customer;
 import com.team3gdx.game.entity.CustomerController;
 import org.hamcrest.CoreMatchers;
@@ -93,6 +94,21 @@ public class CustomerTests {
         assertEquals("Number of active customers (amountActiveCustomers) should be 0 but isn't", 0, cc.amountActiveCustomers);
         assertNull("There should be no existing customers but at least one exists", cc.customers[0]);
 
+    }
+
+    @Test
+    public void testCustomerAtPosition(){
+        TiledMap map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
+        CustomerController cc = new CustomerController(map1);
+        cc.spawnCustomer();
+        Customer testCustomer = cc.customers[0];
+        testCustomer.posy = 64;
+        testCustomer.locked = true;
+        assertEquals("", testCustomer, cc.isCustomerAtPos(new Vector2(testCustomer.posx, testCustomer.posy)));
+        // This isn't going to work because  isCustomerAtPos() doesn't work as it should really
+
+        // Test when there is no customer to check the position of:
+//        cc.isCustomerAtPos(new Vector2(cc.customers[2].posx, cc.customers[2].posy));
     }
 
 
