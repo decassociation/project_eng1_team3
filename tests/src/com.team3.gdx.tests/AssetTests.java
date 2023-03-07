@@ -186,6 +186,7 @@ public class AssetTests {
         assertTrue("ovtopcln.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/ovtopcln.png").exists());
         assertTrue("pattypile.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/pattypile.png").exists());
         assertTrue("pln.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/pln.png").exists());
+        assertTrue("potato.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/potato.png").exists());
         assertTrue("register.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/register.png").exists());
         assertTrue("Salad_top.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Salad_top.png").exists());
         assertTrue("Single Counter.png in map/art_map/art_images", Gdx.files.internal("map/art_map/art_images/Single Counter.png").exists());

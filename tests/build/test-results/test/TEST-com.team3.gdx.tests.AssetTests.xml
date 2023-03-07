@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.team3.gdx.tests.AssetTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-03-05T10:36:42" hostname="LAPTOP-RNM4V4HG" time="0.025">
-  <properties/>
-  <testcase name="testItemAssets" classname="com.team3.gdx.tests.AssetTests" time="0.025"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
