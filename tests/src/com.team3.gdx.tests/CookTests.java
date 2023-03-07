@@ -136,11 +136,6 @@ public class CookTests {
         assertTrue("Cook stack / no. items held should be 10 (above max) but isn't", cook.full());
     }
 
-    public void testPlace(){
-
-    }
-
-    // This test doesn't work at the moment
     public void testCollisionAttempt(Cook cook, Control control, CollisionTile[][] cltiles, String assertMessage){
         cook.update(control, 1f, cltiles);
         assertTrue(assertMessage, cook.pos.x == 50 && cook.pos.y == 50);
@@ -244,6 +239,32 @@ public class CookTests {
         Tutorial.complete = true;
         GameScreen.checkCookSwitch();
 
-        //-----------------------------------TESTS FOR TAB SWITCH-------------------------------------------------------
+        //-----------------------------------TESTS FOR SHIFT SWITCH-----------------------------------------------------
+        /** Switching cooks using shift decrements GameScreen.currentCookIndex so need to change cooks twice (using tab
+         *  switch) before iterating through to check the cook switching, to get to chef 3 (GameScreen.cooks[2])*/
+        GameScreen.control.tab = true;
+        Tutorial.complete = true;
+        GameScreen.checkCookSwitch();
+
+        GameScreen.control.tab = true;
+        Tutorial.complete = true;
+        GameScreen.checkCookSwitch();
+
+        for(int i = 2; i > 0; i--){
+            assertTrue("Current cook should be cook " + (i+1), GameScreen.cook.equals(GameScreen.cooks[i]));
+            GameScreen.control.shift = true;
+            Tutorial.complete = true;
+            GameScreen.checkCookSwitch();
+        }
+        assertTrue("Current cook should be cook " + 0, GameScreen.cook.equals(GameScreen.cooks[0]));
+
+        GameScreen.control.shift = true;
+        Tutorial.complete = true;
+        GameScreen.checkCookSwitch();
+        assertTrue("Current cook should be cook " + 3, GameScreen.cook.equals(GameScreen.cooks[2]));
+
+        //----------------------------------TESTS FOR MIX OF TAB AND SHIFT SWITCH---------------------------------------
+
+
     }
 }

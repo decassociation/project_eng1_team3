@@ -22,7 +22,7 @@ public class Ingredient extends Entity {
 	 */
 	public int slices = 0;
 	private int idealSlices;
-	private float cookedTime = 0;
+	public float cookedTime = 0;
 	private float idealCookedTime;
 
 	public Status status = Status.RAW;
@@ -176,7 +176,7 @@ public class Ingredient extends Entity {
 	 * @param percentage The current progress of the status bar.
 	 * @param optimum    The optimal status to reach (shown by a black bar).
 	 */
-	private void drawStatusBar(float percentage, float optimumLower, float optimumUpper) {
+	public void drawStatusBar(float percentage, float optimumLower, float optimumUpper) {
 		ShapeRenderer shapeRenderer = getShapeRenderer();
 
 		shapeRenderer.begin(ShapeType.Filled);
