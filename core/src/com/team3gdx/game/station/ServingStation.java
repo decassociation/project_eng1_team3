@@ -45,9 +45,13 @@ public class ServingStation extends Station {
 					&& slots.peek().equals(Menu.RECIPES.get(waitingCustomer.order))) {
 				slots.pop();
 				GameScreen.cc.delCustomer(waitingCustomer);
+
+				/*  dont spawn new ones on serve
 				if (GameScreen.ENDLESS || GameScreen.currentWave < GameScreen.NUMBER_OF_WAVES - 1){
 					GameScreen.cc.spawnCustomer();
 				}
+				*/
+
 				GameScreen.currentWave++;
 				waitingCustomer.locked = false;
 				GameScreen.currentWaitingCustomer = null;
