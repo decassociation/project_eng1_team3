@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.MapProperties;
@@ -24,12 +25,17 @@ public class CustomerController {
 	int top;
 	int bottom;
 	int xCoordinate;
+	private long timeOfLastCustomer;
+	private int timeUntilNext;
+	private int spawnMultiple;
+	int totalSpawned;
 
 	public CustomerController(TiledMap map) {
 		this.gameMap = map;
 		computeCustomerZone(gameMap);
 		amountActiveCustomers = 0;
 		lockout = 0;
+		totalSpawned = 0;
 	}
 
 	/**
@@ -112,10 +118,14 @@ public class CustomerController {
 	}
 
 	public Customer spawnCustomer() {
+		timeOfLastCustomer = System.currentTimeMillis();
+		timeUntilNext = ThreadLocalRandom.current().nextInt(28000, 40001);
+
 		for (int i = 0; i < this.customers.length; i++) {
 			if (customers[i] == null) {
 				customers[i] = new Customer(this.xCoordinate, this.bottom, this.top - i, i);
 				amountActiveCustomers += 1;
+				totalSpawned += 1;
 				return customers[i];
 			}
 		}
@@ -173,6 +183,23 @@ public class CustomerController {
 	 * Update customers
 	 */
 	public void updateCustomers() {
+		// spawn new if it has been long enough
+		if(System.currentTimeMillis() - timeOfLastCustomer >= timeUntilNext){
+			spawnCustomer();
+
+			//random chance for second
+			if(totalSpawned > 3) {
+				spawnMultiple = ThreadLocalRandom.current().nextInt(0, 4);
+				if (spawnMultiple == 0) spawnCustomer();
+			}
+
+			//random chance for third
+			if(totalSpawned > 10) {
+				spawnMultiple = ThreadLocalRandom.current().nextInt(0, 10);
+				if (spawnMultiple == 0) spawnCustomer();
+			}
+		}
+
 		for (Customer c : this.customers) {
 			if (c != null) {
 				c.stepTarget();
