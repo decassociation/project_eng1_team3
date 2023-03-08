@@ -15,29 +15,33 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3gdx.game.MainGameClass;
+import org.w3c.dom.Text;
 
-public class WaveSelectScreen implements Screen {
+public class DifficultySelectScreen implements Screen {
 
     final MainGameClass game;
     final MainScreen ms;
 
+    private String difficulty;
     private int waves;
 
     float buttonwidth;
     float buttonheight;
 
-    Button incrementWaves;
-    Button decrementWaves;
-    Button returnToMain;
+    Button easy;
+    Button normal;
+    Button hard;
+    Button back;
     Button go;
 
-    Texture incrementTexture;
-    Texture decrementTexture;
-    Texture returnToMainTexture;
+    Texture easyTexture;
+    Texture normalTexture;
+    Texture hardTexture;
+    Texture backTexture;
     Texture goTexture;
 
     enum STATE {
-        none, main, new_game
+        none, back, new_game
     }
 
     STATE state;
@@ -50,59 +54,71 @@ public class WaveSelectScreen implements Screen {
 
     BitmapFont font;
 
-    public WaveSelectScreen(MainGameClass game, MainScreen ms){
+    public DifficultySelectScreen(MainGameClass game, MainScreen ms, int waves){
         this.game = game;
         this.ms = ms;
+        this.waves = waves;
         this.buttonwidth = (float) Gdx.graphics.getWidth() / 3;
         this.buttonheight = (float) Gdx.graphics.getHeight() / 6;
 
-        waves = 5;
+        difficulty = "normal";
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
         background = new Texture(Gdx.files.internal("uielements/MainScreenBackground.jpg"));
 
-        incrementTexture = new Texture(Gdx.files.internal("uielements/upArrow.png"));
-        decrementTexture = new Texture(Gdx.files.internal("uielements/downArrow.png"));
-        returnToMainTexture = new Texture(Gdx.files.internal("uielements/exitmenu.png"));
+        easyTexture = new Texture(Gdx.files.internal("uielements/easy.png"));
+        normalTexture = new Texture(Gdx.files.internal("uielements/normal.png"));
+        hardTexture = new Texture(Gdx.files.internal("uielements/hard.png"));
+        backTexture = new Texture(Gdx.files.internal("uielements/back.png"));
         goTexture = new Texture(Gdx.files.internal("uielements/go.png"));
 
-        incrementWaves = new Button(new TextureRegionDrawable(incrementTexture));
-        decrementWaves = new Button(new TextureRegionDrawable(decrementTexture));
-        returnToMain = new Button(new TextureRegionDrawable(returnToMainTexture));
+        easy = new Button(new TextureRegionDrawable(easyTexture));
+        normal = new Button(new TextureRegionDrawable(normalTexture));
+        hard = new Button(new TextureRegionDrawable(hardTexture));
+        back = new Button(new TextureRegionDrawable(backTexture));
         go = new Button(new TextureRegionDrawable(goTexture));
 
         float totalButtonHeight = buttonheight * 6;
         float startY = (Gdx.graphics.getHeight() - totalButtonHeight) / 2;
 
-        incrementWaves.setPosition(Gdx.graphics.getWidth() / 2f, startY + 5 * buttonheight);
-        decrementWaves.setPosition(Gdx.graphics.getWidth() / 2f, startY + 4 * buttonheight);
-        returnToMain.setPosition(Gdx.graphics.getWidth() / 2f, startY + 3 * buttonheight);
-        go.setPosition(Gdx.graphics.getWidth() / 2f, startY + 2 * buttonheight);
+        easy.setPosition(Gdx.graphics.getWidth() / 2f, startY + 5 * buttonheight);
+        normal.setPosition(Gdx.graphics.getWidth() / 2f, startY + 4 * buttonheight);
+        hard.setPosition(Gdx.graphics.getWidth() / 2f, startY + 3 * buttonheight);
+        back.setPosition(Gdx.graphics.getWidth() / 2f, startY + 2 * buttonheight);
+        go.setPosition(Gdx.graphics.getWidth() / 2f, startY + 1 * buttonheight);
 
-        incrementWaves.setSize(buttonwidth, buttonheight);
-        decrementWaves.setSize(buttonwidth, buttonheight);
-        returnToMain.setSize(buttonwidth, buttonheight);
+        easy.setSize(buttonwidth, buttonheight);
+        normal.setSize(buttonwidth, buttonheight);
+        hard.setSize(buttonwidth, buttonheight);
+        back.setSize(buttonwidth, buttonheight);
         go.setSize(buttonwidth, buttonheight);
 
-        incrementWaves.addListener(new ClickListener() {
+        easy.addListener(new ClickListener() {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                waves++;
+                difficulty = "easy";
                 super.touchUp(event, x, y, pointer, button);
             }
         });
 
-        decrementWaves.addListener(new ClickListener() {
+        normal.addListener(new ClickListener() {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if(waves > 1) waves--;
+                difficulty = "normal";
                 super.touchUp(event, x, y, pointer, button);
             }
         });
 
-        returnToMain.addListener(new ClickListener() {
+        hard.addListener(new ClickListener() {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                state = STATE.main;
+                difficulty = "hard";
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
+
+        back.addListener(new ClickListener() {
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                state = STATE.back;
                 super.touchUp(event, x, y, pointer, button);
             }
         });
@@ -116,8 +132,8 @@ public class WaveSelectScreen implements Screen {
 
     }
 
-    public int getWaves(){
-        return waves;
+    public String getDifficulty(){
+        return difficulty;
     }
 
     /**
@@ -128,13 +144,13 @@ public class WaveSelectScreen implements Screen {
     public void changeScreen(STATE state) {
         if (state == STATE.new_game) {
             game.mainScreenMusic.dispose();
-            game.setScreen(new DifficultySelectScreen(game, game.getMainScreen(), waves));
+            if(waves == -1) game.setScreen(new GameScreen(game, game.getMainScreen(), difficulty));
+            else game.setScreen(new GameScreen(game, game.getMainScreen(), difficulty, waves));
         }
 
-        if (state == STATE.main) {
+        if (state == STATE.back) {
             game.gameMusic.dispose();
-            //game.resetGameScreen();
-            game.setScreen(game.getMainScreen());
+            game.setScreen(game.getWaveSelectScreen());
         }
     }
 
@@ -146,9 +162,10 @@ public class WaveSelectScreen implements Screen {
         stage = new Stage(viewport, game.batch);
         Gdx.input.setInputProcessor(stage);
 
-        stage.addActor(incrementWaves);
-        stage.addActor(decrementWaves);
-        stage.addActor(returnToMain);
+        stage.addActor(easy);
+        stage.addActor(normal);
+        stage.addActor(hard);
+        stage.addActor(back);
         stage.addActor(go);
     }
 
@@ -160,14 +177,14 @@ public class WaveSelectScreen implements Screen {
 
         game.batch.begin();
         game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        game.font.draw(game.batch, Integer.toString(waves) + " waves", Gdx.graphics.getWidth() / 7f, 17 * Gdx.graphics.getHeight() / 20f);
+        game.font.draw(game.batch, "Difficulty: " + difficulty, Gdx.graphics.getWidth() / 7f, 17 * Gdx.graphics.getHeight() / 20f);
         game.batch.end();
         stage.act();
         stage.draw();
         changeScreen(state);
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            state = STATE.main;
+            state = STATE.back;
         }
     }
 

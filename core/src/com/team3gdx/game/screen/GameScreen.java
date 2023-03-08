@@ -112,6 +112,7 @@ public class GameScreen implements Screen {
 	public static CustomerController cc;
 	InputMultiplexer multi;
 	StationManager stationManager = new StationManager();
+	String difficulty;
 
 	/**
 	 * Constructor to initialise game screen;
@@ -119,9 +120,10 @@ public class GameScreen implements Screen {
 	 * @param game - Main entry point class
 	 * @param ms   - Title screen class
 	 */
-	public GameScreen(MainGameClass game, MainScreen ms, int num_waves) {
+	public GameScreen(MainGameClass game, MainScreen ms, String difficulty, int num_waves) {
 		this.game = game;
 		this.ms = ms;
+		this.difficulty = difficulty;
 		this.calculateBoxMaths();
 		control = new Control();
 		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
@@ -134,9 +136,10 @@ public class GameScreen implements Screen {
 		ENDLESS = false;
 	}
 
-	public GameScreen(MainGameClass game, MainScreen ms) {
+	public GameScreen(MainGameClass game, MainScreen ms, String difficulty) {
 		this.game = game;
 		this.ms = ms;
+		this.difficulty = difficulty;
 		this.calculateBoxMaths();
 		control = new Control();
 		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
@@ -443,7 +446,7 @@ public class GameScreen implements Screen {
 	public void changeScreen(STATE state1) {
 		if (state1 == STATE.main) {
 			game.gameMusic.dispose();
-			game.resetGameScreen();
+			//game.resetGameScreen();
 			game.setScreen(game.getMainScreen());
 
 		}
@@ -674,7 +677,7 @@ public class GameScreen implements Screen {
 				game.getLeaderBoardScreen().addLeaderBoardData("PLAYER1",
 						(int) Math.floor((startTime - timeOnStartup) / 1000f));
 			}
-			game.resetGameScreen();
+			//game.resetGameScreen();
 			this.resetStatic();
 			game.setScreen(game.getLeaderBoardScreen());
 		}

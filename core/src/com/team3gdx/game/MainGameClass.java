@@ -46,7 +46,7 @@ public class MainGameClass extends Game {
 		font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		// ====================================GAME=SCREEN=INITIALISATION================================================
 		mainScreen1 = new MainScreen(this);
-		gameScreen1 = new GameScreen(this, mainScreen1);
+		//gameScreen1 = new GameScreen(this, mainScreen1);
 		leaderBoardScreen1 = new LeaderBoard(this, mainScreen1);
 		waveSelectScreen1 = new WaveSelectScreen(this, mainScreen1);
 		CreditScreen1 = new CreditScreen(this);
@@ -58,9 +58,11 @@ public class MainGameClass extends Game {
 		return mainScreen1;
 	}
 
+	/*
 	public GameScreen getGameScreen() {
 		return gameScreen1;
 	}
+	 */
 
 	public LeaderBoard getLeaderBoardScreen() {
 		return leaderBoardScreen1;
@@ -68,9 +70,11 @@ public class MainGameClass extends Game {
 
 	public WaveSelectScreen getWaveSelectScreen() { return waveSelectScreen1;}
 
+	/*
 	public void resetGameScreen() {
 		this.gameScreen1 = new GameScreen(this, mainScreen1);
 	}
+	 */
 
 	@Override
 	public void render() {
