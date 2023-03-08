@@ -1,3 +1,4 @@
+
 package com.team3gdx.game;
 
 import com.badlogic.gdx.Game;
@@ -25,6 +26,10 @@ public class MainGameClass extends Game {
 	private CreditScreen CreditScreen1;
 	public AudioController sounds;
 	public ShapeRenderer shapeRenderer;
+	private int customersServed;
+	private int wave;
+	private int score;
+
 
 	@Override
 	public void create() {
@@ -52,6 +57,7 @@ public class MainGameClass extends Game {
 		CreditScreen1 = new CreditScreen(this);
 		this.setScreen(mainScreen1);
 		// ==============================================================================================================
+
 	}
 
 	public MainScreen getMainScreen() {
@@ -80,9 +86,27 @@ public class MainGameClass extends Game {
 	@Override
 	public void dispose() {
 		batch.dispose();
+		saveGame(); // Save the game when the player exits
+		super.dispose();
+	}
+
+	private void saveGame() {
+		new Save(this);
 	}
 
 	public Screen getCreditsScreen() {
 		return (Screen) CreditScreen1;
+	}
+
+	public int getCustomersServed() {
+		return customersServed;
+	}
+
+	public int getWave() {
+		return wave;
+	}
+
+	public int getScore() {
+		return score;
 	}
 }
