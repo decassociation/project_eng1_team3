@@ -345,16 +345,20 @@ public class GameScreen implements Screen {
 		if (currentWaitingCustomer != null
 				&& currentWaitingCustomer.waitTime() > MAX_WAIT_TIME ) {
 			cc.delCustomer(currentWaitingCustomer);
+
+			/*  dont spawn new ones on timeout
 			if (ENDLESS || currentWave < NUMBER_OF_WAVES - 1) {
 				cc.spawnCustomer();
 			}
+			*/
+
 			currentWave++;
 			reputationPoints--;
 			currentWaitingCustomer = null;
 		}
 	}
 
-	public static final float MAX_WAIT_TIME = 30000; //Customer wait time in ms
+	public static final float MAX_WAIT_TIME = 60000; //Customer wait time in ms
 
     /**
      * Draw UI elements
@@ -666,8 +670,10 @@ public class GameScreen implements Screen {
 
 	public void checkGameOver() {
 		if (currentWave == NUMBER_OF_WAVES || reputationPoints == 0) {
-			game.getLeaderBoardScreen().addLeaderBoardData("PLAYER1",
-					(int) Math.floor((startTime - timeOnStartup) / 1000f));
+			if (reputationPoints != 0) {
+				game.getLeaderBoardScreen().addLeaderBoardData("PLAYER1",
+						(int) Math.floor((startTime - timeOnStartup) / 1000f));
+			}
 			game.resetGameScreen();
 			this.resetStatic();
 			game.setScreen(game.getLeaderBoardScreen());
