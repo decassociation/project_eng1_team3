@@ -1,0 +1,11 @@
+@startgantt
+
+Project starts 2023-2-15
+
+[Code Inspection] starts 2023-2-15 and lasts 4 days
+[Setting up GitHub and CI documents] starts 2023-2-15 and lasts 10 days
+[Start planning testing for next week] starts 2023-2-15 and lasts 7 days
+
+
+
+@endgantt
