@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.team3.gdx.tests.CookTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-03-07T15:11:05" hostname="DESKTOP-7A0IUD0" time="0.079">
-  <properties/>
-  <testcase name="testCookSwitch" classname="com.team3.gdx.tests.CookTests" time="0.079"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
