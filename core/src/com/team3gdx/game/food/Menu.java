@@ -47,7 +47,7 @@ public class Menu {
 		RECIPES.put("Burned burger", new Recipe("Form patty", Ingredients.unformedPatty, BURGER_BURNED_STEPS,
 				"serve together", "burger_burned", false, null, 32, 32, 0));
 		RECIPES.put("Salad", new Recipe("", null, SALAD_STEPS, "serve together", "salad", false, null, 32, 32, 0));
-		RECIPES.put("Potato with beans", new Recipe("", null, POTATO_BEANS_STEPS, "serve together", "potato_beans", false, null, 32, 32, 0));
+		RECIPES.put("Potato beans", new Recipe("", null, POTATO_BEANS_STEPS, "serve together", "potato_beans", false, null, 32, 32, 0));
 	}
 
 	/**
