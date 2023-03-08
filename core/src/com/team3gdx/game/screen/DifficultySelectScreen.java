@@ -150,14 +150,15 @@ public class DifficultySelectScreen implements Screen {
 
         if (state == STATE.back) {
             game.gameMusic.dispose();
-            game.setScreen(game.getWaveSelectScreen());
+            System.out.println(waves);
+            if(waves == -1) game.setScreen(game.getMainScreen());
+            else game.setScreen(game.getWaveSelectScreen());
         }
     }
 
     @Override
     public void show() {
         state = STATE.none;
-        waves = 5;
 
         stage = new Stage(viewport, game.batch);
         Gdx.input.setInputProcessor(stage);
