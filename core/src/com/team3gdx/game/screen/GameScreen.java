@@ -36,6 +36,8 @@ import com.team3gdx.game.entity.Customer;
 import com.team3gdx.game.entity.CustomerController;
 import com.team3gdx.game.entity.Entity;
 import com.team3gdx.game.food.Menu;
+import com.team3gdx.game.powerup.PowerupController;
+import com.team3gdx.game.powerup.SpeedBoost;
 import com.team3gdx.game.station.StationManager;
 import com.team3gdx.game.util.CollisionTile;
 import com.team3gdx.game.util.Control;
@@ -113,6 +115,8 @@ public class GameScreen implements Screen {
 	InputMultiplexer multi;
 	StationManager stationManager = new StationManager();
 	String difficulty;
+
+	PowerupController powerupController = new PowerupController();
 
 	/**
 	 * Constructor to initialise game screen;
@@ -284,6 +288,8 @@ public class GameScreen implements Screen {
 			curCook.draw_top(game.batch);
 		cc.drawCustTop(game.batch); // todo fix customer z ordering
 		game.batch.end();
+		// =====================================UPDATE=POWERUPS==========================================================
+		powerupController.updatePowerups(game.batch, cook);
 		// ==================================MOVE=COOK===================================================================
 		tempTime = System.currentTimeMillis();
 		if (!cook.locked && Tutorial.complete)
@@ -296,6 +302,7 @@ public class GameScreen implements Screen {
 		game.batch.setProjectionMatrix(uiMatrix);
 		// =====================================DRAW=UI=ELEMENTS=========================================================
 		drawUI();
+
 		// =====================================SET=MATRIX=BACK=TO=GAME=MATRIX===========================================
 
 		setCameraLerp(delta);
