@@ -60,7 +60,6 @@ public class Powerup {
     public void checkCollision(Cook cook){
         if(active) {
             if (Intersector.overlaps(cook.getCollideBoxAtPosition(cook.getX(), cook.getY()), getCollideBox())) {
-                System.out.println("collide");
                 applyPowerup(cook);
                 active = false;
             }

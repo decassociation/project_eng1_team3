@@ -13,6 +13,6 @@ public class SpeedBoost extends Powerup{
 
     @Override
     public void applyPowerup(Cook cook){
-        cook.speed = 0.75f;
+        cook.speed = 0.5f;
     }
 }
