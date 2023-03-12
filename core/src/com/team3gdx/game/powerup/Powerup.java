@@ -14,7 +14,7 @@ public class Powerup {
     int x;
     int y;
     Texture texture;    // set this in a subclass
-    Boolean active;
+    public Boolean active;
     private int size;
 
     /***
