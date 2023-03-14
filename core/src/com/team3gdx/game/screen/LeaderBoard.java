@@ -55,10 +55,10 @@ public class LeaderBoard implements Screen, TextInputListener {
 			String text = handle.readString();
 			String[] entries = text.split("\\n");
 			for (String s : entries) {
-				if(!s.equals("s")) {
+				if(!s.trim().equals("s")) {
 					String[] parts = s.split(";");
 					String name = parts[0];
-					String stringScore = parts[1].trim();
+					String stringScore = parts[  1].trim();
 					ArrayList<String> sublist = new ArrayList<>();
 					sublist.add(name);
 					sublist.add(stringScore);
