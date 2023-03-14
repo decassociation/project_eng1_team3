@@ -26,7 +26,9 @@ public class StationManager {
 	public static Map<Vector2, Station> stations = new HashMap<Vector2, Station>();
 
 	SpriteBatch batch;
-
+	public StationManager() {
+		stations = new HashMap<Vector2, Station>();
+	}
 	private BitmapFont font = new BitmapFont();
 
 	/**
