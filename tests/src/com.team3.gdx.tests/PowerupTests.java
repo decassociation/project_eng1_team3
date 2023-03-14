@@ -19,4 +19,14 @@ public class PowerupTests {
         powerup.checkCollision(cook);
         assertFalse(powerup.active);
     }
+
+    @Test
+    public void testActivate(){
+        Powerup powerup = new Powerup(15, 15);
+        assertFalse("Initially inactive", powerup.active);
+        powerup.activate();
+        assertTrue("Becomes active", powerup.active);
+        assertFalse("Has moved in x", powerup.getX() == 15);
+        assertFalse("Has moved in y", powerup.getY() == 15);
+    }
 }

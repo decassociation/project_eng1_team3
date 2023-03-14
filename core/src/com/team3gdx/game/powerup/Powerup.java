@@ -11,8 +11,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Powerup {
 
-    int x;
-    int y;
+    private int x;
+    private int y;
     Texture texture;    // set this in a subclass
     public Boolean active;
     private int size;
@@ -73,6 +73,24 @@ public class Powerup {
         x = ThreadLocalRandom.current().nextInt(4*64, 14*64);
         y = ThreadLocalRandom.current().nextInt(64, 12*64);
         active = true;
+    }
+
+    /***
+     * Getter for x
+     *
+     * @return x
+     */
+    public int getX(){
+        return x;
+    }
+
+    /***
+     * Getter for y
+     *
+     * @return y
+     */
+    public int getY(){
+        return y;
     }
 
     /***
