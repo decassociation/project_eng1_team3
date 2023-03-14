@@ -8,6 +8,8 @@ import java.util.ArrayList;
 public class PowerupController {
     SpeedBoost speedBoost;
     ArrayList<Powerup> powerups;
+    private long timeOfLast;
+    private int selectIndex;
 
     /***
      * Constructor for PowerupController
@@ -16,6 +18,7 @@ public class PowerupController {
         powerups = new ArrayList<>();
         SpeedBoost speedBoost = new SpeedBoost(0, 0);
         powerups.add(speedBoost);
+        timeOfLast = System.currentTimeMillis();
     }
 
     /***
@@ -28,9 +31,14 @@ public class PowerupController {
         for(Powerup powerup: powerups){
             powerup.draw(batch);
             powerup.checkCollision(cook);
-            if(!powerup.active){
-                powerup.activate();
-            }
+        }
+
+        // activate a random powerup at regular intervals, or deactivate if already active
+        if(System.currentTimeMillis() - timeOfLast >= 30000){
+            selectIndex = (int)(Math.random() * powerups.size());
+            if(!powerups.get(selectIndex).active) powerups.get(selectIndex).activate();
+            else powerups.get(selectIndex).active = false;
+            timeOfLast = System.currentTimeMillis();
         }
     }
 }
