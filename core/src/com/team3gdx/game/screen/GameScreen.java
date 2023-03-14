@@ -136,6 +136,10 @@ public class GameScreen implements Screen {
 		constructCollisionData(map1);
 		cc = new CustomerController(map1);
 		cc.spawnCustomer();
+		cooks = new Cook[]{new Cook(new Vector2(64 * 5, 64 * 3), 1), new Cook(new Vector2(64 * 5, 64 * 5), 2), new Cook(new Vector2(64 * 5, 64 * 7), 3)};
+		currentCookIndex = 0;
+		cook = cooks[currentCookIndex];
+		stationManager = new StationManager();
 		NUMBER_OF_WAVES = num_waves;
 		ENDLESS = false;
 	}
