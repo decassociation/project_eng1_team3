@@ -15,7 +15,7 @@ import com.team3gdx.game.screen.GameScreen.STATE;
  * Represents an ingredient.
  * 
  */
-public class Ingredient extends Entity implements Cloneable {
+public class Ingredient extends Entity {
 
 	/**
 	 * Represents internal states of ingredient.
@@ -211,11 +211,6 @@ public class Ingredient extends Entity implements Cloneable {
 			return true;
 
 		return false;
-	}
-
-	@Override
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
 	}
 
 }

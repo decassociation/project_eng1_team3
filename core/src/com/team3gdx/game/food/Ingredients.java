@@ -65,7 +65,4 @@ public class Ingredients {
 	static {
 		cooked_beans.status = Status.COOKED;
 	}
-
-	public Ingredients() throws CloneNotSupportedException {
-	}
 }

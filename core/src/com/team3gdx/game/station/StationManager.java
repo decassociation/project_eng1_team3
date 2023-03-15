@@ -36,7 +36,7 @@ public class StationManager {
 	 * 
 	 * @param batch - SpriteBatch to render ingredient textures.
 	 */
-	public void handleStations(SpriteBatch batch) throws CloneNotSupportedException {
+	public void handleStations(SpriteBatch batch) {
 		this.batch = batch;
 		for (Station station : stations.values()) {
 			if (!station.slots.empty() && !station.infinite) {
@@ -75,28 +75,28 @@ public class StationManager {
 	 * @param type The station type.
 	 * @param pos  The position of the tile.
 	 */
-	public void checkInteractedTile(String type, Vector2 pos) throws CloneNotSupportedException {
+	public void checkInteractedTile(String type, Vector2 pos) {
 		switch (type) {
 		case "Buns":
-			takeIngredientStation(pos, (Ingredient) Ingredients.bun.clone());
+			takeIngredientStation(pos, Ingredients.bun);
 			break;
 		case "Patties":
-			takeIngredientStation(pos, (Ingredient) Ingredients.unformedPatty.clone());
+			takeIngredientStation(pos, Ingredients.unformedPatty);
 			break;
 		case "Lettuces":
-			takeIngredientStation(pos, (Ingredient) Ingredients.lettuce.clone());
+			takeIngredientStation(pos, Ingredients.lettuce);
 			break;
 		case "Tomatoes":
-			takeIngredientStation(pos, (Ingredient) Ingredients.tomato.clone());
+			takeIngredientStation(pos, Ingredients.tomato);
 			break;
 		case "Onions":
-			takeIngredientStation(pos, (Ingredient) Ingredients.onion.clone());
+			takeIngredientStation(pos, Ingredients.onion);
 			break;
 		case "Potatoes":
-			takeIngredientStation(pos, (Ingredient) Ingredients.potato.clone());
+			takeIngredientStation(pos, Ingredients.potato);
 			break;
 		case "Beans":
-			takeIngredientStation(pos, (Ingredient) Ingredients.beans.clone());
+			takeIngredientStation(pos, Ingredients.beans);
 			break;
 		case "Frying":
 			if (!stations.containsKey(pos)) {

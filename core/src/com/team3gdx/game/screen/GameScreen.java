@@ -285,11 +285,7 @@ public class GameScreen implements Screen {
 		// =====================================RENDER=TOP=MAP=LAYER=====================================================
 		tiledMapRenderer.render(new int[] { 1 });
 		// =====================================DRAW=COOK=TOP=HALF=======================================================
-		try {
-			stationManager.handleStations(game.batch);
-		} catch (CloneNotSupportedException e) {
-			throw new RuntimeException(e);
-		}
+		stationManager.handleStations(game.batch);
 		drawHeldItems();
 		game.batch.begin();
 		for (Cook curCook : cooks)
@@ -303,11 +299,7 @@ public class GameScreen implements Screen {
 		if (!cook.locked && Tutorial.complete)
 			cook.update(control, (tempTime - tempThenTime), CLTiles);
 		tempThenTime = tempTime;
-		try {
-			checkInteraction(cook, game.shapeRenderer);
-		} catch (CloneNotSupportedException e) {
-			throw new RuntimeException(e);
-		}
+		checkInteraction(cook, game.shapeRenderer);
 		// =====================================SET=MATRIX=FOR=UI=ELEMENTS===============================================
 		Matrix4 uiMatrix = worldCamera.combined.cpy();
 		uiMatrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -664,7 +656,7 @@ public class GameScreen implements Screen {
 	 * @param ck - Selected cook
 	 * @param sr - ShapeRenderer to draw the coloured box
 	 */
-	public void checkInteraction(Cook ck, ShapeRenderer sr) throws CloneNotSupportedException {
+	public void checkInteraction(Cook ck, ShapeRenderer sr) {
 		float centralCookX = ck.getX() + ck.getWidth() / 2;
 		float centralCookY = ck.getY();
 		int cellx = (int) Math.floor(centralCookX / 64);
