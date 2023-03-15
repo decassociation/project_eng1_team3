@@ -684,9 +684,8 @@ public class GameScreen implements Screen {
 
 	public void checkGameOver() {
 		if (currentWave == NUMBER_OF_WAVES || reputationPoints == 0) {
-			if (reputationPoints != 0) {
-				game.getLeaderBoardScreen().addLeaderBoardData("PLAYER1",
-						(int) Math.floor((startTime - timeOnStartup) / 1000f));
+			if (ENDLESS) {
+				game.getLeaderBoardScreen().addLeaderBoardData("PLAYER1", cc.totalServed);
 			}
 			//game.resetGameScreen();
 			this.resetStatic();

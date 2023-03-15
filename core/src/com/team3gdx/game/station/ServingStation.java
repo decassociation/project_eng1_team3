@@ -52,6 +52,8 @@ public class ServingStation extends Station {
 				}
 				*/
 
+				GameScreen.cc.totalServed++;
+
 				GameScreen.currentWave++;
 				waitingCustomer.locked = false;
 				GameScreen.currentWaitingCustomer = null;
