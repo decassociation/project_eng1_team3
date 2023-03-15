@@ -24,7 +24,7 @@ public class PrepStation extends Station {
 	 * 
 	 * @return A boolean representing whether the transformation happens.
 	 */
-	public boolean slotsToRecipe() {
+	public boolean slotsToRecipe() throws CloneNotSupportedException {
 		for (Recipe recipe : Menu.RECIPES.values()) {
 			if (recipe.matches(slots)) {
 				if (progress == 1) {
@@ -57,7 +57,7 @@ public class PrepStation extends Station {
 	 * 
 	 * @return A boolean indicating if the cook was locked.
 	 */
-	public boolean lockCook() {
+	public boolean lockCook() throws CloneNotSupportedException {
 		if (!slots.isEmpty() && slotsToRecipe()) {
 			if (lockedCook == null) {
 				GameScreen.cook.locked = true;
@@ -84,7 +84,7 @@ public class PrepStation extends Station {
 	 * @param batch
 	 * @param delta The amount to update the progress bar by.
 	 */
-	public void updateProgress(SpriteBatch batch, float delta) {
+	public void updateProgress(SpriteBatch batch, float delta) throws CloneNotSupportedException {
 		if (progress < 1)
 			progress += delta;
 		else {
@@ -111,10 +111,10 @@ public class PrepStation extends Station {
 	 * @param toMatch The ingredient to transform.
 	 * @return The ingredient that is formed.
 	 */
-	private Ingredient ingredientMatch(Ingredient toMatch) {
+	private Ingredient ingredientMatch(Ingredient toMatch) throws CloneNotSupportedException {
 		for (Ingredient ingredient : Menu.INGREDIENT_PREP.keySet()) {
 			if (ingredient.equals(toMatch)) {
-				return Menu.INGREDIENT_PREP.get(ingredient);
+				return (Ingredient) Menu.INGREDIENT_PREP.get(ingredient).clone();
 			}
 		}
 
