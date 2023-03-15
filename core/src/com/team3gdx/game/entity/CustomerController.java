@@ -1,10 +1,6 @@
 package com.team3gdx.game.entity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -29,13 +25,21 @@ public class CustomerController {
 	private int timeUntilNext;
 	private int spawnMultiple;
 	public int totalServed;
+	private String difficulty;
+	private HashMap<String, Float> difficultyMultipliers;
 
-	public CustomerController(TiledMap map) {
+	public CustomerController(TiledMap map, String difficulty) {
 		this.gameMap = map;
 		computeCustomerZone(gameMap);
 		amountActiveCustomers = 0;
 		lockout = 0;
 		totalServed = 0;
+
+		this.difficulty = difficulty;
+		difficultyMultipliers = new HashMap<>();
+		difficultyMultipliers.put("easy", 1.25f);
+		difficultyMultipliers.put("normal", 1f);
+		difficultyMultipliers.put("hard", 0.75f);
 	}
 
 	/**
@@ -119,7 +123,7 @@ public class CustomerController {
 
 	public Customer spawnCustomer() {
 		timeOfLastCustomer = System.currentTimeMillis();
-		timeUntilNext = ThreadLocalRandom.current().nextInt(28000, 40001);
+		timeUntilNext = ThreadLocalRandom.current().nextInt((int) (28000 * difficultyMultipliers.get(difficulty)), (int) (40001 * difficultyMultipliers.get(difficulty)));
 
 		for (int i = 0; i < this.customers.length; i++) {
 			if (customers[i] == null) {

@@ -134,7 +134,7 @@ public class GameScreen implements Screen {
 		map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
 		constructCollisionData(map1);
-		cc = new CustomerController(map1);
+		cc = new CustomerController(map1, difficulty);
 		cc.spawnCustomer();
 		cooks = new Cook[]{new Cook(new Vector2(64 * 5, 64 * 3), 1), new Cook(new Vector2(64 * 5, 64 * 5), 2), new Cook(new Vector2(64 * 5, 64 * 7), 3)};
 		currentCookIndex = 0;
@@ -154,7 +154,7 @@ public class GameScreen implements Screen {
 		map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
 		constructCollisionData(map1);
-		cc = new CustomerController(map1);
+		cc = new CustomerController(map1, difficulty);
 		cc.spawnCustomer();
 		NUMBER_OF_WAVES = -1;
 		ENDLESS = true;

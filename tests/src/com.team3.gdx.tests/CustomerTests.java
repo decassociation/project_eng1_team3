@@ -22,7 +22,7 @@ public class CustomerTests {
     public void testCustomerSpawn(){
 
         TiledMap map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
-        CustomerController cc = new CustomerController(map1);
+        CustomerController cc = new CustomerController(map1, "normal");
         // Test when no customers exist:
         assertTrue("There should not be any customers spawned/existing but at least one exists", cc.customers[0]==null
                 && cc.customers[1]==null && cc.customers[2]==null && cc.customers[3]==null && cc.customers[4]==null);
@@ -73,7 +73,7 @@ public class CustomerTests {
     @Test
     public void testCustomerDeletion(){
         TiledMap map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
-        CustomerController cc = new CustomerController(map1);
+        CustomerController cc = new CustomerController(map1, "normal");
 
         // Testing the customer deletion method with signature, 'public void delCustomer(int num)':
         cc.spawnCustomer();
@@ -99,7 +99,7 @@ public class CustomerTests {
     @Test
     public void testCustomerAtPosition(){
         TiledMap map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
-        CustomerController cc = new CustomerController(map1);
+        CustomerController cc = new CustomerController(map1, "normal");
         cc.spawnCustomer();
         Customer testCustomer = cc.customers[0];
         testCustomer.posy = 64;
@@ -130,7 +130,7 @@ public class CustomerTests {
 
 
         TiledMap wrongMap = new TmxMapLoader().load("map/customerTestMap.tmx");
-        CustomerController cc = new CustomerController(wrongMap);
+        CustomerController cc = new CustomerController(wrongMap, "normal");
     }
 
 

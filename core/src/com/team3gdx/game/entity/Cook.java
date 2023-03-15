@@ -32,7 +32,6 @@ public class Cook extends Entity {
 	public boolean locked = false;
 	public boolean holding = false;
 	public Stack<Ingredient> heldItems = new Stack<Ingredient>();
-
 	/**
 	 * Cook entity constructor
 	 * @param pos - x y position vector in pixels
