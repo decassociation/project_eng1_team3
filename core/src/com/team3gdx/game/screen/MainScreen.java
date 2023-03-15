@@ -64,7 +64,7 @@ public class MainScreen implements Screen {
 	Stage stage;
 
 	enum STATE {
-		main, audio, leaderboard, new_game, endless_game, credits
+		main, audio, leaderboard, new_game, endless_game, credits, testing
 	}
 
 	STATE state;
@@ -250,6 +250,10 @@ public class MainScreen implements Screen {
 		stage.draw();
 		changeScreen(state);
 
+		if (Gdx.input.isKeyPressed(Keys.T)){
+			state = STATE.testing;
+		}
+
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			state = STATE.main;
 		}
@@ -261,6 +265,10 @@ public class MainScreen implements Screen {
 	 * @param state - state to change screen to
 	 */
 	public void changeScreen(STATE state) {
+		if (state == STATE.testing){
+			game.mainScreenMusic.dispose();
+			game.setScreen(game.getTestingScreen());
+		}
 		if (state == STATE.new_game) {
 			game.mainScreenMusic.dispose();
 			//game.setScreen(new GameScreen(game, game.getMainScreen(), 5));

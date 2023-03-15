@@ -68,7 +68,4 @@ public class Ingredients {
 		cooked_beans.status = Status.COOKED;
 		cooked_beans.texture = new Texture("items/" + cooked_beans.name + "_cooked.png");
 	}
-
-	public Ingredients() throws CloneNotSupportedException {
-	}
 }

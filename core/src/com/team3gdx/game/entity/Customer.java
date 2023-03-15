@@ -26,6 +26,7 @@ public class Customer {
 	private long arrivalTime;
 
 	public String order = "";
+	private int custNumber = 0;
 
 	/**
 	 * Constructor for customer class
@@ -52,6 +53,11 @@ public class Customer {
 		posy = y * 64;
 		startposx = posx;
 		locked = false;
+		custNumber = custno;
+	}
+
+	public int getCustNumber(){
+		return custNumber;
 	}
 
 	/**
@@ -114,4 +120,13 @@ public class Customer {
 			}
 		}
 	}
+	public void setFront(){
+		currentcustparts = custpartsf;
+
+	}
+	public void setBack(){
+		currentcustparts = custpartsb;
+
+	}
+
 }
