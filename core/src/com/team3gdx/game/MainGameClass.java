@@ -1,4 +1,3 @@
-
 package com.team3gdx.game;
 
 import com.badlogic.gdx.Game;
@@ -11,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.team3gdx.game.screen.*;
 import com.team3gdx.game.util.AudioController;
+
+import java.io.*;
 
 public class MainGameClass extends Game {
 	public SpriteBatch batch;
@@ -29,7 +30,6 @@ public class MainGameClass extends Game {
 	private int customersServed;
 	private int wave;
 	private int score;
-
 
 	@Override
 	public void create() {
@@ -57,30 +57,20 @@ public class MainGameClass extends Game {
 		CreditScreen1 = new CreditScreen(this);
 		this.setScreen(mainScreen1);
 		// ==============================================================================================================
-
+		load();
 	}
 
 	public MainScreen getMainScreen() {
 		return mainScreen1;
 	}
 
-	/*
-	public GameScreen getGameScreen() {
-		return gameScreen1;
-	}
-	 */
-
 	public LeaderBoard getLeaderBoardScreen() {
 		return leaderBoardScreen1;
 	}
 
-	public WaveSelectScreen getWaveSelectScreen() { return waveSelectScreen1;}
-
-	/*
-	public void resetGameScreen() {
-		this.gameScreen1 = new GameScreen(this, mainScreen1);
+	public WaveSelectScreen getWaveSelectScreen() {
+		return waveSelectScreen1;
 	}
-	 */
 
 	@Override
 	public void render() {
@@ -94,8 +84,47 @@ public class MainGameClass extends Game {
 		super.dispose();
 	}
 
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public void setWave(int wave) {
+		this.wave = wave;
+	}
+
+	public void setCustomersServed(int customersServed) {
+		this.customersServed = customersServed;
+	}
+
+	public void load() {
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("save.txt"));
+			String line;
+			if ((line = reader.readLine()) != null) {
+				setScore(Integer.parseInt(line.trim()));
+			}
+			if ((line = reader.readLine()) != null) {
+				setWave(Integer.parseInt(line.trim()));
+			}
+			if ((line = reader.readLine()) != null) {
+				setCustomersServed(Integer.parseInt(line.trim()));
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void saveGame() {
-		new Save(this);
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter("save.txt", false));
+			writer.write(score + "\n");
+			writer.write(wave + "\n");
+			writer.write(customersServed + "\n");
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Screen getCreditsScreen() {

@@ -64,7 +64,7 @@ public class MainScreen implements Screen {
 	Stage stage;
 
 	enum STATE {
-		main, audio, leaderboard, new_game, endless_game, credits
+		main, audio, leaderboard, new_game, endless_game, credits, load_game, website
 	}
 
 	STATE state;
@@ -202,7 +202,7 @@ public class MainScreen implements Screen {
 		});
 		load.addListener(new ClickListener() {
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				state = STATE.new_game;
+				state = STATE.load_game;
 				super.touchUp(event, x, y, pointer, button);
 			}
 		});
