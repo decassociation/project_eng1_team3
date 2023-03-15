@@ -16,8 +16,11 @@ public class PowerupController {
      */
     public PowerupController(){
         powerups = new ArrayList<>();
+
+        // Speed boost
         SpeedBoost speedBoost = new SpeedBoost(0, 0);
         powerups.add(speedBoost);
+
         timeOfLast = System.currentTimeMillis();
     }
 
@@ -40,5 +43,6 @@ public class PowerupController {
             else powerups.get(selectIndex).active = false;
             timeOfLast = System.currentTimeMillis();
         }
+
     }
 }
