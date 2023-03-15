@@ -28,14 +28,14 @@ public class CustomerController {
 	private long timeOfLastCustomer;
 	private int timeUntilNext;
 	private int spawnMultiple;
-	int totalSpawned;
+	public int totalServed;
 
 	public CustomerController(TiledMap map) {
 		this.gameMap = map;
 		computeCustomerZone(gameMap);
 		amountActiveCustomers = 0;
 		lockout = 0;
-		totalSpawned = 0;
+		totalServed = 0;
 	}
 
 	/**
@@ -125,7 +125,6 @@ public class CustomerController {
 			if (customers[i] == null) {
 				customers[i] = new Customer(this.xCoordinate, this.bottom, this.top - i, i);
 				amountActiveCustomers += 1;
-				totalSpawned += 1;
 				return customers[i];
 			}
 		}
@@ -188,13 +187,13 @@ public class CustomerController {
 			spawnCustomer();
 
 			//random chance for second
-			if(totalSpawned > 3) {
+			if(totalServed > 3) {
 				spawnMultiple = ThreadLocalRandom.current().nextInt(0, 4);
 				if (spawnMultiple == 0) spawnCustomer();
 			}
 
 			//random chance for third
-			if(totalSpawned > 10) {
+			if(totalServed > 10) {
 				spawnMultiple = ThreadLocalRandom.current().nextInt(0, 10);
 				if (spawnMultiple == 0) spawnCustomer();
 			}

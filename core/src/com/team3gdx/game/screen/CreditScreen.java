@@ -30,7 +30,7 @@ public class CreditScreen implements Screen {
     @Override
     public void render(float delta) {
         this.batch.begin();
-        this.batch.draw(this.creditsImg, 0.0F, 0.0F, 1600.0F, 900.0F);
+        this.batch.draw(this.creditsImg, 0.0F, 0.0F, 1670.0F, 900.0F);
         this.batch.end();
         if (input.isKeyJustPressed(Input.Keys.SPACE)) {
             this.mainGameClass.setScreen(this.mainScreen);
