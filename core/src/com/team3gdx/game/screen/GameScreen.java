@@ -116,7 +116,7 @@ public class GameScreen implements Screen {
 	StationManager stationManager = new StationManager();
 	String difficulty;
 
-	PowerupController powerupController = new PowerupController();
+	PowerupController powerupController = new PowerupController(this);
 
 	/**
 	 * Constructor to initialise game screen;
@@ -704,6 +704,10 @@ public class GameScreen implements Screen {
 	public void resetStatic() {
 		currentWave = 0;
 		reputationPoints = 3;
+	}
+
+	public StationManager getStationManager(){
+		return stationManager;
 	}
 
 	/**

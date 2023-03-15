@@ -1,5 +1,7 @@
 package com.team3gdx.game.food;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -64,6 +66,7 @@ public class Ingredients {
 	public static Ingredient cooked_beans = new Ingredient(new Vector2(0, 0), 32, 32, "beans", 0, .5f);
 	static {
 		cooked_beans.status = Status.COOKED;
+		cooked_beans.texture = new Texture("items/" + cooked_beans.name + "_cooked.png");
 	}
 
 	public Ingredients() throws CloneNotSupportedException {

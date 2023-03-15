@@ -2,11 +2,11 @@ package com.team3gdx.game.powerup;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.team3gdx.game.entity.Cook;
+import com.team3gdx.game.screen.GameScreen;
 
 import java.util.ArrayList;
 
 public class PowerupController {
-    SpeedBoost speedBoost;
     ArrayList<Powerup> powerups;
     private long timeOfLast;
     private int selectIndex;
@@ -14,12 +14,16 @@ public class PowerupController {
     /***
      * Constructor for PowerupController
      */
-    public PowerupController(){
+    public PowerupController(GameScreen gameScreen){
         powerups = new ArrayList<>();
 
         // Speed boost
         SpeedBoost speedBoost = new SpeedBoost(0, 0);
         powerups.add(speedBoost);
+
+        // Get beaned
+        GetBeaned getBeaned = new GetBeaned(0, 0, gameScreen);
+        powerups.add(getBeaned);
 
         timeOfLast = System.currentTimeMillis();
     }
@@ -37,7 +41,7 @@ public class PowerupController {
         }
 
         // activate a random powerup at regular intervals, or deactivate if already active
-        if(System.currentTimeMillis() - timeOfLast >= 30000){
+        if(System.currentTimeMillis() - timeOfLast >= 10000){
             selectIndex = (int)(Math.random() * powerups.size());
             if(!powerups.get(selectIndex).active) powerups.get(selectIndex).activate();
             else powerups.get(selectIndex).active = false;
