@@ -123,7 +123,7 @@ public class miniWorldTest implements Screen {
 
         map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
-        cc = new CustomerController(map1);
+        cc = new CustomerController(map1, "easy");
         cc.spawnCustomer();
         testCustomer = cc.customers[0];
         testCustomer.posy = 640;
