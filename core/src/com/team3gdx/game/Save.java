@@ -10,7 +10,7 @@ public class Save {
 
     public Save(MainGameClass game) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
             writer.write(game.getScore() + "\n");
             writer.write(game.getWave() + "\n");
             writer.write(game.getCustomersServed() + "\n");
