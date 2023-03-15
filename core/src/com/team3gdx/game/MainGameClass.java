@@ -23,8 +23,10 @@ public class MainGameClass extends Game {
 	private LeaderBoard leaderBoardScreen1;
 	private WaveSelectScreen waveSelectScreen1;
 	private CreditScreen CreditScreen1;
+	public miniWorldTest miniWorldTest1;
 	public AudioController sounds;
 	public ShapeRenderer shapeRenderer;
+
 
 	@Override
 	public void create() {
@@ -50,6 +52,7 @@ public class MainGameClass extends Game {
 		leaderBoardScreen1 = new LeaderBoard(this, mainScreen1);
 		waveSelectScreen1 = new WaveSelectScreen(this, mainScreen1);
 		CreditScreen1 = new CreditScreen(this);
+		miniWorldTest1 = new miniWorldTest(this);
 		this.setScreen(mainScreen1);
 		// ==============================================================================================================
 	}
@@ -67,6 +70,8 @@ public class MainGameClass extends Game {
 	}
 
 	public WaveSelectScreen getWaveSelectScreen() { return waveSelectScreen1;}
+
+	public miniWorldTest getTestingScreen() { return miniWorldTest1;}
 
 	public void resetGameScreen() {
 		this.gameScreen1 = new GameScreen(this, mainScreen1);
