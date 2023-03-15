@@ -36,6 +36,8 @@ import com.team3gdx.game.entity.Customer;
 import com.team3gdx.game.entity.CustomerController;
 import com.team3gdx.game.entity.Entity;
 import com.team3gdx.game.food.Menu;
+import com.team3gdx.game.powerup.PowerupController;
+import com.team3gdx.game.powerup.SpeedBoost;
 import com.team3gdx.game.station.StationManager;
 import com.team3gdx.game.util.CollisionTile;
 import com.team3gdx.game.util.Control;
@@ -112,6 +114,9 @@ public class GameScreen implements Screen {
 	public static CustomerController cc;
 	InputMultiplexer multi;
 	StationManager stationManager = new StationManager();
+	String difficulty;
+
+	PowerupController powerupController = new PowerupController();
 
 	/**
 	 * Constructor to initialise game screen;
@@ -119,9 +124,10 @@ public class GameScreen implements Screen {
 	 * @param game - Main entry point class
 	 * @param ms   - Title screen class
 	 */
-	public GameScreen(MainGameClass game, MainScreen ms, int num_waves) {
+	public GameScreen(MainGameClass game, MainScreen ms, String difficulty, int num_waves) {
 		this.game = game;
 		this.ms = ms;
+		this.difficulty = difficulty;
 		this.calculateBoxMaths();
 		control = new Control();
 		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
@@ -130,13 +136,18 @@ public class GameScreen implements Screen {
 		constructCollisionData(map1);
 		cc = new CustomerController(map1);
 		cc.spawnCustomer();
+		cooks = new Cook[]{new Cook(new Vector2(64 * 5, 64 * 3), 1), new Cook(new Vector2(64 * 5, 64 * 5), 2), new Cook(new Vector2(64 * 5, 64 * 7), 3)};
+		currentCookIndex = 0;
+		cook = cooks[currentCookIndex];
+		stationManager = new StationManager();
 		NUMBER_OF_WAVES = num_waves;
 		ENDLESS = false;
 	}
 
-	public GameScreen(MainGameClass game, MainScreen ms) {
+	public GameScreen(MainGameClass game, MainScreen ms, String difficulty) {
 		this.game = game;
 		this.ms = ms;
+		this.difficulty = difficulty;
 		this.calculateBoxMaths();
 		control = new Control();
 		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
@@ -274,25 +285,36 @@ public class GameScreen implements Screen {
 		// =====================================RENDER=TOP=MAP=LAYER=====================================================
 		tiledMapRenderer.render(new int[] { 1 });
 		// =====================================DRAW=COOK=TOP=HALF=======================================================
-		stationManager.handleStations(game.batch);
+		try {
+			stationManager.handleStations(game.batch);
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
 		drawHeldItems();
 		game.batch.begin();
 		for (Cook curCook : cooks)
 			curCook.draw_top(game.batch);
 		cc.drawCustTop(game.batch); // todo fix customer z ordering
 		game.batch.end();
+		// =====================================UPDATE=POWERUPS==========================================================
+		powerupController.updatePowerups(game.batch, cook);
 		// ==================================MOVE=COOK===================================================================
 		tempTime = System.currentTimeMillis();
 		if (!cook.locked && Tutorial.complete)
 			cook.update(control, (tempTime - tempThenTime), CLTiles);
 		tempThenTime = tempTime;
-		checkInteraction(cook, game.shapeRenderer);
+		try {
+			checkInteraction(cook, game.shapeRenderer);
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
 		// =====================================SET=MATRIX=FOR=UI=ELEMENTS===============================================
 		Matrix4 uiMatrix = worldCamera.combined.cpy();
 		uiMatrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		game.batch.setProjectionMatrix(uiMatrix);
 		// =====================================DRAW=UI=ELEMENTS=========================================================
 		drawUI();
+
 		// =====================================SET=MATRIX=BACK=TO=GAME=MATRIX===========================================
 
 		setCameraLerp(delta);
@@ -443,7 +465,7 @@ public class GameScreen implements Screen {
 	public void changeScreen(STATE state1) {
 		if (state1 == STATE.main) {
 			game.gameMusic.dispose();
-			game.resetGameScreen();
+			//game.resetGameScreen();
 			game.setScreen(game.getMainScreen());
 
 		}
@@ -642,7 +664,7 @@ public class GameScreen implements Screen {
 	 * @param ck - Selected cook
 	 * @param sr - ShapeRenderer to draw the coloured box
 	 */
-	public void checkInteraction(Cook ck, ShapeRenderer sr) {
+	public void checkInteraction(Cook ck, ShapeRenderer sr) throws CloneNotSupportedException {
 		float centralCookX = ck.getX() + ck.getWidth() / 2;
 		float centralCookY = ck.getY();
 		int cellx = (int) Math.floor(centralCookX / 64);
@@ -670,11 +692,10 @@ public class GameScreen implements Screen {
 
 	public void checkGameOver() {
 		if (currentWave == NUMBER_OF_WAVES || reputationPoints == 0) {
-			if (reputationPoints != 0) {
-				game.getLeaderBoardScreen().addLeaderBoardData("PLAYER1",
-						(int) Math.floor((startTime - timeOnStartup) / 1000f));
+			if (ENDLESS) {
+				game.getLeaderBoardScreen().addLeaderBoardData("PLAYER1", cc.totalServed);
 			}
-			game.resetGameScreen();
+			//game.resetGameScreen();
 			this.resetStatic();
 			game.setScreen(game.getLeaderBoardScreen());
 		}

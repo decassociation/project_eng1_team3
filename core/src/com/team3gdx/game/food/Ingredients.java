@@ -57,4 +57,15 @@ public class Ingredients {
 	static {
 		cooked_potato.status = Status.COOKED;
 	}
+
+	// Beans
+	public static Ingredient beans = new Ingredient(new Vector2(0, 0), 32, 32, "beans", 0, .5f);
+	// Baked beans
+	public static Ingredient cooked_beans = new Ingredient(new Vector2(0, 0), 32, 32, "beans", 0, .5f);
+	static {
+		cooked_beans.status = Status.COOKED;
+	}
+
+	public Ingredients() throws CloneNotSupportedException {
+	}
 }

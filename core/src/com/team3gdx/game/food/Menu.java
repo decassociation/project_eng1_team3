@@ -31,6 +31,12 @@ public class Menu {
 		SALAD_STEPS.put(Ingredients.onionChopped, "Cut");
 	}
 
+	private static final Map<Ingredient, String> POTATO_BEANS_STEPS = new HashMap<Ingredient, String>();
+	static {
+		POTATO_BEANS_STEPS.put(Ingredients.cooked_potato, "Bake");
+		POTATO_BEANS_STEPS.put(Ingredients.cooked_beans, "Heat");
+	}
+
 	/**
 	 * Map of recipes
 	 */
@@ -41,6 +47,7 @@ public class Menu {
 		RECIPES.put("Burned burger", new Recipe("Form patty", Ingredients.unformedPatty, BURGER_BURNED_STEPS,
 				"serve together", "burger_burned", false, null, 32, 32, 0));
 		RECIPES.put("Salad", new Recipe("", null, SALAD_STEPS, "serve together", "salad", false, null, 32, 32, 0));
+		RECIPES.put("Potato beans", new Recipe("", null, POTATO_BEANS_STEPS, "serve together", "potato_beans", false, null, 32, 32, 0));
 	}
 
 	/**

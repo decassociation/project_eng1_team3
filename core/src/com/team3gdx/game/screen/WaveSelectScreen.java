@@ -15,7 +15,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3gdx.game.MainGameClass;
-import org.w3c.dom.Text;
 
 public class WaveSelectScreen implements Screen {
 
@@ -129,12 +128,12 @@ public class WaveSelectScreen implements Screen {
     public void changeScreen(STATE state) {
         if (state == STATE.new_game) {
             game.mainScreenMusic.dispose();
-            game.setScreen(new GameScreen(game, game.getMainScreen(), waves));
+            game.setScreen(new DifficultySelectScreen(game, game.getMainScreen(), waves));
         }
 
         if (state == STATE.main) {
             game.gameMusic.dispose();
-            game.resetGameScreen();
+            //game.resetGameScreen();
             game.setScreen(game.getMainScreen());
         }
     }

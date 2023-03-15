@@ -55,10 +55,10 @@ public class LeaderBoard implements Screen, TextInputListener {
 			String text = handle.readString();
 			String[] entries = text.split("\\n");
 			for (String s : entries) {
-				if(!s.equals("s")) {
+				if(!s.trim().equals("s")) {
 					String[] parts = s.split(";");
 					String name = parts[0];
-					String stringScore = parts[1].trim();
+					String stringScore = parts[  1].trim();
 					ArrayList<String> sublist = new ArrayList<>();
 					sublist.add(name);
 					sublist.add(stringScore);
@@ -121,7 +121,7 @@ public class LeaderBoard implements Screen, TextInputListener {
 		game.font.draw(game.batch, "Press ESC to return to menu", ms.gameResolutionX / 20.0f,
 				19 * ms.gameResolutionY / 19.0f);
 		game.font.draw(game.batch, "Name", 4 * ms.gameResolutionX / 20.0f, 17 * ms.gameResolutionY / 20.0f);
-		game.font.draw(game.batch, "Time (s)", 12 * ms.gameResolutionX / 20.0f, 17 * ms.gameResolutionY / 20.0f);
+		game.font.draw(game.batch, "Customers Served", 12 * ms.gameResolutionX / 20.0f, 17 * ms.gameResolutionY / 20.0f);
 		game.batch.draw(line, lbox, dbox + eachentryhi, boxwid, ms.gameResolutionY / 100.0f);
 		game.batch.draw(line, lbox, dbox + 2 * eachentryhi, boxwid, ms.gameResolutionY / 100.0f);
 		game.batch.draw(line, lbox, dbox + 3 * eachentryhi, boxwid, ms.gameResolutionY / 100.0f);

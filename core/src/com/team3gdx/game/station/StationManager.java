@@ -26,7 +26,9 @@ public class StationManager {
 	public static Map<Vector2, Station> stations = new HashMap<Vector2, Station>();
 
 	SpriteBatch batch;
-
+	public StationManager() {
+		stations = new HashMap<Vector2, Station>();
+	}
 	private BitmapFont font = new BitmapFont();
 
 	/**
@@ -34,7 +36,7 @@ public class StationManager {
 	 * 
 	 * @param batch - SpriteBatch to render ingredient textures.
 	 */
-	public void handleStations(SpriteBatch batch) {
+	public void handleStations(SpriteBatch batch) throws CloneNotSupportedException {
 		this.batch = batch;
 		for (Station station : stations.values()) {
 			if (!station.slots.empty() && !station.infinite) {
@@ -73,25 +75,28 @@ public class StationManager {
 	 * @param type The station type.
 	 * @param pos  The position of the tile.
 	 */
-	public void checkInteractedTile(String type, Vector2 pos) {
+	public void checkInteractedTile(String type, Vector2 pos) throws CloneNotSupportedException {
 		switch (type) {
 		case "Buns":
-			takeIngredientStation(pos, Ingredients.bun);
+			takeIngredientStation(pos, (Ingredient) Ingredients.bun.clone());
 			break;
 		case "Patties":
-			takeIngredientStation(pos, Ingredients.unformedPatty);
+			takeIngredientStation(pos, (Ingredient) Ingredients.unformedPatty.clone());
 			break;
 		case "Lettuces":
-			takeIngredientStation(pos, Ingredients.lettuce);
+			takeIngredientStation(pos, (Ingredient) Ingredients.lettuce.clone());
 			break;
 		case "Tomatoes":
-			takeIngredientStation(pos, Ingredients.tomato);
+			takeIngredientStation(pos, (Ingredient) Ingredients.tomato.clone());
 			break;
 		case "Onions":
-			takeIngredientStation(pos, Ingredients.onion);
+			takeIngredientStation(pos, (Ingredient) Ingredients.onion.clone());
 			break;
 		case "Potatoes":
-			takeIngredientStation(pos, Ingredients.potato);
+			takeIngredientStation(pos, (Ingredient) Ingredients.potato.clone());
+			break;
+		case "Beans":
+			takeIngredientStation(pos, (Ingredient) Ingredients.beans.clone());
 			break;
 		case "Frying":
 			if (!stations.containsKey(pos)) {

@@ -269,7 +269,7 @@ public class MainScreen implements Screen {
 
 		if (state == STATE.endless_game) {
 			game.mainScreenMusic.dispose();
-			game.setScreen(game.getGameScreen());
+			game.setScreen(new DifficultySelectScreen(game, game.getMainScreen(), -1));
 		}
 
 		if (state == STATE.leaderboard) {
