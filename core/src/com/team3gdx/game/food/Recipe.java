@@ -72,7 +72,14 @@ public class Recipe extends Ingredient {
 		this.cost = cost;
 	}
 
-	ShapeRenderer shapeRenderer = new ShapeRenderer();
+	private static ShapeRenderer _shapeRenderer = null;
+
+	private static ShapeRenderer getShapeRenderer() {
+		if (_shapeRenderer == null) {
+			_shapeRenderer = new ShapeRenderer();
+		}
+		return _shapeRenderer;
+	}
 
 	/**
 	 * Show the recipe as a list of instructions with the corresponding ingredient
