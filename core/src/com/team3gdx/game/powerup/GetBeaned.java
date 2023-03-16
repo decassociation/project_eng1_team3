@@ -28,11 +28,7 @@ public class GetBeaned extends Powerup{
                 if (viewedTile != null) {
                     Object stationType = viewedTile.getTile().getProperties().get("Station");
                     if (stationType == null) {
-                        try {
-                            gameScreen.getStationManager().checkInteractedTile("", new Vector2(x, y));
-                        } catch (CloneNotSupportedException e) {
-                            e.printStackTrace();
-                        }
+                        gameScreen.getStationManager().checkInteractedTile("", new Vector2(x, y));
                     }
                 }
             }
