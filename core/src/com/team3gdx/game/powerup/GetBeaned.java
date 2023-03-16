@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.team3gdx.game.entity.Cook;
 import com.team3gdx.game.food.Ingredients;
 import com.team3gdx.game.screen.GameScreen;
-import com.team3gdx.game.station.Station;
+import com.team3gdx.game.station.*;
 
 public class GetBeaned extends Powerup{
     private GameScreen gameScreen;
@@ -27,7 +27,10 @@ public class GetBeaned extends Powerup{
 
                 if (viewedTile != null) {
                     Object stationType = viewedTile.getTile().getProperties().get("Station");
-                    if (stationType == null) {
+                    if (stationType != null) {
+                        gameScreen.getStationManager().checkInteractedTile((String) viewedTile.getTile().getProperties().get("Station"),
+                                new Vector2(x, y));
+                    } else {
                         gameScreen.getStationManager().checkInteractedTile("", new Vector2(x, y));
                     }
                 }
@@ -36,7 +39,9 @@ public class GetBeaned extends Powerup{
 
         for(Station station: gameScreen.getStationManager().stations.values()){
             for(int i = 0; i < 4; i++) {
-                station.place(Ingredients.cooked_beans);
+                if(!station.getClass().equals(IngredientStation.class)) {
+                    station.place(Ingredients.cooked_beans);
+                }
             }
         }
     }
