@@ -165,7 +165,7 @@ public class MainScreen implements Screen {
 		sb.setSize(buttonwidth, buttonheight);
 		end.setSize(buttonwidth, buttonheight);
 		load.setSize(buttonwidth, buttonheight);
-		web.setSize(buttonwidth, buttonheight);
+		web.setSize( buttonwidth, buttonheight );
 		cred.setSize(buttonwidth, buttonheight);
 
 		ad.addListener(new ClickListener() {
