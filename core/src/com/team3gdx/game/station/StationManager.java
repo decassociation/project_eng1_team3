@@ -98,6 +98,12 @@ public class StationManager {
 		case "Beans":
 			takeIngredientStation(pos, Ingredients.beans);
 			break;
+		case "Cheese":
+			takeIngredientStation(pos, Ingredients.cheese);
+			break;
+		case "Dough":
+			takeIngredientStation(pos, Ingredients.dough);
+			break;
 		case "Frying":
 			if (!stations.containsKey(pos)) {
 				stations.put(pos, new FryingStation(pos));

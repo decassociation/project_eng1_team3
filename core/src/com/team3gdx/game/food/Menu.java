@@ -37,6 +37,13 @@ public class Menu {
 		POTATO_BEANS_STEPS.put(Ingredients.cooked_beans, "Heat");
 	}
 
+	private static final Map<Ingredient, String> PIZZA_STEPS = new HashMap<Ingredient, String>();
+	static {
+		PIZZA_STEPS.put(Ingredients.cookedPizzaBase, "Bake");
+		PIZZA_STEPS.put(Ingredients.tomatoPaste, "Top");
+		PIZZA_STEPS.put(Ingredients.cheese, "Top");
+	}
+
 	/**
 	 * Map of recipes
 	 */
@@ -48,6 +55,7 @@ public class Menu {
 				"serve together", "burger_burned", false, null, 32, 32, 0));
 		RECIPES.put("Salad", new Recipe("", null, SALAD_STEPS, "serve together", "salad", false, null, 32, 32, 0));
 		RECIPES.put("Potato beans", new Recipe("", null, POTATO_BEANS_STEPS, "serve together", "potato_beans", false, null, 32, 32, 0));
+		RECIPES.put("Pizza", new Recipe("Form base", Ingredients.dough, PIZZA_STEPS, "serve together","pizza", false, null, 32, 32, 0));
 	}
 
 	/**
@@ -57,6 +65,7 @@ public class Menu {
 	public static final Map<Ingredient, Ingredient> INGREDIENT_PREP = new HashMap<Ingredient, Ingredient>();
 	static {
 		INGREDIENT_PREP.put(Ingredients.unformedPatty, Ingredients.formedPatty);
-
+		INGREDIENT_PREP.put(Ingredients.dough, Ingredients.pizzaBase);
+		INGREDIENT_PREP.put(Ingredients.tomato, Ingredients.tomatoPaste);
 	}
 }

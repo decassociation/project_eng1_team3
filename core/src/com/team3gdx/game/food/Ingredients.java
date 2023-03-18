@@ -43,6 +43,8 @@ public class Ingredients {
 		onionChopped.slices = 1;
 	}
 
+	public static Ingredient tomatoPaste = new Ingredient(null, 32, 32, "tomato_paste", 1, 0);
+
 	// Breads.
 	public static Ingredient bun = new Ingredient(new Vector2(0, 0), 32, 32, "burger_bun", 0, .5f);
 	// Toasted breads.
@@ -68,4 +70,16 @@ public class Ingredients {
 		cooked_beans.status = Status.COOKED;
 		cooked_beans.texture = new Texture("items/" + cooked_beans.name + "_cooked.png");
 	}
+
+	// Cheese
+	public static Ingredient cheese = new Ingredient(new Vector2(0, 0), 32, 32, "cheese", 0, .5f);
+
+	// Dough and pizza base
+	public static Ingredient dough = new Ingredient(null, 32, 32, "dough", 0, .5f);
+	public static Ingredient pizzaBase = new Ingredient(null, 32, 32, "pizza_base", 0, .5f);
+	public static Ingredient cookedPizzaBase = new Ingredient(null, 32, 32, "pizza_base", 0, .5f);
+	static {
+		cookedPizzaBase.status = Status.COOKED;
+	}
+
 }

@@ -6,7 +6,7 @@ import com.team3gdx.game.food.Ingredients;
 
 public class BakingStation extends CookingStation {
 
-	private final static Ingredient[] ALLOWED_INGREDIENTS = { Ingredients.bun, Ingredients.cooked_bun, Ingredients.potato };
+	private final static Ingredient[] ALLOWED_INGREDIENTS = { Ingredients.bun, Ingredients.cooked_bun, Ingredients.potato, Ingredients.pizzaBase };
 
 	public BakingStation(Vector2 pos) {
 		super(pos, 4, ALLOWED_INGREDIENTS, "particles/smokes.party", "audio/soundFX/frying.mp3");

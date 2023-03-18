@@ -11,7 +11,7 @@ import com.team3gdx.game.screen.GameScreen;
 
 public class ServingStation extends Station {
 
-	String[] possibleOrders = new String[] { "Burger", "Salad", "Potato beans" };
+	String[] possibleOrders = new String[] { "Burger", "Salad", "Potato beans", "Pizza" };
 
 	/**
 	 * Configure allowed ingredient to be those on the menu.
