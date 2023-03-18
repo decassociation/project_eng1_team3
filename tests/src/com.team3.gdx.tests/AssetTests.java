@@ -214,7 +214,7 @@ public class AssetTests {
     @Test
     public void testUIElementsExist(){
         assertTrue("audio.png in uielements", Gdx.files.internal("uielements/audio.png").exists());
-        assertTrue("audio2.png in uielements", Gdx.files.internal("uielements/audio2.png").exists());
+        assertTrue("audio.png in uielements", Gdx.files.internal("uielements/audio2.png").exists());
         assertTrue("background.png in uielements", Gdx.files.internal("uielements/background.png").exists());
         assertTrue("background1.png in uielements", Gdx.files.internal("uielements/background1.png").exists());
         assertTrue("badlogic.jpg in uielements", Gdx.files.internal("uielements/badlogic.jpg").exists());

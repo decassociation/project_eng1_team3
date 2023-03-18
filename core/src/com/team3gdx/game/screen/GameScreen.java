@@ -198,7 +198,7 @@ public class GameScreen implements Screen {
 		ESC = new Texture(Gdx.files.internal("uielements/background.png"));
 		BACKTOMAINSCREEN = new Texture(Gdx.files.internal("uielements/exitmenu.png"));
 		RESUME = new Texture(Gdx.files.internal("uielements/resume.png"));
-		AUDIO = new Texture(Gdx.files.internal("uielements/audio2.png"));
+		AUDIO = new Texture(Gdx.files.internal("uielements/audio.png"));
 		audioEdit = new Texture(Gdx.files.internal("uielements/background.png"));
 		// ======================================CREATE=BUTTONS==========================================================
 		mn = new Button(new TextureRegionDrawable(MENU));
