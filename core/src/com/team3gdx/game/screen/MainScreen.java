@@ -154,8 +154,8 @@ public class MainScreen implements Screen {
 		lb.setPosition(gameResolutionX / 10.0f, startY + 2 * buttonheight);
 		eg.setPosition(gameResolutionX / 10.0f, startY + buttonheight);
 		ad.setPosition(gameResolutionX / 10.0f, startY);
-		web.setPosition(1230, 400);
-		cred.setPosition(1150, 700);
+		web.setPosition(1150, startY + 5 * buttonheight);
+		cred.setPosition(1150, startY + 4 * buttonheight);
 
 
 
@@ -165,7 +165,7 @@ public class MainScreen implements Screen {
 		sb.setSize(buttonwidth, buttonheight);
 		end.setSize(buttonwidth, buttonheight);
 		load.setSize(buttonwidth, buttonheight);
-		web.setSize(250, 250);
+		web.setSize(buttonwidth, buttonheight);
 		cred.setSize(buttonwidth, buttonheight);
 
 		ad.addListener(new ClickListener() {
