@@ -78,8 +78,8 @@ public class MainScreen implements Screen {
 		this.game = game;
 		this.gameResolutionX = Gdx.graphics.getWidth();
 		this.gameResolutionY = Gdx.graphics.getHeight();
-		this.buttonwidth = (float) gameResolutionX / 3;
-		this.buttonheight = (float) gameResolutionY / 6;
+		this.buttonwidth = (float) gameResolutionX / 4;
+		this.buttonheight = (float) gameResolutionY / 8;
 
 		this.volSlide = new Rectangle();
 		volSlide.width = 3 * buttonheight / 12;
@@ -154,8 +154,8 @@ public class MainScreen implements Screen {
 		lb.setPosition(gameResolutionX / 10.0f, startY + 2 * buttonheight);
 		eg.setPosition(gameResolutionX / 10.0f, startY + buttonheight);
 		ad.setPosition(gameResolutionX / 10.0f, startY);
-		web.setPosition(1130, 400);
-		cred.setPosition(1000, 700);
+		web.setPosition(1230, 400);
+		cred.setPosition(1150, 700);
 
 
 
