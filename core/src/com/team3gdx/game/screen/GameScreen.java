@@ -356,9 +356,9 @@ public class GameScreen implements Screen {
 	}
 
 	private void checkCustomerWaitTime() { //Removes a customer if wait time is exceeded
-		if (currentWaitingCustomer != null
-				&& currentWaitingCustomer.waitTime() > MAX_WAIT_TIME ) {
-			cc.delCustomer(currentWaitingCustomer);
+		for(Customer customer: cc.customers) {
+			if (customer != null && customer.waitTime() > MAX_WAIT_TIME && customer.locked) {
+				cc.delCustomer(customer);
 
 			/*  dont spawn new ones on timeout
 			if (ENDLESS || currentWave < NUMBER_OF_WAVES - 1) {
@@ -366,9 +366,10 @@ public class GameScreen implements Screen {
 			}
 			*/
 
-			currentWave++;
-			reputationPoints--;
-			currentWaitingCustomer = null;
+				currentWave++;
+				reputationPoints--;
+				currentWaitingCustomer = null;
+			}
 		}
 	}
 

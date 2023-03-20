@@ -112,6 +112,7 @@ public class Customer {
 		}
 		if (posy == targetpixel) {
 			if (targetpixel > 0) {
+				if (!locked) arrived();
 				posx = startposx + 64;
 				locked = true;
 				currentcustparts = custpartsr;

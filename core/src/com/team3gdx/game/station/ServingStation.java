@@ -38,7 +38,7 @@ public class ServingStation extends Station {
 		if (waitingCustomer != null && waitingCustomer.locked) {
 			if (GameScreen.currentWaitingCustomer == null) {
 				waitingCustomer.order = possibleOrders[new Random().nextInt(possibleOrders.length)];
-				waitingCustomer.arrived();
+				//waitingCustomer.arrived();
 				GameScreen.currentWaitingCustomer = waitingCustomer;
 			}
 			if (waitingCustomer == GameScreen.currentWaitingCustomer && !slots.empty()
@@ -53,6 +53,7 @@ public class ServingStation extends Station {
 				*/
 
 				GameScreen.cc.totalServed++;
+				GameScreen.reputationPoints++;
 
 				GameScreen.currentWave++;
 				waitingCustomer.locked = false;
