@@ -66,9 +66,12 @@ public class Ingredients {
 	public static Ingredient beans = new Ingredient(new Vector2(0, 0), 32, 32, "beans", 0, .5f);
 	// Baked beans
 	public static Ingredient cooked_beans = new Ingredient(new Vector2(0, 0), 32, 32, "beans", 0, .5f);
+	public static Ingredient cooked_beans_with_spill = new Ingredient(new Vector2(0, 0), 32, 32, "beans", 0, .5f);
 	static {
 		cooked_beans.status = Status.COOKED;
 		cooked_beans.texture = new Texture("items/" + cooked_beans.name + "_cooked.png");
+		cooked_beans_with_spill.status = Status.COOKED;
+		cooked_beans_with_spill.texture = new Texture("items/" + cooked_beans_with_spill.name + "pill.png");
 	}
 
 	// Cheese
