@@ -11,10 +11,7 @@ import com.team3gdx.game.food.Ingredients;
 import com.team3gdx.game.food.Menu;
 import com.team3gdx.game.food.Recipe;
 import com.team3gdx.game.screen.GameScreen;
-import com.team3gdx.game.station.BakingStation;
-import com.team3gdx.game.station.ServingStation;
-import com.team3gdx.game.station.Station;
-import com.team3gdx.game.station.StationManager;
+import com.team3gdx.game.station.*;
 import com.team3gdx.game.util.Control;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -105,5 +102,28 @@ public class StationTests {
         Ingredient testBeans = Ingredients.beans;
         assertFalse("Beans should have been stopped from being placed on the baking station but weren't",
                 testBS.place(testBeans));
+    }
+
+    @Test
+    public void testCreateFryingStation(){
+        Vector2 testPos = new Vector2(15,16);
+        FryingStation testFS = new FryingStation(testPos);
+        StationManager.stations.put(testPos, testFS);
+        assertEquals("A frying station should have been created at (15,16) but hasn't",
+                StationManager.stations.get(testPos), testFS);
+    }
+
+    @Test
+    public void testFryingStationPlace() {
+        Vector2 testPos = new Vector2(15,16);
+        FryingStation testFS = new FryingStation(testPos);
+        StationManager.stations.put(testPos, testFS);
+        Ingredient testFormedPatty = Ingredients.formedPatty;
+        assertTrue("A formed patty should have been placed on the frying station but wasn't",
+                testFS.place(testFormedPatty));
+
+        Ingredient testBeans = Ingredients.beans;
+        assertFalse("Beans should have been stopped from being placed on the frying station but weren't",
+                testFS.place(testBeans));
     }
 }
