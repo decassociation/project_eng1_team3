@@ -53,13 +53,21 @@ public class StationTests {
         GameScreen.cc.customers[0] = new Customer(19, 20, 20, 0);
         GameScreen.currentWaitingCustomer = GameScreen.cc.customers[0];
         GameScreen.cc.customers[0].locked = true;
-
         GameScreen.control = new Control();
         Vector2 testPosB = new Vector2(20,20);
         StationManager testSM = new StationManager();
         testSM.checkInteractedTile("Service", testPosB);
         assertTrue("Serving station should have been instantiated at (20, 20)",
                 testSM.stations.get(testPosB) instanceof ServingStation);
+
+        //----------------------------- TEST LINES 40 & 41 IN ServingStation.serveCustomer() ---------------------------
+        GameScreen.cc.customers[0].order = null;
+        GameScreen.currentWaitingCustomer = null;
+
+        ((ServingStation) testSM.stations.get(testPosB)).serveCustomer();
+        assertTrue("GameScreen.currentWaitingCustomer (i.e. the test customer should have had their order " +
+                        "changed from null to a random order but didn't)",
+                GameScreen.cc.customers[0].order != null);
 
         //---------------------------------------- TEST CUSTOMER SERVING -----------------------------------------------
         // To test customer serving, the code from the above section is built upon so no duplicated code
