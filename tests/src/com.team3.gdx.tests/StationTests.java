@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
+import com.team3gdx.game.entity.Cook;
 import com.team3gdx.game.entity.Customer;
 import com.team3gdx.game.entity.CustomerController;
 import com.team3gdx.game.food.Ingredient;
@@ -125,5 +126,44 @@ public class StationTests {
         Ingredient testBeans = Ingredients.beans;
         assertFalse("Beans should have been stopped from being placed on the frying station but weren't",
                 testFS.place(testBeans));
+    }
+
+    @Test
+    public void testCookingStationLockCook(){
+        // FryingStation extends CookingStation so can just create a frying station
+        Vector2 testPos = new Vector2(15,16);
+        FryingStation testFS = new FryingStation(testPos);
+        StationManager.stations.put(testPos, testFS);
+
+        // Tests when all if statement conditions are False in lockCook()
+        testFS.lockedCook = null;
+        assertFalse("The frying station's slots stack should be empty and it's lockedCook attribute should be " +
+                        "null so False should be returned by testFS.lockCook() but wasn't", testFS.lockCook());
+
+        // Tests when (!slots.isEmpty() = False) and ((lockedCook == null) = False) so (lockedCook != null) = True
+        // in lockCook()
+        testFS.lockedCook = GameScreen.cooks[0];
+        assertFalse("lockCook() should have returned False",
+                testFS.lockCook());
+
+        // Tests when (!slots.isEmpty() = True) and ((lockedCook == null) = True) in lockCook()
+        testFS.place(Ingredients.formedPatty);
+        testFS.place(Ingredients.formedPatty);
+        assertTrue("lockCook() should have returned True",
+                testFS.lockCook());
+
+        // Tests when (!slots.isEmpty() = True) and ((lockedCook == null) = False) in lockCook()
+        testFS.lockedCook = GameScreen.cooks[0];
+        testFS.place(Ingredients.formedPatty);
+        testFS.place(Ingredients.formedPatty);
+        assertTrue("lockCook() should have returned True",
+                testFS.lockCook());
+
+        // Tests...
+        testFS.lockedCook = GameScreen.cooks[0];
+        assertTrue("testFS.lockedCook should be set to a Cook type value but isn't (it's likely to be null" +
+                " instead)", testFS.lockedCook == GameScreen.cook);
+        assertTrue("lockCook() should have returned True for the test Frying Station now slots isn't empty " +
+                "and the station's locked cook attribute is not empty, but True was not returned", testFS.lockCook());
     }
 }
