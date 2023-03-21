@@ -40,7 +40,7 @@ public class GetBeaned extends Powerup{
         for(Station station: gameScreen.getStationManager().stations.values()){
             for(int i = 0; i < 4; i++) {
                 if(!station.getClass().equals(IngredientStation.class)) {
-                    station.place(Ingredients.cooked_beans);
+                    station.place(Ingredients.cooked_beans_with_spill);
                 }
             }
         }
