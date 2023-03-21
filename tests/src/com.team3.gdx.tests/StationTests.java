@@ -6,10 +6,12 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.team3gdx.game.entity.Customer;
 import com.team3gdx.game.entity.CustomerController;
+import com.team3gdx.game.food.Ingredient;
 import com.team3gdx.game.food.Ingredients;
 import com.team3gdx.game.food.Menu;
 import com.team3gdx.game.food.Recipe;
 import com.team3gdx.game.screen.GameScreen;
+import com.team3gdx.game.station.BakingStation;
 import com.team3gdx.game.station.ServingStation;
 import com.team3gdx.game.station.Station;
 import com.team3gdx.game.station.StationManager;
@@ -77,5 +79,31 @@ public class StationTests {
         ((ServingStation) testSM.stations.get(testPosB)).serveCustomer();
         assertNull("There should be no existing customers but there is one at GameScreen.cc.customers[0]",
                 GameScreen.cc.customers[0]);
+    }
+
+    @Test
+    public void testCreateBakingStation(){
+        Vector2 testPos = new Vector2(15,16);
+        BakingStation testBS = new BakingStation(testPos);
+        StationManager.stations.put(testPos, testBS);
+        assertEquals("A baking station should have been created at (15,16) but hasn't",
+                StationManager.stations.get(testPos), testBS);
+    }
+
+    @Test
+    public void testBakingStationPlace(){
+        Vector2 testPos = new Vector2(15,16);
+        BakingStation testBS = new BakingStation(testPos);
+        StationManager.stations.put(testPos, testBS);
+        Ingredient testPotato = Ingredients.potato;
+        assertTrue("A potato should have been placed on the baking station but wasn't",
+                testBS.place(testPotato));
+        assertTrue("The potato placed onto the baking station stack should be flipped but isn't",
+                testPotato.flipped);
+
+
+        Ingredient testBeans = Ingredients.beans;
+        assertFalse("Beans should have been stopped from being placed on the baking station but weren't",
+                testBS.place(testBeans));
     }
 }
