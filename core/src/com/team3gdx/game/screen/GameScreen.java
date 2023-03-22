@@ -42,6 +42,8 @@ import com.team3gdx.game.station.StationManager;
 import com.team3gdx.game.util.CollisionTile;
 import com.team3gdx.game.util.Control;
 
+import java.util.ArrayList;
+
 public class GameScreen implements Screen {
 
 	public static int NUMBER_OF_WAVES;
@@ -68,23 +70,30 @@ public class GameScreen implements Screen {
 	Texture audioEdit;
 	Texture vControl;
 	Texture vButton;
+	Texture SHOP;
+	Texture BUYCHEF2;
+	Texture BUYCHEF3;
 	Button mn;
 	Button rs;
 	Button ad;
 	Button btms;
 	Button end;
+	Button shop;
+	Button buyChef2;
+	Button buyChef3;
 	public static CollisionTile[][] CLTiles;
 	Viewport uiViewport;
 	Viewport worldViewport;
 	Stage stage;
 	Stage stage2;
+	Stage stage3;
 	OrthographicCamera uiCamera;
 	public static OrthographicCamera worldCamera;
 
 	public static Customer currentWaitingCustomer = null;
 
 	public enum STATE {
-		Pause, Continue, main, audio
+		Pause, Continue, main, audio, shop
 	}
 
 	public static STATE state1;
@@ -108,7 +117,8 @@ public class GameScreen implements Screen {
 	public static Control control;
 	TiledMapRenderer tiledMapRenderer;
 	public TiledMap map1;
-	public static Cook[] cooks = { new Cook(new Vector2(64 * 5, 64 * 3), 1), new Cook(new Vector2(64 * 5, 64 * 5), 2), new Cook(new Vector2(64 * 5, 64 * 7), 3) };
+	public static Cook[] cooks = { new Cook(new Vector2(64 * 5, 64 * 3), 1), new Cook(new Vector2(64 * 5, 64 * 5), 2) };
+	//public static ArrayList<Cook> cooks = new ArrayList<>();
 	public static int currentCookIndex = 0;
 	public static Cook cook = cooks[currentCookIndex];
 	public static CustomerController cc;
@@ -136,9 +146,6 @@ public class GameScreen implements Screen {
 		constructCollisionData(map1);
 		cc = new CustomerController(map1, difficulty);
 		cc.spawnCustomer();
-		cooks = new Cook[]{new Cook(new Vector2(64 * 5, 64 * 3), 1), new Cook(new Vector2(64 * 5, 64 * 5), 2), new Cook(new Vector2(64 * 5, 64 * 7), 3)};
-		currentCookIndex = 0;
-		cook = cooks[currentCookIndex];
 		stationManager = new StationManager();
 		NUMBER_OF_WAVES = num_waves;
 		ENDLESS = false;
@@ -191,6 +198,7 @@ public class GameScreen implements Screen {
 		// ======================================START=STAGES============================================================
 		stage = new Stage(uiViewport);
 		stage2 = new Stage(uiViewport);
+		stage3 = new Stage(uiViewport);
 		// ======================================CREATE=INPUTMULTIPLEXER=================================================
 		multi = new InputMultiplexer(stage, control);
 		// ======================================LOAD=TEXTURES===========================================================
@@ -200,11 +208,17 @@ public class GameScreen implements Screen {
 		RESUME = new Texture(Gdx.files.internal("uielements/resume.png"));
 		AUDIO = new Texture(Gdx.files.internal("uielements/audio.png"));
 		audioEdit = new Texture(Gdx.files.internal("uielements/background.png"));
+		SHOP = new Texture(Gdx.files.internal("uielements/shop.png"));
+		//BUYCHEF2 = new Texture(Gdx.files.internal("uielements/buychef2.png"));
+		BUYCHEF3 = new Texture(Gdx.files.internal("uielements/buychef3.png"));
 		// ======================================CREATE=BUTTONS==========================================================
 		mn = new Button(new TextureRegionDrawable(MENU));
 		ad = new Button(new TextureRegionDrawable(AUDIO));
 		rs = new Button(new TextureRegionDrawable(RESUME));
 		btms = new Button(new TextureRegionDrawable(BACKTOMAINSCREEN));
+		shop = new Button(new TextureRegionDrawable(SHOP));
+		//buyChef2 = new Button(new TextureRegionDrawable(BUYCHEF2));
+		buyChef3 = new Button(new TextureRegionDrawable(BUYCHEF3));
 		// ======================================POSITION=AND=SCALE=BUTTONS==============================================
 		mn.setPosition(gameResolutionX / 40.0f, 18 * gameResolutionY / 20.0f);
 		mn.setSize(buttonwidth, buttonheight);
@@ -215,6 +229,12 @@ public class GameScreen implements Screen {
 		btms.setPosition(ad.getX() + ad.getWidth() + 2 * (gameResolutionX / 40.0f - gameResolutionX / 50.0f),
 				ad.getY());
 		btms.setSize(buttonwidth, buttonheight);
+		shop.setPosition(gameResolutionX / 40.0f, (18 * gameResolutionY / 20.0f) - 60);
+		shop.setSize(buttonwidth, buttonheight);
+		//buyChef2.setPosition(gameResolutionX / 10.f, 20 * gameResolutionY / 10.0f - 10);
+		//buyChef2.setSize(buttonwidth, buttonheight);
+		buyChef3.setPosition((gameResolutionX / 40.0f) + buttonwidth + (gameResolutionX / 50f), (18 * gameResolutionY / 20.0f) - 60);
+		buyChef3.setSize(buttonwidth, buttonheight);
 		// ======================================ADD=LISTENERS=TO=BUTTONS================================================
 		mn.addListener(new ClickListener() {
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -240,11 +260,33 @@ public class GameScreen implements Screen {
 				super.touchUp(event, x, y, pointer, button);
 			}
 		});
+		shop.addListener(new ClickListener() {
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				state1 = STATE.shop;
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
+		buyChef3.addListener(new ClickListener() {
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				if(reputationPoints > 5) {
+					Cook[] cooks2 = new Cook[cooks.length + 1];
+					System.arraycopy(cooks, 0, cooks2, 0, cooks.length);
+					cooks2[cooks.length] = new Cook(new Vector2(64 * 5, 64 * 5), 3);
+					cooks = cooks2;
+					buyChef3.remove();
+					reputationPoints -= 5;
+				}
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
 		// ======================================ADD=BUTTONS=TO=STAGES===================================================
 		stage.addActor(mn);
+		stage.addActor(shop);
 		stage2.addActor(rs);
 		stage2.addActor(btms);
 		stage2.addActor(ad);
+		stage3.addActor(buyChef3);
+		stage3.addActor(rs);
 
 	}
 
@@ -502,6 +544,11 @@ public class GameScreen implements Screen {
 			startTime += nowTime - thenTime;
 			cc.updateCustomers();
 			thenTime = System.currentTimeMillis() - timeOnStartup;
+		}
+		if(state1 == STATE.shop){
+			Gdx.input.setInputProcessor(stage3);
+			stage3.act();
+			stage3.draw();
 		}
 	}
 
