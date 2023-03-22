@@ -169,4 +169,13 @@ public class StationTests {
         assertTrue("lockCook() should have returned True for the test Frying Station now slots isn't empty " +
                 "and the station's locked cook attribute is not empty, but True was not returned", testFS.lockCook());
     }
+
+    @Test
+    public void testCreateCuttingStation(){
+        Vector2 testPos = new Vector2(10,11);
+        CuttingStation testCS = new CuttingStation(testPos, 2);
+        StationManager.stations.put(testPos, testCS);
+        assertTrue("A new cutting station should have been created but hasn't",
+                StationManager.stations.get(testPos) instanceof  CuttingStation);
+    }
 }
