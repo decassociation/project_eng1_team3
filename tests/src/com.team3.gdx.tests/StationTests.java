@@ -17,6 +17,8 @@ import com.team3gdx.game.util.Control;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+
+
 import static org.junit.Assert.*;
 
 @RunWith(GdxTestRunner.class)
@@ -45,6 +47,7 @@ public class StationTests {
         StationManager.stations.put(testPosA, testSS);
         assertEquals("Serving station should have been instantiated at (12, 13)",
                 StationManager.stations.get(testPosA), testSS);
+
 
         //----------------------------- CREATION THROUGH StationManager's checkInteractedTile --------------------------
 

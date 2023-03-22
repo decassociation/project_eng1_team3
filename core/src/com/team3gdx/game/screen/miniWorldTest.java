@@ -27,9 +27,15 @@ import com.team3gdx.game.MainGameClass;
 import com.team3gdx.game.entity.Cook;
 import com.team3gdx.game.entity.Customer;
 import com.team3gdx.game.entity.CustomerController;
+import com.team3gdx.game.entity.Entity;
+import com.team3gdx.game.food.Ingredient;
+import com.team3gdx.game.food.Ingredients;
+import com.team3gdx.game.station.IngredientStation;
+import com.team3gdx.game.station.ServingStation;
 import com.team3gdx.game.station.StationManager;
 import com.team3gdx.game.util.CollisionTile;
 import com.team3gdx.game.util.Control;
+
 
 
 public class miniWorldTest implements Screen {
@@ -47,26 +53,12 @@ public class miniWorldTest implements Screen {
 
     public static int currentWave = 0;
     public static int reputationPoints = 3;
-    OrthographicCamera camera;
-    Rectangle volSlideBackgr;
-    Rectangle volSlide;
-    Rectangle musSlideBackgr;
-    Rectangle musSlide;
-    Rectangle audioBackground;
-    Rectangle optionsBackground;
+
     Texture ESC;
     Texture MENU;
-    Texture BACKTOMAINSCREEN;
-    Texture RESUME;
-    Texture AUDIO;
-    Texture audioEdit;
-    Texture vControl;
-    Texture vButton;
+
     Button mn;
-    Button rs;
-    Button ad;
-    Button btms;
-    Button end;
+
     public static CollisionTile[][] CLTiles;
     Viewport uiViewport;
     Viewport worldViewport;
@@ -92,14 +84,8 @@ public class miniWorldTest implements Screen {
     int gameResolutionY;
     float buttonwidth;
     float buttonheight;
-    float xSliderMax;
-    float xSliderMin;
-    float sliderWidth;
 
-    float audioBackgroundWidth;
-    float audioBackgroundHeight;
-    float audioBackgroundx;
-    float audioBackgroundy;
+
     long startTime;
     long timeOnStartup;
     long tempTime, tempThenTime;
@@ -117,6 +103,11 @@ public class miniWorldTest implements Screen {
     Customer testCustomer;
     Customer testCustomer2;
 
+    Ingredient testIng = new Ingredient(Ingredients.bun);
+    IngredientStation testIS;
+
+    boolean showIngs;
+
     public miniWorldTest(MainGameClass game) {
         this.game = game;
 
@@ -132,6 +123,15 @@ public class miniWorldTest implements Screen {
         testCustomer2 = cc.customers[1];
         testCustomer2.posy = 640;
         testCustomer2.posx = 1100;
+        showIngs = false;
+
+
+        Vector2 testPosA = new Vector2(12,13);
+
+        testIS = new IngredientStation(testPosA, testIng);
+
+        StationManager.stations.put(testPosA, testIS);
+
 
 
     }
@@ -219,10 +219,12 @@ public class miniWorldTest implements Screen {
 
         // =====================================DRAW=COOK=TOP=HALF=======================================================
         stationManager.handleStations(game.batch);
-        //drawHeldItems();
+        drawHeldItems();
 
         cookDrawTesting();
         custDrawTesting();
+        testCookHolding();
+        //stationTesting();
         //        cc.drawCustTop(game.batch); // todo fix customer z ordering
 
 
@@ -268,6 +270,49 @@ public class miniWorldTest implements Screen {
             game.batch.end();
         }
     }
+
+//    public void stationTesting(){
+//
+//        if(Gdx.input.isKeyJustPressed(Input.Keys.L)){
+//            System.out.println(testIS.slots);
+//            System.out.println("ings");
+//        }
+//        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+//
+//        }
+//
+//
+//
+//    }
+
+    public void testCookHolding(){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.U)){
+            cooks[1].pickUpItem(testIng);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.D)){
+            cooks[1].dropItem();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.S)){
+            showIngs = !showIngs;
+        }
+
+
+    }
+
+    private void drawHeldItems() {
+        if(showIngs) {
+            for (Cook ck : cooks) {
+                int itemIndex = 0;
+                for (Entity ingredient : ck.heldItems) {
+                    ingredient.pos = new Vector2(ck.pos.x + 16, ck.pos.y + 112 + itemIndex * 8);
+                    ingredient.draw(game.batch);
+                    itemIndex++;
+                }
+            }
+        }
+    }
+
+
 
 
     @Override
