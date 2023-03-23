@@ -75,6 +75,7 @@ public class GameScreen implements Screen {
 	Texture BUYCHEF3;
 	Button mn;
 	Button rs;
+	Button rs2;
 	Button ad;
 	Button btms;
 	Button end;
@@ -106,6 +107,7 @@ public class GameScreen implements Screen {
 	float xSliderMax;
 	float xSliderMin;
 	float sliderWidth;
+	float shopX = gameResolutionX / 40.0f;
 
 	float audioBackgroundWidth;
 	float audioBackgroundHeight;
@@ -215,6 +217,7 @@ public class GameScreen implements Screen {
 		mn = new Button(new TextureRegionDrawable(MENU));
 		ad = new Button(new TextureRegionDrawable(AUDIO));
 		rs = new Button(new TextureRegionDrawable(RESUME));
+		rs2 = new Button(new TextureRegionDrawable(RESUME));
 		btms = new Button(new TextureRegionDrawable(BACKTOMAINSCREEN));
 		shop = new Button(new TextureRegionDrawable(SHOP));
 		//buyChef2 = new Button(new TextureRegionDrawable(BUYCHEF2));
@@ -224,6 +227,8 @@ public class GameScreen implements Screen {
 		mn.setSize(buttonwidth, buttonheight);
 		rs.setPosition(gameResolutionX / 40.0f, 18 * gameResolutionY / 20.0f);
 		rs.setSize(buttonwidth, buttonheight);
+		rs2.setPosition(gameResolutionX / 40.0f, (18 * gameResolutionY / 20.0f) - 60);
+		rs2.setSize(buttonwidth, buttonheight);
 		ad.setPosition(rs.getX() + rs.getWidth() + 2 * (gameResolutionX / 40.0f - gameResolutionX / 50.0f), rs.getY());
 		ad.setSize(buttonwidth, buttonheight);
 		btms.setPosition(ad.getX() + ad.getWidth() + 2 * (gameResolutionX / 40.0f - gameResolutionX / 50.0f),
@@ -233,7 +238,7 @@ public class GameScreen implements Screen {
 		shop.setSize(buttonwidth, buttonheight);
 		//buyChef2.setPosition(gameResolutionX / 10.f, 20 * gameResolutionY / 10.0f - 10);
 		//buyChef2.setSize(buttonwidth, buttonheight);
-		buyChef3.setPosition((gameResolutionX / 40.0f) + buttonwidth + (gameResolutionX / 50f), (18 * gameResolutionY / 20.0f) - 60);
+		buyChef3.setPosition(shopX + buttonwidth + (gameResolutionX / 50f), (18 * gameResolutionY / 20.0f) - 60);
 		buyChef3.setSize(buttonwidth, buttonheight);
 		// ======================================ADD=LISTENERS=TO=BUTTONS================================================
 		mn.addListener(new ClickListener() {
@@ -243,6 +248,12 @@ public class GameScreen implements Screen {
 			}
 		});
 		rs.addListener(new ClickListener() {
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				state1 = STATE.Continue;
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
+		rs2.addListener(new ClickListener() {
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				state1 = STATE.Continue;
 				super.touchUp(event, x, y, pointer, button);
@@ -275,6 +286,7 @@ public class GameScreen implements Screen {
 					cooks = cooks2;
 					buyChef3.remove();
 					reputationPoints -= 5;
+					shopX -= buttonwidth + (gameResolutionX / 50f);
 				}
 				super.touchUp(event, x, y, pointer, button);
 			}
@@ -286,7 +298,7 @@ public class GameScreen implements Screen {
 		stage2.addActor(btms);
 		stage2.addActor(ad);
 		stage3.addActor(buyChef3);
-		stage3.addActor(rs);
+		stage3.addActor(rs2);
 
 	}
 
@@ -546,6 +558,7 @@ public class GameScreen implements Screen {
 			thenTime = System.currentTimeMillis() - timeOnStartup;
 		}
 		if(state1 == STATE.shop){
+			thenTime = System.currentTimeMillis() - timeOnStartup;
 			Gdx.input.setInputProcessor(stage3);
 			stage3.act();
 			stage3.draw();
