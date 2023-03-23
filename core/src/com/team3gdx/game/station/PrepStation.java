@@ -76,7 +76,14 @@ public class PrepStation extends Station {
 		return false;
 	}
 
-	private static ShapeRenderer shapeRenderer = new ShapeRenderer();
+	private static ShapeRenderer shapeRenderer = null;
+
+	private static ShapeRenderer getShapeRenderer() {
+		if (shapeRenderer == null) {
+			shapeRenderer = new ShapeRenderer();
+		}
+		return shapeRenderer;
+	}
 
 	/**
 	 * Update and display the progress bar.
@@ -95,13 +102,13 @@ public class PrepStation extends Station {
 	}
 
 	private void drawStatusBar(SpriteBatch batch) {
-		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-		shapeRenderer.begin(ShapeType.Filled);
-		shapeRenderer.setColor(Color.WHITE);
-		shapeRenderer.rect(pos.x * 64, pos.y * 64 + 64 + 64 / 10, 64, 64 / 8);
-		shapeRenderer.setColor(Color.GREEN);
-		shapeRenderer.rect(pos.x * 64, pos.y * 64 + 64 + 64 / 10, progress * 64, 64 / 10);
-		shapeRenderer.end();
+		getShapeRenderer().setProjectionMatrix(batch.getProjectionMatrix());
+		getShapeRenderer().begin(ShapeType.Filled);
+		getShapeRenderer().setColor(Color.WHITE);
+		getShapeRenderer().rect(pos.x * 64, pos.y * 64 + 64 + 64 / 10, 64, 64 / 8);
+		getShapeRenderer().setColor(Color.GREEN);
+		getShapeRenderer().rect(pos.x * 64, pos.y * 64 + 64 + 64 / 10, progress * 64, 64 / 10);
+		getShapeRenderer().end();
 
 	}
 

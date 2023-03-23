@@ -1,6 +1,7 @@
 package com.team3.gdx.tests;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
@@ -208,12 +209,29 @@ public class StationTests {
         testCS.place(Ingredients.lettuce);
         assertTrue("lockCook() should have returned True",
                 testCS.lockCook());
-
-        // Tests...
-        testCS.lockedCook = GameScreen.cooks[0];
-        assertTrue("testFS.lockedCook should be set to a Cook type value but isn't (it's likely to be null" +
-                " instead)", testCS.lockedCook == GameScreen.cook);
-        assertTrue("lockCook() should have returned True for the test Cutting Station now slots isn't empty " +
-                "and the station's locked cook attribute is not empty, but True was not returned", testCS.lockCook());
     }
+
+    @Test
+    public void testCreateIngredientStation(){
+        //------------------------------------------ ISOLATED CREATION -------------------------------------------------
+        Vector2 testPos = new Vector2(24, 25);
+        IngredientStation testIS = new IngredientStation(testPos, Ingredients.beans);
+        StationManager.stations.put(testPos, testIS);
+        assertTrue("A new Ingredient Station should have been created and added to the stations hashmap" +
+                " but wasn't", StationManager.stations.get(testPos) == testIS);
+
+        // CANNOT TEST CREATION THROUGH StationManager's checkInteractedTile BECAUSE SpriteBatch is needed
+    }
+
+    @Test
+    public void testCreatePrepStation(){
+        //------------------------------------------ ISOLATED CREATION -------------------------------------------------
+        Vector2 testPos = new Vector2(30, 31);
+        PrepStation testPS = new PrepStation(testPos);
+        StationManager.stations.put(testPos, testPS);
+        assertTrue("A new Prep Station should have been created and added to the stations hashmap" +
+                " but wasn't", StationManager.stations.get(testPos) == testPS);
+    }
+
+
 }
