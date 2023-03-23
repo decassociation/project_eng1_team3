@@ -20,23 +20,6 @@ public class GetBeaned extends Powerup{
 
     @Override
     public void applyPowerup(Cook cook){
-        TiledMapTileLayer layer = (TiledMapTileLayer) gameScreen.map1.getLayers().get(0);
-        for(int x = 0; x < layer.getWidth(); x++) {
-            for(int y = 0; y < layer.getHeight(); y++) {
-                TiledMapTileLayer.Cell viewedTile = ((TiledMapTileLayer) gameScreen.map1.getLayers().get(1)).getCell(x, y);
-
-                if (viewedTile != null) {
-                    Object stationType = viewedTile.getTile().getProperties().get("Station");
-                    if (stationType != null) {
-                        gameScreen.getStationManager().checkInteractedTile((String) viewedTile.getTile().getProperties().get("Station"),
-                                new Vector2(x, y));
-                    } else {
-                        gameScreen.getStationManager().checkInteractedTile("", new Vector2(x, y));
-                    }
-                }
-            }
-        }
-
         for(Station station: gameScreen.getStationManager().stations.values()){
             for(int i = 0; i < 4; i++) {
                 if(!station.getClass().equals(IngredientStation.class)) {

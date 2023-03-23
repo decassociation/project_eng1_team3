@@ -300,6 +300,8 @@ public class GameScreen implements Screen {
 		stage3.addActor(buyChef3);
 		stage3.addActor(rs2);
 
+
+		loadStations();
 	}
 
 	static ShapeRenderer _selectedPlayerBox = null;
@@ -761,6 +763,29 @@ public class GameScreen implements Screen {
 
 	public StationManager getStationManager(){
 		return stationManager;
+	}
+
+	/**
+	 * Load all of the stations at once instead of when viewed
+	 */
+	public void loadStations(){
+		stationManager.handleStations(game.batch);
+		TiledMapTileLayer layer = (TiledMapTileLayer) map1.getLayers().get(0);
+		for(int x = 0; x < layer.getWidth(); x++) {
+			for(int y = 0; y < layer.getHeight(); y++) {
+				TiledMapTileLayer.Cell viewedTile = ((TiledMapTileLayer) map1.getLayers().get(1)).getCell(x, y);
+
+				if (viewedTile != null) {
+					Object stationType = viewedTile.getTile().getProperties().get("Station");
+					if (stationType != null) {
+						getStationManager().checkInteractedTile((String) viewedTile.getTile().getProperties().get("Station"),
+								new Vector2(x, y));
+					} else {
+						getStationManager().checkInteractedTile("", new Vector2(x, y));
+					}
+				}
+			}
+		}
 	}
 
 	/**

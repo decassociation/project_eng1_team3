@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.team3gdx.game.food.Ingredient;
 import com.team3gdx.game.food.Ingredients;
