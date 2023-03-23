@@ -178,4 +178,42 @@ public class StationTests {
         assertTrue("A new cutting station should have been created but hasn't",
                 StationManager.stations.get(testPos) instanceof  CuttingStation);
     }
+
+    @Test
+    public void testCuttingStationLockCook(){
+        Vector2 testPos = new Vector2(15,16);
+        CuttingStation testCS = new CuttingStation(testPos, 2);
+        StationManager.stations.put(testPos, testCS);
+
+        // Tests when all if statement conditions are False in lockCook()
+        testCS.lockedCook = null;
+        assertFalse("The cutting station's slots stack should be empty and it's lockedCook attribute should be " +
+                "null so False should be returned by testCS.lockCook() but wasn't", testCS.lockCook());
+
+        // Tests when (!slots.isEmpty() = False) and ((lockedCook == null) = False) so (lockedCook != null) = True
+        // in lockCook()
+        testCS.lockedCook = GameScreen.cooks[0];
+        assertFalse("lockCook() should have returned False",
+                testCS.lockCook());
+
+        // Tests when (!slots.isEmpty() = True) and ((lockedCook == null) = True) in lockCook()
+        testCS.place(Ingredients.lettuce);
+        testCS.place(Ingredients.lettuce);
+        assertTrue("lockCook() should have returned True",
+                testCS.lockCook());
+
+        // Tests when (!slots.isEmpty() = True) and ((lockedCook == null) = False) in lockCook()
+        testCS.lockedCook = GameScreen.cooks[0];
+        testCS.place(Ingredients.lettuce);
+        testCS.place(Ingredients.lettuce);
+        assertTrue("lockCook() should have returned True",
+                testCS.lockCook());
+
+        // Tests...
+        testCS.lockedCook = GameScreen.cooks[0];
+        assertTrue("testFS.lockedCook should be set to a Cook type value but isn't (it's likely to be null" +
+                " instead)", testCS.lockedCook == GameScreen.cook);
+        assertTrue("lockCook() should have returned True for the test Cutting Station now slots isn't empty " +
+                "and the station's locked cook attribute is not empty, but True was not returned", testCS.lockCook());
+    }
 }
