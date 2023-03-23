@@ -85,11 +85,28 @@ public class StationTests {
 
     @Test
     public void testCreateBakingStation(){
+        //------------------------------------------ ISOLATED CREATION -------------------------------------------------
         Vector2 testPos = new Vector2(15,16);
         BakingStation testBS = new BakingStation(testPos);
         StationManager.stations.put(testPos, testBS);
         assertEquals("A baking station should have been created at (15,16) but hasn't",
                 StationManager.stations.get(testPos), testBS);
+
+
+        //----------------------------- CREATION THROUGH StationManager's checkInteractedTile --------------------------
+
+        TiledMap testMap = new TmxMapLoader().load("map/art_map/customertest.tmx");
+        GameScreen.cc = new CustomerController(testMap, "easy");
+        GameScreen.cc.customers[0] = new Customer(19, 20, 20, 0);
+        GameScreen.currentWaitingCustomer = GameScreen.cc.customers[0];
+        GameScreen.cc.customers[0].locked = true;
+        GameScreen.control = new Control();
+
+        Vector2 testPosB = new Vector2(20,20);
+        StationManager testSM = new StationManager();
+        testSM.checkInteractedTile("Baking", testPosB);
+        assertTrue("Baking station should have been instantiated at (20, 20)",
+                testSM.stations.get(testPosB) instanceof BakingStation);
     }
 
     @Test
@@ -116,6 +133,20 @@ public class StationTests {
         StationManager.stations.put(testPos, testFS);
         assertEquals("A frying station should have been created at (15,16) but hasn't",
                 StationManager.stations.get(testPos), testFS);
+        //----------------------------- CREATION THROUGH StationManager's checkInteractedTile --------------------------
+
+        TiledMap testMap = new TmxMapLoader().load("map/art_map/customertest.tmx");
+        GameScreen.cc = new CustomerController(testMap, "easy");
+        GameScreen.cc.customers[0] = new Customer(19, 20, 20, 0);
+        GameScreen.currentWaitingCustomer = GameScreen.cc.customers[0];
+        GameScreen.cc.customers[0].locked = true;
+        GameScreen.control = new Control();
+
+        Vector2 testPosB = new Vector2(20,20);
+        StationManager testSM = new StationManager();
+        testSM.checkInteractedTile("Frying", testPosB);
+        assertTrue("Frying station should have been instantiated at (20, 20)",
+                testSM.stations.get(testPosB) instanceof FryingStation);
     }
 
     @Test
@@ -134,7 +165,7 @@ public class StationTests {
 
     @Test
     public void testCookingStationLockCook(){
-        // FryingStation extends CookingStation so can just create a frying station
+        // *** FryingStation extends CookingStation so can just create a frying station ***
         Vector2 testPos = new Vector2(15,16);
         FryingStation testFS = new FryingStation(testPos);
         StationManager.stations.put(testPos, testFS);
@@ -178,6 +209,23 @@ public class StationTests {
         StationManager.stations.put(testPos, testCS);
         assertTrue("A new cutting station should have been created but hasn't",
                 StationManager.stations.get(testPos) instanceof  CuttingStation);
+
+
+        //----------------------------- CREATION THROUGH StationManager's checkInteractedTile --------------------------
+
+        TiledMap testMap = new TmxMapLoader().load("map/art_map/customertest.tmx");
+        GameScreen.cc = new CustomerController(testMap, "easy");
+        GameScreen.cc.customers[0] = new Customer(19, 20, 20, 0);
+        GameScreen.currentWaitingCustomer = GameScreen.cc.customers[0];
+        GameScreen.cc.customers[0].locked = true;
+        GameScreen.control = new Control();
+
+        Vector2 testPosB = new Vector2(20,20);
+        StationManager testSM = new StationManager();
+        testSM.checkInteractedTile("Chopping", testPosB);
+        assertTrue("Cutting station should have been instantiated at (20, 20)",
+                testSM.stations.get(testPosB) instanceof CuttingStation);
+
     }
 
     @Test
@@ -229,9 +277,65 @@ public class StationTests {
         Vector2 testPos = new Vector2(30, 31);
         PrepStation testPS = new PrepStation(testPos);
         StationManager.stations.put(testPos, testPS);
-        assertTrue("A new Prep Station should have been created and added to the stations hashmap" +
-                " but wasn't", StationManager.stations.get(testPos) == testPS);
+        assertSame("A new Prep Station should have been created and added to the stations hashmap" +
+                " but wasn't", StationManager.stations.get(testPos), testPS);
+
+
+        //----------------------------- CREATION THROUGH StationManager's checkInteractedTile --------------------------
+
+        TiledMap testMap = new TmxMapLoader().load("map/art_map/customertest.tmx");
+        GameScreen.cc = new CustomerController(testMap, "easy");
+        GameScreen.cc.customers[0] = new Customer(19, 20, 20, 0);
+        GameScreen.currentWaitingCustomer = GameScreen.cc.customers[0];
+        GameScreen.cc.customers[0].locked = true;
+        GameScreen.control = new Control();
+
+        Vector2 testPosB = new Vector2(20,20);
+        StationManager testSM = new StationManager();
+        testSM.checkInteractedTile("Prep", testPosB);
+        assertTrue("Prep station should have been instantiated at (20, 20)",
+                testSM.stations.get(testPosB) instanceof PrepStation);
     }
 
+    @Test
+    public void testPrepSlotsToRecipe(){
+        Vector2 testPos = new Vector2(30, 31);
+        PrepStation testPS = new PrepStation(testPos);
+        StationManager.stations.put(testPos, testPS);
 
+        // ----------------------------------- WHEN THERE IS A CORRECT RECIPE ------------------------------------------
+        testPS.place(Ingredients.cookedPatty);
+        testPS.place(Ingredients.cooked_bun);
+        assertTrue("A burger recipe should have been placed on the Prep Station but hasn't been",
+                testPS.slotsToRecipe());
+
+
+        // ---------------------------------- WHEN THERE IS AN INCORRECT RECIPE ----------------------------------------
+        testPS.slots.clear();
+        testPS.place(Ingredients.unformedPatty);
+        testPS.place(Ingredients.cooked_bun);
+        testPS.slotsToRecipe();
+        assertFalse("An incorrect burger recipe should have been rejected but hasn't",
+                testPS.slotsToRecipe());
+
+
+        // ---------------------------------- COVER ALL IF STATEMENT CONDITIONS ----------------------------------------
+
+        // Correct recipe:
+        testPS.slots.clear();
+        testPS.place(Ingredients.cookedPatty);
+        testPS.place(Ingredients.cooked_bun);
+        testPS.progress = 1;
+        assertTrue("A burger recipe should have been placed on the Prep Station but hasn't been",
+                testPS.slotsToRecipe());
+        assertEquals("The Prep Station's slots should have been cleared and just 1 recipe should have been added" +
+                " but there isn't exactly 1 item on the slots stack", 1, testPS.slots.size());
+
+        // Unprepared ingredient:
+        testPS.slots.clear();
+        testPS.place(Ingredients.unformedPatty);
+        testPS.progress = 1;
+        assertTrue("...", testPS.slotsToRecipe());
+        assertEquals("...", 1, testPS.slots.size());
+    }
 }
