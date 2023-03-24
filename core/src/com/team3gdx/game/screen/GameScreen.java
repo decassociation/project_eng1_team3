@@ -73,6 +73,8 @@ public class GameScreen implements Screen {
 	Texture SHOP;
 	Texture BUYCHEF2;
 	Texture BUYCHEF3;
+	Texture BUYBAKINGSTATION;
+	Texture BUYCUTTINGSTATION;
 	Button mn;
 	Button rs;
 	Button rs2;
@@ -82,6 +84,8 @@ public class GameScreen implements Screen {
 	Button shop;
 	Button buyChef2;
 	Button buyChef3;
+	Button buyBakingStation;
+	Button buyCuttingStation;
 	public static CollisionTile[][] CLTiles;
 	Viewport uiViewport;
 	Viewport worldViewport;
@@ -107,7 +111,7 @@ public class GameScreen implements Screen {
 	float xSliderMax;
 	float xSliderMin;
 	float sliderWidth;
-	float shopX = gameResolutionX / 40.0f;
+	float shopX = gameResolutionX / 50.0f;
 
 	float audioBackgroundWidth;
 	float audioBackgroundHeight;
@@ -169,10 +173,26 @@ public class GameScreen implements Screen {
 		ENDLESS = true;
 	}
 
+	/***
+	 * Used for updating button positions when one of the button is clicked, saves code duplication
+	 */
+	private void setShopButtonPositions(){
+		shop.setPosition(gameResolutionX / 40.0f, (18 * gameResolutionY / 20.0f) - 60);
+		//buyChef2.setPosition(gameResolutionX / 10.f, 20 * gameResolutionY / 10.0f - 10);
+		buyChef3.setPosition(shopX + buttonwidth + (gameResolutionX / 25f), (18 * gameResolutionY / 20.0f) - 60);
+		buyBakingStation.setPosition(shopX + (buttonwidth + (gameResolutionX / 25f))*2, (18 * gameResolutionY / 20.0f) - 60);
+		buyCuttingStation.setPosition(shopX + (buttonwidth + (gameResolutionX / 25f))*3, (18 * gameResolutionY / 20.0f) - 60);
+	}
+
 	/**
 	 * Things that should be done while the game screen is shown
 	 */
 	public void show() {
+		// =======================================LOAD=STATIONS==========================================================
+		loadStations();
+		stationManager.stations.get(new Vector2(7,5)).active = false;		// deactivate second baking station
+		stationManager.stations.get(new Vector2(11, 8)).active = false;	// deactivate second cutting station
+
 		// =======================================START=FRAME=TIMER======================================================
 		startTime = System.currentTimeMillis();
 		timeOnStartup = startTime;
@@ -213,6 +233,8 @@ public class GameScreen implements Screen {
 		SHOP = new Texture(Gdx.files.internal("uielements/shop.png"));
 		//BUYCHEF2 = new Texture(Gdx.files.internal("uielements/buychef2.png"));
 		BUYCHEF3 = new Texture(Gdx.files.internal("uielements/buychef3.png"));
+		BUYBAKINGSTATION = new Texture(Gdx.files.internal("uielements/buyBakingStation.png"));
+		BUYCUTTINGSTATION = new Texture(Gdx.files.internal("uielements/buyCuttingStation.png"));
 		// ======================================CREATE=BUTTONS==========================================================
 		mn = new Button(new TextureRegionDrawable(MENU));
 		ad = new Button(new TextureRegionDrawable(AUDIO));
@@ -222,6 +244,8 @@ public class GameScreen implements Screen {
 		shop = new Button(new TextureRegionDrawable(SHOP));
 		//buyChef2 = new Button(new TextureRegionDrawable(BUYCHEF2));
 		buyChef3 = new Button(new TextureRegionDrawable(BUYCHEF3));
+		buyBakingStation = new Button(new TextureRegionDrawable(BUYBAKINGSTATION));
+		buyCuttingStation = new Button(new TextureRegionDrawable(BUYCUTTINGSTATION));
 		// ======================================POSITION=AND=SCALE=BUTTONS==============================================
 		mn.setPosition(gameResolutionX / 40.0f, 18 * gameResolutionY / 20.0f);
 		mn.setSize(buttonwidth, buttonheight);
@@ -234,12 +258,12 @@ public class GameScreen implements Screen {
 		btms.setPosition(ad.getX() + ad.getWidth() + 2 * (gameResolutionX / 40.0f - gameResolutionX / 50.0f),
 				ad.getY());
 		btms.setSize(buttonwidth, buttonheight);
-		shop.setPosition(gameResolutionX / 40.0f, (18 * gameResolutionY / 20.0f) - 60);
 		shop.setSize(buttonwidth, buttonheight);
-		//buyChef2.setPosition(gameResolutionX / 10.f, 20 * gameResolutionY / 10.0f - 10);
 		//buyChef2.setSize(buttonwidth, buttonheight);
-		buyChef3.setPosition(shopX + buttonwidth + (gameResolutionX / 50f), (18 * gameResolutionY / 20.0f) - 60);
 		buyChef3.setSize(buttonwidth, buttonheight);
+		buyBakingStation.setSize(buttonwidth, buttonheight);
+		buyCuttingStation.setSize(buttonwidth, buttonheight);
+		setShopButtonPositions();
 		// ======================================ADD=LISTENERS=TO=BUTTONS================================================
 		mn.addListener(new ClickListener() {
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -286,7 +310,26 @@ public class GameScreen implements Screen {
 					cooks = cooks2;
 					buyChef3.remove();
 					reputationPoints -= 5;
-					shopX -= buttonwidth + (gameResolutionX / 50f);
+				}
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
+		buyBakingStation.addListener(new ClickListener() {
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				if(reputationPoints > 7) {
+					stationManager.stations.get(new Vector2(7,5)).active = true;
+					reputationPoints -= 7;
+					buyBakingStation.remove();
+				}
+				super.touchUp(event, x, y, pointer, button);
+			}
+		});
+		buyCuttingStation.addListener(new ClickListener() {
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				if(reputationPoints > 9) {		// deactivate second baking station
+					stationManager.stations.get(new Vector2(11, 8)).active = true;
+					reputationPoints -= 9;
+					buyCuttingStation.remove();
 				}
 				super.touchUp(event, x, y, pointer, button);
 			}
@@ -299,9 +342,8 @@ public class GameScreen implements Screen {
 		stage2.addActor(ad);
 		stage3.addActor(buyChef3);
 		stage3.addActor(rs2);
-
-
-		loadStations();
+		stage3.addActor(buyBakingStation);
+		stage3.addActor(buyCuttingStation);
 	}
 
 	static ShapeRenderer _selectedPlayerBox = null;

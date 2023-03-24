@@ -51,6 +51,8 @@ public class Station {
 
 	private BitmapFont font = new BitmapFont();
 
+	public boolean active;
+
 	/**
 	 * 
 	 * @param pos                The (x, y) coordinates of the station.
@@ -69,6 +71,7 @@ public class Station {
 		slots = new Stack<Ingredient>();
 		if (soundPath != null)
 			interactSound = Gdx.audio.newMusic(Gdx.files.internal(soundPath));
+		active = true;
 	}
 
 	/**
@@ -78,7 +81,7 @@ public class Station {
 	 * @return A boolean to indicate if the ingredient was successfully placed.
 	 */
 	public boolean place(Ingredient ingredient) {
-		if ((slots.size() < numberOfSlots && isAllowed(ingredient)) || infinite) {
+		if (((slots.size() < numberOfSlots && isAllowed(ingredient)) || infinite) && active) {
 			ingredient.pos = pos;
 			slots.push(ingredient);
 			return true;
@@ -110,7 +113,7 @@ public class Station {
 	 * @return The ingredient taken if successful, null otherwise.
 	 */
 	public Ingredient take() {
-		if (slots.empty())
+		if (slots.empty() || !active)
 			return null;
 		interactSound.stop();
 		if (!infinite) {
@@ -126,7 +129,7 @@ public class Station {
 	 * @param pos The position to draw at.
 	 */
 	public void drawTakeText(SpriteBatch batch) {
-		if (!slots.empty() && !GameScreen.cook.full()) {
+		if (!slots.empty() && !GameScreen.cook.full() && active) {
 			drawText(batch, "Take [q]", new Vector2(pos.x * 64, pos.y * 64 - 16));
 		}
 
@@ -138,7 +141,7 @@ public class Station {
 	 * @param pos The position of the station.
 	 */
 	public void drawDropText(SpriteBatch batch) {
-		if (GameScreen.cook.heldItems.size() > 0 && isAllowed(GameScreen.cook.heldItems.peek())) {
+		if (GameScreen.cook.heldItems.size() > 0 && isAllowed(GameScreen.cook.heldItems.peek()) && active) {
 			drawText(batch, "Drop [e]", new Vector2(pos.x * 64, pos.y * 64));
 		}
 	}

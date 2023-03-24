@@ -103,15 +103,17 @@ public class Cook extends Entity {
 	 * @param item - item to pick up
 	 */
 	public void pickUpItem(Ingredient item) {
-		item.cooking = false;
-		item.slicing = false;
-		if (!holding) {
-			holding = true;
-			setWalkTexture("entities/cook_walk_hands_" + cookno + ".png");
-		}
+		if(item != null) {
+			item.cooking = false;
+			item.slicing = false;
+			if (!holding) {
+				holding = true;
+				setWalkTexture("entities/cook_walk_hands_" + cookno + ".png");
+			}
 
-		if (!full())
-			heldItems.push(item);
+			if (!full())
+				heldItems.push(item);
+		}
 	}
 
 	/**
