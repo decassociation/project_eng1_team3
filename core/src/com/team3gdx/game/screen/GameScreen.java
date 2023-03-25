@@ -38,6 +38,7 @@ import com.team3gdx.game.entity.Entity;
 import com.team3gdx.game.food.Menu;
 import com.team3gdx.game.powerup.PowerupController;
 import com.team3gdx.game.powerup.SpeedBoost;
+import com.team3gdx.game.station.Station;
 import com.team3gdx.game.station.StationManager;
 import com.team3gdx.game.util.CollisionTile;
 import com.team3gdx.game.util.Control;
@@ -75,6 +76,7 @@ public class GameScreen implements Screen {
 	Texture BUYCHEF3;
 	Texture BUYBAKINGSTATION;
 	Texture BUYCUTTINGSTATION;
+	Texture REDX;
 	Button mn;
 	Button rs;
 	Button rs2;
@@ -235,6 +237,7 @@ public class GameScreen implements Screen {
 		BUYCHEF3 = new Texture(Gdx.files.internal("uielements/buychef3.png"));
 		BUYBAKINGSTATION = new Texture(Gdx.files.internal("uielements/buyBakingStation.png"));
 		BUYCUTTINGSTATION = new Texture(Gdx.files.internal("uielements/buyCuttingStation.png"));
+		REDX = new Texture(Gdx.files.internal("uielements/redX.png"));
 		// ======================================CREATE=BUTTONS==========================================================
 		mn = new Button(new TextureRegionDrawable(MENU));
 		ad = new Button(new TextureRegionDrawable(AUDIO));
@@ -382,6 +385,14 @@ public class GameScreen implements Screen {
 		game.batch.end();
 		// =====================================RENDER=TOP=MAP=LAYER=====================================================
 		tiledMapRenderer.render(new int[] { 1 });
+		// =====================================DRAW=RED=X=ON=INACTIVE=STATIONS==========================================
+		game.batch.begin();
+		for(Station station: stationManager.stations.values()){
+			if(!station.active){
+				game.batch.draw(REDX, station.pos.x * 64, station.pos.y * 64);
+			}
+		}
+		game.batch.end();
 		// =====================================DRAW=COOK=TOP=HALF=======================================================
 		stationManager.handleStations(game.batch);
 		drawHeldItems();
