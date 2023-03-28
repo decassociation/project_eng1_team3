@@ -1,0 +1,191 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Ingredients</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.team3gdx.game.food</a>
+</div>
+
+<h1>Coverage Summary for Class: Ingredients (com.team3gdx.game.food)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Ingredients</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    97.4%
+  </span>
+  <span class="absValue">
+    (37/38)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.food;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;import com.badlogic.gdx.math.Vector2;
+&nbsp;
+&nbsp;/**
+&nbsp; * All available ingredient.
+&nbsp; * 
+&nbsp; */
+<b class="nc">&nbsp;public class Ingredients {</b>
+&nbsp;
+&nbsp;	// Meats.
+<b class="fc">&nbsp;	public static Ingredient unformedPatty = new Ingredient(null, 32, 32, &quot;unformed_patty&quot;, 0, .5f);</b>
+<b class="fc">&nbsp;	public static Ingredient formedPatty = new Ingredient(null, 32, 32, &quot;patty&quot;, 0, .5f);</b>
+<b class="fc">&nbsp;	public static Ingredient cookedPatty = new Ingredient(null, 32, 32, &quot;patty&quot;, 0, .5f);</b>
+&nbsp;	// Cooked meats.
+&nbsp;	static {
+<b class="fc">&nbsp;		cookedPatty.status = Status.COOKED;</b>
+<b class="fc">&nbsp;		cookedPatty.flipped = true;</b>
+&nbsp;	}
+<b class="fc">&nbsp;	public static Ingredient burnedPatty = new Ingredient(null, 32, 32, &quot;patty&quot;, 0, .5f);</b>
+&nbsp;	static {
+<b class="fc">&nbsp;		burnedPatty.status = Status.BURNED;</b>
+<b class="fc">&nbsp;		burnedPatty.flipped = true;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	// Vegetables.
+<b class="fc">&nbsp;	public static Ingredient lettuce = new Ingredient(null, 32, 32, &quot;lettuce&quot;, 1, 0);</b>
+<b class="fc">&nbsp;	public static Ingredient tomato = new Ingredient(null, 32, 32, &quot;tomato&quot;, 1, 0);</b>
+<b class="fc">&nbsp;	public static Ingredient onion = new Ingredient(null, 32, 32, &quot;onion&quot;, 1, 0);</b>
+&nbsp;	// Chopped vegetables.
+<b class="fc">&nbsp;	public static Ingredient lettuceChopped = new Ingredient(null, 32, 32, &quot;lettuce&quot;, 1, 0);</b>
+&nbsp;	static {
+<b class="fc">&nbsp;		lettuceChopped.slices = 1;</b>
+&nbsp;	}
+<b class="fc">&nbsp;	public static Ingredient tomatoChopped = new Ingredient(null, 32, 32, &quot;tomato&quot;, 1, 0);</b>
+&nbsp;	static {
+<b class="fc">&nbsp;		tomatoChopped.slices = 1;</b>
+&nbsp;	}
+<b class="fc">&nbsp;	public static Ingredient onionChopped = new Ingredient(null, 32, 32, &quot;onion&quot;, 1, 0);</b>
+&nbsp;	static {
+<b class="fc">&nbsp;		onionChopped.slices = 1;</b>
+&nbsp;	}
+&nbsp;
+<b class="fc">&nbsp;	public static Ingredient tomatoPaste = new Ingredient(null, 32, 32, &quot;tomato_paste&quot;, 1, 0);</b>
+&nbsp;
+&nbsp;	// Breads.
+<b class="fc">&nbsp;	public static Ingredient bun = new Ingredient(new Vector2(0, 0), 32, 32, &quot;burger_bun&quot;, 0, .5f);</b>
+&nbsp;	// Toasted breads.
+<b class="fc">&nbsp;	public static Ingredient cooked_bun = new Ingredient(new Vector2(0, 0), 32, 32, &quot;burger_bun&quot;, 0, .5f);</b>
+&nbsp;	static {
+<b class="fc">&nbsp;		cooked_bun.status = Status.COOKED;</b>
+<b class="fc">&nbsp;		cooked_bun.flipped = true;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	// Potatoes
+<b class="fc">&nbsp;	public static Ingredient potato = new Ingredient(new Vector2(0, 0), 32, 32, &quot;potato&quot;, 0, .5f);</b>
+&nbsp;	// Baked potatoes
+<b class="fc">&nbsp;	public static Ingredient cooked_potato = new Ingredient(new Vector2(0, 0), 32, 32, &quot;potato&quot;, 0, .5f);</b>
+&nbsp;	static {
+<b class="fc">&nbsp;		cooked_potato.status = Status.COOKED;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	// Beans
+<b class="fc">&nbsp;	public static Ingredient beans = new Ingredient(new Vector2(0, 0), 32, 32, &quot;beans&quot;, 0, .5f);</b>
+&nbsp;	// Baked beans
+<b class="fc">&nbsp;	public static Ingredient cooked_beans = new Ingredient(new Vector2(0, 0), 32, 32, &quot;beans&quot;, 0, .5f);</b>
+<b class="fc">&nbsp;	public static Ingredient cooked_beans_with_spill = new Ingredient(new Vector2(0, 0), 32, 32, &quot;beans&quot;, 0, .5f);</b>
+&nbsp;	static {
+<b class="fc">&nbsp;		cooked_beans.status = Status.COOKED;</b>
+<b class="fc">&nbsp;		cooked_beans.texture = new Texture(&quot;items/&quot; + cooked_beans.name + &quot;_cooked.png&quot;);</b>
+<b class="fc">&nbsp;		cooked_beans_with_spill.status = Status.COOKED;</b>
+<b class="fc">&nbsp;		cooked_beans_with_spill.texture = new Texture(&quot;items/&quot; + cooked_beans_with_spill.name + &quot;pill.png&quot;);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	// Cheese
+<b class="fc">&nbsp;	public static Ingredient cheese = new Ingredient(new Vector2(0, 0), 32, 32, &quot;cheese&quot;, 0, .5f);</b>
+&nbsp;
+&nbsp;	// Dough and pizza base
+<b class="fc">&nbsp;	public static Ingredient dough = new Ingredient(null, 32, 32, &quot;dough&quot;, 0, .5f);</b>
+<b class="fc">&nbsp;	public static Ingredient pizzaBase = new Ingredient(null, 32, 32, &quot;pizza_base&quot;, 0, .5f);</b>
+<b class="fc">&nbsp;	public static Ingredient cookedPizzaBase = new Ingredient(null, 32, 32, &quot;pizza_base&quot;, 0, .5f);</b>
+&nbsp;	static {
+<b class="fc">&nbsp;		cookedPizzaBase.status = Status.COOKED;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-28 10:16</div>
+</div>
+</body>
+</html>

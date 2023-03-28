@@ -1,0 +1,200 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > MainGameClass</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.team3gdx.game</a>
+</div>
+
+<h1>Coverage Summary for Class: MainGameClass (com.team3gdx.game)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MainGameClass</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Game;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.Screen;
+&nbsp;import com.badlogic.gdx.audio.Music;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;import com.badlogic.gdx.graphics.g2d.BitmapFont;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+&nbsp;import com.team3gdx.game.screen.*;
+&nbsp;import com.team3gdx.game.util.AudioController;
+&nbsp;
+<b class="nc">&nbsp;public class MainGameClass extends Game {</b>
+&nbsp;	public SpriteBatch batch;
+&nbsp;	public BitmapFont font;
+&nbsp;	public Music mainScreenMusic;
+&nbsp;	public Music gameMusic;
+&nbsp;	public static float musicVolumeScale;
+&nbsp;	public static float gameVolumeScale;
+&nbsp;	private MainScreen mainScreen1;
+&nbsp;	private GameScreen gameScreen1;
+&nbsp;	private LeaderBoard leaderBoardScreen1;
+&nbsp;	private WaveSelectScreen waveSelectScreen1;
+&nbsp;	private CreditScreen CreditScreen1;
+&nbsp;	public miniWorldTest miniWorldTest1;
+&nbsp;	public AudioController sounds;
+&nbsp;	public ShapeRenderer shapeRenderer;
+&nbsp;
+&nbsp;
+&nbsp;	@Override
+&nbsp;	public void create() {
+&nbsp;		// ====================================MUSIC=INITIALISATION======================================================
+<b class="nc">&nbsp;		musicVolumeScale = 0.4f;</b>
+<b class="nc">&nbsp;		gameVolumeScale = 0.4f;</b>
+<b class="nc">&nbsp;		mainScreenMusic = Gdx.audio.newMusic(Gdx.files.internal(&quot;uielements/MainScreenMusic.ogg&quot;));</b>
+<b class="nc">&nbsp;		gameMusic = Gdx.audio.newMusic(Gdx.files.internal(&quot;uielements/GameMusic.ogg&quot;));</b>
+<b class="nc">&nbsp;		mainScreenMusic.setLooping(false);</b>
+<b class="nc">&nbsp;		mainScreenMusic.setVolume(musicVolumeScale);</b>
+<b class="nc">&nbsp;		gameMusic.setLooping(false);</b>
+<b class="nc">&nbsp;		gameMusic.setVolume(musicVolumeScale);</b>
+&nbsp;		// =================================SPRITEBATCH=AND=SHAPERENDERER================================================
+<b class="nc">&nbsp;		batch = new SpriteBatch();</b>
+<b class="nc">&nbsp;		shapeRenderer = new ShapeRenderer();</b>
+&nbsp;		// ==================================FONT=INITIALISATION=========================================================
+<b class="nc">&nbsp;		font = new BitmapFont(Gdx.files.internal(&quot;uielements/font.fnt&quot;), Gdx.files.internal(&quot;uielements/font.png&quot;),</b>
+&nbsp;				false);
+<b class="nc">&nbsp;		font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);</b>
+&nbsp;		// ====================================GAME=SCREEN=INITIALISATION================================================
+<b class="nc">&nbsp;		mainScreen1 = new MainScreen(this);</b>
+&nbsp;		//gameScreen1 = new GameScreen(this, mainScreen1);
+<b class="nc">&nbsp;		leaderBoardScreen1 = new LeaderBoard(this, mainScreen1);</b>
+<b class="nc">&nbsp;		waveSelectScreen1 = new WaveSelectScreen(this, mainScreen1);</b>
+<b class="nc">&nbsp;		CreditScreen1 = new CreditScreen(this);</b>
+<b class="nc">&nbsp;		miniWorldTest1 = new miniWorldTest(this);</b>
+<b class="nc">&nbsp;		this.setScreen(mainScreen1);</b>
+&nbsp;		// ==============================================================================================================
+&nbsp;	}
+&nbsp;
+&nbsp;	public MainScreen getMainScreen() {
+<b class="nc">&nbsp;		return mainScreen1;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/*
+&nbsp;	public GameScreen getGameScreen() {
+&nbsp;		return gameScreen1;
+&nbsp;	}
+&nbsp;	 */
+&nbsp;
+&nbsp;	public LeaderBoard getLeaderBoardScreen() {
+<b class="nc">&nbsp;		return leaderBoardScreen1;</b>
+&nbsp;	}
+&nbsp;
+<b class="nc">&nbsp;	public WaveSelectScreen getWaveSelectScreen() { return waveSelectScreen1;}</b>
+&nbsp;
+<b class="nc">&nbsp;	public miniWorldTest getTestingScreen() { return miniWorldTest1;}</b>
+&nbsp;
+&nbsp;	/*
+&nbsp;	public void resetGameScreen() {
+&nbsp;		this.gameScreen1 = new GameScreen(this, mainScreen1);
+&nbsp;	}
+&nbsp;	 */
+&nbsp;
+&nbsp;	@Override
+&nbsp;	public void render() {
+<b class="nc">&nbsp;		super.render();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@Override
+&nbsp;	public void dispose() {
+<b class="nc">&nbsp;		batch.dispose();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	public Screen getCreditsScreen() {
+<b class="nc">&nbsp;		return (Screen) CreditScreen1;</b>
+&nbsp;	}
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-28 10:16</div>
+</div>
+</body>
+</html>

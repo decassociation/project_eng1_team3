@@ -1,0 +1,330 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > StationManager</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.team3gdx.game.station</a>
+</div>
+
+<h1>Coverage Summary for Class: StationManager (com.team3gdx.game.station)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StationManager</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    57.1%
+  </span>
+  <span class="absValue">
+    (4/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    38.1%
+  </span>
+  <span class="absValue">
+    (37/97)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.station;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.g2d.BitmapFont;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+&nbsp;import com.badlogic.gdx.math.Vector2;
+&nbsp;import com.team3gdx.game.food.Ingredient;
+&nbsp;import com.team3gdx.game.food.Ingredients;
+&nbsp;import com.team3gdx.game.screen.GameScreen;
+&nbsp;
+&nbsp;/**
+&nbsp; * 
+&nbsp; * Deals with all the stations and cook interactions. To create a new station,
+&nbsp; * extend from {@link Station}, check tile in
+&nbsp; * {@link this#checkInteractedTile(String, Vector2)}, and update station&#39;s
+&nbsp; * ingredients in {@link this#handleStations(SpriteBatch)} if necessary.
+&nbsp; *
+&nbsp; */
+&nbsp;public class StationManager {
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * A Map representing every station and its (x, y) coordinates.
+&nbsp;	 */
+<b class="fc">&nbsp;	public static Map&lt;Vector2, Station&gt; stations = new HashMap&lt;Vector2, Station&gt;();</b>
+&nbsp;
+&nbsp;	SpriteBatch batch;
+<b class="fc">&nbsp;	public StationManager() {</b>
+<b class="fc">&nbsp;		stations = new HashMap&lt;Vector2, Station&gt;();</b>
+&nbsp;	}
+<b class="fc">&nbsp;	private BitmapFont font = new BitmapFont();</b>
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Checks every station for ingredients and updates them accordingly.
+&nbsp;	 * 
+&nbsp;	 * @param batch - SpriteBatch to render ingredient textures.
+&nbsp;	 */
+&nbsp;	public void handleStations(SpriteBatch batch) {
+<b class="nc">&nbsp;		this.batch = batch;</b>
+<b class="nc">&nbsp;		for (Station station : stations.values()) {</b>
+<b class="nc">&nbsp;			if (!station.slots.empty() &amp;&amp; !station.infinite) {</b>
+<b class="nc">&nbsp;				for (int i = 0; i &lt; station.slots.size(); i++) {</b>
+&nbsp;					// Handle each ingredient in slot.
+<b class="nc">&nbsp;					Ingredient currentIngredient = station.slots.get(i);</b>
+<b class="nc">&nbsp;					if (station instanceof PrepStation) {</b>
+<b class="nc">&nbsp;						currentIngredient.pos = new Vector2(station.pos.x * 64 + 16, i * 8 + station.pos.y * 64);</b>
+<b class="nc">&nbsp;						if (((PrepStation) station).lockedCook != null)</b>
+<b class="nc">&nbsp;							((PrepStation) station).updateProgress(batch, .01f);</b>
+&nbsp;					} else {
+<b class="nc">&nbsp;						currentIngredient.pos = new Vector2(station.pos.x * 64 + ((i * 32) % 64),</b>
+<b class="nc">&nbsp;								Math.floorDiv((i * 32), 64) * 32 + station.pos.y * 64);</b>
+&nbsp;					}
+&nbsp;
+<b class="nc">&nbsp;					if (station instanceof CuttingStation &amp;&amp; currentIngredient.slicing) {</b>
+<b class="nc">&nbsp;						((CuttingStation) station).interact(batch, .1f);</b>
+<b class="nc">&nbsp;						station.interactSound();</b>
+&nbsp;					}
+&nbsp;
+<b class="nc">&nbsp;					if (currentIngredient.cooking &amp;&amp; station instanceof CookingStation) {</b>
+<b class="nc">&nbsp;						((CookingStation) station).drawParticles(batch, i);</b>
+<b class="nc">&nbsp;						currentIngredient.cook(.0005f, batch);</b>
+<b class="nc">&nbsp;						station.interactSound();</b>
+&nbsp;					} else {
+<b class="nc">&nbsp;						currentIngredient.draw(batch);</b>
+&nbsp;					}
+&nbsp;				}
+&nbsp;			}
+<b class="nc">&nbsp;		}</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Check the currently looked at tile for a station.
+&nbsp;	 * 
+&nbsp;	 * @param type The station type.
+&nbsp;	 * @param pos  The position of the tile.
+&nbsp;	 */
+&nbsp;	public void checkInteractedTile(String type, Vector2 pos) {
+<b class="fc">&nbsp;		switch (type) {</b>
+&nbsp;		case &quot;Buns&quot;:
+<b class="nc">&nbsp;			takeIngredientStation(pos, Ingredients.bun);</b>
+<b class="nc">&nbsp;			break;</b>
+&nbsp;		case &quot;Patties&quot;:
+<b class="nc">&nbsp;			takeIngredientStation(pos, Ingredients.unformedPatty);</b>
+<b class="nc">&nbsp;			break;</b>
+&nbsp;		case &quot;Lettuces&quot;:
+<b class="nc">&nbsp;			takeIngredientStation(pos, Ingredients.lettuce);</b>
+<b class="nc">&nbsp;			break;</b>
+&nbsp;		case &quot;Tomatoes&quot;:
+<b class="nc">&nbsp;			takeIngredientStation(pos, Ingredients.tomato);</b>
+<b class="nc">&nbsp;			break;</b>
+&nbsp;		case &quot;Onions&quot;:
+<b class="nc">&nbsp;			takeIngredientStation(pos, Ingredients.onion);</b>
+<b class="nc">&nbsp;			break;</b>
+&nbsp;		case &quot;Potatoes&quot;:
+<b class="nc">&nbsp;			takeIngredientStation(pos, Ingredients.potato);</b>
+<b class="nc">&nbsp;			break;</b>
+&nbsp;		case &quot;Beans&quot;:
+<b class="nc">&nbsp;			takeIngredientStation(pos, Ingredients.beans);</b>
+<b class="nc">&nbsp;			break;</b>
+&nbsp;		case &quot;Cheese&quot;:
+<b class="nc">&nbsp;			takeIngredientStation(pos, Ingredients.cheese);</b>
+<b class="nc">&nbsp;			break;</b>
+&nbsp;		case &quot;Dough&quot;:
+<b class="nc">&nbsp;			takeIngredientStation(pos, Ingredients.dough);</b>
+<b class="nc">&nbsp;			break;</b>
+&nbsp;		case &quot;Frying&quot;:
+<b class="fc">&nbsp;			if (!stations.containsKey(pos)) {</b>
+<b class="fc">&nbsp;				stations.put(pos, new FryingStation(pos));</b>
+&nbsp;			}
+<b class="fc">&nbsp;			((CookingStation) stations.get(pos)).checkCookingStation(batch);</b>
+<b class="fc">&nbsp;			((CookingStation) stations.get(pos)).lockCook();</b>
+<b class="fc">&nbsp;			break;</b>
+&nbsp;		case &quot;Prep&quot;:
+<b class="fc">&nbsp;			if (!stations.containsKey(pos)) {</b>
+<b class="fc">&nbsp;				stations.put(pos, new PrepStation(pos));</b>
+&nbsp;			}
+&nbsp;
+<b class="fc">&nbsp;			placeIngredientStation(pos);</b>
+<b class="fc">&nbsp;			PrepStation station = ((PrepStation) stations.get(pos));</b>
+<b class="fc">&nbsp;			station.lockCook();</b>
+&nbsp;
+<b class="fc">&nbsp;			break;</b>
+&nbsp;		case &quot;Chopping&quot;:
+<b class="fc">&nbsp;			if (!stations.containsKey(pos)) {</b>
+<b class="fc">&nbsp;				stations.put(pos, new CuttingStation(pos, 1));</b>
+&nbsp;			}
+&nbsp;
+<b class="fc">&nbsp;			placeIngredientStation(pos);</b>
+<b class="fc">&nbsp;			CuttingStation cutStation = ((CuttingStation) stations.get(pos));</b>
+<b class="fc">&nbsp;			cutStation.lockCook();</b>
+&nbsp;
+<b class="fc">&nbsp;			break;</b>
+&nbsp;		case &quot;Baking&quot;:
+<b class="fc">&nbsp;			if (!stations.containsKey(pos)) {</b>
+<b class="fc">&nbsp;				stations.put(pos, new BakingStation(pos));</b>
+&nbsp;			}
+<b class="fc">&nbsp;			((CookingStation) stations.get(pos)).checkCookingStation(batch);</b>
+<b class="fc">&nbsp;			((CookingStation) stations.get(pos)).lockCook();</b>
+<b class="fc">&nbsp;			break;</b>
+&nbsp;		case &quot;Service&quot;:
+<b class="fc">&nbsp;			if (!stations.containsKey(pos)) {</b>
+<b class="fc">&nbsp;				stations.put(pos, new ServingStation(pos));</b>
+&nbsp;			}
+&nbsp;
+<b class="fc">&nbsp;			((ServingStation) stations.get(pos)).serveCustomer();</b>
+<b class="fc">&nbsp;			placeIngredientStation(pos);</b>
+&nbsp;
+<b class="fc">&nbsp;			break;</b>
+&nbsp;		case &quot;Bin&quot;:
+<b class="nc">&nbsp;			if (!GameScreen.cook.heldItems.empty()) {</b>
+<b class="nc">&nbsp;				batch.begin();</b>
+<b class="nc">&nbsp;				font.draw(batch, &quot;Drop [e]&quot;, pos.x * 64, pos.y * 64);</b>
+<b class="nc">&nbsp;				batch.end();</b>
+<b class="nc">&nbsp;				if (GameScreen.control.drop) {</b>
+<b class="nc">&nbsp;					GameScreen.cook.dropItem();</b>
+&nbsp;				}
+&nbsp;			}
+&nbsp;			break;
+&nbsp;		default:
+<b class="nc">&nbsp;			placeIngredientStation(pos);</b>
+&nbsp;			break;
+&nbsp;		}
+&nbsp;
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Check if the given station exists at the given position.
+&nbsp;	 * 
+&nbsp;	 * @param pos     Position to look for.
+&nbsp;	 * @param station The station to check for.
+&nbsp;	 * @return A boolean indicating if the station exists at that position.
+&nbsp;	 */
+&nbsp;	private boolean checkStationExists(Vector2 pos, Station station) {
+<b class="nc">&nbsp;		if (!stations.containsKey(pos)) {</b>
+<b class="nc">&nbsp;			stations.put(pos, station);</b>
+<b class="nc">&nbsp;			return false;</b>
+&nbsp;		}
+&nbsp;
+<b class="nc">&nbsp;		return true;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Place ingredient on top of cook&#39;s stack on station at given position.
+&nbsp;	 * 
+&nbsp;	 * @param pos The position to lookup the station.
+&nbsp;	 */
+&nbsp;	private void placeIngredientStation(Vector2 pos) {
+<b class="fc">&nbsp;		if (!stations.containsKey(pos)) {</b>
+<b class="nc">&nbsp;			stations.put(pos, new Station(pos, 4, false, null, null));</b>
+&nbsp;		}
+<b class="fc">&nbsp;		stations.get(pos).drawTakeText(batch);</b>
+<b class="fc">&nbsp;		stations.get(pos).drawDropText(batch);</b>
+<b class="fc">&nbsp;		if (GameScreen.control.interact) {</b>
+<b class="nc">&nbsp;			if (!stations.get(pos).slots.empty() &amp;&amp; !GameScreen.cook.full()) {</b>
+<b class="nc">&nbsp;				GameScreen.cook.pickUpItem(stations.get(pos).take());</b>
+&nbsp;				return;
+&nbsp;			}
+&nbsp;		}
+&nbsp;
+<b class="fc">&nbsp;		if (GameScreen.cook.heldItems.empty())</b>
+&nbsp;			return;
+<b class="nc">&nbsp;		if (GameScreen.control.drop)</b>
+<b class="nc">&nbsp;			if (stations.get(pos).place(GameScreen.cook.heldItems.peek()))</b>
+<b class="nc">&nbsp;				GameScreen.cook.dropItem();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Take an item from the ingredient station
+&nbsp;	 * 
+&nbsp;	 * @param pos        The position of the station.
+&nbsp;	 * @param ingredient The ingredient that the station holds.
+&nbsp;	 */
+&nbsp;	private void takeIngredientStation(Vector2 pos, Ingredient ingredient) {
+<b class="nc">&nbsp;		if (!stations.containsKey(pos)) {</b>
+<b class="nc">&nbsp;			stations.put(pos, new IngredientStation(pos, ingredient));</b>
+&nbsp;		}
+<b class="nc">&nbsp;		stations.get(pos).drawTakeText(batch);</b>
+&nbsp;
+<b class="nc">&nbsp;		if (GameScreen.control.interact) {</b>
+<b class="nc">&nbsp;			GameScreen.cook.pickUpItem(stations.get(pos).take());</b>
+&nbsp;		}
+&nbsp;
+&nbsp;	}
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-28 10:16</div>
+</div>
+</body>
+</html>

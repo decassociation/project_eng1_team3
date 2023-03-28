@@ -1,0 +1,369 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Cook</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.team3gdx.game.entity</a>
+</div>
+
+<h1>Coverage Summary for Class: Cook (com.team3gdx.game.entity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Cook</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (12/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92%
+  </span>
+  <span class="absValue">
+    (81/88)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.entity;
+&nbsp;
+&nbsp;import java.util.Stack;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;import com.badlogic.gdx.graphics.g2d.Animation;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.graphics.g2d.TextureRegion;
+&nbsp;import com.badlogic.gdx.math.Intersector;
+&nbsp;import com.badlogic.gdx.math.Rectangle;
+&nbsp;import com.badlogic.gdx.math.Vector2;
+&nbsp;import com.team3gdx.game.food.Ingredient;
+&nbsp;import com.team3gdx.game.util.CollisionTile;
+&nbsp;import com.team3gdx.game.util.Control;
+&nbsp;
+&nbsp;public class Cook extends Entity {
+&nbsp;
+&nbsp;	private static final int MAX_STACK_SIZE = 5;
+&nbsp;	private static final int FRAME_COLS = 5, FRAME_ROWS = 4;
+&nbsp;
+&nbsp;	private Vector2 direction;
+&nbsp;	private int cookno;
+&nbsp;
+&nbsp;	private Texture walkSheet;
+&nbsp;	private Animation&lt;TextureRegion&gt; walkAnimation;
+&nbsp;	private TextureRegion[][] spriteSheet;
+&nbsp;	private TextureRegion[][] currentFrame;
+&nbsp;	private TextureRegion[] walkFrames;
+<b class="fc">&nbsp;	private float stateTime = 0;</b>
+&nbsp;
+<b class="fc">&nbsp;	public boolean locked = false;</b>
+<b class="fc">&nbsp;	public boolean holding = false;</b>
+<b class="fc">&nbsp;	public Stack&lt;Ingredient&gt; heldItems = new Stack&lt;Ingredient&gt;();</b>
+&nbsp;	/**
+&nbsp;	 * Cook entity constructor
+&nbsp;	 * @param pos - x y position vector in pixels
+&nbsp;	 * @param cooknum - cook number, changes texture
+&nbsp;	 */
+<b class="fc">&nbsp;	public Cook(Vector2 pos, int cooknum) {</b>
+<b class="fc">&nbsp;		this.pos = pos;</b>
+<b class="fc">&nbsp;		this.cookno = cooknum;</b>
+&nbsp;
+<b class="fc">&nbsp;		width = 64;</b>
+<b class="fc">&nbsp;		height = 128;</b>
+<b class="fc">&nbsp;		speed = 0.25f;</b>
+<b class="fc">&nbsp;		direction = new Vector2(0, -1);</b>
+&nbsp;
+<b class="fc">&nbsp;		setWalkTexture(&quot;entities/cook_walk_&quot; + String.valueOf(cookno) + &quot;.png&quot;);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Update cook using user input
+&nbsp;	 * @param control - Control input handling object
+&nbsp;	 * @param dt - some change in time
+&nbsp;	 * @param cl - 2d array of collision tiles for collision detection
+&nbsp;	 */
+&nbsp;	public void update(Control control, float dt, CollisionTile[][] cl) {
+<b class="fc">&nbsp;		currentFrame = walkAnimation.getKeyFrame(stateTime, true).split(32, 32);</b>
+&nbsp;
+<b class="fc">&nbsp;		dirX = 0;</b>
+<b class="fc">&nbsp;		dirY = 0;</b>
+<b class="fc">&nbsp;		if (control.up &amp;&amp; !control.down) {</b>
+<b class="fc">&nbsp;			if (this.checkCollision(pos.x, pos.y + (speed * dt), cl)) {</b>
+<b class="fc">&nbsp;				dirY = 1;</b>
+&nbsp;			}
+<b class="fc">&nbsp;			setWalkFrames(2);</b>
+<b class="fc">&nbsp;			direction = new Vector2(0, 1);</b>
+<b class="fc">&nbsp;		} else if (control.down &amp;&amp; !control.up) {</b>
+<b class="fc">&nbsp;			if (this.checkCollision(pos.x, pos.y - (speed * dt), cl)) {</b>
+<b class="fc">&nbsp;				dirY = -1;</b>
+&nbsp;			}
+<b class="fc">&nbsp;			setWalkFrames(0);</b>
+<b class="fc">&nbsp;			direction = new Vector2(0, -1);</b>
+&nbsp;		}
+<b class="fc">&nbsp;		if (control.left &amp;&amp; !control.right) {</b>
+<b class="fc">&nbsp;			if (this.checkCollision(pos.x - (speed * dt), pos.y, cl)) {</b>
+<b class="fc">&nbsp;				dirX = -1;</b>
+&nbsp;			}
+<b class="fc">&nbsp;			setWalkFrames(1);</b>
+<b class="fc">&nbsp;			direction = new Vector2(-1, 0);</b>
+<b class="fc">&nbsp;		} else if (control.right &amp;&amp; !control.left) {</b>
+<b class="fc">&nbsp;			if (this.checkCollision(pos.x + (speed * dt), pos.y, cl)) {</b>
+<b class="fc">&nbsp;				dirX = +1;</b>
+&nbsp;			}
+<b class="fc">&nbsp;			setWalkFrames(3);</b>
+<b class="fc">&nbsp;			direction.x = 1;</b>
+<b class="fc">&nbsp;			direction.y = 1;</b>
+<b class="fc">&nbsp;			direction = new Vector2(1, 0);</b>
+&nbsp;		}
+<b class="fc">&nbsp;		if (dirX != 0 || dirY != 0) {</b>
+<b class="fc">&nbsp;			stateTime += Gdx.graphics.getDeltaTime() / 8;</b>
+&nbsp;		} else {
+<b class="fc">&nbsp;			stateTime = 0;</b>
+&nbsp;		}
+<b class="fc">&nbsp;		pos.x += dirX * speed * dt;</b>
+<b class="fc">&nbsp;		pos.y += dirY * speed * dt;</b>
+&nbsp;
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Pick up an item
+&nbsp;	 * @param item - item to pick up
+&nbsp;	 */
+&nbsp;	public void pickUpItem(Ingredient item) {
+<b class="fc">&nbsp;		if(item != null) {</b>
+<b class="fc">&nbsp;			item.cooking = false;</b>
+<b class="fc">&nbsp;			item.slicing = false;</b>
+<b class="fc">&nbsp;			if (!holding) {</b>
+<b class="fc">&nbsp;				holding = true;</b>
+<b class="fc">&nbsp;				setWalkTexture(&quot;entities/cook_walk_hands_&quot; + cookno + &quot;.png&quot;);</b>
+&nbsp;			}
+&nbsp;
+<b class="fc">&nbsp;			if (!full())</b>
+<b class="fc">&nbsp;				heldItems.push(item);</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Put down the item on the top of the stack
+&nbsp;	 */
+&nbsp;	public void dropItem() {
+<b class="fc">&nbsp;		if (heldItems.size() == 1) {</b>
+<b class="fc">&nbsp;			holding = false;</b>
+<b class="fc">&nbsp;			setWalkTexture(&quot;entities/cook_walk_&quot; + cookno + &quot;.png&quot;);</b>
+&nbsp;		}
+<b class="fc">&nbsp;		if (heldItems.size() &gt; 0) {</b>
+<b class="fc">&nbsp;			heldItems.pop();</b>
+&nbsp;		}
+<b class="fc">&nbsp;		if (heldItems.size() == 0) {</b>
+<b class="fc">&nbsp;			holding = false;</b>
+<b class="fc">&nbsp;			setWalkTexture(&quot;entities/cook_walk_&quot; + cookno + &quot;.png&quot;);</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;	public boolean full() {
+<b class="fc">&nbsp;		return heldItems.size() &gt;= MAX_STACK_SIZE;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Draw bottom of cook
+&nbsp;	 * @param batch - spritebatch to draw with
+&nbsp;	 */
+&nbsp;	public void draw_bot(SpriteBatch batch) {
+<b class="nc">&nbsp;		batch.draw(currentFrame[1][0], pos.x, pos.y, 64, 64);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Draw top of cook
+&nbsp;	 * @param batch - spritebatch to draw with
+&nbsp;	 */
+&nbsp;	public void draw_top(SpriteBatch batch) {
+<b class="nc">&nbsp;		batch.draw(currentFrame[0][0], pos.x, pos.y + 64, 64, 64);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Draw top of cook at a certain position - used for the display in the top right
+&nbsp;	 * @param batch - spritebatch to draw with
+&nbsp;	 * @param position - position in pixels to draw at
+&nbsp;	 */
+&nbsp;	public void draw_top(SpriteBatch batch, Vector2 position) {
+<b class="nc">&nbsp;		batch.draw(currentFrame[0][0], position.x, position.y + 128, 128, 128);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Set the texture to draw with
+&nbsp;	 * @param path - Filepath to texture
+&nbsp;	 */
+&nbsp;	private void setWalkTexture(String path) {
+<b class="fc">&nbsp;		walkSheet = new Texture(path);</b>
+<b class="fc">&nbsp;		spriteSheet = TextureRegion.split(walkSheet, walkSheet.getWidth() / FRAME_COLS,</b>
+<b class="fc">&nbsp;				walkSheet.getHeight() / FRAME_ROWS);</b>
+<b class="fc">&nbsp;		walkFrames = new TextureRegion[FRAME_ROWS];</b>
+<b class="fc">&nbsp;		setWalkFrames(0);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Set specific walk frames
+&nbsp;	 * @param row - row on the sprite sheet to draw
+&nbsp;	 */
+&nbsp;	private void setWalkFrames(int row) {
+<b class="fc">&nbsp;		for (int i = 0; i &lt; FRAME_ROWS; i++) {</b>
+<b class="fc">&nbsp;			walkFrames[i] = spriteSheet[row][i];</b>
+&nbsp;		}
+<b class="fc">&nbsp;		walkAnimation = new Animation&lt;TextureRegion&gt;(0.025f, walkFrames);</b>
+<b class="fc">&nbsp;		currentFrame = walkAnimation.getKeyFrame(stateTime, true).split(32, 32);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Check collision with collide tiles at a certain coordinate
+&nbsp;	 * @param cookx - cook x pixel coordinate
+&nbsp;	 * @param cooky - cook y pixel coordinate
+&nbsp;	 * @param cltiles - 2d Collision tiles array
+&nbsp;	 * @return True if the cook can move, false if they cant
+&nbsp;	 */
+&nbsp;	public Boolean checkCollision(float cookx, float cooky, CollisionTile[][] cltiles) {
+<b class="fc">&nbsp;		if (cooky - 10 &lt; 0) {</b>
+<b class="nc">&nbsp;			return false;</b>
+&nbsp;		}
+<b class="fc">&nbsp;		int wid = cltiles.length;</b>
+<b class="fc">&nbsp;		int hi = cltiles[0].length;</b>
+<b class="fc">&nbsp;		for (int x = 0; x &lt; wid; x++) {</b>
+<b class="fc">&nbsp;			for (int y = 0; y &lt; hi; y++) {</b>
+<b class="fc">&nbsp;				if (cltiles[x][y] != null) {</b>
+<b class="fc">&nbsp;					if (Intersector.overlaps(cltiles[x][y].returnRect(), this.getCollideBoxAtPosition(cookx, cooky))) {</b>
+<b class="fc">&nbsp;						return false;</b>
+&nbsp;					}
+&nbsp;				}
+&nbsp;			}
+&nbsp;		}
+<b class="fc">&nbsp;		return true;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Return a rectangle which is the hitbox of the cook at a certain coordinate
+&nbsp;	 * @param x - x pixel coordinate
+&nbsp;	 * @param y - y pixel coordinate
+&nbsp;	 * @return Rectangle object of the cook hitbox
+&nbsp;	 */
+&nbsp;	public Rectangle getCollideBoxAtPosition(float x, float y) {
+<b class="fc">&nbsp;		return new Rectangle(x + 12, y - 10, 40, 25);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Return cook x pixel coordinate
+&nbsp;	 * @return cook x pixel coordinate
+&nbsp;	 */
+&nbsp;	public float getX() {
+<b class="fc">&nbsp;		return pos.x;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Return cook y pixel coordinate
+&nbsp;	 * @return cook y pixel coordinate
+&nbsp;	 */
+&nbsp;	public float getY() {
+<b class="fc">&nbsp;		return pos.y;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Return cook width
+&nbsp;	 * @return cook width
+&nbsp;	 */
+&nbsp;	public float getWidth() {
+<b class="nc">&nbsp;		return width;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * return cook height
+&nbsp;	 * @return cook height
+&nbsp;	 */
+&nbsp;	public float getHeight() {
+<b class="nc">&nbsp;		return height;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Return cook direction vector
+&nbsp;	 * @return cook direction vector
+&nbsp;	 */
+&nbsp;	public Vector2 getDirection() {
+<b class="nc">&nbsp;		return direction;</b>
+&nbsp;	}
+&nbsp;
+<b class="fc">&nbsp;	public int getCookNo() {return cookno;}</b>
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-28 10:16</div>
+</div>
+</body>
+</html>

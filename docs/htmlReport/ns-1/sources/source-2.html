@@ -1,0 +1,373 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CookTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.team3.gdx.tests</a>
+</div>
+
+<h1>Coverage Summary for Class: CookTests (com.team3.gdx.tests)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CookTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    86.5%
+  </span>
+  <span class="absValue">
+    (122/141)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.team3.gdx.tests;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;import com.badlogic.gdx.math.Vector2;
+&nbsp;import com.team3gdx.game.MainGameClass;
+&nbsp;import com.team3gdx.game.entity.Cook;
+&nbsp;import com.team3gdx.game.food.Ingredient;
+&nbsp;import com.team3gdx.game.food.Ingredients;
+&nbsp;import com.team3gdx.game.screen.GameScreen;
+&nbsp;import com.team3gdx.game.screen.MainScreen;
+&nbsp;import com.team3gdx.game.screen.Tutorial;
+&nbsp;import com.team3gdx.game.util.CollisionTile;
+&nbsp;import org.junit.Test;
+&nbsp;import org.junit.runner.RunWith;
+&nbsp;
+&nbsp;import com.team3gdx.game.util.Control;
+&nbsp;
+&nbsp;import java.util.Stack;
+&nbsp;
+&nbsp;import static org.junit.Assert.*;
+&nbsp;
+&nbsp;@RunWith(GdxTestRunner.class)
+<b class="fc">&nbsp;public class CookTests {</b>
+&nbsp;    @Test
+&nbsp;    public void testMovement(){
+<b class="fc">&nbsp;        Cook cook = new Cook(new Vector2(15, 15), 1);</b>
+&nbsp;
+<b class="fc">&nbsp;        Control control = new Control();</b>
+<b class="fc">&nbsp;        boolean[] bools = {false, true};</b>
+<b class="fc">&nbsp;        for (boolean UP : bools){</b>
+<b class="fc">&nbsp;            for (boolean DOWN : bools){</b>
+<b class="fc">&nbsp;                for (boolean LEFT : bools){</b>
+<b class="fc">&nbsp;                    for (boolean RIGHT : bools){</b>
+<b class="fc">&nbsp;                        control.up = UP;</b>
+<b class="fc">&nbsp;                        control.down = DOWN;</b>
+<b class="fc">&nbsp;                        control.left = LEFT;</b>
+<b class="fc">&nbsp;                        control.right = RIGHT;</b>
+&nbsp;
+<b class="fc">&nbsp;                        float x = cook.pos.x;</b>
+<b class="fc">&nbsp;                        float y = cook.pos.y;</b>
+<b class="fc">&nbsp;                        CollisionTile[][] collisionTiles = new CollisionTile[5][5];</b>
+<b class="fc">&nbsp;                        cook.update(control, 5f, collisionTiles);</b>
+&nbsp;
+<b class="fc">&nbsp;                        if (control.up &amp;&amp; !control.down) {</b>
+<b class="fc">&nbsp;                            assertEquals(&quot;up and not down&quot;, cook.pos.y, y + cook.speed * 5f, 0.0);</b>
+&nbsp;                        }
+<b class="fc">&nbsp;                        else if (control.down &amp;&amp; !control.up) {</b>
+<b class="fc">&nbsp;                            assertEquals(&quot;down and not up&quot;, cook.pos.y, y - cook.speed * 5f, 0.0);</b>
+&nbsp;                        }
+&nbsp;
+<b class="fc">&nbsp;                        if (control.left &amp;&amp; !control.right) {</b>
+<b class="fc">&nbsp;                            assertEquals(&quot;left and not right&quot;, cook.pos.x, x - cook.speed * 5f, 0.0);</b>
+&nbsp;                        }
+<b class="fc">&nbsp;                        else if (control.right &amp;&amp; !control.left) {</b>
+<b class="fc">&nbsp;                            assertEquals(&quot;right and not left&quot;, cook.pos.x, x + cook.speed * 5f, 0.0);</b>
+&nbsp;                        }
+&nbsp;
+<b class="fc">&nbsp;                        if (!control.left &amp;&amp; !control.right &amp;&amp; !control.up &amp;&amp; !control.down){</b>
+<b class="fc">&nbsp;                            assertEquals(&quot;none pressed x&quot;, cook.pos.x, x, 0.0);</b>
+<b class="fc">&nbsp;                            assertEquals(&quot;none pressed y&quot;, cook.pos.y, y, 0.0);</b>
+&nbsp;                        }
+&nbsp;
+<b class="fc">&nbsp;                        if (control.left &amp;&amp; control.right){</b>
+<b class="fc">&nbsp;                            assertEquals(&quot;left and right&quot;, cook.pos.x, x, 0.0);</b>
+&nbsp;                        }
+&nbsp;
+<b class="fc">&nbsp;                        if (control.up &amp;&amp; control.down){</b>
+<b class="fc">&nbsp;                            assertEquals(&quot;up and down&quot;, cook.pos.y, y, 0.0);</b>
+&nbsp;                        }
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testPickUp(){
+<b class="fc">&nbsp;        Cook cook = new Cook(new Vector2(15, 15), 1);</b>
+<b class="fc">&nbsp;        cook.pickUpItem(Ingredients.tomato);</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Top item on stack should be a tomato&quot;, cook.heldItems.peek().equals(Ingredients.tomato));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testCreateCook(){ //
+<b class="fc">&nbsp;        int testnum = 2; //just to have an easy comparison</b>
+<b class="fc">&nbsp;        Cook cook = new Cook(new Vector2(15, 15), testnum);</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Checks if the cook is created by checking if the cookno is equal to the given testnum&quot;,cook.getCookNo() == testnum);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testDropItem(){
+<b class="fc">&nbsp;        Cook cook = new Cook(new Vector2(15, 15), 1);</b>
+&nbsp;
+&nbsp;        // Test when the cook is holding 1 item and drops the item
+<b class="fc">&nbsp;        cook.heldItems.setSize(1);</b>
+<b class="fc">&nbsp;        cook.dropItem();</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Cook should be holding 0 items after dropping one but is not&quot;,</b>
+<b class="fc">&nbsp;                0, cook.heldItems.size(), 0.5f);</b>
+<b class="fc">&nbsp;        assertFalse(&quot;Cook.holding should be false but is true&quot;, cook.holding);</b>
+&nbsp;
+&nbsp;        // Test when the cook is holding more than 1 items and drops an item
+<b class="fc">&nbsp;        cook.heldItems.setSize(2);</b>
+<b class="fc">&nbsp;        cook.dropItem();</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Cook should be holding 1 item after dropping one but is not&quot;,</b>
+<b class="fc">&nbsp;                1, cook.heldItems.size(), 0.5f);</b>
+&nbsp;
+<b class="fc">&nbsp;        cook.heldItems.setSize(10);</b>
+<b class="fc">&nbsp;        cook.dropItem();</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Cook should be holding 9 items after dropping one but is not&quot;,</b>
+<b class="fc">&nbsp;                9, cook.heldItems.size(), 0.5f);</b>
+&nbsp;
+&nbsp;        // Test when the cook is holding 0 items and tries to drop an item
+<b class="fc">&nbsp;        cook.heldItems.setSize(0);</b>
+<b class="fc">&nbsp;        cook.dropItem();</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Cook should be holding 0 items after dropping none but is not&quot;,</b>
+<b class="fc">&nbsp;                0, cook.heldItems.size(), 0.5f);</b>
+<b class="fc">&nbsp;        assertFalse(&quot;Cook.holding should be false but is true&quot;, cook.holding);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testFullCookStack(){
+<b class="fc">&nbsp;        Cook cook = new Cook(new Vector2(15, 15), 1);</b>
+&nbsp;
+&nbsp;        // Test when cook stack is below max
+<b class="fc">&nbsp;        cook.heldItems.setSize(1);</b>
+<b class="fc">&nbsp;        assertFalse(&quot;Cook stack / no. items held should be 1 -less than 5 (max)- but isn&#39;t&quot;, cook.full());</b>
+&nbsp;        // Test when cook stack is just below max threshold (so is okay)
+<b class="fc">&nbsp;        cook.heldItems.setSize(4);</b>
+<b class="fc">&nbsp;        assertFalse(&quot;Cook stack / no. items held should be 3 -less than 5 (max)- but isn&#39;t&quot;, cook.full());</b>
+&nbsp;        // Test when cook stack is at max
+<b class="fc">&nbsp;        cook.heldItems.setSize(5);</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Cook stack / no. items held should be 5 (max) but isn&#39;t&quot;, cook.full());</b>
+&nbsp;        // Test when cook stack is above max
+<b class="fc">&nbsp;        cook.heldItems.setSize(10);</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Cook stack / no. items held should be 10 (above max) but isn&#39;t&quot;, cook.full());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void testCollisionAttempt(Cook cook, Control control, CollisionTile[][] cltiles, String assertMessage){
+<b class="fc">&nbsp;        cook.update(control, 1f, cltiles);</b>
+<b class="fc">&nbsp;        assertTrue(assertMessage, cook.pos.x == 50 &amp;&amp; cook.pos.y == 50);</b>
+<b class="fc">&nbsp;        cook.pos.x = 50;</b>
+<b class="fc">&nbsp;        cook.pos.y = 50;</b>
+<b class="fc">&nbsp;        control.up = false;</b>
+<b class="fc">&nbsp;        control.down = false;</b>
+<b class="fc">&nbsp;        control.left = false;</b>
+<b class="fc">&nbsp;        control.right = false;</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    public void testCollision(){
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;        Cook cook = new Cook(new Vector2(50, 50), 1);</b>
+<b class="fc">&nbsp;        Control control = new Control();</b>
+<b class="fc">&nbsp;        CollisionTile[][] cltiles = new CollisionTile[3][3];</b>
+&nbsp;
+&nbsp;        // make all tiles same with and height as cook rectangle to make things easier
+<b class="fc">&nbsp;        int x = 22;</b>
+<b class="fc">&nbsp;        int y = 65;</b>
+<b class="fc">&nbsp;        for(int i = 0; i &lt; cltiles.length; i++){</b>
+<b class="fc">&nbsp;            x = 22;</b>
+<b class="fc">&nbsp;            for(int j = 0; j &lt; cltiles[i].length; j++){</b>
+<b class="fc">&nbsp;                if(!(i == 1 &amp;&amp; j == 1)){</b>
+<b class="fc">&nbsp;                    cltiles[i][j] = new CollisionTile(x, y, 40, 25);</b>
+<b class="fc">&nbsp;                    x += 40;</b>
+&nbsp;                }
+&nbsp;            }
+<b class="fc">&nbsp;            y -= 25;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // no key pressed
+<b class="fc">&nbsp;        cook.update(control, 1f, cltiles);</b>
+<b class="fc">&nbsp;        assertTrue(&quot;no key pressed&quot;, cook.pos.x == 50 &amp;&amp; cook.pos.y == 50);</b>
+&nbsp;
+&nbsp;        // up and left
+<b class="fc">&nbsp;        control.up = true;</b>
+<b class="fc">&nbsp;        control.left = true;</b>
+<b class="fc">&nbsp;        testCollisionAttempt(cook, control, cltiles, &quot;up and left pressed&quot;);</b>
+&nbsp;
+&nbsp;        // up
+<b class="fc">&nbsp;        control.up = true;</b>
+<b class="fc">&nbsp;        testCollisionAttempt(cook, control, cltiles, &quot;up pressed&quot;);</b>
+&nbsp;
+&nbsp;        // up and right
+<b class="fc">&nbsp;        control.up = true;</b>
+<b class="fc">&nbsp;        control.right = true;</b>
+<b class="fc">&nbsp;        testCollisionAttempt(cook, control, cltiles, &quot;up and right pressed&quot;);</b>
+&nbsp;
+&nbsp;        // left
+<b class="fc">&nbsp;        control.left = true;</b>
+<b class="fc">&nbsp;        testCollisionAttempt(cook, control, cltiles, &quot;left pressed&quot;);</b>
+&nbsp;
+&nbsp;        // right
+<b class="fc">&nbsp;        control.right = true;</b>
+<b class="fc">&nbsp;        testCollisionAttempt(cook, control, cltiles, &quot;right pressed&quot;);</b>
+&nbsp;
+&nbsp;        // down and left
+<b class="fc">&nbsp;        control.down = true;</b>
+<b class="fc">&nbsp;        control.left = true;</b>
+<b class="fc">&nbsp;        testCollisionAttempt(cook, control, cltiles, &quot;down and left pressed&quot;);</b>
+&nbsp;
+&nbsp;        // down
+<b class="fc">&nbsp;        control.down = true;</b>
+<b class="fc">&nbsp;        testCollisionAttempt(cook, control, cltiles, &quot;down pressed&quot;);</b>
+&nbsp;
+&nbsp;        // down and right
+<b class="fc">&nbsp;        control.down = true;</b>
+<b class="fc">&nbsp;        control.right = true;</b>
+<b class="fc">&nbsp;        testCollisionAttempt(cook, control, cltiles, &quot;down and right pressed&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testCookSwitch(){
+&nbsp;        // This function uses the static instances of GameScreen and Tutorial so don&#39;t need to instantiate
+&nbsp;
+<b class="fc">&nbsp;        GameScreen.control = new Control();</b>
+&nbsp;        // Need to manually make a new Control instance bc when we test it hasn&#39;t already been created
+&nbsp;
+&nbsp;        //-----------------------------------TESTS FOR TAB SWITCH-------------------------------------------------------
+&nbsp;        // *Automatic version of cook switch tests*:
+<b class="fc">&nbsp;        for(int i = 0; i &lt; GameScreen.cooks.length; i++){</b>
+<b class="fc">&nbsp;            assertTrue(&quot;Current cook should be cook &quot; + i, GameScreen.cook.equals(GameScreen.cooks[i]));</b>
+<b class="fc">&nbsp;            GameScreen.control.tab = true;</b>
+<b class="fc">&nbsp;            Tutorial.complete = true;</b>
+<b class="fc">&nbsp;            GameScreen.checkCookSwitch();</b>
+&nbsp;        }
+&nbsp;        // *Manual version of cook switch tests*:
+&nbsp;        // Tests below test another cycle of changes after the automatic set to ensure you can go from cook 3 to 1
+<b class="fc">&nbsp;        assertTrue(&quot;Current cook should be gameScreen.cooks[0] (first one)&quot;, GameScreen.cook.equals(GameScreen.cooks[0]));</b>
+<b class="fc">&nbsp;        GameScreen.control.tab = true;</b>
+<b class="fc">&nbsp;        Tutorial.complete = true;</b>
+<b class="fc">&nbsp;        GameScreen.checkCookSwitch();</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Current cook should be gameScreen.cooks[1] (second one)&quot;, GameScreen.cook.equals(GameScreen.cooks[1]));</b>
+<b class="fc">&nbsp;        GameScreen.control.tab = true;</b>
+<b class="fc">&nbsp;        Tutorial.complete = true;</b>
+<b class="fc">&nbsp;        GameScreen.checkCookSwitch();</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Current cook should be gameScreen.cooks[2] (third one)&quot;, GameScreen.cook.equals(GameScreen.cooks[2]));</b>
+<b class="nc">&nbsp;        GameScreen.control.tab = true;</b>
+<b class="nc">&nbsp;        Tutorial.complete = true;</b>
+<b class="nc">&nbsp;        GameScreen.checkCookSwitch();</b>
+&nbsp;
+&nbsp;        //-----------------------------------TESTS FOR SHIFT SWITCH-----------------------------------------------------
+&nbsp;        /** Switching cooks using shift decrements GameScreen.currentCookIndex so need to change cooks twice (using tab
+&nbsp;         *  switch) before iterating through to check the cook switching, to get to chef 3 (GameScreen.cooks[2])*/
+<b class="nc">&nbsp;        GameScreen.control.tab = true;</b>
+<b class="nc">&nbsp;        Tutorial.complete = true;</b>
+<b class="nc">&nbsp;        GameScreen.checkCookSwitch();</b>
+&nbsp;
+<b class="nc">&nbsp;        GameScreen.control.tab = true;</b>
+<b class="nc">&nbsp;        Tutorial.complete = true;</b>
+<b class="nc">&nbsp;        GameScreen.checkCookSwitch();</b>
+&nbsp;
+<b class="nc">&nbsp;        for(int i = 2; i &gt; 0; i--){</b>
+<b class="nc">&nbsp;            assertTrue(&quot;Current cook should be cook &quot; + (i+1), GameScreen.cook.equals(GameScreen.cooks[i]));</b>
+<b class="nc">&nbsp;            GameScreen.control.shift = true;</b>
+<b class="nc">&nbsp;            Tutorial.complete = true;</b>
+<b class="nc">&nbsp;            GameScreen.checkCookSwitch();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        assertTrue(&quot;Current cook should be cook &quot; + 0, GameScreen.cook.equals(GameScreen.cooks[0]));</b>
+&nbsp;
+<b class="nc">&nbsp;        GameScreen.control.shift = true;</b>
+<b class="nc">&nbsp;        Tutorial.complete = true;</b>
+<b class="nc">&nbsp;        GameScreen.checkCookSwitch();</b>
+<b class="nc">&nbsp;        assertTrue(&quot;Current cook should be cook &quot; + 3, GameScreen.cook.equals(GameScreen.cooks[2]));</b>
+&nbsp;
+&nbsp;        //----------------------------------TESTS FOR MIX OF TAB AND SHIFT SWITCH---------------------------------------
+&nbsp;
+&nbsp;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-28 10:16</div>
+</div>
+</body>
+</html>

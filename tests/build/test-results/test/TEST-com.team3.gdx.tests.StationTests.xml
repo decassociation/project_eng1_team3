@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.team3.gdx.tests.StationTests" tests="12" skipped="0" failures="0" errors="0" timestamp="2023-03-28T08:04:52" hostname="GAMING-PC" time="0.602">
+  <properties/>
+  <testcase name="testPrepSlotsToRecipe" classname="com.team3.gdx.tests.StationTests" time="0.049"/>
+  <testcase name="testCreateStation" classname="com.team3.gdx.tests.StationTests" time="0.003"/>
+  <testcase name="testBakingStationPlace" classname="com.team3.gdx.tests.StationTests" time="0.032"/>
+  <testcase name="testCreateServingStation" classname="com.team3.gdx.tests.StationTests" time="0.078"/>
+  <testcase name="testCreateIngredientStation" classname="com.team3.gdx.tests.StationTests" time="0.003"/>
+  <testcase name="testCreateBakingStation" classname="com.team3.gdx.tests.StationTests" time="0.069"/>
+  <testcase name="testCreateCuttingStation" classname="com.team3.gdx.tests.StationTests" time="0.054"/>
+  <testcase name="testFryingStationPlace" classname="com.team3.gdx.tests.StationTests" time="0.004"/>
+  <testcase name="testCookingStationLockCook" classname="com.team3.gdx.tests.StationTests" time="0.004"/>
+  <testcase name="testCreateFryingStation" classname="com.team3.gdx.tests.StationTests" time="0.079"/>
+  <testcase name="testCreatePrepStation" classname="com.team3.gdx.tests.StationTests" time="0.052"/>
+  <testcase name="testCuttingStationLockCook" classname="com.team3.gdx.tests.StationTests" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

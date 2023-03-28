@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.team3.gdx.tests.AssetTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-03-28T08:04:51" hostname="GAMING-PC" time="0.167">
+  <properties/>
+  <testcase name="testMapAssetsExist" classname="com.team3.gdx.tests.AssetTests" time="0.045"/>
+  <testcase name="testLeaderboardData" classname="com.team3.gdx.tests.AssetTests" time="0.001"/>
+  <testcase name="testChefAssetsExist" classname="com.team3.gdx.tests.AssetTests" time="0.002"/>
+  <testcase name="testAudioAssetsExist" classname="com.team3.gdx.tests.AssetTests" time="0.005"/>
+  <testcase name="testUIElementsExist" classname="com.team3.gdx.tests.AssetTests" time="0.01"/>
+  <testcase name="testParticlesAssetsExist" classname="com.team3.gdx.tests.AssetTests" time="0.001"/>
+  <testcase name="testItemAssets" classname="com.team3.gdx.tests.AssetTests" time="0.008"/>
+  <testcase name="testCustAssetsExist" classname="com.team3.gdx.tests.AssetTests" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

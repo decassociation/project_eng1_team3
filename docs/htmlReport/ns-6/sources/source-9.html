@@ -1,0 +1,490 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > miniWorldTest</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.team3gdx.game.screen</a>
+</div>
+
+<h1>Coverage Summary for Class: miniWorldTest (com.team3gdx.game.screen)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">miniWorldTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/102)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">miniWorldTest$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">miniWorldTest$STATE</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/107)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.screen;
+&nbsp;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.Input;
+&nbsp;//import com.badlogic.gdx.InputMultiplexer;
+&nbsp;import com.badlogic.gdx.Screen;
+&nbsp;import com.badlogic.gdx.graphics.GL20;
+&nbsp;import com.badlogic.gdx.graphics.OrthographicCamera;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;import com.badlogic.gdx.maps.tiled.TiledMap;
+&nbsp;import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+&nbsp;import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+&nbsp;import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+&nbsp;import com.badlogic.gdx.math.Matrix4;
+&nbsp;import com.badlogic.gdx.math.Rectangle;
+&nbsp;import com.badlogic.gdx.math.Vector2;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.InputEvent;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.Stage;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.Button;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+&nbsp;import com.badlogic.gdx.utils.ScreenUtils;
+&nbsp;import com.badlogic.gdx.utils.viewport.FitViewport;
+&nbsp;import com.badlogic.gdx.utils.viewport.Viewport;
+&nbsp;import com.team3gdx.game.MainGameClass;
+&nbsp;import com.team3gdx.game.entity.Cook;
+&nbsp;import com.team3gdx.game.entity.Customer;
+&nbsp;import com.team3gdx.game.entity.CustomerController;
+&nbsp;import com.team3gdx.game.entity.Entity;
+&nbsp;import com.team3gdx.game.food.Ingredient;
+&nbsp;import com.team3gdx.game.food.Ingredients;
+&nbsp;import com.team3gdx.game.station.IngredientStation;
+&nbsp;import com.team3gdx.game.station.ServingStation;
+&nbsp;import com.team3gdx.game.station.StationManager;
+&nbsp;import com.team3gdx.game.util.CollisionTile;
+&nbsp;import com.team3gdx.game.util.Control;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;public class miniWorldTest implements Screen {
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    final MainGameClass game;
+&nbsp;    public static int NUMBER_OF_WAVES;
+&nbsp;
+&nbsp;    public static boolean ENDLESS;
+&nbsp;
+&nbsp;    public Texture background;
+&nbsp;
+<b class="nc">&nbsp;    public static int currentWave = 0;</b>
+<b class="nc">&nbsp;    public static int reputationPoints = 3;</b>
+&nbsp;
+&nbsp;    Texture ESC;
+&nbsp;    Texture MENU;
+&nbsp;
+&nbsp;    Button mn;
+&nbsp;
+&nbsp;    public static CollisionTile[][] CLTiles;
+&nbsp;    Viewport uiViewport;
+&nbsp;    Viewport worldViewport;
+&nbsp;    Stage stage;
+&nbsp;    Stage stage2;
+&nbsp;    boolean flagTop;
+&nbsp;    boolean flagBot;
+&nbsp;    OrthographicCamera uiCamera;
+&nbsp;    public static OrthographicCamera worldCamera;
+&nbsp;
+<b class="nc">&nbsp;    public static Customer currentWaitingCustomer = null;</b>
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;    public enum STATE {</b>
+<b class="nc">&nbsp;        Pause, Continue, main, audio</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static GameScreen.STATE state1;
+&nbsp;    float v;
+&nbsp;    float s;
+&nbsp;    int gameResolutionX;
+&nbsp;    int gameResolutionY;
+&nbsp;    float buttonwidth;
+&nbsp;    float buttonheight;
+&nbsp;
+&nbsp;
+&nbsp;    long startTime;
+&nbsp;    long timeOnStartup;
+&nbsp;    long tempTime, tempThenTime;
+&nbsp;    public static Control control;
+&nbsp;    TiledMapRenderer tiledMapRenderer;
+&nbsp;    public TiledMap map1;
+<b class="nc">&nbsp;    public static Cook[] cooks = { new Cook(new Vector2(150 * 5, 120 * 5), 1), new Cook(new Vector2(160 * 5, 125 * 5), 2), new Cook(new Vector2(170 * 5, 130 * 5), 3) };</b>
+&nbsp;
+<b class="nc">&nbsp;    public static int currentCookIndex = 0;</b>
+<b class="nc">&nbsp;    public static Cook cook = cooks[currentCookIndex];</b>
+&nbsp;    public static CustomerController cc;
+&nbsp;    //InputMultiplexer multi;
+<b class="nc">&nbsp;    StationManager stationManager = new StationManager();</b>
+&nbsp;
+&nbsp;    Customer testCustomer;
+&nbsp;    Customer testCustomer2;
+&nbsp;
+<b class="nc">&nbsp;    Ingredient testIng = new Ingredient(Ingredients.bun);</b>
+&nbsp;    IngredientStation testIS;
+&nbsp;
+&nbsp;    boolean showIngs;
+&nbsp;
+<b class="nc">&nbsp;    public miniWorldTest(MainGameClass game) {</b>
+<b class="nc">&nbsp;        this.game = game;</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        map1 = new TmxMapLoader().load(&quot;map/art_map/customertest.tmx&quot;);</b>
+<b class="nc">&nbsp;        tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);</b>
+<b class="nc">&nbsp;        cc = new CustomerController(map1, &quot;easy&quot;);</b>
+<b class="nc">&nbsp;        cc.spawnCustomer();</b>
+<b class="nc">&nbsp;        testCustomer = cc.customers[0];</b>
+<b class="nc">&nbsp;        testCustomer.posy = 640;</b>
+<b class="nc">&nbsp;        testCustomer.posx = 1000;</b>
+<b class="nc">&nbsp;        cc.spawnCustomer();</b>
+<b class="nc">&nbsp;        testCustomer2 = cc.customers[1];</b>
+<b class="nc">&nbsp;        testCustomer2.posy = 640;</b>
+<b class="nc">&nbsp;        testCustomer2.posx = 1100;</b>
+<b class="nc">&nbsp;        showIngs = false;</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        Vector2 testPosA = new Vector2(12,13);</b>
+&nbsp;
+<b class="nc">&nbsp;        testIS = new IngredientStation(testPosA, testIng);</b>
+&nbsp;
+<b class="nc">&nbsp;        StationManager.stations.put(testPosA, testIS);</b>
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    public void show() {
+&nbsp;        // =======================================START=FRAME=TIMER======================================================
+<b class="nc">&nbsp;        startTime = System.currentTimeMillis();</b>
+<b class="nc">&nbsp;        timeOnStartup = startTime;</b>
+<b class="nc">&nbsp;        tempThenTime = startTime;</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        uiCamera = new OrthographicCamera();</b>
+<b class="nc">&nbsp;        worldCamera = new OrthographicCamera();</b>
+<b class="nc">&nbsp;        uiCamera.setToOrtho(false, gameResolutionX, gameResolutionY);</b>
+<b class="nc">&nbsp;        worldCamera.setToOrtho(false, gameResolutionX, gameResolutionY);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        worldViewport = new FitViewport(gameResolutionX, gameResolutionY, worldCamera);</b>
+<b class="nc">&nbsp;        uiViewport = new FitViewport(gameResolutionX, gameResolutionY, uiCamera);</b>
+&nbsp;        // ======================================START=STAGES============================================================
+<b class="nc">&nbsp;        stage = new Stage(uiViewport);</b>
+<b class="nc">&nbsp;        stage2 = new Stage(uiViewport);</b>
+&nbsp;        // ======================================CREATE=INPUTMULTIPLEXER=================================================
+&nbsp;        //multi = new InputMultiplexer(stage, control);
+&nbsp;        // ======================================LOAD=TEXTURES===========================================================
+<b class="nc">&nbsp;        MENU = new Texture(Gdx.files.internal(&quot;uielements/settings.png&quot;));</b>
+<b class="nc">&nbsp;        ESC = new Texture(Gdx.files.internal(&quot;uielements/background.png&quot;));</b>
+<b class="nc">&nbsp;        mn = new Button(new TextureRegionDrawable(MENU));</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        mn.setPosition(gameResolutionX / 40.0f, 18 * gameResolutionY / 20.0f);</b>
+<b class="nc">&nbsp;        mn.setSize(buttonwidth, buttonheight);</b>
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        mn.addListener(new ClickListener() {</b>
+&nbsp;            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+<b class="nc">&nbsp;                state1 = GameScreen.STATE.Pause;</b>
+<b class="nc">&nbsp;                super.touchUp(event, x, y, pointer, button);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;//
+&nbsp;//
+&nbsp;//
+&nbsp;//
+&nbsp;//           stage.addActor(mn);
+&nbsp;//        stage2.addActor(rs);
+&nbsp;//        stage2.addActor(btms);
+&nbsp;//        stage2.addActor(ad);
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void render(float delta) {
+&nbsp;
+&nbsp;        // TODO Auto-generated method stub
+<b class="nc">&nbsp;        ScreenUtils.clear(250, 0, 0, 150);</b>
+&nbsp;//        game.batch.setProjectionMatrix(camera.combined);
+&nbsp;
+&nbsp;        //background = new Texture(Gdx.files.internal(&quot;testingimage.png&quot;));
+&nbsp;
+&nbsp;
+&nbsp;        // =====================================CLEAR=SCREEN=============================================================
+<b class="nc">&nbsp;        ScreenUtils.clear(150, 110, 0, 150);</b>
+<b class="nc">&nbsp;        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);</b>
+<b class="nc">&nbsp;        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</b>
+&nbsp;
+<b class="nc">&nbsp;        game.shapeRenderer.setProjectionMatrix(worldCamera.combined);</b>
+<b class="nc">&nbsp;        game.batch.setProjectionMatrix(worldCamera.combined);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        Matrix4 uiMatrix = worldCamera.combined.cpy();</b>
+<b class="nc">&nbsp;        uiMatrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());</b>
+<b class="nc">&nbsp;        game.batch.setProjectionMatrix(uiMatrix);</b>
+&nbsp;
+<b class="nc">&nbsp;        worldCamera.update();</b>
+<b class="nc">&nbsp;        uiCamera.update();</b>
+&nbsp;
+&nbsp;        // ==================================DRAW=INTERACTIVE=UI=ELEMENTS================================================
+<b class="nc">&nbsp;        stage.act();</b>
+<b class="nc">&nbsp;        stage.draw();</b>
+&nbsp;
+&nbsp;
+&nbsp;        // =====================================DRAW=COOK=TOP=HALF=======================================================
+<b class="nc">&nbsp;        stationManager.handleStations(game.batch);</b>
+<b class="nc">&nbsp;        drawHeldItems();</b>
+&nbsp;
+<b class="nc">&nbsp;        cookDrawTesting();</b>
+<b class="nc">&nbsp;        custDrawTesting();</b>
+<b class="nc">&nbsp;        testCookHolding();</b>
+&nbsp;        //stationTesting();
+&nbsp;        //        cc.drawCustTop(game.batch); // todo fix customer z ordering
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    public void custDrawTesting(){
+<b class="nc">&nbsp;        game.batch.begin();</b>
+<b class="nc">&nbsp;        cc.drawCustTop(game.batch);</b>
+<b class="nc">&nbsp;        game.batch.end();</b>
+<b class="nc">&nbsp;        if(Gdx.input.isKeyJustPressed(Input.Keys.F)){</b>
+<b class="nc">&nbsp;            testCustomer2.setFront();</b>
+<b class="nc">&nbsp;            testCustomer.setFront();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(Gdx.input.isKeyJustPressed(Input.Keys.R)){</b>
+<b class="nc">&nbsp;            testCustomer2.setBack();</b>
+<b class="nc">&nbsp;            testCustomer.setBack();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void cookDrawTesting(){
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        if (Gdx.input.isKeyJustPressed(Input.Keys.T)){</b>
+<b class="nc">&nbsp;            flagTop = !flagTop;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (Gdx.input.isKeyJustPressed(Input.Keys.B)){</b>
+<b class="nc">&nbsp;            flagBot = !flagBot;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if(flagTop) {</b>
+<b class="nc">&nbsp;            game.batch.begin();</b>
+<b class="nc">&nbsp;            for (Cook curCook : cooks)</b>
+<b class="nc">&nbsp;                curCook.draw_top(game.batch);</b>
+<b class="nc">&nbsp;            game.batch.end();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(flagBot) {</b>
+<b class="nc">&nbsp;            game.batch.begin();</b>
+<b class="nc">&nbsp;            for (Cook curCook : cooks)</b>
+<b class="nc">&nbsp;                curCook.draw_bot(game.batch);</b>
+<b class="nc">&nbsp;            game.batch.end();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;//    public void stationTesting(){
+&nbsp;//
+&nbsp;//        if(Gdx.input.isKeyJustPressed(Input.Keys.L)){
+&nbsp;//            System.out.println(testIS.slots);
+&nbsp;//            System.out.println(&quot;ings&quot;);
+&nbsp;//        }
+&nbsp;//        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+&nbsp;//
+&nbsp;//        }
+&nbsp;//
+&nbsp;//
+&nbsp;//
+&nbsp;//    }
+&nbsp;
+&nbsp;    public void testCookHolding(){
+<b class="nc">&nbsp;        if(Gdx.input.isKeyJustPressed(Input.Keys.U)){</b>
+<b class="nc">&nbsp;            cooks[1].pickUpItem(testIng);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(Gdx.input.isKeyJustPressed(Input.Keys.D)){</b>
+<b class="nc">&nbsp;            cooks[1].dropItem();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(Gdx.input.isKeyJustPressed(Input.Keys.S)){</b>
+<b class="nc">&nbsp;            showIngs = !showIngs;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    private void drawHeldItems() {
+<b class="nc">&nbsp;        if(showIngs) {</b>
+<b class="nc">&nbsp;            for (Cook ck : cooks) {</b>
+<b class="nc">&nbsp;                int itemIndex = 0;</b>
+<b class="nc">&nbsp;                for (Entity ingredient : ck.heldItems) {</b>
+<b class="nc">&nbsp;                    ingredient.pos = new Vector2(ck.pos.x + 16, ck.pos.y + 112 + itemIndex * 8);</b>
+<b class="nc">&nbsp;                    ingredient.draw(game.batch);</b>
+<b class="nc">&nbsp;                    itemIndex++;</b>
+<b class="nc">&nbsp;                }</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void resize(int width, int height) {
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void pause() {
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void resume() {
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void hide() {
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void dispose() {
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-28 10:16</div>
+</div>
+</body>
+</html>

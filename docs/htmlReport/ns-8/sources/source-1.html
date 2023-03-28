@@ -1,0 +1,407 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > AudioController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.team3gdx.game.util</a>
+</div>
+
+<h1>Coverage Summary for Class: AudioController (com.team3gdx.game.util)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AudioController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/66)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.util;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.files.FileHandle;
+&nbsp;import com.badlogic.gdx.audio.Music;
+&nbsp;import com.badlogic.gdx.audio.Sound;
+&nbsp;
+&nbsp;public class AudioController {
+<b class="nc">&nbsp;	private HashMap&lt;String, Music&gt; musics = new HashMap&lt;String, Music&gt;();</b>
+<b class="nc">&nbsp;	private HashMap&lt;String, Sound&gt; soundFX = new HashMap&lt;String, Sound&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;	public AudioController() {</b>
+&nbsp;		// Maps music directory
+<b class="nc">&nbsp;		FileHandle files = Gdx.files.internal(&quot;./bin/main/audio/music&quot;);</b>
+<b class="nc">&nbsp;		for (FileHandle file : files.list()) {</b>
+<b class="nc">&nbsp;			this.musics.put(file.nameWithoutExtension(), Gdx.audio.newMusic(file));</b>
+&nbsp;		}
+&nbsp;
+&nbsp;		// Maps soundFX directory
+<b class="nc">&nbsp;		files = Gdx.files.internal(&quot;./bin/main/audio/soundFX&quot;);</b>
+<b class="nc">&nbsp;		for (FileHandle file : files.list()) {</b>
+<b class="nc">&nbsp;			this.soundFX.put(file.nameWithoutExtension(), Gdx.audio.newSound(file));</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Adds audio file to library as music
+&nbsp;	 * 
+&nbsp;	 * @param fileName : String - Name of file to be added (include file extension)
+&nbsp;	 */
+&nbsp;	public void addMusic(String fileName) {
+<b class="nc">&nbsp;		FileHandle toAdd = Gdx.files.local(&quot;music/&quot; + fileName);</b>
+<b class="nc">&nbsp;		if (!musics.containsKey(toAdd.nameWithoutExtension())) {</b>
+<b class="nc">&nbsp;			this.musics.put(toAdd.nameWithoutExtension(), Gdx.audio.newMusic(toAdd));</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Adds audio file to library as sound effect
+&nbsp;	 * 
+&nbsp;	 * @param fileName : String - Name of file to be added (include file extension)
+&nbsp;	 */
+&nbsp;	public void addSoundFX(String fileName) {
+<b class="nc">&nbsp;		FileHandle toAdd = Gdx.files.local(&quot;soundFX/&quot; + fileName);</b>
+<b class="nc">&nbsp;		if (!soundFX.containsKey(toAdd.nameWithoutExtension())) {</b>
+<b class="nc">&nbsp;			this.soundFX.put(toAdd.nameWithoutExtension(), Gdx.audio.newSound(toAdd));</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Returns instance of music object
+&nbsp;	 * 
+&nbsp;	 * @param musicName : String - Name of music to be returned (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 * @return Instance of music object : Music
+&nbsp;	 */
+&nbsp;	public Music getMusic(String musicName) {
+<b class="nc">&nbsp;		return this.musics.get(musicName);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Returns instance of sound object
+&nbsp;	 * 
+&nbsp;	 * @param soundName : String - Name of music to be returned (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 * @return Instance of sound object : Sound
+&nbsp;	 */
+&nbsp;	public Sound getSoundFX(String soundName) {
+<b class="nc">&nbsp;		return this.soundFX.get(soundName);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Access Sound.dispose() or Music.dispose() for individual piece of audio and
+&nbsp;	 * remove it from map
+&nbsp;	 * 
+&nbsp;	 * @param audioName : String - Name of audio instance to be disposed (file name
+&nbsp;	 *                  without extension)
+&nbsp;	 */
+&nbsp;	public void dispose(String audioName) {
+<b class="nc">&nbsp;		if (soundFX.containsKey(audioName)) {</b>
+<b class="nc">&nbsp;			this.soundFX.get(audioName).dispose();</b>
+<b class="nc">&nbsp;			this.soundFX.remove(audioName);</b>
+<b class="nc">&nbsp;		} else if (musics.containsKey(audioName)) {</b>
+<b class="nc">&nbsp;			this.musics.get(audioName).dispose();</b>
+<b class="nc">&nbsp;			this.musics.remove(audioName);</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Disposes every audio instance in map
+&nbsp;	 */
+&nbsp;	public void disposeAll() {
+<b class="nc">&nbsp;		for (Music x : this.musics.values()) {</b>
+<b class="nc">&nbsp;			x.dispose();</b>
+<b class="nc">&nbsp;		}</b>
+<b class="nc">&nbsp;		for (Sound x : this.soundFX.values()) {</b>
+<b class="nc">&nbsp;			x.dispose();</b>
+<b class="nc">&nbsp;		}</b>
+<b class="nc">&nbsp;		this.musics.clear();</b>
+<b class="nc">&nbsp;		this.soundFX.clear();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Returns weather the given piece of audio is an instance of music or sound
+&nbsp;	 * 
+&nbsp;	 * @param audioName : String - Name of audio to be checked file (file name
+&nbsp;	 *                  without extension)
+&nbsp;	 * @return &quot;music&quot; if object is music or &quot;soundFX&quot; if object is sound : String
+&nbsp;	 */
+&nbsp;	public String type(String audioName) {
+<b class="nc">&nbsp;		if (musics.containsKey(audioName)) {</b>
+<b class="nc">&nbsp;			return &quot;music&quot;;</b>
+&nbsp;		}
+<b class="nc">&nbsp;		if (soundFX.containsKey(audioName)) {</b>
+<b class="nc">&nbsp;			return &quot;soundFX&quot;;</b>
+&nbsp;		}
+<b class="nc">&nbsp;		return null;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Returns position of play back in seconds for given music
+&nbsp;	 * 
+&nbsp;	 * @param musicName : String - Name of piece of music (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 * @return Position of play back in seconds : float
+&nbsp;	 */
+&nbsp;	public float getPosition(String musicName) {
+<b class="nc">&nbsp;		return musics.get(musicName).getPosition();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Returns the volume of a given piece of music
+&nbsp;	 * 
+&nbsp;	 * @param musicName : String - Name of a piece of music (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 * @return Volume of music with 1.0 equating to 100% : float
+&nbsp;	 */
+&nbsp;	public float getVolume(String musicName) {
+<b class="nc">&nbsp;		return musics.get(musicName).getVolume();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Returns weather a piece of music is looping
+&nbsp;	 * 
+&nbsp;	 * @param musicName : String - Name of a piece of music (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 * @return Boolean
+&nbsp;	 */
+&nbsp;	public boolean isLooping(String musicName) {
+<b class="nc">&nbsp;		return musics.get(musicName).isLooping();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Returns weather a piece of music is playing
+&nbsp;	 * 
+&nbsp;	 * @param musicName : String - Name of a piece of music (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 * @return Boolean
+&nbsp;	 */
+&nbsp;	public boolean isPlaying(String musicName) {
+<b class="nc">&nbsp;		return musics.get(musicName).isPlaying();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Sets the position of play back in seconds for a given piece of music
+&nbsp;	 * 
+&nbsp;	 * @param musicName : String - Name of a piece of music (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 * @param position  : float - Play back position in seconds
+&nbsp;	 */
+&nbsp;	public void setPosition(String musicName, float position) {
+<b class="nc">&nbsp;		this.musics.get(musicName).setPosition(position);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Sets the volume of a given piece of music
+&nbsp;	 * 
+&nbsp;	 * @param musicName : String - Name of a piece of music (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 * @param volume    : float - Volume for music (with 1.0 corresponding to 100%)
+&nbsp;	 */
+&nbsp;	public void setVolume(String musicName, float volume) {
+<b class="nc">&nbsp;		this.musics.get(musicName).setVolume(volume);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Sets the volume of a given sound effect
+&nbsp;	 * 
+&nbsp;	 * @param soundName : String - Name of a sound effect (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 * @param soundID   : long - ID of a sound instance (Returned when sound was
+&nbsp;	 *                  played)
+&nbsp;	 * @param volume    : float - Volume for music (with 1.0 corresponding to 100%)
+&nbsp;	 */
+&nbsp;	public void setVolume(String soundName, long soundID, float volume) {
+<b class="nc">&nbsp;		this.soundFX.get(soundName).setVolume(soundID, volume);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Plays and loops a given piece of audio. Music will start paying if it isn&#39;t
+&nbsp;	 * already
+&nbsp;	 * 
+&nbsp;	 * @param audioName : String - Name of a piece of audio (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 * @return soundID of a sound effect (-1 if not a sound effect given) : long
+&nbsp;	 */
+&nbsp;	public long loop(String audioName) {
+<b class="nc">&nbsp;		if (soundFX.containsKey(audioName)) {</b>
+<b class="nc">&nbsp;			return this.soundFX.get(audioName).loop();</b>
+&nbsp;		}
+<b class="nc">&nbsp;		if (musics.containsKey(audioName)) {</b>
+<b class="nc">&nbsp;			this.musics.get(audioName).setLooping(true);</b>
+<b class="nc">&nbsp;			if (!musics.get(audioName).isPlaying()) {</b>
+<b class="nc">&nbsp;				this.musics.get(audioName).play();</b>
+&nbsp;			}
+&nbsp;		}
+<b class="nc">&nbsp;		return -1;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Will stop a piece of music from looping - it will still play to the end of
+&nbsp;	 * the piece (Will not stop a sound effect where the .stop() method must be
+&nbsp;	 * used)
+&nbsp;	 * 
+&nbsp;	 * @param musicName : String - Name of a piece of music (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 */
+&nbsp;	public void stopLooping(String musicName) {
+<b class="nc">&nbsp;		this.musics.get(musicName).setLooping(false);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Plays a given piece of audio
+&nbsp;	 * 
+&nbsp;	 * @param audioName : String - Name of a piece of audio (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 * @return soundID of a sound effect (-1 if not a sound effect given) : long
+&nbsp;	 */
+&nbsp;	public long play(String audioName) {
+<b class="nc">&nbsp;		if (soundFX.containsKey(audioName)) {</b>
+<b class="nc">&nbsp;			return this.soundFX.get(audioName).play();</b>
+&nbsp;		}
+<b class="nc">&nbsp;		if (musics.containsKey(audioName)) {</b>
+<b class="nc">&nbsp;			this.musics.get(audioName).play();</b>
+&nbsp;		}
+<b class="nc">&nbsp;		return -1;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Plays a given sound effect at a specified volume
+&nbsp;	 * 
+&nbsp;	 * @param soundName : String - Name of a sound effect (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 * @param volume    : float - Volume to play audio at (1.0 equating to 100%)
+&nbsp;	 * @return soundID of a sound effect (-1 if not a sound effect given) : long
+&nbsp;	 */
+&nbsp;	public long play(String soundName, float volume) {
+<b class="nc">&nbsp;		return this.soundFX.get(soundName).play(volume);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Pauses a piece of audio - .play() method will resume from pre-paused position
+&nbsp;	 * (all instances of a sound effect)
+&nbsp;	 * 
+&nbsp;	 * @param audioName : String - Name of a piece of audio (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 */
+&nbsp;	public void pause(String audioName) {
+<b class="nc">&nbsp;		if (soundFX.containsKey(audioName)) {</b>
+<b class="nc">&nbsp;			this.soundFX.get(audioName).pause();</b>
+&nbsp;		}
+<b class="nc">&nbsp;		if (musics.containsKey(audioName)) {</b>
+<b class="nc">&nbsp;			this.musics.get(audioName).pause();</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Stops a piece of audio (all instances of a sound effect)
+&nbsp;	 * 
+&nbsp;	 * @param audioName : String - Name of a piece of audio (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 */
+&nbsp;	public void stop(String audioName) {
+<b class="nc">&nbsp;		if (soundFX.containsKey(audioName)) {</b>
+<b class="nc">&nbsp;			this.soundFX.get(audioName).stop();</b>
+&nbsp;		}
+<b class="nc">&nbsp;		if (musics.containsKey(audioName)) {</b>
+<b class="nc">&nbsp;			this.musics.get(audioName).stop();</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Stops a specific instance of a sound effect given
+&nbsp;	 * 
+&nbsp;	 * @param soundName : String - Name of a sound effect (file name without
+&nbsp;	 *                  extension)
+&nbsp;	 * @param soundID   : long - ID of a sound instance (Returned when sound was
+&nbsp;	 *                  played)
+&nbsp;	 */
+&nbsp;	public void stop(String soundName, long soundID) {
+<b class="nc">&nbsp;		this.soundFX.get(soundName).stop(soundID);</b>
+&nbsp;	}
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-28 10:16</div>
+</div>
+</body>
+</html>

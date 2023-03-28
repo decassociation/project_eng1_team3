@@ -1,0 +1,360 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > AssetTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.team3.gdx.tests</a>
+</div>
+
+<h1>Coverage Summary for Class: AssetTests (com.team3.gdx.tests)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AssetTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (180/180)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.team3.gdx.tests;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import org.junit.Test;
+&nbsp;import org.junit.runner.RunWith;
+&nbsp;
+&nbsp;import static org.junit.Assert.assertTrue;
+&nbsp;
+&nbsp;@RunWith(GdxTestRunner.class)
+<b class="fc">&nbsp;public class AssetTests {</b>
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testChefAssetsExist(){
+<b class="fc">&nbsp;        assertTrue(&quot;Cook 1 standard asset exists test&quot;, Gdx.files.internal(&quot;entities/cook_walk_1.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Cook 2 standard asset exists test&quot;, Gdx.files.internal(&quot;entities/cook_walk_2.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Cook 3 standard asset exists test&quot;, Gdx.files.internal(&quot;entities/cook_walk_3.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Cook 1 hand asset exists test&quot;, Gdx.files.internal(&quot;entities/cook_walk_hands_1.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Cook 2 hand asset exists test&quot;, Gdx.files.internal(&quot;entities/cook_walk_hands_1.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Cook 3 hand asset exists test&quot;, Gdx.files.internal(&quot;entities/cook_walk_hands_1.png&quot;).exists());</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    public void testCustAssetsExist(){
+&nbsp;
+&nbsp;        // Customer 0
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 0 front&quot;, Gdx.files.internal(&quot;entities/cust0f.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 0 back&quot;, Gdx.files.internal(&quot;entities/cust0b.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 0 left&quot;, Gdx.files.internal(&quot;entities/cust0l.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 0 right&quot;, Gdx.files.internal(&quot;entities/cust0r.png&quot;).exists());</b>
+&nbsp;        // Customer 1
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 1 front&quot;, Gdx.files.internal(&quot;entities/cust1f.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 1 back&quot;, Gdx.files.internal(&quot;entities/cust1b.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 1 left&quot;, Gdx.files.internal(&quot;entities/cust1l.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 2 right&quot;, Gdx.files.internal(&quot;entities/cust2r.png&quot;).exists());</b>
+&nbsp;        // Customer 2
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 2 front&quot;, Gdx.files.internal(&quot;entities/cust2f.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 2 back&quot;, Gdx.files.internal(&quot;entities/cust2b.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 2 left&quot;, Gdx.files.internal(&quot;entities/cust2l.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 2 right&quot;, Gdx.files.internal(&quot;entities/cust2r.png&quot;).exists());</b>
+&nbsp;        // Customer 3
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 3 front&quot;, Gdx.files.internal(&quot;entities/cust3f.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 3 back&quot;, Gdx.files.internal(&quot;entities/cust3b.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 3 left&quot;, Gdx.files.internal(&quot;entities/cust3l.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 3 right&quot;, Gdx.files.internal(&quot;entities/cust3r.png&quot;).exists());</b>
+&nbsp;        // Customer 4
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 4 front&quot;, Gdx.files.internal(&quot;entities/cust4f.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 4 back&quot;, Gdx.files.internal(&quot;entities/cust4b.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 4 left&quot;, Gdx.files.internal(&quot;entities/cust4l.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Customer 4 right&quot;, Gdx.files.internal(&quot;entities/cust4r.png&quot;).exists());</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testAudioAssetsExist() {
+<b class="fc">&nbsp;        assertTrue(&quot;testmusic in music&quot;, Gdx.files.internal(&quot;audio/music/testMusic.mp3&quot;).exists());</b>
+&nbsp;
+&nbsp;        //music things
+<b class="fc">&nbsp;        assertTrue(&quot;GameMusic.mp3 in &#39;uielements?&#39;&quot;, Gdx.files.internal(&quot;uielements/GameMusic.mp3&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;GameMusic.ogg in &#39;uielements?&#39;&quot;, Gdx.files.internal(&quot;uielements/GameMusic.ogg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;MainScreenMusic.ogg in &#39;uielements?&#39;&quot;, Gdx.files.internal(&quot;uielements/GameMusic.ogg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;music.mp3 in &#39;uielements?&#39;&quot;, Gdx.files.internal(&quot;uielements/music.mp3&quot;).exists());</b>
+&nbsp;
+&nbsp;        //sound effect things
+<b class="fc">&nbsp;        assertTrue(&quot;cash-register-opening.mp3 in audio/soundFX&quot;, Gdx.files.internal(&quot;audio/soundFX/cash-register-opening.mp3&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chopping.mp3 in audio/soundFX&quot;, Gdx.files.internal(&quot;audio/soundFX/chopping.mp3&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;frying.mp3 in audio/soundFX&quot;, Gdx.files.internal(&quot;audio/soundFX/frying.mp3&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;money-collect.mp3 in audio/soundFX&quot;, Gdx.files.internal(&quot;audio/soundFX/money-collect.mp3&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;testSoundFX.mp3 in audio/soundFX&quot;, Gdx.files.internal(&quot;audio/soundFX/testSoundFX.mp3&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;timer-bell-ring.mp3 in audio/soundFX&quot;, Gdx.files.internal(&quot;audio/soundFX/timer-bell-ring.mp3&quot;).exists());</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testItemAssets(){
+&nbsp;
+<b class="fc">&nbsp;        assertTrue(&quot;burger.png in items&quot;, Gdx.files.internal(&quot;items/burger.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;burger_bun.png in items&quot;, Gdx.files.internal(&quot;items/burger_bun.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;burger_bun_burned.png in items&quot;, Gdx.files.internal(&quot;items/burger_bun_burned.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;burger_bun_cooked.png in items&quot;, Gdx.files.internal(&quot;items/burger_bun_cooked.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;burger_burned.png in items&quot;, Gdx.files.internal(&quot;items/burger_burned.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;burger_cooked.png in items&quot;, Gdx.files.internal(&quot;items/burger_cooked.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;lettuce.png in items&quot;, Gdx.files.internal(&quot;items/lettuce.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;lettuce_chopped.png in items&quot;, Gdx.files.internal(&quot;items/lettuce_chopped.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;meat.png in items&quot;, Gdx.files.internal(&quot;items/meat.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;meat overcooked.png in items&quot;, Gdx.files.internal(&quot;items/meat overcooked.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;meat undercooked.png in items&quot;, Gdx.files.internal(&quot;items/meat undercooked.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;nil.png in items&quot;, Gdx.files.internal(&quot;items/nil.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;onion.png in items&quot;, Gdx.files.internal(&quot;items/onion.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;onion_chopped.png in items&quot;, Gdx.files.internal(&quot;items/onion_chopped.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;patty.png in items&quot;, Gdx.files.internal(&quot;items/patty.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;patty_burned.png in items&quot;, Gdx.files.internal(&quot;items/patty_burned.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;patty_cooked.png in items&quot;, Gdx.files.internal(&quot;items/patty_cooked.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;potato.png in items&quot;, Gdx.files.internal(&quot;items/potato.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;potato_cooked.png in items&quot;, Gdx.files.internal(&quot;items/potato_cooked.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;salad.png in items&quot;, Gdx.files.internal(&quot;items/salad.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;tomato.png in items&quot;, Gdx.files.internal(&quot;items/tomato.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;tomato_burned.png in items&quot;, Gdx.files.internal(&quot;items/tomato_burned.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;tomato_chopped.png in items&quot;, Gdx.files.internal(&quot;items/tomato_chopped.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;tomato_cooked.png in items&quot;, Gdx.files.internal(&quot;items/tomato_cooked.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;unformed_patty.png in items&quot;, Gdx.files.internal(&quot;items/unformed_patty.png&quot;).exists());</b>
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testLeaderboardData(){
+&nbsp;
+<b class="fc">&nbsp;        assertTrue(&quot;playerData.txt in leaderboarddata&quot;, Gdx.files.internal(&quot;leaderboarddata/playerData.txt&quot;).exists());</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testMapAssetsExist(){
+&nbsp;
+&nbsp;        // Files in map
+<b class="fc">&nbsp;        assertTrue(&quot;2layers.PNG in map&quot;, Gdx.files.internal(&quot;map/2layers.PNG&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;ENG1_tiles.tsx in map&quot;, Gdx.files.internal(&quot;map/ENG1_tiles.tsx&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;ExampleBottomLayer.PNG in map&quot;, Gdx.files.internal(&quot;map/ExampleBottomLayer.PNG&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;ExampleTopLayer.PNG in map&quot;, Gdx.files.internal(&quot;map/ExampleTopLayer.PNG&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;tilemapinstructions.txt in map&quot;, Gdx.files.internal(&quot;map/tilemapinstructions.txt&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;untitled.tmx in map&quot;, Gdx.files.internal(&quot;map/untitled.tmx&quot;).exists());</b>
+&nbsp;
+&nbsp;        // Files in map/art_map
+<b class="fc">&nbsp;        assertTrue(&quot;art_tileset.tsx in map/art_map&quot;, Gdx.files.internal(&quot;map/art_map/art_tileset.tsx&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;art_version.tiled-project in map/art_map&quot;, Gdx.files.internal(&quot;map/art_map/art_version.tiled-project&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;art_version.tiled-session in map/art_map&quot;, Gdx.files.internal(&quot;map/art_map/art_version.tiled-session&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;customertest.tmx in map/art_map&quot;, Gdx.files.internal(&quot;map/art_map/customertest.tmx&quot;).exists());</b>
+&nbsp;
+&nbsp;        // Files in map/art_map/art_images
+<b class="fc">&nbsp;        assertTrue(&quot;bunsbox.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/bunsbox.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;burgercrafter.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/burgercrafter.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef1 - back.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef1 - back.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef1 - back - hold up.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef1 - back - hold up.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef1 - front.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef1 - front.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef1 - front - hold up.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef1 - front - hold up.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef 1 - facing left.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef 1 - facing left.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef 1 - facing left - hold up..png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef 1 - facing left - hold up..png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef 1 - facing right.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef 1 - facing right.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef 1 - facing right - hold up.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef 1 - facing right - hold up.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef2 - back.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef2 - back.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef2 - back - hold up.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef2 - back - hold up.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef2 - front.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef2 - front.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef2 - front - hold up.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef2 - front - hold up.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef 2 - facing left.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef 2 - facing left.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef 2 - facing left - hold up..png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef 2 - facing left - hold up.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef 2 - facing right.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef 2 - facing right.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef 2 - facing right - hold up.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef 2 - facing right - hold up.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef3 - back.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef3 - back.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef3 - back - hold up.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef3 - back - hold up.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef3 - front.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef3 - front.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef3 - front - hold up.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef3 - front - hold up.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef 3 - facing left.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef 3 - facing left.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef 3 - facing left - hold up..png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef 3 - facing left - hold up.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef 3 - facing right.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef 3 - facing right.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chef 3 - facing right - hold up.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chef 3 - facing right - hold up.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;chopping.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/chopping.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;cnr.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/cnr.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;ctrfr.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/ctrfr.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;ctrtl.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/ctrtl.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;ctrtr.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/ctrtr.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;customer tile 1.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/customer tile 1.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;customer tile 2.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/customer tile 2.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;customer tile 3.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/customer tile 3.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Double Counter.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Double Counter.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Double Counter and chopping bar..png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Double Counter and chopping bar..png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Double Counter and Salad bar..png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Double Counter and Salad bar..png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Double Counter burger bar.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Double Counter burger bar.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Double Counter w burger crate.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Double Counter w burger crate.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Double Counter w food crate.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Double Counter w food crate.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;emptygrill.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/emptygrill.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Floor tile.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Floor tile.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Front desk counter.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Front desk counter.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;lettuce.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/lettuce.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;linectr.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/linectr.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;onioncrate.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/onioncrate.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Oven (clean).png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Oven (clean).png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Oven (messy).png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Oven (messy).png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;ovenbotcln.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/ovenbotcln.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;ovenbotmes.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/ovenbotmes.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;oventopmes.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/oventopmes.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;ovtopcln.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/ovtopcln.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;pattypile.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/pattypile.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;pln.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/pln.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;potato.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/potato.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;register.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/register.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Salad_top.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Salad_top.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Single Counter.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Single Counter.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Single Counter Sideways.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Single Counter Sideways.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;tomato.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/tomato.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Top Counter.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Top Counter.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Top Oven.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Top Oven.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Trash can.png in map/art_map/art_images&quot;, Gdx.files.internal(&quot;map/art_map/art_images/Trash can.png&quot;).exists());</b>
+&nbsp;
+&nbsp;        // map/old files
+<b class="fc">&nbsp;        assertTrue(&quot;64pxshittytiles.png in map/old&quot;, Gdx.files.internal(&quot;map/old/64pxshittytiles.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;64pxshittytiles.tsx in map/old&quot;, Gdx.files.internal(&quot;map/old/64pxshittytiles.tsx&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;test.tmx in map/old&quot;, Gdx.files.internal(&quot;map/old/test.tmx&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;test (1).tmx in map/old&quot;, Gdx.files.internal(&quot;map/old/test (1).tmx&quot;).exists());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testParticlesAssetsExist(){
+<b class="fc">&nbsp;        assertTrue(&quot;flame.png&quot;, Gdx.files.internal(&quot;particles/flame.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;flames.party&quot;, Gdx.files.internal(&quot;particles/flames.party&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;smoke.png&quot;, Gdx.files.internal(&quot;particles/smoke.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;smokes.party&quot;, Gdx.files.internal(&quot;particles/smokes.party&quot;).exists());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testUIElementsExist(){
+<b class="fc">&nbsp;        assertTrue(&quot;audio.png in uielements&quot;, Gdx.files.internal(&quot;uielements/audio.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;audio.png in uielements&quot;, Gdx.files.internal(&quot;uielements/audio2.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;background.png in uielements&quot;, Gdx.files.internal(&quot;uielements/background.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;background1.png in uielements&quot;, Gdx.files.internal(&quot;uielements/background1.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;badlogic.jpg in uielements&quot;, Gdx.files.internal(&quot;uielements/badlogic.jpg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Eng1sound.wav in uielements&quot;, Gdx.files.internal(&quot;uielements/Eng1sound.wav&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;ESC.jpg in uielements&quot;, Gdx.files.internal(&quot;uielements/ESC.jpg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;exitgame.png in uielements&quot;, Gdx.files.internal(&quot;uielements/exitgame.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;exitmenu.png in uielements&quot;, Gdx.files.internal(&quot;uielements/exitmenu.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;font.fnt in uielements&quot;, Gdx.files.internal(&quot;uielements/font.fnt&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;font.png in uielements&quot;, Gdx.files.internal(&quot;uielements/font.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;GameMusic.mp3 in uielements&quot;, Gdx.files.internal(&quot;uielements/GameMusic.mp3&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;GameMusic.ogg in uielements&quot;, Gdx.files.internal(&quot;uielements/GameMusic.ogg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;leaderBoard.jpg in uielements&quot;, Gdx.files.internal(&quot;uielements/leaderBoard.jpg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;LeaderBoard.png in uielements&quot;, Gdx.files.internal(&quot;uielements/LeaderBoard.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;leaderboard .jpg in uielements&quot;, Gdx.files.internal(&quot;uielements/leaderboard .jpg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;leaderboard1.png in uielements&quot;, Gdx.files.internal(&quot;uielements/leaderboard1.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;line.jpg in uielements&quot;, Gdx.files.internal(&quot;uielements/line.jpg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Main.jpg in uielements&quot;, Gdx.files.internal(&quot;uielements/Main.jpg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;MainScreenBackground.jpg in uielements&quot;, Gdx.files.internal(&quot;uielements/MainScreenBackground.jpg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;MainScreenMusic.ogg in uielements&quot;, Gdx.files.internal(&quot;uielements/MainScreenMusic.ogg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;MENU.jpg in uielements&quot;, Gdx.files.internal(&quot;uielements/MENU.jpg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;music.mp3 in uielements&quot;, Gdx.files.internal(&quot;uielements/music.mp3&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;newgame.png in uielements&quot;, Gdx.files.internal(&quot;uielements/newgame.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;resume.jpg in uielements&quot;, Gdx.files.internal(&quot;uielements/resume.jpg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;resume.png in uielements&quot;, Gdx.files.internal(&quot;uielements/resume.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;settings.png in uielements&quot;, Gdx.files.internal(&quot;uielements/settings.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;startButton.jpg in uielements&quot;, Gdx.files.internal(&quot;uielements/startButton.jpg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;testsound.mp3 in uielements&quot;, Gdx.files.internal(&quot;uielements/testsound.mp3&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;vButton.jpg in uielements&quot;, Gdx.files.internal(&quot;uielements/vButton.jpg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;vControl.jpg in uielements&quot;, Gdx.files.internal(&quot;uielements/vControl.jpg&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;vControl.png in uielements&quot;, Gdx.files.internal(&quot;uielements/vControl.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;downArrow.png in uielements&quot;, Gdx.files.internal(&quot;uielements/downArrow.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;upArrow.png in uielements&quot;, Gdx.files.internal(&quot;uielements/upArrow.png&quot;).exists());</b>
+<b class="fc">&nbsp;        assertTrue(&quot;go.png in uielements&quot;, Gdx.files.internal(&quot;uielements/go.png&quot;).exists());</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-28 10:16</div>
+</div>
+</body>
+</html>

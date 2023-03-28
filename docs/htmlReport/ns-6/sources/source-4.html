@@ -1,0 +1,371 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > LeaderBoard</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.team3gdx.game.screen</a>
+</div>
+
+<h1>Coverage Summary for Class: LeaderBoard (com.team3gdx.game.screen)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LeaderBoard</td>
+<td class="coverageStat">
+  <span class="percent">
+    26.7%
+  </span>
+  <span class="absValue">
+    (4/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    35.1%
+  </span>
+  <span class="absValue">
+    (27/77)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">LeaderBoard$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/4)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">LeaderBoard$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    26.3%
+  </span>
+  <span class="absValue">
+    (5/19)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    32.9%
+  </span>
+  <span class="absValue">
+    (28/85)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.screen;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.Comparator;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.Input;
+&nbsp;import com.badlogic.gdx.Input.TextInputListener;
+&nbsp;import com.badlogic.gdx.InputAdapter;
+&nbsp;import com.badlogic.gdx.Screen;
+&nbsp;import com.badlogic.gdx.files.FileHandle;
+&nbsp;import com.badlogic.gdx.graphics.OrthographicCamera;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;import com.badlogic.gdx.utils.ScreenUtils;
+&nbsp;import com.badlogic.gdx.utils.viewport.FitViewport;
+&nbsp;import com.team3gdx.game.MainGameClass;
+&nbsp;//INCORRECT FILE FORMATTING WILL CRASH GAME
+&nbsp;//MAKE SURE ALL LINES IN LEADERBOARD FILE ARE x;y OR JUST s
+&nbsp;//NO NEWLINE AT END OF FILE
+&nbsp;public class LeaderBoard implements Screen, TextInputListener {
+&nbsp;	final MainGameClass game;
+&nbsp;
+&nbsp;	Texture background;
+&nbsp;	Texture line;
+&nbsp;	Texture leaderboard;
+&nbsp;	OrthographicCamera camera;
+&nbsp;	FitViewport viewport;
+&nbsp;	MainScreen ms;
+&nbsp;	ArrayList&lt;ArrayList&lt;String&gt;&gt; playerData;
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Constructor for leaderboard screen
+&nbsp;	 * @param game - Entry point class
+&nbsp;	 * @param ms - Main screen class
+&nbsp;	 */
+<b class="fc">&nbsp;	public LeaderBoard(MainGameClass game, MainScreen ms) {</b>
+<b class="fc">&nbsp;		this.game = game;</b>
+<b class="fc">&nbsp;		this.ms = ms;</b>
+&nbsp;
+<b class="fc">&nbsp;		readPlayerData();</b>
+<b class="fc">&nbsp;		sortPlayerData();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Read player data from leaderboard file
+&nbsp;	 * Delete the leaderboard txt file to clear leaderboard
+&nbsp;	 * The file starts with &quot;s&quot; and then adds scores
+&nbsp;	 */
+&nbsp;	public void readPlayerData() {
+<b class="fc">&nbsp;		playerData = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;		boolean doesPlayerDataExist = Gdx.files.local(&quot;leaderboarddata/playerData.txt&quot;).exists();</b>
+<b class="fc">&nbsp;		if (doesPlayerDataExist) {</b>
+<b class="fc">&nbsp;			FileHandle handle = Gdx.files.local(&quot;leaderboarddata/playerData.txt&quot;);</b>
+<b class="fc">&nbsp;			String text = handle.readString();</b>
+<b class="fc">&nbsp;			String[] entries = text.split(&quot;\\n&quot;);</b>
+<b class="fc">&nbsp;			for (String s : entries) {</b>
+<b class="fc">&nbsp;				if(!s.trim().equals(&quot;s&quot;)) {</b>
+<b class="fc">&nbsp;					String[] parts = s.split(&quot;;&quot;);</b>
+<b class="fc">&nbsp;					String name = parts[0];</b>
+<b class="fc">&nbsp;					String stringScore = parts[  1].trim();</b>
+<b class="fc">&nbsp;					ArrayList&lt;String&gt; sublist = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;					sublist.add(name);</b>
+<b class="fc">&nbsp;					sublist.add(stringScore);</b>
+<b class="fc">&nbsp;					playerData.add(sublist);</b>
+&nbsp;				}
+&nbsp;			}
+<b class="fc">&nbsp;		} else {</b>
+<b class="nc">&nbsp;			FileHandle file = Gdx.files.local(&quot;leaderboarddata/playerData.txt&quot;);</b>
+<b class="nc">&nbsp;			file.writeString(&quot;s&quot;,true);</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Order leaderboard data
+&nbsp;	 */
+&nbsp;	public void sortPlayerData() {
+<b class="fc">&nbsp;		Collections.sort(playerData, new Comparator&lt;ArrayList&lt;String&gt;&gt;() {</b>
+&nbsp;			@Override
+&nbsp;			public int compare(ArrayList&lt;String&gt; e1, ArrayList&lt;String&gt; e2) {
+<b class="nc">&nbsp;				Integer i1 = Integer.valueOf(e1.get(1));</b>
+<b class="nc">&nbsp;				Integer i2 = Integer.valueOf(e2.get(1));</b>
+<b class="nc">&nbsp;				return (i1.compareTo(i2));</b>
+&nbsp;			}
+&nbsp;		});
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * What should be done when screen is shown
+&nbsp;	 */
+&nbsp;	public void show() {
+<b class="nc">&nbsp;		ScreenUtils.clear(0, 0, 0, 0);</b>
+<b class="nc">&nbsp;		camera = new OrthographicCamera();</b>
+<b class="nc">&nbsp;		camera.setToOrtho(false, ms.gameResolutionX, ms.gameResolutionY);</b>
+<b class="nc">&nbsp;		viewport = new FitViewport(ms.gameResolutionX, ms.gameResolutionY, camera);</b>
+<b class="nc">&nbsp;		background = new Texture(Gdx.files.internal(&quot;uielements/MainScreenBackground.jpg&quot;));</b>
+<b class="nc">&nbsp;		leaderboard = new Texture(Gdx.files.internal(&quot;uielements/LeaderBoard.png&quot;));</b>
+<b class="nc">&nbsp;		line = new Texture(Gdx.files.internal(&quot;uielements/line.jpg&quot;));</b>
+<b class="nc">&nbsp;		game.font.getData().setScale((float) 2.5);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Screen render method
+&nbsp;	 * @param delta - some change in time
+&nbsp;	 */
+&nbsp;	public void render(float delta) {
+&nbsp;		// TODO Auto-generated method stub
+<b class="nc">&nbsp;		ScreenUtils.clear(0, 0, 0, 0);</b>
+<b class="nc">&nbsp;		game.batch.setProjectionMatrix(camera.combined);</b>
+<b class="nc">&nbsp;		float lbox = ms.gameResolutionX / 10.0f;</b>
+<b class="nc">&nbsp;		float dbox = ms.gameResolutionY / 10.0f;</b>
+<b class="nc">&nbsp;		float boxwid = 8 * lbox;</b>
+<b class="nc">&nbsp;		float boxhi = 8 * dbox;</b>
+<b class="nc">&nbsp;		float entryhi = 7 * dbox;</b>
+<b class="nc">&nbsp;		float topentry = dbox + entryhi;</b>
+<b class="nc">&nbsp;		float eachentryhi = entryhi / 7;</b>
+&nbsp;
+<b class="nc">&nbsp;		game.batch.begin();</b>
+<b class="nc">&nbsp;		game.batch.draw(background, 0, 0, ms.gameResolutionX, ms.gameResolutionY);</b>
+<b class="nc">&nbsp;		game.batch.draw(leaderboard, lbox, dbox, boxwid, boxhi);</b>
+<b class="nc">&nbsp;		game.font.draw(game.batch, &quot;Press ESC to return to menu&quot;, ms.gameResolutionX / 20.0f,</b>
+&nbsp;				19 * ms.gameResolutionY / 19.0f);
+<b class="nc">&nbsp;		game.font.draw(game.batch, &quot;Name&quot;, 4 * ms.gameResolutionX / 20.0f, 17 * ms.gameResolutionY / 20.0f);</b>
+<b class="nc">&nbsp;		game.font.draw(game.batch, &quot;Customers Served&quot;, 12 * ms.gameResolutionX / 20.0f, 17 * ms.gameResolutionY / 20.0f);</b>
+<b class="nc">&nbsp;		game.batch.draw(line, lbox, dbox + eachentryhi, boxwid, ms.gameResolutionY / 100.0f);</b>
+<b class="nc">&nbsp;		game.batch.draw(line, lbox, dbox + 2 * eachentryhi, boxwid, ms.gameResolutionY / 100.0f);</b>
+<b class="nc">&nbsp;		game.batch.draw(line, lbox, dbox + 3 * eachentryhi, boxwid, ms.gameResolutionY / 100.0f);</b>
+<b class="nc">&nbsp;		game.batch.draw(line, lbox, dbox + 4 * eachentryhi, boxwid, ms.gameResolutionY / 100.0f);</b>
+<b class="nc">&nbsp;		game.batch.draw(line, lbox, dbox + 5 * eachentryhi, boxwid, ms.gameResolutionY / 100.0f);</b>
+<b class="nc">&nbsp;		game.batch.draw(line, lbox, dbox + 6 * eachentryhi, boxwid, ms.gameResolutionY / 100.0f);</b>
+&nbsp;
+<b class="nc">&nbsp;		for (int scoreno = 0; scoreno &lt; 7; scoreno++) {</b>
+<b class="nc">&nbsp;			if (this.playerData.size() &gt;= scoreno + 1) {</b>
+<b class="nc">&nbsp;				float ycord = topentry - scoreno * eachentryhi - 0.3f * eachentryhi;</b>
+<b class="nc">&nbsp;				String name = this.playerData.get(scoreno).get(0);</b>
+<b class="nc">&nbsp;				String stringScore = this.playerData.get(scoreno).get(1);</b>
+<b class="nc">&nbsp;				game.font.draw(game.batch, name, 3 * ms.gameResolutionX / 20.0f, ycord);</b>
+<b class="nc">&nbsp;				game.font.draw(game.batch, stringScore, 11 * ms.gameResolutionX / 20.0f, ycord);</b>
+&nbsp;			}
+&nbsp;		}
+&nbsp;
+<b class="nc">&nbsp;		game.batch.end();</b>
+<b class="nc">&nbsp;		Gdx.input.setInputProcessor(new InputAdapter() {</b>
+&nbsp;			public boolean keyDown(int key) {
+<b class="nc">&nbsp;				if (key == Input.Keys.ESCAPE) {</b>
+<b class="nc">&nbsp;					changeScreenToMain();</b>
+&nbsp;				}
+<b class="nc">&nbsp;				return super.keyDown(key);</b>
+&nbsp;			}
+&nbsp;		});
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Add data to leaderboard
+&nbsp;	 * @param name - name of player
+&nbsp;	 * @param score - score of player
+&nbsp;	 */
+&nbsp;	public void addLeaderBoardData(String name, int score) {
+<b class="fc">&nbsp;		String stringscore = Integer.toString(score);</b>
+<b class="fc">&nbsp;		FileHandle handle = Gdx.files.local(&quot;leaderboarddata/playerData.txt&quot;);</b>
+<b class="fc">&nbsp;		handle.writeString(&quot;\n&quot; + name + &quot;;&quot; + stringscore, true);</b>
+<b class="fc">&nbsp;		this.readPlayerData();</b>
+<b class="fc">&nbsp;		this.sortPlayerData();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Change screen back to main menu
+&nbsp;	 */
+&nbsp;	public void changeScreenToMain() {
+<b class="nc">&nbsp;		game.gameMusic.pause();</b>
+<b class="nc">&nbsp;		game.setScreen(game.getMainScreen());</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Change window size
+&nbsp;	 * @param width - new window size
+&nbsp;	 * @param height - new window height
+&nbsp;	 */
+&nbsp;	@Override
+&nbsp;	public void resize(int width, int height) {
+<b class="nc">&nbsp;		viewport.update(width, height);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@Override
+&nbsp;	public void pause() {
+&nbsp;		// TODO Auto-generated method stub
+&nbsp;
+<b class="nc">&nbsp;	}</b>
+&nbsp;
+&nbsp;	@Override
+&nbsp;	public void resume() {
+&nbsp;		// TODO Auto-generated method stub
+&nbsp;
+<b class="nc">&nbsp;	}</b>
+&nbsp;
+&nbsp;	public void hide() {
+&nbsp;		// TODO Auto-generated method stub
+&nbsp;
+<b class="nc">&nbsp;	}</b>
+&nbsp;
+&nbsp;	@Override
+&nbsp;	public void dispose() {
+&nbsp;		// TODO Auto-generated method stub
+&nbsp;
+<b class="nc">&nbsp;	}</b>
+&nbsp;
+&nbsp;	public void create() {
+&nbsp;		// TODO Auto-generated method stub
+&nbsp;
+<b class="nc">&nbsp;	}</b>
+&nbsp;
+&nbsp;	@Override
+&nbsp;	public void input(String text) {
+&nbsp;		// TODO Auto-generated method stub
+&nbsp;
+<b class="nc">&nbsp;	}</b>
+&nbsp;
+&nbsp;	@Override
+&nbsp;	public void canceled() {
+&nbsp;		// TODO Auto-generated method stub
+&nbsp;
+<b class="nc">&nbsp;	}</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-28 10:16</div>
+</div>
+</body>
+</html>
