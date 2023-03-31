@@ -1,22 +1,26 @@
 img {
     border: 5px solid black;
 }
+
 body {
-    background-color:  #e2e0df;
+    background-color: #ffe6e6; /* light pink background color */
 }
+
 h1 {
     font-family: Arial;
     font-size: 45px;
     color: rgb(0, 0, 0);
     font-weight: bold;
 }
+
 h2 {
     font-family: Arial;
     font-size: 20px;
 }
-button{
-    background-color: rgb(231, 10, 10);
-    border: 5px black;
+
+button {
+    background-color: #ff99b3; /* light pink button color */
+    border: 5px solid black;
     color: white;
     text-align: center;
     text-decoration: none;
@@ -25,6 +29,7 @@ button{
     margin: 10px;
     padding: 10px;
 }
-button:hover{
-    background-color: rgb(129, 0, 0);
+
+button:hover {
+    background-color: #ff4d6a; /* darker pink on hover */
 }
