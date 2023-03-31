@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/class-diagram
+package "entity"{
+
+class Cook extends Entity{
+-{static} int MAX_STACK_SIZE
+-{static} int FRAME_COLS
+-{static} int FRAME_ROWS
+-Vector2 direction
+-int cookno
+-Texture walkSheet
+-Animation<TextureRegion> walkAnimation
+-TextureRegion[][] spriteSheet
+-TextureRegion[][] currentFrame
+-TextureRegion[] walkFrames
+-float stateTime
++boolean locked
++boolean holding
++Stack<Ingredient> heldItems
++Cook(pos:Vector2, cooknum:int)
++void update(control:Control, dt:float, cl:CollisionTile[][])
++void pickUpItem(item:Ingredient)
++void dropItem()
++boolean full()
++void draw_bot(batch:SpriteBatch)
+}
+
+class Customer{}
+
+class CustomerController{}
+
+class Entity{}
+
+}
+@enduml
