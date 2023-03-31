@@ -23,9 +23,35 @@ class Cook extends Entity{
 +void dropItem()
 +boolean full()
 +void draw_bot(batch:SpriteBatch)
++void draw_top(batch:SpriteBatch)
++void draw_top(batch:SpriteBatch, position:Vector2)
+-void setWalkTexture(path:String)
+-void setWalkFrames(row:int)
++Boolean checkCollision(cookx:float, cooky:float, cltiles:CollisionTile[][])
++Rectangle getCollideBoxAtPosition(x:float, y:float)
 }
 
-class Customer{}
+class Customer{
+~int targetsquare
++int posx
++int posy
+~Texture textf
+~Texture textb
+~Texture textr
+~Texture textl
+~TextureRegion[][] custpartsf
+~TextureRegion[][] custpartsb
+~TextureRegion[][] custpartsr
+~TextureRegion[][] custpartsl
+~TextureRegion[][] currentcustparts
+~int startposx
+~int targetpixel
++boolean locked
++boolean readyfordeletion
+-long arrivalTime
++String order
+-int custNumber
+}
 
 class CustomerController{}
 
