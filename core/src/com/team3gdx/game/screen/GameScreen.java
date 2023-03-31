@@ -99,6 +99,10 @@ public class GameScreen implements Screen {
 
 	public static Customer currentWaitingCustomer = null;
 
+	public void addReputationPoints(int i) {
+		reputationPoints += i;
+	}
+
 	public enum STATE {
 		Pause, Continue, main, audio, shop
 	}
@@ -813,7 +817,9 @@ public class GameScreen implements Screen {
 		currentWave = 0;
 		reputationPoints = 3;
 	}
-
+	public int getReputationPoints() {
+		return reputationPoints;
+	}
 	public StationManager getStationManager(){
 		return stationManager;
 	}

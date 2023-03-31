@@ -25,6 +25,10 @@ public class PowerupController {
         GetBeaned getBeaned = new GetBeaned(0, 0, gameScreen);
         powerups.add(getBeaned);
 
+        // Reputation
+        Reputation reputation = new Reputation(0, 0, gameScreen);
+        powerups.add(reputation);
+
         timeOfLast = System.currentTimeMillis();
     }
 
