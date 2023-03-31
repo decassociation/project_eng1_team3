@@ -1,35 +1,36 @@
 img {
-    border: 5px solid black;
+  border: 5px solid #FF8C00; /* dark orange border */
 }
 
 body {
-    background-color: #ffe6e6; /* light pink background color */
+  background-color: #ffe6e6;
 }
 
 h1 {
-    font-family: Arial;
-    font-size: 45px;
-    color: rgb(0, 0, 0);
-    font-weight: bold;
+  font-family: Arial;
+  font-size: 45px;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
 }
 
 h2 {
-    font-family: Arial;
-    font-size: 20px;
+  font-family: Arial;
+  font-size: 20px;
 }
 
 button {
-    background-color: #ff99b3; /* light pink button color */
-    border: 5px solid black;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    margin: 10px;
-    padding: 10px;
+  background-color: #ff99b3;
+  border: 5px solid #FF8C00; /* dark orange border */
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 10px;
+  padding: 10px;
 }
 
 button:hover {
-    background-color: #ff4d6a; /* darker pink on hover */
+  background-color: #ff4d6a;
 }
+
