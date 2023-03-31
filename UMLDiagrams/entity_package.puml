@@ -51,6 +51,15 @@ class Customer{
 -long arrivalTime
 +String order
 -int custNumber
++Customer(x:int, y:int, tg:int, custno:int)
++void arrived()
++long waitTime()
++void renderCustomersTop(b:Batch)
++void renderCustomersBot(b:Batch)
++void setTargetsquare(tg:int)
++void stepTarget()
++void setFront()
++void setBack()
 }
 
 class CustomerController{}
