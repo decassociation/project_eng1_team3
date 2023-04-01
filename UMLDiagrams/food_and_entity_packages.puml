@@ -1,5 +1,16 @@
 @startuml
 'https://plantuml.com/class-diagram
+
+package "food"{
+
+class Ingredient extends Entity{
+
+}
+
+enum Status
+
+}
+
 package "entity"{
 
 CustomerController "1" -- "*" Customer
