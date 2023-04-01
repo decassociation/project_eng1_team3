@@ -62,7 +62,30 @@ class Customer{
 +void setBack()
 }
 
-class CustomerController{}
+class CustomerController{
+~int lockout
++int amountActiveCustomers
+~ArrayList<ArrayList<Integer>> customerCells
++Customer[] amountActiveCustomers
+~Customer[] leavingCustomers
+~TiledMap gameMap
+~int top
+~int bottom
+~int xCoordinate
+-long timeOfLastCustomer
+-int timeUntilNext
+-int spawnMultiple
++int totalServed
+-String difficulty
+-HashMap<String, Float> difficultyMultipliers
+-void computerCustomerZone(gameMap: TiledMap)
++Customer spawnCustomer()
++void delCustomer(num:int)
++void delCustomer(customer:Customer)
++void drawCustTop(b1:Batch)
++void updateCustomers()
++Customer isCustomerAtPos(pos:Vector2)
+}
 
 class Entity{}
 
