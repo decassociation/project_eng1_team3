@@ -2,6 +2,8 @@
 'https://plantuml.com/class-diagram
 package "entity"{
 
+CustomerController "1" -- "*" Customer
+
 class Cook extends Entity{
 -{static} int MAX_STACK_SIZE
 -{static} int FRAME_COLS
@@ -87,7 +89,16 @@ class CustomerController{
 +Customer isCustomerAtPos(pos:Vector2)
 }
 
-class Entity{}
+class Entity{
++Vector2 pos
++Texture texture
++float width
++float height
++float speed
+~float dirX
+~float dirY
++void draw(batch:SpriteBatch)
+}
 
 }
 @enduml
