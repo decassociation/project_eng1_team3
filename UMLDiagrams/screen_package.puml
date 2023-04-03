@@ -1,0 +1,63 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package "screen"{
+
+class CreditScreen implements Screen{
++SpriteBatch batch
++Texture creditsImg
++MainGameClass mainGameClass
++MainScreen mainScreen
++CreditScreen(mainGameClass:MainGameClass)
++void show()
++void render(delta:float)
++void resize(width:int, height:int)
++void pause()
++void resume()
++void hide()
++void dispose()
+}
+
+class DifficultySelectScreen implements Screen{
+~final MainGameClass game
+~final MainScreen ms
+-String difficulty
+-int waves
+~float buttonwidth
+~float buttonheight
+~button easy
+~button normal
+~button hard
+~button back
+~button go
+~Texture easyTexture
+~Texture normalTexture
+~Texture hardTexture
+~Texture backTexture
+~Texture goTexture
+~STATE state
+~Stage stage
+~OrthographicCamera camera
+~Viewport viewport
+~Texture background
+~BitmapFont font
++DifficultySelectScreen(class:MainGameClass, ms:MainScreen, waves:int)
++void changeScreen(state:STATE)
++void show()
++void render(delta:float)
++void resize(width:int, height:int)
++void pause()
++void resume()
++void hide()
++void dispose()
+}
+
+enum STATE{
+none
+back
+new_game
+}
+
+}
+
+@enduml
