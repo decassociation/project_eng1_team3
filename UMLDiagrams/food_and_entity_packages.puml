@@ -4,6 +4,8 @@
 package "food"{
 
 Ingredient "1" -- "1" Status
+Ingredient "*" -- "*" Recipe
+Ingredient "*" -- "1" Menu
 
 class Ingredient extends Entity{
 +int slices
@@ -56,6 +58,34 @@ class Ingredients{
 +{static} Ingredient dough
 +{static} Ingredient pizzaBase
 +{static} Ingredient cookedPizzaBase
+}
+
+class Menu{
+-{static} final Map<Ingredient, String> BURGER_STEPS
+-{static} final Map<Ingredient, String>  BURGER_BURNED_STEPS
+-{static} final Map<Ingredient, String> SALAD_STEPS
+-{static} final Map<Ingredient, String> POTATO_BEANS_STEPS
+-{static} final Map<Ingredient, String> PIZZA_STEPS
++{static} final Map<String, Recipe> RECIPES
++{static} final Map<Ingredient, Ingredient> INGREDIENT_PREP
+}
+
+class Recipe extends Ingredient{
++final String name
++Map<Ingredient, String> ingredientInstructions
+-boolean shouldBeOrdered
+-String initialSteps
+-String finalSteps
+-Ingredient initialIngredient
++float cost
+-BitmapFont font
+-{static} ShapeRenderer _shapeRenderer
++Recipe(initialSteps:String, initialIngredient:Ingredient,ingredientInstructions:Map<Ingredient, String>,
+ 			finalSteps:String, name:String, shouldBeOrdered:boolean, pos:Vector2, width:float, height:float,
+ 			cost:float)
++void displayRecipe(batch:SpriteBatch, pos:Vector2)
++boolean matches(givenIngredients:Stack<Ingredient>)
+-boolean contains(checkIngredient:Ingredient, ingredients:ArrayList<Ingredient>)
 }
 
 }
