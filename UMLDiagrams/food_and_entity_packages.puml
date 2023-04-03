@@ -3,11 +3,60 @@
 
 package "food"{
 
-class Ingredient extends Entity{
+Ingredient "1" -- "1" Status
 
+class Ingredient extends Entity{
++int slices
+-int idealSlices
++float cookedTime
+-float idealCookedTime
++Status status
++boolean cooking
++boolean slicing
++boolean flipped
++String name
+-{static} ShapeRenderer _shapeRenderer
+-BitmapFont font
+~BitmapFont flipText
++Ingredient(pos:Vector2, width:float, height:float, name:String, idealSlices:int, idealCookedTime:float)
++Ingredient(ingredient:Ingredient)
++boolean flip()
++boolean slice(batch:SpriteBatch, dT:float)
++double cook(dT:float, batch:SpriteBatch)
++void drawStatusBar(percentage:float, optimumLower:float, optimumUpper:float)
++boolean equals(o:Object)
 }
 
-enum Status
+enum Status{
+RAW
+COOKED
+BURNED
+}
+
+class Ingredients{
++{static} Ingredient unformedPatty
++{static} Ingredient formedPatty
++{static} Ingredient cookedPatty
++{static} Ingredient burnedPatty
++{static} Ingredient lettuce
++{static} Ingredient tomato
++{static} Ingredient onion
++{static} Ingredient lettuceChopped
++{static} Ingredient tomatoChopped
++{static} Ingredient onionChopped
++{static} Ingredient tomatoPaste
++{static} Ingredient bun
++{static} Ingredient cooked_bun
++{static} Ingredient potato
++{static} Ingredient cooked_potato
++{static} Ingredient beans
++{static} Ingredient cooked_beans
++{static} Ingredient cooked_beans_with_spill
++{static} Ingredient cheese
++{static} Ingredient dough
++{static} Ingredient pizzaBase
++{static} Ingredient cookedPizzaBase
+}
 
 }
 
