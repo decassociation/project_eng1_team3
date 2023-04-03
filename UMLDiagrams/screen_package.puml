@@ -46,16 +46,128 @@ class DifficultySelectScreen implements Screen{
 +void show()
 +void render(delta:float)
 +void resize(width:int, height:int)
-+void pause()
-+void resume()
-+void hide()
-+void dispose()
 }
 
 enum STATE{
 none
 back
 new_game
+}
+
+class GameScreen implements Screen{
++{static} int NUMBER_OF_WAVES
++{(state} boolean ENDLESS
+~final MainGameClass game
+~final MainScreen ms
++{static} int currentWave
++{static} int reputationPoints
+~Rectangle volSlideBackgr
+~Rectangle volSlide
+~Rectangle musSlideBackgr
+~Rectangle musSlide
+~Rectangle audioBackground
+~Rectangle optionsBackground
+~Texture ESC
+~Texture MENU
+~Texture BACKTOMAINSCREEN
+~Texture RESUME
+~Texture AUDIO
+~Texture audioEdit
+~Texture vControl
+~Texture vButton
+~Texture SHOP
+~Texture BUYCHEF2
+~Texture BUYCHEF3
+~Texture BUYBAKINGSTATION
+~Texture BUYCUTTINGSTATION
+~Texture REDX
+~Button mn
+~Button rs
+~Button rs2
+~Button ad
+~Button btms
+~Button end
+~Button shop
+~Button buyChef2
+~Button buyChef3
+~Button buyBakingStation
+~Button buyCuttingStation
++{static} CollisionTile[][] CLTiles
+~Viewport uiViewport
+~Viewport worldViewport
+~Stage stage
+~Stage stage2
+~Stage stage3
+~OrthographicCamera uiCamera
++{static} OrthographicCamera worldCamera
++{static} Customer currentWaitingCustomer
++{static} STATE state1
+~float v
+~float s
+~int gameResolutionX
+~int gameResolutionY
+~float buttonidth
+~float buttonheight
+~float xSliderMax
+~float xSliderMin
+~float sliderWidth
+~float shopX
+~float audioBackgroundWith
+~float audioBackgroundHeight
+~float audioBackgroundx
+~float audioBackgroundy
+~long startTime
+~long timeOnStartup
+~long tempTime
+~long tempThenTime
++{static} Control Control
+~TiledMapRenderer tiledMapRenderer
++TiledMap map1
++{static} Cook[] cooks
++{static} int currentCookIndex
++{static} Cook cook
++{static} CustomerController cc
+~InputMultiplexer multi
+~StationManager stationManager
+~String difficulty
+~PowerupController
+~{static} ShapeRenderer _selectedPlayerBox
++{static} final float MAX_WAIT_TIME
+~long nowTime
+~long thenTime
++void addReputationPoints(i:int)
++GameScreen(game:MainGameClass, ms:MainScreen, difficulty:String, num_waves:int)
++GameScreen(game:MainGameClass, ms:MainScreen, difficulty:String)
+-void setShopButtonPositions()
++void show()
+-{static} ShapeRenderer getSelectedPlayerBox()
++void render(delta:float)
++{static} void checkCookSwitch()
+-void checkCustomerWaitTime(
+-void drawUI()
+-void setCameraLerp(delta:float)
+-void drawHeldItems()
++void changeScreen(state1:STATE)
++void checkState()
++void musicVolumeUpdate()
++void gameVolumeUpdate()
+-void calculateBoxMaths()
+-void constructCollisionData(mp:TiledMap)
++void checkInteraction(ck:Cook, sr:ShapeRenderer)
++void checkGameOver()
++void resetStatic()
++int getReputationPoints()
++int getStationManager()
++void loadStations()
++void resize(width:int, height:int)
+}
+
++enum STATE{
+Pause
+Continue
+main
+audio
+shop
 }
 
 }
