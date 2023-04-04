@@ -5,13 +5,13 @@ package "powerup"{
 
 PowerupController "1" -- "*" Powerup
 
-class GetBeaned extends Powerup{
++class GetBeaned extends Powerup{
 -GameScreen gameScreen
 +GetBeaned(x:int, y:int, gameScreen:GameScreen)
 +void applyPowerUp(cook:Cook)
 }
 
-class Powerup{
++class Powerup{
 -int x
 -int y
 ~Texture texture
@@ -25,7 +25,7 @@ class Powerup{
 +void applyPowerup(cook:Cook)
 }
 
-class PowerupController{
++class PowerupController{
 ~ArrayList<Powerup> powerups
 -long timeOfLast
 -int selectIndex
@@ -33,13 +33,13 @@ class PowerupController{
 +void updatePowerups(batch:SpriteBatch, cook:Cook)
 }
 
-class Reputation extends Powerup{
++class Reputation extends Powerup{
 -GameScreen gameScreen
 +Reputation(x:int, y:int, gameScreen:GameScreen)
 +void applyPowerUp(cook:Cook)
 }
 
-class SpeedBoost extends Powerup{
++class SpeedBoost extends Powerup{
 +SpeedBoost(x:int, y:int)
 +void applyPowerUp(cook:Cook)
 }

@@ -1,0 +1,75 @@
+@startuml
+'https://plantuml.com/class-diagram
+
++class MainGameClass extends Game{
++SpriteBatch batch
++BitmapFont font
++Music mainScreenMusic
++Music gameMusic
++{static} float musicVolumeScale
++{static} float gameVolumeScale
+-MainScreen mainScreen1
+-GameScreen gameScreen1
+-LeaderBoard leaderBoardScreen1
+-WaveSelectScreen waveSelectScreen1
+-CreditScreen CreditScreen1
++miniWorldTest miniWorldTest1
++AudioController sounds
++ShapeRenderer shapeRenderer
++void create()
+}
+
+package "util"{
+
++class AudioController{
+-HashMap<String, Music> musics
+-HashMap<String, Sound> soundFX
++AudioController()
++void addMusic(fileName:String)
++void addSoundFX(fileName:String)
++void dispose(audioName:String)
++void disposeAll()
++String type(audioName:String)
++boolean isLooping(musicName:String)
++boolean isPlaying(musicName:String)
++long loop(audioName:String)
++void stopLooping(musicName:String)
++long play(soundName:String, volume:float)
++void pause(audioName:String)
++void stop(audioName:String)
++void stop(soundName:String, soundID:long)
+}
+
++class CollisionTile{
+~int tiley
+~int tiley
+~int tileheight
+~int tilewidth
++CollisionTile(x:int, y:int, wid:int, hi:int)
++Rectangle returnRect()
+}
+
++class Control extends InputAdapter implements InputProcessor{
++boolean up
++boolean down
++boolean left
++boolean right
++boolean del
++boolean interact
++boolean drop
++boolean flip
++boolean tab
++boolean shift
++boolean keyDown(keyCode:int)
++boolean keyUp(keyCode:int)
++boolean keyTyped(character:char)
++boolean touchDown(screenX:int, screenY:int, pointer:int, button:int)
++boolean touchUp(screenX:int, screenY:int, pointer:int, button:int)
++boolean touchDragged(screenX:int, screenY:int, pointer:int)
++boolean mouseMoved(screenX:int, screenY:int)
++boolean scrolled(amount:int)
+}
+
+}
+
+@enduml

@@ -7,7 +7,7 @@ Ingredient "1" -- "1" Status
 Ingredient "*" -- "*" Recipe
 Ingredient "*" -- "1" Menu
 
-class Ingredient extends Entity{
++class Ingredient extends Entity{
 +int slices
 -int idealSlices
 +float cookedTime
@@ -35,7 +35,7 @@ COOKED
 BURNED
 }
 
-class Ingredients{
++class Ingredients{
 +{static} Ingredient unformedPatty
 +{static} Ingredient formedPatty
 +{static} Ingredient cookedPatty
@@ -60,7 +60,7 @@ class Ingredients{
 +{static} Ingredient cookedPizzaBase
 }
 
-class Menu{
++class Menu{
 -{static} final Map<Ingredient, String> BURGER_STEPS
 -{static} final Map<Ingredient, String>  BURGER_BURNED_STEPS
 -{static} final Map<Ingredient, String> SALAD_STEPS
@@ -70,7 +70,7 @@ class Menu{
 +{static} final Map<Ingredient, Ingredient> INGREDIENT_PREP
 }
 
-class Recipe extends Ingredient{
++class Recipe extends Ingredient{
 +final String name
 +Map<Ingredient, String> ingredientInstructions
 -boolean shouldBeOrdered
@@ -94,7 +94,7 @@ package "entity"{
 
 CustomerController "1" -- "*" Customer
 
-class Cook extends Entity{
++class Cook extends Entity{
 -{static} int MAX_STACK_SIZE
 -{static} int FRAME_COLS
 -{static} int FRAME_ROWS
@@ -123,7 +123,7 @@ class Cook extends Entity{
 +Rectangle getCollideBoxAtPosition(x:float, y:float)
 }
 
-class Customer{
++class Customer{
 ~int targetsquare
 +int posx
 +int posy
@@ -154,7 +154,7 @@ class Customer{
 +void setBack()
 }
 
-class CustomerController{
++class CustomerController{
 ~int lockout
 +int amountActiveCustomers
 ~ArrayList<ArrayList<Integer>> customerCells
@@ -179,7 +179,7 @@ class CustomerController{
 +Customer isCustomerAtPos(pos:Vector2)
 }
 
-class Entity{
++class Entity{
 +Vector2 pos
 +Texture texture
 +float width
