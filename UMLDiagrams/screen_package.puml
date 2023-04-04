@@ -3,7 +3,16 @@
 
 package "screen"{
 
-class CreditScreen implements Screen{
+GameScreen "1" -- "1" MainScreen
+GameScreen "1" -- "1" WaveSelectScreen
+GameScreen "1" -- "1" CreditScreen
+GameScreen "1" -- "1" DifficultySelectScreen
+GameScreen "1" -- "1" Leaderboard
+GameScreen "1" -- "1" Tutorial
+
+Tutorial *-- PosTextPair
+
++class CreditScreen implements Screen{
 +SpriteBatch batch
 +Texture creditsImg
 +MainGameClass mainGameClass
@@ -18,7 +27,7 @@ class CreditScreen implements Screen{
 +void dispose()
 }
 
-class DifficultySelectScreen implements Screen{
++class DifficultySelectScreen implements Screen{
 ~final MainGameClass game
 ~final MainScreen ms
 -String difficulty
@@ -51,7 +60,7 @@ class DifficultySelectScreen implements Screen{
 +enum STATE.new_game
 }
 
-class Leaderboard implements Screen, TextInputListener{
++class Leaderboard implements Screen, TextInputListener{
 ~final MainGameClass game
 ~Texture background
 ~Texture line
@@ -70,7 +79,7 @@ class Leaderboard implements Screen, TextInputListener{
 +void resize(width:int, height:int)
 }
 
-class MainScreen implements Screen{
++class MainScreen implements Screen{
 ~final MainGameClass game
 ~float v
 ~float s
@@ -120,7 +129,7 @@ STATE.testing
 +void resize(width:int, height:int)
 }
 
-class GameScreen implements Screen{
++class GameScreen implements Screen{
 +{static} int NUMBER_OF_WAVES
 +{static} boolean ENDLESS
 ~final MainGameClass game
@@ -233,7 +242,7 @@ class GameScreen implements Screen{
 +void resize(width:int, height:int)
 }
 
-class miniWorldTest implements Screen{
++class miniWorldTest implements Screen{
 ~final game MainGameClass
 +{static} int NUMBER_OF_WAVES
 +{static} boolean ENDLESS
@@ -287,6 +296,59 @@ class miniWorldTest implements Screen{
 +void testCookHolding()
 -void drawHeldItems()
 +void resize(width:int, height:int)
+}
+
++class Tutorial{
+-{static} List<PosTextPair> stages
++{static} boolean complete
++{static} int stage
+-{static} ShapeRenderer shapeRenderer
+-{static} ShapeRenderer getShapeRenderer()
+-{static} final BitmapFont bitmapFont
+-{static} GlyphLayout layout
+-{static} float nextCharTimer
+-{static} String curText
++{static} void drawBox(batch:SpriteBatch, dT:float)
++{static} Vector2 getStagePos()
++{static} void nextStage()
++{static} void previousStage()
+~{static} float delay
+-{static} boolean addDelay(amount:float, dT:float)
+}
+
+class PosTextPair{
++Vector2 pos
++String text
++PosTextPair(pos:Vector2, text:String)
+}
+
++class WaveSelectScreen implements Screen{
+~final MainGameClass game
+~final MainScreen ms
+-int waves
+~float buttonwidth
+~float buttonheight
+~Button incrementWaves
+~Button decrementWaves
+~Button returnToMain
+~Button go
+~Texture incrementTexture
+~Texture decrementTexture
+~Texture returnToMainTexture
+~Texture goTexture
+~enum STATE.none
+~enum STATE.main
+~enum STATE.new_game
+~STATE state
+~Stage stage
+~OrthographicCamera camera
+~Viewport viewport
+~Texture background
+~BitmapFont font
++WaveSelectScreen(game:MainGameClass, ms:MainScreen
++void changeScreen(state:STATE)
++void resize(width:int, height:int)
+
 }
 
 }
