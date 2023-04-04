@@ -3,6 +3,8 @@
 
 package "station"{
 
+StationManager "1" -- "*" Station
+
 +class BakingStation extends CookingStation{
 -{static} final Ingredient[] ALLOWED_INGREDIENTS
 +BakingStation(pos:Vector2)
@@ -74,6 +76,18 @@ package "station"{
 +void drawDropText(batch:SpriteBatch)
 +void drawText(batch:SpriteBatch, text:String, pos:Vector2)
 +void interactSound()
+}
+
++class StationManager{
++{static} Map<Vector2, Station> stations
+~SpriteBatch batch
+-BitmmapFont font
++StationManager()
++void handleStation(batch:SpriteBatch)
++void checkInteractedTile(type:String, pos:Vector2)
+-boolean checkStationExists(pos:Vector2, station:Station)
+-void placeIngredientStation(pos:Vector2)
+-void takeIngredientStation(pos:Vector2, ingredient:Ingredient)
 }
 
 }
