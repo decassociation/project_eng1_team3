@@ -29,6 +29,10 @@ public class PowerupController {
         Reputation reputation = new Reputation(0, 0, gameScreen);
         powerups.add(reputation);
 
+        // Nuke Like Cod Zombies
+        nukeLikeCodZombies nuke = new nukeLikeCodZombies(0,0);
+
+
         timeOfLast = System.currentTimeMillis();
     }
 
