@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package "station"{
+
++class BakingStation extends CookingStation{
+-{static} final Ingredient[] ALLOWED_INGREDIENTS
++BakingStation(pos:Vector2)
++boolean place(ingredient:Ingredient)
+}
+
++class CookingStation extends Station{
+~ParticleEffect[] pES
++CookingStation(pos:Vector2, numberOfSlots:int, allowedIngredients:Ingredient[],
+ particlePath:String, soundPath, String)
+#void createParticleEmitter(pos:Vector2, particlePath, String)
++void drawParticles(batch:SpriteBatch, slotIndex:int)
++boolean lockCook()
++void checkCookingStation(batch:SpriteBatch)
+}
+
++class CuttingStation extends Station{
+-{static} final Ingredient[] ALLOWED_INGREDIENTS
++float currentCutTime
++CuttingStation(pos:Vector2, timeBetweenCuts:float)
++void boolean lockCook()
+}
+
+}
+
+@enduml
