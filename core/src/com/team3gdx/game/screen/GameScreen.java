@@ -1,6 +1,7 @@
 package com.team3gdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -44,6 +45,12 @@ import com.team3gdx.game.util.CollisionTile;
 import com.team3gdx.game.util.Control;
 
 import java.util.ArrayList;
+
+
+
+
+
+import com.team3gdx.game.powerup.nukeLikeCodZombies;
 
 public class GameScreen implements Screen {
 
@@ -96,6 +103,11 @@ public class GameScreen implements Screen {
 	Stage stage3;
 	OrthographicCamera uiCamera;
 	public static OrthographicCamera worldCamera;
+
+	//TESTING NUKE
+	nukeLikeCodZombies nuker = new nukeLikeCodZombies(0,0);
+
+
 
 	public static Customer currentWaitingCustomer = null;
 
@@ -370,6 +382,19 @@ public class GameScreen implements Screen {
 	 */
 
 	public void render(float delta) {
+
+
+
+		if(Gdx.input.isKeyJustPressed(Input.Keys.M)){
+			nuker.nukeEm();
+		}
+
+
+
+
+
+
+
 		// =====================================CLEAR=SCREEN=============================================================
 		ScreenUtils.clear(0, 0, 0, 0);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
