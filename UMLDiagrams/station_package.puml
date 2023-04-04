@@ -26,6 +26,56 @@ package "station"{
 +void boolean lockCook()
 }
 
++class FryingStation extends CookingStation{
+-{static} final Ingredient[] ALLOWED_INGREDIENTS
++FryingStation(pos:Vector2)
++boolean place(ingredient:Ingredient)
+}
+
++class IngredientStation extends Station{
++IngredientStation(pos:Vector2, ingredient:Ingredient)
+}
+
++class PrepStation extends Station{
++float progress
+-{static} ShapeRenderer shapeRenderer
++PrepStation(pos:Vector2)
++boolean slotsToRecipe()
++boolean lockCook()
+-{static} ShapeRenderer getShapeRenderer()
++void updateProgress(batch:SpriteBatch, delta:float)
+-void drawStatusBar(batch:SpriteBatch)
+-Ingredient ingredientMatch(toMatch:Ingredient)
+}
+
++class ServingStation extends Station{
+~String[] possibleOrders
+~{static} Ingredient[] allowedIngredients
++ServingStation(pos:Vector2)
++void serveCustomer()
+}
+
++class Station{
+-Music interactSound
++Ingredient[] allowedIngredients
++Vector2 pos
++Stack<Ingredient> slots
++boolean infinite
+#int numberOfSlots
++Cook lockedCook
+-BitmmapFont font
++boolean active
++Station(pos:Vector2, numberOfSlots:int, infinite:boolean,
+ Ingredient[] allowedIngredients, soundPath:String)
++boolean place(ingredient:Ingredient)
++boolean isAllowed(droppedIngredient:Ingredient)
++Ingredient take()
++void drawTakeText(batch:SpriteBatch)
++void drawDropText(batch:SpriteBatch)
++void drawText(batch:SpriteBatch, text:String, pos:Vector2)
++void interactSound()
+}
+
 }
 
 @enduml
