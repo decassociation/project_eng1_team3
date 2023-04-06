@@ -1,0 +1,13 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Cook -> GameScreen : Ask for the station it is currently facing
+GameScreen-> StationManager : Check tilemap for interacted tile type
+StationManager --> GameScreen : Return station on interacted tile if there is one
+GameScreen --> Cook : Return the station the cook can interact with if there is one
+StationManager -> Cook : Check current cook item stack / give cook item
+Cook --> StationManager : Return item to be placed if needed
+
+@enduml
