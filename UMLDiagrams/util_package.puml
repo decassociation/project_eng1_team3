@@ -1,6 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+
 +class MainGameClass extends Game{
 +SpriteBatch batch
 +BitmapFont font
@@ -20,6 +21,8 @@
 }
 
 package "util"{
+
+MainGameClass "1" -- "1" AudioController
 
 +class AudioController{
 -HashMap<String, Music> musics

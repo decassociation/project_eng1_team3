@@ -10,6 +10,11 @@ GameScreen "1" -- "1" DifficultySelectScreen
 GameScreen "1" -- "1" Leaderboard
 GameScreen "1" -- "1" Tutorial
 
+MainScreen "1" -- "1" WaveSelectScreen
+MainScreen "1" -- "1" CreditScreen
+MainScreen "1" -- "1" DifficultySelectScreen
+MainScreen "1" -- "1" Leaderboard
+
 Tutorial *-- PosTextPair
 
 +class CreditScreen implements Screen{
@@ -136,65 +141,24 @@ STATE.testing
 ~final MainScreen ms
 +{static} int currentWave
 +{static} int reputationPoints
-~Rectangle volSlideBackgr
-~Rectangle volSlide
-~Rectangle musSlideBackgr
-~Rectangle musSlide
-~Rectangle audioBackground
-~Rectangle optionsBackground
-~Texture ESC
-~Texture MENU
-~Texture BACKTOMAINSCREEN
-~Texture RESUME
-~Texture AUDIO
-~Texture audioEdit
-~Texture vControl
-~Texture vButton
-~Texture SHOP
-~Texture BUYCHEF2
-~Texture BUYCHEF3
-~Texture BUYBAKINGSTATION
-~Texture BUYCUTTINGSTATION
-~Texture REDX
-~Button mn
-~Button rs
-~Button rs2
-~Button ad
-~Button btms
-~Button end
-~Button shop
-~Button buyChef2
-~Button buyChef3
-~Button buyBakingStation
-~Button buyCuttingStation
+~Rectangle volSlideBackgr, volSlide, musSlideBackgr, musSlide, audioBackground, optionsBackground
+~Texture ESC, MENU, BACKTOMAINSCREEN, RESUME, AUDIO,
+~Texture audioEdit, vControl, vButton
+~Texture SHOP, BUYCHEF2, BUYCHEF3, BUYBAKINGSTATION, BUYCUTTINGSTATION, REDX
+~Button mn, rs, rs2, ad, btms, end
+~Button shop, buyChef2, buyChef3, buyBakingStation, buyCuttingStation
 +{static} CollisionTile[][] CLTiles
-~Viewport uiViewport
-~Viewport worldViewport
-~Stage stage
-~Stage stage2
-~Stage stage3
+~Viewport uiViewport, worldViewport
+~Stage stage, stage2, stage3
 ~OrthographicCamera uiCamera
 +{static} OrthographicCamera worldCamera
 +{static} Customer currentWaitingCustomer
 +{static} STATE state1
-~float v
-~float s
-~int gameResolutionX
-~int gameResolutionY
-~float buttonidth
-~float buttonheight
-~float xSliderMax
-~float xSliderMin
-~float sliderWidth
-~float shopX
-~float audioBackgroundWith
-~float audioBackgroundHeight
-~float audioBackgroundx
-~float audioBackgroundy
-~long startTime
-~long timeOnStartup
-~long tempTime
-~long tempThenTime
+~float v, s
+~int gameResolutionX, gameResolutionY
+~float buttonidth, buttonheight, xSliderMax, xSliderMin, sliderWidth, shopX
+~float audioBackgroundWith, audioBackgroundHeight, audioBackgroundx, audioBackgroundy
+~long startTime, timeOnStartup, tempTime, tempThenTime
 +{static} Control Control
 ~TiledMapRenderer tiledMapRenderer
 +TiledMap map1
@@ -208,13 +172,8 @@ STATE.testing
 ~PowerupController
 ~{static} ShapeRenderer _selectedPlayerBox
 +{static} final float MAX_WAIT_TIME
-~long nowTime
-~long thenTime
-+enum STATE.Pause
-+enum STATE.Continue
-+enum STATE.main
-+enum STATE.audio
-+enum STATE.shop
+~long nowTime, thenTime
++enum STATE.Pause, STATE.Continue, STATE.main, STATE.audio, STATE.shop
 +void addReputationPoints(i:int)
 +GameScreen(game:MainGameClass, ms:MainScreen, difficulty:String, num_waves:int)
 +GameScreen(game:MainGameClass, ms:MainScreen, difficulty:String)

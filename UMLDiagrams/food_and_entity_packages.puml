@@ -3,9 +3,10 @@
 
 package "food"{
 
-Ingredient "1" -- "1" Status
 Ingredient "*" -- "*" Recipe
 Ingredient "*" -- "1" Menu
+
+Ingredients "1" -- "*" Ingredient
 
 +class Ingredient extends Entity{
 +int slices
@@ -20,6 +21,9 @@ Ingredient "*" -- "1" Menu
 -{static} ShapeRenderer _shapeRenderer
 -BitmapFont font
 ~BitmapFont flipText
+~enum Status.RAW
+~enum Status.COOKED
+~enum Status.BURNED
 +Ingredient(pos:Vector2, width:float, height:float, name:String, idealSlices:int, idealCookedTime:float)
 +Ingredient(ingredient:Ingredient)
 +boolean flip()
@@ -27,12 +31,6 @@ Ingredient "*" -- "1" Menu
 +double cook(dT:float, batch:SpriteBatch)
 +void drawStatusBar(percentage:float, optimumLower:float, optimumUpper:float)
 +boolean equals(o:Object)
-}
-
-enum Status{
-RAW
-COOKED
-BURNED
 }
 
 +class Ingredients{
