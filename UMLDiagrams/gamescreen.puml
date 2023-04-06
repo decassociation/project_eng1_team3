@@ -1,27 +1,45 @@
 @startuml
 'https://plantuml.com/state-diagram
 
+TitleScreen -> WaveSelectScreen : Select NewGame
 
-[*] --> continue
+WaveSelectScreen -> WaveSelectScreen : \n Increase/decrease number of waves
+WaveSelectScreen -down-> DifficultySelectScreen : Select 'Go'
+WaveSelectScreen -> TitleScreen : Exit to Menu
 
-state continue{
-}
-continue -> continue : rungameandtimer
-continue -> pause : pausebuttonpress
-pause -> continue : continuebuttonpress
-pause -> titlescreen: titlescreenbuttonpress
-pause -> pause : pausetimercount
+DifficultySelectScreen -down-> GameScreen : Start game with 'Go'
+DifficultySelectScreen -> DifficultySelectScreen : Choose difficulty
+DifficultySelectScreen -> WaveSelectScreen : Select 'Back'
 
-state pause{
-state normalpausestate{
+GameScreen -up-> Pause : Pause game with 'Settings' button
+GameScreen -down-> Shop : Select 'Shop'
+
+Pause -down-> GameScreen : Resume game
+Pause -> AudioSettings : Select 'Audio'
+Pause -> TitleScreen : Exit to Menu
+
+AudioSettings -> AudioSettings : Change volume sliders
+AudioSettings -up-> TitleScreen : Exit to Menu
+
+Shop -> Shop : Buy station/chef
+Shop -> GameScreen : Resume gane
+
+state DifficultySelectScreen{
 }
 
-state editvolume{
+state GameScreen{
 }
-normalpausestate -> editvolume : pressvolumebutton
-editvolume -> normalpausestate : closevolumemenu
-editvolume -> editvolume : updatesliders
+
+state Pause{
 }
-state titlescreen
+
+state TitleScreen{
+}
+
+state AudioSettings{
+}
+
+state Shop{
+}
 
 @enduml
