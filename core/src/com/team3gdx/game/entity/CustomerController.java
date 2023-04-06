@@ -144,6 +144,15 @@ public class CustomerController {
 		}
 	}
 
+	public void nukeCustomer(int num) {
+		if (this.customers[num].locked) {
+			amountActiveCustomers -= 1;
+
+			this.customers[num] = null;
+		}
+	}
+
+
 	public void delCustomer(Customer customer) {
 		for (int i = 0; i < this.customers.length; i++) {
 			if (customers[i] == customer) {

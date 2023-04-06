@@ -1,5 +1,6 @@
 package com.team3gdx.game.powerup;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.team3gdx.game.entity.Cook;
@@ -40,7 +41,9 @@ public class nukeLikeCodZombies extends Powerup{
         try {
             System.out.println(GameScreen.cc.amountActiveCustomers);
             for(int x = 0; x < dels; x++){
-                GameScreen.cc.delCustomer(x);
+
+                //GameScreen.cc.delCustomer(x);
+                GameScreen.cc.nukeCustomer(x);
                 System.out.println("delling customer " + x);
             }
         } catch (Exception e){

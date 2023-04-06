@@ -271,19 +271,6 @@ public class miniWorldTest implements Screen {
         }
     }
 
-//    public void stationTesting(){
-//
-//        if(Gdx.input.isKeyJustPressed(Input.Keys.L)){
-//            System.out.println(testIS.slots);
-//            System.out.println("ings");
-//        }
-//        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
-//
-//        }
-//
-//
-//
-//    }
 
     public void testCookHolding(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.U)){
