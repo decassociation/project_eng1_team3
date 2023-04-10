@@ -173,10 +173,27 @@ public class GameScreen implements Screen {
 	}
 
 	public GameScreen(MainGameClass game, MainScreen ms, String difficulty) {
-		Preferences prefs = Gdx.app.getPreferences("save");
 		this.game = game;
 		this.ms = ms;
 		this.difficulty = difficulty;
+		this.calculateBoxMaths();
+		control = new Control();
+		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
+		map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
+		tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
+		constructCollisionData(map1);
+		cc = new CustomerController(map1, difficulty);
+		cc.spawnCustomer();
+		NUMBER_OF_WAVES = -1;
+		ENDLESS = true;
+	}
+
+	// load saved game
+	public GameScreen(MainGameClass game, MainScreen ms) {
+		Preferences prefs = Gdx.app.getPreferences("save");
+		this.game = game;
+		this.ms = ms;
+		this.difficulty = prefs.getString("difficulty", "normal");
 		this.calculateBoxMaths();
 		control = new Control();
 		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
@@ -596,6 +613,7 @@ public class GameScreen implements Screen {
 	 */
 	public void changeScreen(STATE state1) {
 		if (state1 == STATE.main) {
+			// SAVE THE GAME
 			Preferences prefs = Gdx.app.getPreferences("save");
 			prefs.putInteger("reputationPoints", reputationPoints);
 			prefs.putBoolean("ENDLESS", ENDLESS);

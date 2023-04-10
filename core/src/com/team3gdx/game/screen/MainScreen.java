@@ -277,10 +277,9 @@ public class MainScreen implements Screen {
 		}
 
 		if (state == STATE.load_game) {
-			Preferences prefs = Gdx.app.getPreferences("save");
 			game.mainScreenMusic.dispose();
 			//game.setScreen(new GameScreen(game, game.getMainScreen(), 5));
-			game.setScreen(new GameScreen(game, game.getMainScreen(), prefs.getString("difficulty", "normal")));
+			game.setScreen(new GameScreen(game, game.getMainScreen()));
 		}
 
 		if (state == STATE.endless_game) {
