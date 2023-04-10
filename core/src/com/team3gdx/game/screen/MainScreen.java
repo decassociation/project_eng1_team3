@@ -2,6 +2,7 @@ package com.team3gdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -64,7 +65,7 @@ public class MainScreen implements Screen {
 	Stage stage;
 
 	enum STATE {
-		main, audio, leaderboard, new_game, endless_game, credits, testing
+		main, audio, leaderboard, new_game, endless_game, credits, testing, load_game
 	}
 
 	STATE state;
@@ -202,7 +203,7 @@ public class MainScreen implements Screen {
 		});
 		load.addListener(new ClickListener() {
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				state = STATE.new_game;
+				state = STATE.load_game;
 				super.touchUp(event, x, y, pointer, button);
 			}
 		});
@@ -273,6 +274,13 @@ public class MainScreen implements Screen {
 			game.mainScreenMusic.dispose();
 			//game.setScreen(new GameScreen(game, game.getMainScreen(), 5));
 			game.setScreen(game.getWaveSelectScreen());
+		}
+
+		if (state == STATE.load_game) {
+			Preferences prefs = Gdx.app.getPreferences("save");
+			game.mainScreenMusic.dispose();
+			//game.setScreen(new GameScreen(game, game.getMainScreen(), 5));
+			game.setScreen(new GameScreen(game, game.getMainScreen(), prefs.getString("difficulty", "normal")));
 		}
 
 		if (state == STATE.endless_game) {

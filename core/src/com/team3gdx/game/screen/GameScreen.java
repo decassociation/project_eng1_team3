@@ -1,10 +1,7 @@
 package com.team3gdx.game.screen;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -176,6 +173,7 @@ public class GameScreen implements Screen {
 	}
 
 	public GameScreen(MainGameClass game, MainScreen ms, String difficulty) {
+		Preferences prefs = Gdx.app.getPreferences("save");
 		this.game = game;
 		this.ms = ms;
 		this.difficulty = difficulty;
@@ -187,8 +185,11 @@ public class GameScreen implements Screen {
 		constructCollisionData(map1);
 		cc = new CustomerController(map1, difficulty);
 		cc.spawnCustomer();
-		NUMBER_OF_WAVES = -1;
-		ENDLESS = true;
+		NUMBER_OF_WAVES = prefs.getInteger("NUMBER_OF_WAVES", -1);
+		ENDLESS = prefs.getBoolean("ENDLESS", true);
+		reputationPoints = prefs.getInteger("reputationPoints", 3);
+		cc.totalServed = prefs.getInteger("totalServed", 0);
+		currentWave = prefs.getInteger("currentWave", 0);
 	}
 
 	/***
@@ -595,6 +596,15 @@ public class GameScreen implements Screen {
 	 */
 	public void changeScreen(STATE state1) {
 		if (state1 == STATE.main) {
+			Preferences prefs = Gdx.app.getPreferences("save");
+			prefs.putInteger("reputationPoints", reputationPoints);
+			prefs.putBoolean("ENDLESS", ENDLESS);
+			prefs.putInteger("totalServed", cc.totalServed);
+			prefs.putInteger("currentWave", currentWave);
+			prefs.putInteger("NUMBER_OF_WAVES", NUMBER_OF_WAVES);
+			prefs.putString("difficulty", difficulty);
+			prefs.flush();
+
 			game.gameMusic.dispose();
 			//game.resetGameScreen();
 			game.setScreen(game.getMainScreen());
