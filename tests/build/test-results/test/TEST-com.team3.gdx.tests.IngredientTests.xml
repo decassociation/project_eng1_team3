@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.team3.gdx.tests.IngredientTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-03-28T08:04:52" hostname="GAMING-PC" time="0.038">
-  <properties/>
-  <testcase name="testFlip" classname="com.team3.gdx.tests.IngredientTests" time="0.005"/>
-  <testcase name="testIngredientClone" classname="com.team3.gdx.tests.IngredientTests" time="0.004"/>
-  <testcase name="testEquals" classname="com.team3.gdx.tests.IngredientTests" time="0.005"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

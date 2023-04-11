@@ -279,7 +279,7 @@ public class MainScreen implements Screen {
 		if (state == STATE.load_game) {
 			game.mainScreenMusic.dispose();
 			//game.setScreen(new GameScreen(game, game.getMainScreen(), 5));
-			game.setScreen(new GameScreen(game, game.getMainScreen()));
+			game.setScreen(new GameScreen(game, game.getMainScreen(), false));
 		}
 
 		if (state == STATE.endless_game) {

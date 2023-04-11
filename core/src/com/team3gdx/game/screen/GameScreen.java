@@ -98,9 +98,9 @@ public class GameScreen implements Screen {
 	Stage stage;
 	Stage stage2;
 	Stage stage3;
-	Boolean thirdChef;
-	Boolean secondBaking;
-	Boolean secondCutting;
+	public Boolean thirdChef;
+	public Boolean secondBaking;
+	public Boolean secondCutting;
 	OrthographicCamera uiCamera;
 	public static OrthographicCamera worldCamera;
 
@@ -148,7 +148,8 @@ public class GameScreen implements Screen {
 	public static CustomerController cc;
 	InputMultiplexer multi;
 	StationManager stationManager = new StationManager();
-	String difficulty;
+	public String difficulty;
+	String saveFile;
 
 	PowerupController powerupController = new PowerupController(this);
 
@@ -182,6 +183,7 @@ public class GameScreen implements Screen {
 		thirdChef = false;
 		secondBaking = false;
 		secondCutting = false;
+		saveFile = "save";
 	}
 
 	public GameScreen(MainGameClass game, MainScreen ms, String difficulty) {
@@ -207,11 +209,14 @@ public class GameScreen implements Screen {
 		thirdChef = false;
 		secondBaking = false;
 		secondCutting = false;
+		saveFile = "save";
 	}
 
 	// load saved game
-	public GameScreen(MainGameClass game, MainScreen ms) {
-		Preferences prefs = Gdx.app.getPreferences("save");
+	public GameScreen(MainGameClass game, MainScreen ms, Boolean testSave) {
+		if(testSave) saveFile = "testSave";
+		else saveFile = "save";
+		Preferences prefs = Gdx.app.getPreferences(saveFile);
 		this.game = game;
 		this.ms = ms;
 		this.difficulty = prefs.getString("difficulty", "normal");
@@ -651,7 +656,7 @@ public class GameScreen implements Screen {
 	public void changeScreen(STATE state1) {
 		if (state1 == STATE.main) {
 			// SAVE THE GAME
-			Preferences prefs = Gdx.app.getPreferences("save");
+			Preferences prefs = Gdx.app.getPreferences(saveFile);
 			prefs.putInteger("reputationPoints", reputationPoints);
 			prefs.putBoolean("ENDLESS", ENDLESS);
 			prefs.putInteger("totalServed", cc.totalServed);
