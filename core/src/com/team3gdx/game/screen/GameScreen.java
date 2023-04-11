@@ -58,8 +58,8 @@ public class GameScreen implements Screen {
 	final MainGameClass game;
 	final MainScreen ms;
 
-	public static int currentWave = 0;
-	public static int reputationPoints = 3;
+	public static int currentWave;
+	public static int reputationPoints;
 
 	Rectangle volSlideBackgr;
 	Rectangle volSlide;
@@ -98,6 +98,9 @@ public class GameScreen implements Screen {
 	Stage stage;
 	Stage stage2;
 	Stage stage3;
+	Boolean thirdChef;
+	Boolean secondBaking;
+	Boolean secondCutting;
 	OrthographicCamera uiCamera;
 	public static OrthographicCamera worldCamera;
 
@@ -138,10 +141,10 @@ public class GameScreen implements Screen {
 	public static Control control;
 	TiledMapRenderer tiledMapRenderer;
 	public TiledMap map1;
-	public static Cook[] cooks = { new Cook(new Vector2(64 * 5, 64 * 3), 1), new Cook(new Vector2(64 * 5, 64 * 5), 2) };
+	public static Cook[] cooks = new Cook[2];
 	//public static ArrayList<Cook> cooks = new ArrayList<>();
 	public static int currentCookIndex = 0;
-	public static Cook cook = cooks[currentCookIndex];
+	public static Cook cook;
 	public static CustomerController cc;
 	InputMultiplexer multi;
 	StationManager stationManager = new StationManager();
@@ -160,6 +163,12 @@ public class GameScreen implements Screen {
 		this.ms = ms;
 		this.difficulty = difficulty;
 		this.calculateBoxMaths();
+		currentWave = 0;
+		reputationPoints = 99;
+		cooks = new Cook[2];
+		cooks[0] = new Cook(new Vector2(64 * 5, 64 * 3), 1);
+		cooks[1] = new Cook(new Vector2(64 * 5, 64 * 5), 2);
+		cook = cooks[currentCookIndex];
 		control = new Control();
 		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
 		map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
@@ -170,6 +179,9 @@ public class GameScreen implements Screen {
 		stationManager = new StationManager();
 		NUMBER_OF_WAVES = num_waves;
 		ENDLESS = false;
+		thirdChef = false;
+		secondBaking = false;
+		secondCutting = false;
 	}
 
 	public GameScreen(MainGameClass game, MainScreen ms, String difficulty) {
@@ -177,6 +189,12 @@ public class GameScreen implements Screen {
 		this.ms = ms;
 		this.difficulty = difficulty;
 		this.calculateBoxMaths();
+		currentWave = 0;
+		reputationPoints = 99;
+		cooks = new Cook[2];
+		cooks[0] = new Cook(new Vector2(64 * 5, 64 * 3), 1);
+		cooks[1] = new Cook(new Vector2(64 * 5, 64 * 5), 2);
+		cook = cooks[currentCookIndex];
 		control = new Control();
 		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
 		map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
@@ -186,6 +204,9 @@ public class GameScreen implements Screen {
 		cc.spawnCustomer();
 		NUMBER_OF_WAVES = -1;
 		ENDLESS = true;
+		thirdChef = false;
+		secondBaking = false;
+		secondCutting = false;
 	}
 
 	// load saved game
@@ -207,6 +228,19 @@ public class GameScreen implements Screen {
 		reputationPoints = prefs.getInteger("reputationPoints", 3);
 		cc.totalServed = prefs.getInteger("totalServed", 0);
 		currentWave = prefs.getInteger("currentWave", 0);
+		thirdChef = prefs.getBoolean("thirdChef", false);
+		cooks = new Cook[2];
+		cooks[0] = new Cook(new Vector2(64 * 5, 64 * 3), 1);
+		cooks[1] = new Cook(new Vector2(64 * 5, 64 * 5), 2);
+		if(thirdChef && cooks.length < 3) {
+			Cook[] cooks2 = new Cook[cooks.length + 1];
+			System.arraycopy(cooks, 0, cooks2, 0, cooks.length);
+			cooks2[cooks.length] = new Cook(new Vector2(64 * 5, 64 * 5), 3);
+			cooks = cooks2;
+		}
+		cook = cooks[currentCookIndex];
+		secondBaking = prefs.getBoolean("secondBaking", false);
+		secondCutting = prefs.getBoolean("secondCutting", false);
 	}
 
 	/***
@@ -226,8 +260,8 @@ public class GameScreen implements Screen {
 	public void show() {
 		// =======================================LOAD=STATIONS==========================================================
 		loadStations();
-		stationManager.stations.get(new Vector2(7,5)).active = false;		// deactivate second baking station
-		stationManager.stations.get(new Vector2(11, 8)).active = false;	// deactivate second cutting station
+		stationManager.stations.get(new Vector2(7,5)).active = secondBaking;		// deactivate second baking station
+		stationManager.stations.get(new Vector2(11, 8)).active = secondCutting;	// deactivate second cutting station
 
 		// =======================================START=FRAME=TIMER======================================================
 		startTime = System.currentTimeMillis();
@@ -347,6 +381,7 @@ public class GameScreen implements Screen {
 					cooks = cooks2;
 					buyChef3.remove();
 					reputationPoints -= 5;
+					thirdChef = true;
 				}
 				super.touchUp(event, x, y, pointer, button);
 			}
@@ -357,6 +392,7 @@ public class GameScreen implements Screen {
 					stationManager.stations.get(new Vector2(7,5)).active = true;
 					reputationPoints -= 7;
 					buyBakingStation.remove();
+					secondBaking = true;
 				}
 				super.touchUp(event, x, y, pointer, button);
 			}
@@ -367,6 +403,7 @@ public class GameScreen implements Screen {
 					stationManager.stations.get(new Vector2(11, 8)).active = true;
 					reputationPoints -= 9;
 					buyCuttingStation.remove();
+					secondCutting = true;
 				}
 				super.touchUp(event, x, y, pointer, button);
 			}
@@ -377,10 +414,10 @@ public class GameScreen implements Screen {
 		stage2.addActor(rs);
 		stage2.addActor(btms);
 		stage2.addActor(ad);
-		stage3.addActor(buyChef3);
+		if(!thirdChef) stage3.addActor(buyChef3);
 		stage3.addActor(rs2);
-		stage3.addActor(buyBakingStation);
-		stage3.addActor(buyCuttingStation);
+		if(!secondBaking) stage3.addActor(buyBakingStation);
+		if(!secondCutting) stage3.addActor(buyCuttingStation);
 	}
 
 	static ShapeRenderer _selectedPlayerBox = null;
@@ -621,6 +658,9 @@ public class GameScreen implements Screen {
 			prefs.putInteger("currentWave", currentWave);
 			prefs.putInteger("NUMBER_OF_WAVES", NUMBER_OF_WAVES);
 			prefs.putString("difficulty", difficulty);
+			prefs.putBoolean("thirdChef", thirdChef);
+			prefs.putBoolean("secondBaking", secondBaking);
+			prefs.putBoolean("secondCutting", secondCutting);
 			prefs.flush();
 
 			game.gameMusic.dispose();
