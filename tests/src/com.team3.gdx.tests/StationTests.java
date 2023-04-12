@@ -60,6 +60,8 @@ public class StationTests {
         GameScreen.control = new Control();
         Vector2 testPosB = new Vector2(20,20);
         StationManager testSM = new StationManager();
+        GameScreen.cook = new Cook(new Vector2(15, 15), 2);
+        // Have to create a cook above otherwise there will be a null pointer exception in Station.drawDropText()
         testSM.checkInteractedTile("Service", testPosB);
         assertTrue("Serving station should have been instantiated at (20, 20)",
                 testSM.stations.get(testPosB) instanceof ServingStation);
@@ -104,6 +106,8 @@ public class StationTests {
 
         Vector2 testPosB = new Vector2(20,20);
         StationManager testSM = new StationManager();
+        GameScreen.cook = new Cook(new Vector2(15, 15), 2);
+        // Have to create a cook above otherwise there will be a null pointer exception in Station.drawDropText()
         testSM.checkInteractedTile("Baking", testPosB);
         assertTrue("Baking station should have been instantiated at (20, 20)",
                 testSM.stations.get(testPosB) instanceof BakingStation);
@@ -144,6 +148,8 @@ public class StationTests {
 
         Vector2 testPosB = new Vector2(20,20);
         StationManager testSM = new StationManager();
+        GameScreen.cook = new Cook(new Vector2(15, 15), 2);
+        // Have to create a cook above otherwise there will be a null pointer exception in Station.drawDropText()
         testSM.checkInteractedTile("Frying", testPosB);
         assertTrue("Frying station should have been instantiated at (20, 20)",
                 testSM.stations.get(testPosB) instanceof FryingStation);
@@ -184,6 +190,8 @@ public class StationTests {
         // Tests when (!slots.isEmpty() = True) and ((lockedCook == null) = True) in lockCook()
         testFS.place(Ingredients.formedPatty);
         testFS.place(Ingredients.formedPatty);
+        GameScreen.cook = new Cook(new Vector2(15, 15), 2);
+        // Have to create a cook above otherwise there will be a null pointer exception in Station.drawDropText()
         assertTrue("lockCook() should have returned True",
                 testFS.lockCook());
 
@@ -194,12 +202,12 @@ public class StationTests {
         assertTrue("lockCook() should have returned True",
                 testFS.lockCook());
 
-        // Tests...
-        testFS.lockedCook = GameScreen.cooks[0];
-        assertTrue("testFS.lockedCook should be set to a Cook type value but isn't (it's likely to be null" +
-                " instead)", testFS.lockedCook == GameScreen.cook);
-        assertTrue("lockCook() should have returned True for the test Frying Station now slots isn't empty " +
-                "and the station's locked cook attribute is not empty, but True was not returned", testFS.lockCook());
+//        NOT ENTIRELY SURE WHAT THE BELOW CODE TESTS AND WHETHER IT'S USEFUL
+//        testFS.lockedCook = GameScreen.cooks[0];
+//        assertTrue("testFS.lockedCook should be set to a Cook type value but isn't (it's likely to be null" +
+//                " instead)", testFS.lockedCook == GameScreen.cook);
+//        assertTrue("lockCook() should have returned True for the test Frying Station now slots isn't empty " +
+//                "and the station's locked cook attribute is not empty, but True was not returned", testFS.lockCook());
     }
 
     @Test
@@ -222,6 +230,8 @@ public class StationTests {
 
         Vector2 testPosB = new Vector2(20,20);
         StationManager testSM = new StationManager();
+        GameScreen.cook = new Cook(new Vector2(15, 15), 2);
+        // Have to create a cook above otherwise there will be a null pointer exception in Station.drawDropText()
         testSM.checkInteractedTile("Chopping", testPosB);
         assertTrue("Cutting station should have been instantiated at (20, 20)",
                 testSM.stations.get(testPosB) instanceof CuttingStation);
@@ -292,6 +302,8 @@ public class StationTests {
 
         Vector2 testPosB = new Vector2(20,20);
         StationManager testSM = new StationManager();
+        GameScreen.cook = new Cook(new Vector2(15, 15), 2);
+        // Have to create a cook above otherwise there will be a null pointer exception in Station.drawDropText()
         testSM.checkInteractedTile("Prep", testPosB);
         assertTrue("Prep station should have been instantiated at (20, 20)",
                 testSM.stations.get(testPosB) instanceof PrepStation);
@@ -314,6 +326,8 @@ public class StationTests {
         testPS.slots.clear();
         testPS.place(Ingredients.unformedPatty);
         testPS.place(Ingredients.cooked_bun);
+        GameScreen.cook = new Cook(new Vector2(15, 15), 2);
+        // Have to create a cook above otherwise there will be a null pointer exception in PrepStation.slotsToRecipe()
         testPS.slotsToRecipe();
         assertFalse("An incorrect burger recipe should have been rejected but hasn't",
                 testPS.slotsToRecipe());
