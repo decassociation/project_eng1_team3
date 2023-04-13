@@ -352,4 +352,38 @@ public class StationTests {
         assertTrue("...", testPS.slotsToRecipe());
         assertEquals("...", 1, testPS.slots.size());
     }
+
+    @Test
+    public void testPrepStationLockCook() {
+        Vector2 testPos = new Vector2(15,16);
+        PrepStation testPS = new PrepStation(testPos);
+        StationManager.stations.put(testPos, testPS);
+
+        // Tests when all if statement conditions are False in lockCook()
+        testPS.lockedCook = null;
+        assertFalse("The prep station's slots stack should be empty and it's lockedCook attribute should be " +
+                "null so False should be returned by testPS.lockCook() but wasn't", testPS.lockCook());
+
+        // Tests when (!slots.isEmpty() = False) and ((lockedCook == null) = False) so (lockedCook != null) = True
+        // in lockCook()
+        testPS.lockedCook = GameScreen.cooks[0];
+        assertFalse("lockCook() should have returned False",
+                testPS.lockCook());
+
+        // Tests when (!slots.isEmpty() = True) and ((lockedCook == null) = True) in lockCook()
+        testPS.lockedCook = null;
+        testPS.place(Ingredients.cookedPatty);
+        testPS.place(Ingredients.cooked_bun);
+        GameScreen.cook = new Cook(new Vector2(15, 15), 2);
+        // Have to create a cook above otherwise there will be a null pointer exception in PrepStation.slotsToRecipe()
+        assertTrue("lockCook() should have returned True",
+                testPS.lockCook());
+
+        // Tests when (!slots.isEmpty() = True) and ((lockedCook == null) = False) in lockCook()
+        // Don't need to change the ingredient stack again since there is already a valid recipe on it!
+        testPS.lockedCook = GameScreen.cooks[0];
+        assertTrue("lockCook() should have returned True",
+                testPS.lockCook());
+    }
+
 }
