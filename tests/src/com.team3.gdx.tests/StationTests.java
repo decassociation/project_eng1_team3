@@ -417,11 +417,13 @@ public class StationTests {
      * Tests lots of the checkInteractedTile() cases; some have been covered in above tests
      */
     @Test
-    public void testStationManager() {
+    public void testStationManagerCheckInteractedTile() {
         // Can't test handleStations() because the method would have to be static or something else would
         // have to change but it would impact how other code works
 
         // Can't test checkInteractedTile with the "Bin" string because batch needs to not be null but it would be
+
+        // placeIngredientStation() is a private method so can't easily test here
 
         StationManager testSM = new StationManager();
 
@@ -517,9 +519,5 @@ public class StationTests {
         assertTrue("A dough ingredient should have been added to the new" +
                         " Ingredient station's slots but wasn't",
                 StationManager.stations.get(testPos9).slots.peek() == Ingredients.dough);
-
-        Vector2 testPos10 = new Vector2(20,20);
-        testSM.checkInteractedTile("Bin", testPos10);
     }
-
 }
