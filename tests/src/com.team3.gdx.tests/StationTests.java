@@ -413,4 +413,113 @@ public class StationTests {
                 testPS.take() instanceof  Ingredient);
     }
 
+    /**
+     * Tests lots of the checkInteractedTile() cases; some have been covered in above tests
+     */
+    @Test
+    public void testStationManager() {
+        // Can't test handleStations() because the method would have to be static or something else would
+        // have to change but it would impact how other code works
+
+        // Can't test checkInteractedTile with the "Bin" string because batch needs to not be null but it would be
+
+        StationManager testSM = new StationManager();
+
+        GameScreen.cook = new Cook(new Vector2(15, 15), 2);
+
+        // Need GameScreen.cook.slots to be the max size (5) or greater
+        GameScreen.cook.heldItems.add(Ingredients.lettuce);
+        GameScreen.cook.heldItems.add(Ingredients.lettuce);
+        GameScreen.cook.heldItems.add(Ingredients.lettuce);
+        GameScreen.cook.heldItems.add(Ingredients.lettuce);
+        GameScreen.cook.heldItems.add(Ingredients.lettuce);
+
+        GameScreen.control = new Control(); // GameScreen.control.interact = false currently
+
+        Vector2 testPos1 = new Vector2(2, 2);
+        testSM.checkInteractedTile("Buns", testPos1);
+        assertNotNull("A new Ingredient station at position (2,2) should have been created but wasn't",
+                StationManager.stations.get(testPos1));
+        assertTrue("A bun ingredient should have been added to the new Ingredient station's slots but wasn't",
+                StationManager.stations.get(testPos1).slots.peek() == Ingredients.bun);
+
+
+        // Tests the same as above but with a different ingredient, and when
+        // GameScreen.control.interact = true instead of false
+        Vector2 testPos2 = new Vector2(4, 4);
+        GameScreen.control.interact = true;
+        testSM.checkInteractedTile("Patties", testPos2);
+        assertNotNull("A new Ingredient station at position (4,4) should have been created but wasn't",
+                StationManager.stations.get(testPos2));
+        assertTrue("An unformed patty ingredient should have been added to the new" +
+                        " Ingredient station's slots but wasn't",
+                StationManager.stations.get(testPos2).slots.peek() == Ingredients.unformedPatty);
+
+        // Tests the same as above but with a different ingredient
+        Vector2 testPos3 = new Vector2(6, 6);
+        testSM.checkInteractedTile("Lettuces", testPos3);
+        assertNotNull("A new Ingredient station at position (6,6) should have been created but wasn't",
+                StationManager.stations.get(testPos3));
+        assertTrue("An lettuce ingredient should have been added to the new" +
+                        " Ingredient station's slots but wasn't",
+                StationManager.stations.get(testPos3).slots.peek() == Ingredients.lettuce);
+
+        // Tests the same as above but with a different ingredient
+        Vector2 testPos4 = new Vector2(8, 8);
+        testSM.checkInteractedTile("Tomatoes", testPos4);
+        assertNotNull("A new Ingredient station at position (8,8) should have been created but wasn't",
+                StationManager.stations.get(testPos4));
+        assertTrue("A tomato ingredient should have been added to the new" +
+                        " Ingredient station's slots but wasn't",
+                StationManager.stations.get(testPos4).slots.peek() == Ingredients.tomato);
+
+        // Tests the same as above but with a different ingredient
+        Vector2 testPos5 = new Vector2(10, 10);
+        testSM.checkInteractedTile("Onions", testPos5);
+        assertNotNull("A new Ingredient station at position (10,10) should have been created but wasn't",
+                StationManager.stations.get(testPos5));
+        assertTrue("An onion ingredient should have been added to the new" +
+                        " Ingredient station's slots but wasn't",
+                StationManager.stations.get(testPos5).slots.peek() == Ingredients.onion);
+
+        // Tests the same as above but with a different ingredient
+        Vector2 testPos6 = new Vector2(12, 12);
+        testSM.checkInteractedTile("Potatoes", testPos6);
+        assertNotNull("A new Ingredient station at position (12,12) should have been created but wasn't",
+                StationManager.stations.get(testPos6));
+        assertTrue("A potato ingredient should have been added to the new" +
+                        " Ingredient station's slots but wasn't",
+                StationManager.stations.get(testPos6).slots.peek() == Ingredients.potato);
+
+        // Tests the same as above but with a different ingredient
+        Vector2 testPos7 = new Vector2(14, 14);
+        testSM.checkInteractedTile("Beans", testPos7);
+        assertNotNull("A new Ingredient station at position (14,14) should have been created but wasn't",
+                StationManager.stations.get(testPos7));
+        assertTrue("A bean ingredient should have been added to the new" +
+                        " Ingredient station's slots but wasn't",
+                StationManager.stations.get(testPos7).slots.peek() == Ingredients.beans);
+
+        // Tests the same as above but with a different ingredient
+        Vector2 testPos8 = new Vector2(16, 16);
+        testSM.checkInteractedTile("Cheese", testPos8);
+        assertNotNull("A new Ingredient station at position (16, 16) should have been created but wasn't",
+                StationManager.stations.get(testPos8));
+        assertTrue("A cheese ingredient should have been added to the new" +
+                        " Ingredient station's slots but wasn't",
+                StationManager.stations.get(testPos8).slots.peek() == Ingredients.cheese);
+
+        // Tests the same as above but with a different ingredient
+        Vector2 testPos9 = new Vector2(18, 18);
+        testSM.checkInteractedTile("Dough", testPos9);
+        assertNotNull("A new Ingredient station at position (18, 18) should have been created but wasn't",
+                StationManager.stations.get(testPos9));
+        assertTrue("A dough ingredient should have been added to the new" +
+                        " Ingredient station's slots but wasn't",
+                StationManager.stations.get(testPos9).slots.peek() == Ingredients.dough);
+
+        Vector2 testPos10 = new Vector2(20,20);
+        testSM.checkInteractedTile("Bin", testPos10);
+    }
+
 }
