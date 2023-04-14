@@ -378,12 +378,39 @@ public class StationTests {
         // Have to create a cook above otherwise there will be a null pointer exception in PrepStation.slotsToRecipe()
         assertTrue("lockCook() should have returned True",
                 testPS.lockCook());
+        assertSame("The if branch of (if (lockedCook == null)) should have been taken but hasn't",
+                testPS.lockedCook,  GameScreen.cook);
 
         // Tests when (!slots.isEmpty() = True) and ((lockedCook == null) = False) in lockCook()
         // Don't need to change the ingredient stack again since there is already a valid recipe on it!
-        testPS.lockedCook = GameScreen.cooks[0];
+        testPS.lockedCook = GameScreen.cook;
         assertTrue("lockCook() should have returned True",
                 testPS.lockCook());
+        assertTrue("The else branch of (if (lockedCook == null)) should have been taken but hasn't",
+                testPS.lockedCook.locked = true);
+
+        // Tests when (!slots.isEmpty() = False), (slotsToRecipe() = False)
+        // and ((lockedCook != null) = True) in lockCook()
+        testPS.take();
+        testPS.take();
+        //lockedCook is already != null
+        assertFalse("lockCook() should have returned False", testPS.lockCook());
+        assertNull("The (if (lockedCook != null)) branch hasn't been taken but should have been",
+                testPS.lockedCook);
+    }
+
+    @Test
+    public void testStationTake(){
+        Vector2 testPos = new Vector2(15,16);
+        PrepStation testPS = new PrepStation(testPos);
+        StationManager.stations.put(testPos, testPS);
+        assertNull("The ingredient stack should be empty so null should be returned but wasn't", testPS.take());
+
+        testPS.infinite = true;
+        testPS.place(Ingredients.cookedPatty);
+        testPS.place(Ingredients.cooked_bun);
+        assertTrue("A new ingredient instance should have been returned but wasn't",
+                testPS.take() instanceof  Ingredient);
     }
 
 }
