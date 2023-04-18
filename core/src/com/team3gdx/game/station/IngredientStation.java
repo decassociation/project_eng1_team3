@@ -10,15 +10,15 @@ public class IngredientStation extends Station {
 		slots.push(ingredient);
 	}
 
-	public void remove() {
-		slots.pop();
-	}
-
 	public Ingredient getIngredient() {
 		if (slots.size() > 0) {
 			return slots.peek();
 		}
 		return null;
 
+	}
+
+	public void setIngredient(Object o) {
+		slots.push((Ingredient) o);
 	}
 }

@@ -24,7 +24,7 @@ public class CleanUp extends Powerup{
             if(station.getClass().equals(IngredientStation.class)) {
                 IngredientStation ingredientStation = (IngredientStation) station;
                 if(ingredientStation.getIngredient() == Ingredients.cooked_beans_with_spill) {
-                    ingredientStation.remove();
+                    ingredientStation.setIngredient(null);
                 }
             }
         }
