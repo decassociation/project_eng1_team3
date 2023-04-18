@@ -22,7 +22,7 @@ AudioSettings -> AudioSettings : Change volume sliders
 AudioSettings -up-> TitleScreen : Exit to Menu
 
 Shop -> Shop : Buy station/chef
-Shop -> GameScreen : Resume gane
+Shop -> GameScreen : Resume game
 
 state DifficultySelectScreen{
 }

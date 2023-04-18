@@ -6,6 +6,7 @@ import com.badlogic.gdx.Preferences;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.team3gdx.game.MainGameClass;
 import com.team3gdx.game.screen.GameScreen;
+import com.team3gdx.game.screen.MainScreen;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -37,7 +38,7 @@ public class SaveLoadTests {
     @Test
     public void testSaveLoadTotalServed(){
         MainGameClass game = new MainGameClass();
-        GameScreen gameScreen = new GameScreen(game, game.getMainScreen(), true);
+        GameScreen gameScreen = new GameScreen(game, new MainScreen(new MainGameClass()), true);
 
         int totalServed = gameScreen.cc.totalServed;
         int toAdd = 7357;
