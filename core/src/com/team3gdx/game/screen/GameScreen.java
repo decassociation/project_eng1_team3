@@ -165,7 +165,7 @@ public class GameScreen implements Screen {
 		this.difficulty = difficulty;
 		this.calculateBoxMaths();
 		currentWave = 0;
-		reputationPoints = 99;
+		reputationPoints = 3;
 		cooks = new Cook[2];
 		cooks[0] = new Cook(new Vector2(64 * 5, 64 * 3), 1);
 		cooks[1] = new Cook(new Vector2(64 * 5, 64 * 5), 2);
@@ -192,7 +192,7 @@ public class GameScreen implements Screen {
 		this.difficulty = difficulty;
 		this.calculateBoxMaths();
 		currentWave = 0;
-		reputationPoints = 99;
+		reputationPoints = 3;
 		cooks = new Cook[2];
 		cooks[0] = new Cook(new Vector2(64 * 5, 64 * 3), 1);
 		cooks[1] = new Cook(new Vector2(64 * 5, 64 * 5), 2);
