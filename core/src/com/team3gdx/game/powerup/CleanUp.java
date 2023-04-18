@@ -12,7 +12,7 @@ public class CleanUp extends Powerup{
 
     public CleanUp(int x, int y, GameScreen gameScreen){
         super(x, y);
-        this.texture = new Texture(Gdx.files.internal("powerups/reputation.png"));
+        this.texture = new Texture(Gdx.files.internal("powerups/cleanup.png"));
         this.gameScreen = gameScreen;
     }
 
