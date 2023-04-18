@@ -33,7 +33,7 @@ public class PowerupController {
         nukeLikeCodZombies nuke = new nukeLikeCodZombies(0,0);
 
         //CleanUp Crew
-        CleanUp cleanUp = new CleanUp(0,0);
+        CleanUp cleanUp = new CleanUp(0,0,gameScreen);
         powerups.add(cleanUp);
 
 
