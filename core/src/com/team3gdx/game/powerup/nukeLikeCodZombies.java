@@ -18,7 +18,7 @@ public class nukeLikeCodZombies extends Powerup{
      */
     public nukeLikeCodZombies(int x, int y) {
         super(x, y);
-        this.texture = new Texture(Gdx.files.internal("powerups/nuke.png"));
+        this.texture = new Texture(Gdx.files.internal("powerups/orb.png"));
     }
 
     @Override

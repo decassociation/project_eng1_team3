@@ -8,7 +8,7 @@ public class SpeedBoost extends Powerup{
 
     public SpeedBoost(int x, int y){
         super(x, y);
-        this.texture = new Texture(Gdx.files.internal("powerups/speedboost.png"));
+        this.texture = new Texture(Gdx.files.internal("powerups/orb.png"));
     }
 
     @Override

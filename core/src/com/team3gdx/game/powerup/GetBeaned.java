@@ -14,7 +14,7 @@ public class GetBeaned extends Powerup{
 
     public GetBeaned(int x, int y, GameScreen gameScreen){
         super(x, y);
-        this.texture = new Texture(Gdx.files.internal("powerups/getbeaned.png"));
+        this.texture = new Texture(Gdx.files.internal("powerups/orb.png"));
         this.gameScreen = gameScreen;
     }
 
