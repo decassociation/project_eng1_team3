@@ -32,6 +32,10 @@ public class PowerupController {
         // Nuke Like Cod Zombies
         nukeLikeCodZombies nuke = new nukeLikeCodZombies(0,0);
 
+        //CleanUp Crew
+        CleanUp cleanUp = new CleanUp(0,0);
+        powerups.add(cleanUp);
+
 
         timeOfLast = System.currentTimeMillis();
     }
