@@ -11,9 +11,11 @@ Project starts 2023-2-15
 
 [Working on Risk Assessment] starts 2023-2-29 and ends 2023-3-15 and is colored in green
 
-[Writing Up Old Testing] starts 2023-3-22 and ends 2023-3-30
+[Writing Up Old Testing] starts 2023-3-22 and ends 2023-3-30 and is colored in green
 
-[Writing New Code] starts 2023-3-22  and ends 2023-4-15
+[Writing New Code] starts 2023-3-22  and ends 2023-3-30 and is colored in green
+
+[Writing New Code!] starts 2023-3-30 and ends 2023-4-15 and displays on same row as [Writing New Code]
 
 
 @endgantt
