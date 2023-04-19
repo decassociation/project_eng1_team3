@@ -151,6 +151,7 @@ public class GameScreen implements Screen {
 	public String difficulty;
 	String saveFile;
 
+
 	PowerupController powerupController = new PowerupController(this);
 
 	/**
@@ -445,9 +446,6 @@ public class GameScreen implements Screen {
 
 
 
-		if(Gdx.input.isKeyJustPressed(Input.Keys.M)){
-			nuker.nukeEm();
-		}
 
 
 
@@ -528,6 +526,31 @@ public class GameScreen implements Screen {
 		checkCustomerWaitTime();
 		// =========================================CHECK=GAME=OVER======================================================
 		checkGameOver();
+
+
+
+
+
+		// ====================================Nuke=Stuff===============================================================
+		if(Gdx.input.isKeyJustPressed(Input.Keys.M)){
+			nuker.nukeEm();
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	}
 

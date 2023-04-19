@@ -33,14 +33,17 @@ public class Ingredients {
 	public static Ingredient lettuceChopped = new Ingredient(null, 32, 32, "lettuce", 1, 0);
 	static {
 		lettuceChopped.slices = 1;
+		lettuceChopped.status = Status.CUT;
 	}
 	public static Ingredient tomatoChopped = new Ingredient(null, 32, 32, "tomato", 1, 0);
 	static {
 		tomatoChopped.slices = 1;
+		tomatoChopped.status = Status.CUT;
 	}
 	public static Ingredient onionChopped = new Ingredient(null, 32, 32, "onion", 1, 0);
 	static {
 		onionChopped.slices = 1;
+		onionChopped.status = Status.CUT;
 	}
 
 	public static Ingredient tomatoPaste = new Ingredient(null, 32, 32, "tomato_paste", 1, 0);
