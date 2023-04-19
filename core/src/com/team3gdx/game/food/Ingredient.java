@@ -126,6 +126,7 @@ public class Ingredient extends Entity {
 		} else {
 			slices++;
 			texture = new Texture("items/" + name + "_chopped.png");
+			status = Status.CUT;
 			return true;
 		}
 
@@ -216,5 +217,5 @@ public class Ingredient extends Entity {
 }
 
 enum Status {
-	RAW, COOKED, BURNED
+	RAW, COOKED, BURNED, CUT
 }
