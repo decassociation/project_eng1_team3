@@ -7,10 +7,9 @@
   <title>Coverage Report > PowerupTests</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -74,39 +73,39 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3.gdx.tests;
-&nbsp;
-&nbsp;import com.badlogic.gdx.math.Vector2;
-&nbsp;import com.team3gdx.game.entity.Cook;
-&nbsp;import com.team3gdx.game.powerup.Powerup;
-&nbsp;import org.junit.Test;
-&nbsp;import org.junit.runner.RunWith;
-&nbsp;
-&nbsp;import static org.junit.Assert.assertFalse;
-&nbsp;import static org.junit.Assert.assertTrue;
-&nbsp;
-&nbsp;@RunWith(GdxTestRunner.class)
-<b class="fc">&nbsp;public class PowerupTests {</b>
-&nbsp;    @Test
-&nbsp;    public void testCollision(){
-<b class="fc">&nbsp;        Powerup powerup = new Powerup(15, 15);</b>
-<b class="fc">&nbsp;        Cook cook = new Cook(new Vector2(15, 15), 1);</b>
-<b class="fc">&nbsp;        powerup.active = true;</b>
-<b class="fc">&nbsp;        powerup.checkCollision(cook);</b>
-<b class="fc">&nbsp;        assertFalse(powerup.active);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    @Test
-&nbsp;    public void testActivate(){
-<b class="fc">&nbsp;        Powerup powerup = new Powerup(15, 15);</b>
-<b class="fc">&nbsp;        assertFalse(&quot;Initially inactive&quot;, powerup.active);</b>
-<b class="fc">&nbsp;        powerup.activate();</b>
-<b class="fc">&nbsp;        assertTrue(&quot;Becomes active&quot;, powerup.active);</b>
-<b class="fc">&nbsp;        assertFalse(&quot;Has moved in x&quot;, powerup.getX() == 15);</b>
-<b class="fc">&nbsp;        assertFalse(&quot;Has moved in y&quot;, powerup.getY() == 15);</b>
-&nbsp;    }
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3.gdx.tests;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">4</i>&nbsp;import com.team3gdx.game.entity.Cook;
+<i class="no-highlight">5</i>&nbsp;import com.team3gdx.game.powerup.Powerup;
+<i class="no-highlight">6</i>&nbsp;import org.junit.Test;
+<i class="no-highlight">7</i>&nbsp;import org.junit.runner.RunWith;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;import static org.junit.Assert.assertFalse;
+<i class="no-highlight">10</i>&nbsp;import static org.junit.Assert.assertTrue;
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;@RunWith(GdxTestRunner.class)
+<b class="fc"><i class="no-highlight">13</i>&nbsp;public class PowerupTests {</b>
+<i class="no-highlight">14</i>&nbsp;    @Test
+<i class="no-highlight">15</i>&nbsp;    public void testCollision(){
+<b class="fc"><i class="no-highlight">16</i>&nbsp;        Powerup powerup = new Powerup(15, 15);</b>
+<b class="fc"><i class="no-highlight">17</i>&nbsp;        Cook cook = new Cook(new Vector2(15, 15), 1);</b>
+<b class="fc"><i class="no-highlight">18</i>&nbsp;        powerup.active = true;</b>
+<b class="fc"><i class="no-highlight">19</i>&nbsp;        powerup.checkCollision(cook);</b>
+<b class="fc"><i class="no-highlight">20</i>&nbsp;        assertFalse(powerup.active);</b>
+<i class="no-highlight">21</i>&nbsp;    }
+<i class="no-highlight">22</i>&nbsp;
+<i class="no-highlight">23</i>&nbsp;    @Test
+<i class="no-highlight">24</i>&nbsp;    public void testActivate(){
+<b class="fc"><i class="no-highlight">25</i>&nbsp;        Powerup powerup = new Powerup(15, 15);</b>
+<b class="fc"><i class="no-highlight">26</i>&nbsp;        assertFalse(&quot;Initially inactive&quot;, powerup.active);</b>
+<b class="fc"><i class="no-highlight">27</i>&nbsp;        powerup.activate();</b>
+<b class="fc"><i class="no-highlight">28</i>&nbsp;        assertTrue(&quot;Becomes active&quot;, powerup.active);</b>
+<b class="fc"><i class="no-highlight">29</i>&nbsp;        assertFalse(&quot;Has moved in x&quot;, powerup.getX() == 15);</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;        assertFalse(&quot;Has moved in y&quot;, powerup.getY() == 15);</b>
+<i class="no-highlight">31</i>&nbsp;    }
+<i class="no-highlight">32</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -121,15 +120,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

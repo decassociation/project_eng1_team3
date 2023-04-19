@@ -1,0 +1,628 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > StationTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.team3.gdx.tests</a>
+</div>
+
+<h1>Coverage Summary for Class: StationTests (com.team3.gdx.tests)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StationTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (16/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (283/283)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3.gdx.tests;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.badlogic.gdx.Game;
+<i class="no-highlight">4</i>&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+<i class="no-highlight">5</i>&nbsp;import com.badlogic.gdx.maps.tiled.TiledMap;
+<i class="no-highlight">6</i>&nbsp;import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+<i class="no-highlight">7</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">8</i>&nbsp;import com.team3gdx.game.entity.Cook;
+<i class="no-highlight">9</i>&nbsp;import com.team3gdx.game.entity.Customer;
+<i class="no-highlight">10</i>&nbsp;import com.team3gdx.game.entity.CustomerController;
+<i class="no-highlight">11</i>&nbsp;import com.team3gdx.game.food.Ingredient;
+<i class="no-highlight">12</i>&nbsp;import com.team3gdx.game.food.Ingredients;
+<i class="no-highlight">13</i>&nbsp;import com.team3gdx.game.food.Menu;
+<i class="no-highlight">14</i>&nbsp;import com.team3gdx.game.food.Recipe;
+<i class="no-highlight">15</i>&nbsp;import com.team3gdx.game.screen.GameScreen;
+<i class="no-highlight">16</i>&nbsp;import com.team3gdx.game.station.*;
+<i class="no-highlight">17</i>&nbsp;import com.team3gdx.game.util.Control;
+<i class="no-highlight">18</i>&nbsp;import org.junit.Test;
+<i class="no-highlight">19</i>&nbsp;import org.junit.runner.RunWith;
+<i class="no-highlight">20</i>&nbsp;
+<i class="no-highlight">21</i>&nbsp;
+<i class="no-highlight">22</i>&nbsp;
+<i class="no-highlight">23</i>&nbsp;import static org.junit.Assert.*;
+<i class="no-highlight">24</i>&nbsp;
+<i class="no-highlight">25</i>&nbsp;@RunWith(GdxTestRunner.class)
+<b class="fc"><i class="no-highlight">26</i>&nbsp;public class StationTests {</b>
+<i class="no-highlight">27</i>&nbsp;
+<i class="no-highlight">28</i>&nbsp;    @Test
+<i class="no-highlight">29</i>&nbsp;    public void testCreateStation() {
+<i class="no-highlight">30</i>&nbsp;        //All stations are child classes of Station
+<b class="fc"><i class="no-highlight">31</i>&nbsp;        Vector2 pos = new Vector2(0,0);</b>
+<b class="fc"><i class="no-highlight">32</i>&nbsp;        Station station = new Station(pos, 0, true, null, null);</b>
+<b class="fc"><i class="no-highlight">33</i>&nbsp;        StationManager.stations.put(pos, station);</b>
+<b class="fc"><i class="no-highlight">34</i>&nbsp;        assertTrue(&quot;Station should be instantiated at position 0,0&quot;,</b>
+<b class="fc"><i class="no-highlight">35</i>&nbsp;                StationManager.stations.get(pos) == station);</b>
+<i class="no-highlight">36</i>&nbsp;    }
+<i class="no-highlight">37</i>&nbsp;
+<i class="no-highlight">38</i>&nbsp;
+<i class="no-highlight">39</i>&nbsp;    /**
+<i class="no-highlight">40</i>&nbsp;     * This tests the creation of a serving station *AND* the serving of a customer because it&#39;s the same block of code
+<i class="no-highlight">41</i>&nbsp;     * to test both; a few extra lines are needed to test the serving functionality.
+<i class="no-highlight">42</i>&nbsp;     */
+<i class="no-highlight">43</i>&nbsp;    @Test
+<i class="no-highlight">44</i>&nbsp;    public void testCreateServingStation(){
+<i class="no-highlight">45</i>&nbsp;        //------------------------------------------ ISOLATED CREATION -------------------------------------------------
+<b class="fc"><i class="no-highlight">46</i>&nbsp;        Vector2 testPosA = new Vector2(12,13);</b>
+<b class="fc"><i class="no-highlight">47</i>&nbsp;        ServingStation testSS = new ServingStation(testPosA);</b>
+<b class="fc"><i class="no-highlight">48</i>&nbsp;        StationManager.stations.put(testPosA, testSS);</b>
+<b class="fc"><i class="no-highlight">49</i>&nbsp;        assertEquals(&quot;Serving station should have been instantiated at (12, 13)&quot;,</b>
+<b class="fc"><i class="no-highlight">50</i>&nbsp;                StationManager.stations.get(testPosA), testSS);</b>
+<i class="no-highlight">51</i>&nbsp;
+<i class="no-highlight">52</i>&nbsp;
+<i class="no-highlight">53</i>&nbsp;        //----------------------------- CREATION THROUGH StationManager&#39;s checkInteractedTile --------------------------
+<i class="no-highlight">54</i>&nbsp;
+<b class="fc"><i class="no-highlight">55</i>&nbsp;        TiledMap testMap = new TmxMapLoader().load(&quot;map/art_map/customertest.tmx&quot;);</b>
+<b class="fc"><i class="no-highlight">56</i>&nbsp;        GameScreen.cc = new CustomerController(testMap, &quot;easy&quot;);</b>
+<b class="fc"><i class="no-highlight">57</i>&nbsp;        GameScreen.cc.customers[0] = new Customer(19, 20, 20, 0);</b>
+<b class="fc"><i class="no-highlight">58</i>&nbsp;        GameScreen.currentWaitingCustomer = GameScreen.cc.customers[0];</b>
+<b class="fc"><i class="no-highlight">59</i>&nbsp;        GameScreen.cc.customers[0].locked = true;</b>
+<b class="fc"><i class="no-highlight">60</i>&nbsp;        GameScreen.control = new Control();</b>
+<b class="fc"><i class="no-highlight">61</i>&nbsp;        Vector2 testPosB = new Vector2(20,20);</b>
+<b class="fc"><i class="no-highlight">62</i>&nbsp;        StationManager testSM = new StationManager();</b>
+<b class="fc"><i class="no-highlight">63</i>&nbsp;        GameScreen.cook = new Cook(new Vector2(15, 15), 2);</b>
+<i class="no-highlight">64</i>&nbsp;        // Have to create a cook above otherwise there will be a null pointer exception in Station.drawDropText()
+<b class="fc"><i class="no-highlight">65</i>&nbsp;        testSM.checkInteractedTile(&quot;Service&quot;, testPosB);</b>
+<b class="fc"><i class="no-highlight">66</i>&nbsp;        assertTrue(&quot;Serving station should have been instantiated at (20, 20)&quot;,</b>
+<b class="fc"><i class="no-highlight">67</i>&nbsp;                testSM.stations.get(testPosB) instanceof ServingStation);</b>
+<i class="no-highlight">68</i>&nbsp;
+<i class="no-highlight">69</i>&nbsp;        //----------------------------- TEST LINES 40 &amp; 41 IN ServingStation.serveCustomer() ---------------------------
+<b class="fc"><i class="no-highlight">70</i>&nbsp;        GameScreen.cc.customers[0].order = null;</b>
+<b class="fc"><i class="no-highlight">71</i>&nbsp;        GameScreen.currentWaitingCustomer = null;</b>
+<i class="no-highlight">72</i>&nbsp;
+<b class="fc"><i class="no-highlight">73</i>&nbsp;        ((ServingStation) testSM.stations.get(testPosB)).serveCustomer();</b>
+<b class="fc"><i class="no-highlight">74</i>&nbsp;        assertTrue(&quot;GameScreen.currentWaitingCustomer (i.e. the test customer should have had their order &quot; +</b>
+<i class="no-highlight">75</i>&nbsp;                        &quot;changed from null to a random order but didn&#39;t)&quot;,
+<i class="no-highlight">76</i>&nbsp;                GameScreen.cc.customers[0].order != null);
+<i class="no-highlight">77</i>&nbsp;
+<i class="no-highlight">78</i>&nbsp;        //---------------------------------------- TEST CUSTOMER SERVING -----------------------------------------------
+<i class="no-highlight">79</i>&nbsp;        // To test customer serving, the code from the above section is built upon so no duplicated code
+<b class="fc"><i class="no-highlight">80</i>&nbsp;        GameScreen.cc.customers[0].order = &quot;Burger&quot;;</b>
+<b class="fc"><i class="no-highlight">81</i>&nbsp;        testSM.stations.get(testPosB).slots.push(Menu.RECIPES.get(GameScreen.cc.customers[0].order));</b>
+<i class="no-highlight">82</i>&nbsp;        // (Above line) pushes same order as the customer used to test this, to the serving stations stack
+<b class="fc"><i class="no-highlight">83</i>&nbsp;        ((ServingStation) testSM.stations.get(testPosB)).serveCustomer();</b>
+<b class="fc"><i class="no-highlight">84</i>&nbsp;        assertNull(&quot;There should be no existing customers but there is one at GameScreen.cc.customers[0]&quot;,</b>
+<i class="no-highlight">85</i>&nbsp;                GameScreen.cc.customers[0]);
+<i class="no-highlight">86</i>&nbsp;    }
+<i class="no-highlight">87</i>&nbsp;
+<i class="no-highlight">88</i>&nbsp;    @Test
+<i class="no-highlight">89</i>&nbsp;    public void testCreateBakingStation(){
+<i class="no-highlight">90</i>&nbsp;        //------------------------------------------ ISOLATED CREATION -------------------------------------------------
+<b class="fc"><i class="no-highlight">91</i>&nbsp;        Vector2 testPos = new Vector2(15,16);</b>
+<b class="fc"><i class="no-highlight">92</i>&nbsp;        BakingStation testBS = new BakingStation(testPos);</b>
+<b class="fc"><i class="no-highlight">93</i>&nbsp;        StationManager.stations.put(testPos, testBS);</b>
+<b class="fc"><i class="no-highlight">94</i>&nbsp;        assertEquals(&quot;A baking station should have been created at (15,16) but hasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">95</i>&nbsp;                StationManager.stations.get(testPos), testBS);</b>
+<i class="no-highlight">96</i>&nbsp;
+<i class="no-highlight">97</i>&nbsp;
+<i class="no-highlight">98</i>&nbsp;        //----------------------------- CREATION THROUGH StationManager&#39;s checkInteractedTile --------------------------
+<i class="no-highlight">99</i>&nbsp;
+<b class="fc"><i class="no-highlight">100</i>&nbsp;        TiledMap testMap = new TmxMapLoader().load(&quot;map/art_map/customertest.tmx&quot;);</b>
+<b class="fc"><i class="no-highlight">101</i>&nbsp;        GameScreen.cc = new CustomerController(testMap, &quot;easy&quot;);</b>
+<b class="fc"><i class="no-highlight">102</i>&nbsp;        GameScreen.cc.customers[0] = new Customer(19, 20, 20, 0);</b>
+<b class="fc"><i class="no-highlight">103</i>&nbsp;        GameScreen.currentWaitingCustomer = GameScreen.cc.customers[0];</b>
+<b class="fc"><i class="no-highlight">104</i>&nbsp;        GameScreen.cc.customers[0].locked = true;</b>
+<b class="fc"><i class="no-highlight">105</i>&nbsp;        GameScreen.control = new Control();</b>
+<i class="no-highlight">106</i>&nbsp;
+<b class="fc"><i class="no-highlight">107</i>&nbsp;        Vector2 testPosB = new Vector2(20,20);</b>
+<b class="fc"><i class="no-highlight">108</i>&nbsp;        StationManager testSM = new StationManager();</b>
+<b class="fc"><i class="no-highlight">109</i>&nbsp;        GameScreen.cook = new Cook(new Vector2(15, 15), 2);</b>
+<i class="no-highlight">110</i>&nbsp;        // Have to create a cook above otherwise there will be a null pointer exception in Station.drawDropText()
+<b class="fc"><i class="no-highlight">111</i>&nbsp;        testSM.checkInteractedTile(&quot;Baking&quot;, testPosB);</b>
+<b class="fc"><i class="no-highlight">112</i>&nbsp;        assertTrue(&quot;Baking station should have been instantiated at (20, 20)&quot;,</b>
+<b class="fc"><i class="no-highlight">113</i>&nbsp;                testSM.stations.get(testPosB) instanceof BakingStation);</b>
+<i class="no-highlight">114</i>&nbsp;    }
+<i class="no-highlight">115</i>&nbsp;
+<i class="no-highlight">116</i>&nbsp;    @Test
+<i class="no-highlight">117</i>&nbsp;    public void testBakingStationPlace(){
+<b class="fc"><i class="no-highlight">118</i>&nbsp;        Vector2 testPos = new Vector2(15,16);</b>
+<b class="fc"><i class="no-highlight">119</i>&nbsp;        BakingStation testBS = new BakingStation(testPos);</b>
+<b class="fc"><i class="no-highlight">120</i>&nbsp;        StationManager.stations.put(testPos, testBS);</b>
+<b class="fc"><i class="no-highlight">121</i>&nbsp;        Ingredient testPotato = Ingredients.potato;</b>
+<b class="fc"><i class="no-highlight">122</i>&nbsp;        assertTrue(&quot;A potato should have been placed on the baking station but wasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">123</i>&nbsp;                testBS.place(testPotato));</b>
+<b class="fc"><i class="no-highlight">124</i>&nbsp;        assertTrue(&quot;The potato placed onto the baking station stack should be flipped but isn&#39;t&quot;,</b>
+<i class="no-highlight">125</i>&nbsp;                testPotato.flipped);
+<i class="no-highlight">126</i>&nbsp;
+<i class="no-highlight">127</i>&nbsp;
+<b class="fc"><i class="no-highlight">128</i>&nbsp;        Ingredient testBeans = Ingredients.beans;</b>
+<b class="fc"><i class="no-highlight">129</i>&nbsp;        assertFalse(&quot;Beans should have been stopped from being placed on the baking station but weren&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">130</i>&nbsp;                testBS.place(testBeans));</b>
+<i class="no-highlight">131</i>&nbsp;    }
+<i class="no-highlight">132</i>&nbsp;
+<i class="no-highlight">133</i>&nbsp;    @Test
+<i class="no-highlight">134</i>&nbsp;    public void testCreateFryingStation(){
+<b class="fc"><i class="no-highlight">135</i>&nbsp;        Vector2 testPos = new Vector2(15,16);</b>
+<b class="fc"><i class="no-highlight">136</i>&nbsp;        FryingStation testFS = new FryingStation(testPos);</b>
+<b class="fc"><i class="no-highlight">137</i>&nbsp;        StationManager.stations.put(testPos, testFS);</b>
+<b class="fc"><i class="no-highlight">138</i>&nbsp;        assertEquals(&quot;A frying station should have been created at (15,16) but hasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">139</i>&nbsp;                StationManager.stations.get(testPos), testFS);</b>
+<i class="no-highlight">140</i>&nbsp;        //----------------------------- CREATION THROUGH StationManager&#39;s checkInteractedTile --------------------------
+<i class="no-highlight">141</i>&nbsp;
+<b class="fc"><i class="no-highlight">142</i>&nbsp;        TiledMap testMap = new TmxMapLoader().load(&quot;map/art_map/customertest.tmx&quot;);</b>
+<b class="fc"><i class="no-highlight">143</i>&nbsp;        GameScreen.cc = new CustomerController(testMap, &quot;easy&quot;);</b>
+<b class="fc"><i class="no-highlight">144</i>&nbsp;        GameScreen.cc.customers[0] = new Customer(19, 20, 20, 0);</b>
+<b class="fc"><i class="no-highlight">145</i>&nbsp;        GameScreen.currentWaitingCustomer = GameScreen.cc.customers[0];</b>
+<b class="fc"><i class="no-highlight">146</i>&nbsp;        GameScreen.cc.customers[0].locked = true;</b>
+<b class="fc"><i class="no-highlight">147</i>&nbsp;        GameScreen.control = new Control();</b>
+<i class="no-highlight">148</i>&nbsp;
+<b class="fc"><i class="no-highlight">149</i>&nbsp;        Vector2 testPosB = new Vector2(20,20);</b>
+<b class="fc"><i class="no-highlight">150</i>&nbsp;        StationManager testSM = new StationManager();</b>
+<b class="fc"><i class="no-highlight">151</i>&nbsp;        GameScreen.cook = new Cook(new Vector2(15, 15), 2);</b>
+<i class="no-highlight">152</i>&nbsp;        // Have to create a cook above otherwise there will be a null pointer exception in Station.drawDropText()
+<b class="fc"><i class="no-highlight">153</i>&nbsp;        testSM.checkInteractedTile(&quot;Frying&quot;, testPosB);</b>
+<b class="fc"><i class="no-highlight">154</i>&nbsp;        assertTrue(&quot;Frying station should have been instantiated at (20, 20)&quot;,</b>
+<b class="fc"><i class="no-highlight">155</i>&nbsp;                testSM.stations.get(testPosB) instanceof FryingStation);</b>
+<i class="no-highlight">156</i>&nbsp;    }
+<i class="no-highlight">157</i>&nbsp;
+<i class="no-highlight">158</i>&nbsp;    @Test
+<i class="no-highlight">159</i>&nbsp;    public void testFryingStationPlace() {
+<b class="fc"><i class="no-highlight">160</i>&nbsp;        Vector2 testPos = new Vector2(15,16);</b>
+<b class="fc"><i class="no-highlight">161</i>&nbsp;        FryingStation testFS = new FryingStation(testPos);</b>
+<b class="fc"><i class="no-highlight">162</i>&nbsp;        StationManager.stations.put(testPos, testFS);</b>
+<b class="fc"><i class="no-highlight">163</i>&nbsp;        Ingredient testFormedPatty = Ingredients.formedPatty;</b>
+<b class="fc"><i class="no-highlight">164</i>&nbsp;        assertTrue(&quot;A formed patty should have been placed on the frying station but wasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">165</i>&nbsp;                testFS.place(testFormedPatty));</b>
+<i class="no-highlight">166</i>&nbsp;
+<b class="fc"><i class="no-highlight">167</i>&nbsp;        Ingredient testBeans = Ingredients.beans;</b>
+<b class="fc"><i class="no-highlight">168</i>&nbsp;        assertFalse(&quot;Beans should have been stopped from being placed on the frying station but weren&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">169</i>&nbsp;                testFS.place(testBeans));</b>
+<i class="no-highlight">170</i>&nbsp;    }
+<i class="no-highlight">171</i>&nbsp;
+<i class="no-highlight">172</i>&nbsp;    @Test
+<i class="no-highlight">173</i>&nbsp;    public void testCookingStationLockCook(){
+<i class="no-highlight">174</i>&nbsp;        // *** FryingStation extends CookingStation so can just create a frying station ***
+<b class="fc"><i class="no-highlight">175</i>&nbsp;        Vector2 testPos = new Vector2(15,16);</b>
+<b class="fc"><i class="no-highlight">176</i>&nbsp;        FryingStation testFS = new FryingStation(testPos);</b>
+<b class="fc"><i class="no-highlight">177</i>&nbsp;        StationManager.stations.put(testPos, testFS);</b>
+<i class="no-highlight">178</i>&nbsp;
+<i class="no-highlight">179</i>&nbsp;        // Tests when all if statement conditions are False in lockCook()
+<b class="fc"><i class="no-highlight">180</i>&nbsp;        testFS.lockedCook = null;</b>
+<b class="fc"><i class="no-highlight">181</i>&nbsp;        assertFalse(&quot;The frying station&#39;s slots stack should be empty and it&#39;s lockedCook attribute should be &quot; +</b>
+<b class="fc"><i class="no-highlight">182</i>&nbsp;                        &quot;null so False should be returned by testFS.lockCook() but wasn&#39;t&quot;, testFS.lockCook());</b>
+<i class="no-highlight">183</i>&nbsp;
+<i class="no-highlight">184</i>&nbsp;        // Tests when (!slots.isEmpty() = False) and ((lockedCook == null) = False) so (lockedCook != null) = True
+<i class="no-highlight">185</i>&nbsp;        // in lockCook()
+<b class="fc"><i class="no-highlight">186</i>&nbsp;        testFS.lockedCook = GameScreen.cooks[0];</b>
+<b class="fc"><i class="no-highlight">187</i>&nbsp;        assertFalse(&quot;lockCook() should have returned False&quot;,</b>
+<b class="fc"><i class="no-highlight">188</i>&nbsp;                testFS.lockCook());</b>
+<i class="no-highlight">189</i>&nbsp;
+<i class="no-highlight">190</i>&nbsp;        // Tests when (!slots.isEmpty() = True) and ((lockedCook == null) = True) in lockCook()
+<b class="fc"><i class="no-highlight">191</i>&nbsp;        testFS.place(Ingredients.formedPatty);</b>
+<b class="fc"><i class="no-highlight">192</i>&nbsp;        testFS.place(Ingredients.formedPatty);</b>
+<b class="fc"><i class="no-highlight">193</i>&nbsp;        GameScreen.cook = new Cook(new Vector2(15, 15), 2);</b>
+<i class="no-highlight">194</i>&nbsp;        // Have to create a cook above otherwise there will be a null pointer exception in Station.drawDropText()
+<b class="fc"><i class="no-highlight">195</i>&nbsp;        assertTrue(&quot;lockCook() should have returned True&quot;,</b>
+<b class="fc"><i class="no-highlight">196</i>&nbsp;                testFS.lockCook());</b>
+<i class="no-highlight">197</i>&nbsp;
+<i class="no-highlight">198</i>&nbsp;        // Tests when (!slots.isEmpty() = True) and ((lockedCook == null) = False) in lockCook()
+<b class="fc"><i class="no-highlight">199</i>&nbsp;        testFS.lockedCook = GameScreen.cooks[0];</b>
+<b class="fc"><i class="no-highlight">200</i>&nbsp;        testFS.place(Ingredients.formedPatty);</b>
+<b class="fc"><i class="no-highlight">201</i>&nbsp;        testFS.place(Ingredients.formedPatty);</b>
+<b class="fc"><i class="no-highlight">202</i>&nbsp;        assertTrue(&quot;lockCook() should have returned True&quot;,</b>
+<b class="fc"><i class="no-highlight">203</i>&nbsp;                testFS.lockCook());</b>
+<i class="no-highlight">204</i>&nbsp;
+<i class="no-highlight">205</i>&nbsp;//        NOT ENTIRELY SURE WHAT THE BELOW CODE TESTS AND WHETHER IT&#39;S USEFUL
+<i class="no-highlight">206</i>&nbsp;//        testFS.lockedCook = GameScreen.cooks[0];
+<i class="no-highlight">207</i>&nbsp;//        assertTrue(&quot;testFS.lockedCook should be set to a Cook type value but isn&#39;t (it&#39;s likely to be null&quot; +
+<i class="no-highlight">208</i>&nbsp;//                &quot; instead)&quot;, testFS.lockedCook == GameScreen.cook);
+<i class="no-highlight">209</i>&nbsp;//        assertTrue(&quot;lockCook() should have returned True for the test Frying Station now slots isn&#39;t empty &quot; +
+<i class="no-highlight">210</i>&nbsp;//                &quot;and the station&#39;s locked cook attribute is not empty, but True was not returned&quot;, testFS.lockCook());
+<i class="no-highlight">211</i>&nbsp;    }
+<i class="no-highlight">212</i>&nbsp;
+<i class="no-highlight">213</i>&nbsp;    @Test
+<i class="no-highlight">214</i>&nbsp;    public void testCreateCuttingStation(){
+<b class="fc"><i class="no-highlight">215</i>&nbsp;        Vector2 testPos = new Vector2(10,11);</b>
+<b class="fc"><i class="no-highlight">216</i>&nbsp;        CuttingStation testCS = new CuttingStation(testPos, 2);</b>
+<b class="fc"><i class="no-highlight">217</i>&nbsp;        StationManager.stations.put(testPos, testCS);</b>
+<b class="fc"><i class="no-highlight">218</i>&nbsp;        assertTrue(&quot;A new cutting station should have been created but hasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">219</i>&nbsp;                StationManager.stations.get(testPos) instanceof  CuttingStation);</b>
+<i class="no-highlight">220</i>&nbsp;
+<i class="no-highlight">221</i>&nbsp;
+<i class="no-highlight">222</i>&nbsp;        //----------------------------- CREATION THROUGH StationManager&#39;s checkInteractedTile --------------------------
+<i class="no-highlight">223</i>&nbsp;
+<b class="fc"><i class="no-highlight">224</i>&nbsp;        TiledMap testMap = new TmxMapLoader().load(&quot;map/art_map/customertest.tmx&quot;);</b>
+<b class="fc"><i class="no-highlight">225</i>&nbsp;        GameScreen.cc = new CustomerController(testMap, &quot;easy&quot;);</b>
+<b class="fc"><i class="no-highlight">226</i>&nbsp;        GameScreen.cc.customers[0] = new Customer(19, 20, 20, 0);</b>
+<b class="fc"><i class="no-highlight">227</i>&nbsp;        GameScreen.currentWaitingCustomer = GameScreen.cc.customers[0];</b>
+<b class="fc"><i class="no-highlight">228</i>&nbsp;        GameScreen.cc.customers[0].locked = true;</b>
+<b class="fc"><i class="no-highlight">229</i>&nbsp;        GameScreen.control = new Control();</b>
+<i class="no-highlight">230</i>&nbsp;
+<b class="fc"><i class="no-highlight">231</i>&nbsp;        Vector2 testPosB = new Vector2(20,20);</b>
+<b class="fc"><i class="no-highlight">232</i>&nbsp;        StationManager testSM = new StationManager();</b>
+<b class="fc"><i class="no-highlight">233</i>&nbsp;        GameScreen.cook = new Cook(new Vector2(15, 15), 2);</b>
+<i class="no-highlight">234</i>&nbsp;        // Have to create a cook above otherwise there will be a null pointer exception in Station.drawDropText()
+<b class="fc"><i class="no-highlight">235</i>&nbsp;        testSM.checkInteractedTile(&quot;Chopping&quot;, testPosB);</b>
+<b class="fc"><i class="no-highlight">236</i>&nbsp;        assertTrue(&quot;Cutting station should have been instantiated at (20, 20)&quot;,</b>
+<b class="fc"><i class="no-highlight">237</i>&nbsp;                testSM.stations.get(testPosB) instanceof CuttingStation);</b>
+<i class="no-highlight">238</i>&nbsp;
+<i class="no-highlight">239</i>&nbsp;    }
+<i class="no-highlight">240</i>&nbsp;
+<i class="no-highlight">241</i>&nbsp;    @Test
+<i class="no-highlight">242</i>&nbsp;    public void testCuttingStationLockCook(){
+<b class="fc"><i class="no-highlight">243</i>&nbsp;        Vector2 testPos = new Vector2(15,16);</b>
+<b class="fc"><i class="no-highlight">244</i>&nbsp;        CuttingStation testCS = new CuttingStation(testPos, 2);</b>
+<b class="fc"><i class="no-highlight">245</i>&nbsp;        StationManager.stations.put(testPos, testCS);</b>
+<i class="no-highlight">246</i>&nbsp;
+<i class="no-highlight">247</i>&nbsp;        // Tests when all if statement conditions are False in lockCook()
+<b class="fc"><i class="no-highlight">248</i>&nbsp;        testCS.lockedCook = null;</b>
+<b class="fc"><i class="no-highlight">249</i>&nbsp;        assertFalse(&quot;The cutting station&#39;s slots stack should be empty and it&#39;s lockedCook attribute should be &quot; +</b>
+<b class="fc"><i class="no-highlight">250</i>&nbsp;                &quot;null so False should be returned by testCS.lockCook() but wasn&#39;t&quot;, testCS.lockCook());</b>
+<i class="no-highlight">251</i>&nbsp;
+<i class="no-highlight">252</i>&nbsp;        // Tests when (!slots.isEmpty() = False) and ((lockedCook == null) = False) so (lockedCook != null) = True
+<i class="no-highlight">253</i>&nbsp;        // in lockCook()
+<b class="fc"><i class="no-highlight">254</i>&nbsp;        testCS.lockedCook = GameScreen.cooks[0];</b>
+<b class="fc"><i class="no-highlight">255</i>&nbsp;        assertFalse(&quot;lockCook() should have returned False&quot;,</b>
+<b class="fc"><i class="no-highlight">256</i>&nbsp;                testCS.lockCook());</b>
+<i class="no-highlight">257</i>&nbsp;
+<i class="no-highlight">258</i>&nbsp;        // Tests when (!slots.isEmpty() = True) and ((lockedCook == null) = True) in lockCook()
+<b class="fc"><i class="no-highlight">259</i>&nbsp;        testCS.place(Ingredients.lettuce);</b>
+<b class="fc"><i class="no-highlight">260</i>&nbsp;        testCS.place(Ingredients.lettuce);</b>
+<b class="fc"><i class="no-highlight">261</i>&nbsp;        assertTrue(&quot;lockCook() should have returned True&quot;,</b>
+<b class="fc"><i class="no-highlight">262</i>&nbsp;                testCS.lockCook());</b>
+<i class="no-highlight">263</i>&nbsp;
+<i class="no-highlight">264</i>&nbsp;        // Tests when (!slots.isEmpty() = True) and ((lockedCook == null) = False) in lockCook()
+<b class="fc"><i class="no-highlight">265</i>&nbsp;        testCS.lockedCook = GameScreen.cooks[0];</b>
+<b class="fc"><i class="no-highlight">266</i>&nbsp;        testCS.place(Ingredients.lettuce);</b>
+<b class="fc"><i class="no-highlight">267</i>&nbsp;        testCS.place(Ingredients.lettuce);</b>
+<b class="fc"><i class="no-highlight">268</i>&nbsp;        assertTrue(&quot;lockCook() should have returned True&quot;,</b>
+<b class="fc"><i class="no-highlight">269</i>&nbsp;                testCS.lockCook());</b>
+<i class="no-highlight">270</i>&nbsp;    }
+<i class="no-highlight">271</i>&nbsp;
+<i class="no-highlight">272</i>&nbsp;    @Test
+<i class="no-highlight">273</i>&nbsp;    public void testCreateIngredientStation(){
+<i class="no-highlight">274</i>&nbsp;        //------------------------------------------ ISOLATED CREATION -------------------------------------------------
+<b class="fc"><i class="no-highlight">275</i>&nbsp;        Vector2 testPos = new Vector2(24, 25);</b>
+<b class="fc"><i class="no-highlight">276</i>&nbsp;        IngredientStation testIS = new IngredientStation(testPos, Ingredients.beans);</b>
+<b class="fc"><i class="no-highlight">277</i>&nbsp;        StationManager.stations.put(testPos, testIS);</b>
+<b class="fc"><i class="no-highlight">278</i>&nbsp;        assertTrue(&quot;A new Ingredient Station should have been created and added to the stations hashmap&quot; +</b>
+<b class="fc"><i class="no-highlight">279</i>&nbsp;                &quot; but wasn&#39;t&quot;, StationManager.stations.get(testPos) == testIS);</b>
+<i class="no-highlight">280</i>&nbsp;
+<i class="no-highlight">281</i>&nbsp;        // CANNOT TEST CREATION THROUGH StationManager&#39;s checkInteractedTile BECAUSE SpriteBatch is needed
+<i class="no-highlight">282</i>&nbsp;    }
+<i class="no-highlight">283</i>&nbsp;
+<i class="no-highlight">284</i>&nbsp;    @Test
+<i class="no-highlight">285</i>&nbsp;    public void testCreatePrepStation(){
+<i class="no-highlight">286</i>&nbsp;        //------------------------------------------ ISOLATED CREATION -------------------------------------------------
+<b class="fc"><i class="no-highlight">287</i>&nbsp;        Vector2 testPos = new Vector2(30, 31);</b>
+<b class="fc"><i class="no-highlight">288</i>&nbsp;        PrepStation testPS = new PrepStation(testPos);</b>
+<b class="fc"><i class="no-highlight">289</i>&nbsp;        StationManager.stations.put(testPos, testPS);</b>
+<b class="fc"><i class="no-highlight">290</i>&nbsp;        assertSame(&quot;A new Prep Station should have been created and added to the stations hashmap&quot; +</b>
+<b class="fc"><i class="no-highlight">291</i>&nbsp;                &quot; but wasn&#39;t&quot;, StationManager.stations.get(testPos), testPS);</b>
+<i class="no-highlight">292</i>&nbsp;
+<i class="no-highlight">293</i>&nbsp;
+<i class="no-highlight">294</i>&nbsp;        //----------------------------- CREATION THROUGH StationManager&#39;s checkInteractedTile --------------------------
+<i class="no-highlight">295</i>&nbsp;
+<b class="fc"><i class="no-highlight">296</i>&nbsp;        TiledMap testMap = new TmxMapLoader().load(&quot;map/art_map/customertest.tmx&quot;);</b>
+<b class="fc"><i class="no-highlight">297</i>&nbsp;        GameScreen.cc = new CustomerController(testMap, &quot;easy&quot;);</b>
+<b class="fc"><i class="no-highlight">298</i>&nbsp;        GameScreen.cc.customers[0] = new Customer(19, 20, 20, 0);</b>
+<b class="fc"><i class="no-highlight">299</i>&nbsp;        GameScreen.currentWaitingCustomer = GameScreen.cc.customers[0];</b>
+<b class="fc"><i class="no-highlight">300</i>&nbsp;        GameScreen.cc.customers[0].locked = true;</b>
+<b class="fc"><i class="no-highlight">301</i>&nbsp;        GameScreen.control = new Control();</b>
+<i class="no-highlight">302</i>&nbsp;
+<b class="fc"><i class="no-highlight">303</i>&nbsp;        Vector2 testPosB = new Vector2(20,20);</b>
+<b class="fc"><i class="no-highlight">304</i>&nbsp;        StationManager testSM = new StationManager();</b>
+<b class="fc"><i class="no-highlight">305</i>&nbsp;        GameScreen.cook = new Cook(new Vector2(15, 15), 2);</b>
+<i class="no-highlight">306</i>&nbsp;        // Have to create a cook above otherwise there will be a null pointer exception in Station.drawDropText()
+<b class="fc"><i class="no-highlight">307</i>&nbsp;        testSM.checkInteractedTile(&quot;Prep&quot;, testPosB);</b>
+<b class="fc"><i class="no-highlight">308</i>&nbsp;        assertTrue(&quot;Prep station should have been instantiated at (20, 20)&quot;,</b>
+<b class="fc"><i class="no-highlight">309</i>&nbsp;                testSM.stations.get(testPosB) instanceof PrepStation);</b>
+<i class="no-highlight">310</i>&nbsp;    }
+<i class="no-highlight">311</i>&nbsp;
+<i class="no-highlight">312</i>&nbsp;    @Test
+<i class="no-highlight">313</i>&nbsp;    public void testPrepSlotsToRecipe(){
+<b class="fc"><i class="no-highlight">314</i>&nbsp;        Vector2 testPos = new Vector2(30, 31);</b>
+<b class="fc"><i class="no-highlight">315</i>&nbsp;        PrepStation testPS = new PrepStation(testPos);</b>
+<b class="fc"><i class="no-highlight">316</i>&nbsp;        StationManager.stations.put(testPos, testPS);</b>
+<i class="no-highlight">317</i>&nbsp;
+<i class="no-highlight">318</i>&nbsp;        // ----------------------------------- WHEN THERE IS A CORRECT RECIPE ------------------------------------------
+<b class="fc"><i class="no-highlight">319</i>&nbsp;        testPS.place(Ingredients.cookedPatty);</b>
+<b class="fc"><i class="no-highlight">320</i>&nbsp;        testPS.place(Ingredients.cooked_bun);</b>
+<b class="fc"><i class="no-highlight">321</i>&nbsp;        assertTrue(&quot;A burger recipe should have been placed on the Prep Station but hasn&#39;t been&quot;,</b>
+<b class="fc"><i class="no-highlight">322</i>&nbsp;                testPS.slotsToRecipe());</b>
+<i class="no-highlight">323</i>&nbsp;
+<i class="no-highlight">324</i>&nbsp;
+<i class="no-highlight">325</i>&nbsp;        // ---------------------------------- WHEN THERE IS AN INCORRECT RECIPE ----------------------------------------
+<b class="fc"><i class="no-highlight">326</i>&nbsp;        testPS.slots.clear();</b>
+<b class="fc"><i class="no-highlight">327</i>&nbsp;        testPS.place(Ingredients.unformedPatty);</b>
+<b class="fc"><i class="no-highlight">328</i>&nbsp;        testPS.place(Ingredients.cooked_bun);</b>
+<b class="fc"><i class="no-highlight">329</i>&nbsp;        GameScreen.cook = new Cook(new Vector2(15, 15), 2);</b>
+<i class="no-highlight">330</i>&nbsp;        // Have to create a cook above otherwise there will be a null pointer exception in PrepStation.slotsToRecipe()
+<b class="fc"><i class="no-highlight">331</i>&nbsp;        testPS.slotsToRecipe();</b>
+<b class="fc"><i class="no-highlight">332</i>&nbsp;        assertFalse(&quot;An incorrect burger recipe should have been rejected but hasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">333</i>&nbsp;                testPS.slotsToRecipe());</b>
+<i class="no-highlight">334</i>&nbsp;
+<i class="no-highlight">335</i>&nbsp;
+<i class="no-highlight">336</i>&nbsp;        // ---------------------------------- COVER ALL IF STATEMENT CONDITIONS ----------------------------------------
+<i class="no-highlight">337</i>&nbsp;
+<i class="no-highlight">338</i>&nbsp;        // Correct recipe:
+<b class="fc"><i class="no-highlight">339</i>&nbsp;        testPS.slots.clear();</b>
+<b class="fc"><i class="no-highlight">340</i>&nbsp;        testPS.place(Ingredients.cookedPatty);</b>
+<b class="fc"><i class="no-highlight">341</i>&nbsp;        testPS.place(Ingredients.cooked_bun);</b>
+<b class="fc"><i class="no-highlight">342</i>&nbsp;        testPS.progress = 1;</b>
+<b class="fc"><i class="no-highlight">343</i>&nbsp;        assertTrue(&quot;A burger recipe should have been placed on the Prep Station but hasn&#39;t been&quot;,</b>
+<b class="fc"><i class="no-highlight">344</i>&nbsp;                testPS.slotsToRecipe());</b>
+<b class="fc"><i class="no-highlight">345</i>&nbsp;        assertEquals(&quot;The Prep Station&#39;s slots should have been cleared and just 1 recipe should have been added&quot; +</b>
+<b class="fc"><i class="no-highlight">346</i>&nbsp;                &quot; but there isn&#39;t exactly 1 item on the slots stack&quot;, 1, testPS.slots.size());</b>
+<i class="no-highlight">347</i>&nbsp;
+<i class="no-highlight">348</i>&nbsp;        // Unprepared ingredient:
+<b class="fc"><i class="no-highlight">349</i>&nbsp;        testPS.slots.clear();</b>
+<b class="fc"><i class="no-highlight">350</i>&nbsp;        testPS.place(Ingredients.unformedPatty);</b>
+<b class="fc"><i class="no-highlight">351</i>&nbsp;        testPS.progress = 1;</b>
+<b class="fc"><i class="no-highlight">352</i>&nbsp;        assertTrue(&quot;...&quot;, testPS.slotsToRecipe());</b>
+<b class="fc"><i class="no-highlight">353</i>&nbsp;        assertEquals(&quot;...&quot;, 1, testPS.slots.size());</b>
+<i class="no-highlight">354</i>&nbsp;    }
+<i class="no-highlight">355</i>&nbsp;
+<i class="no-highlight">356</i>&nbsp;    @Test
+<i class="no-highlight">357</i>&nbsp;    public void testPrepStationLockCook() {
+<b class="fc"><i class="no-highlight">358</i>&nbsp;        Vector2 testPos = new Vector2(15,16);</b>
+<b class="fc"><i class="no-highlight">359</i>&nbsp;        PrepStation testPS = new PrepStation(testPos);</b>
+<b class="fc"><i class="no-highlight">360</i>&nbsp;        StationManager.stations.put(testPos, testPS);</b>
+<i class="no-highlight">361</i>&nbsp;
+<i class="no-highlight">362</i>&nbsp;        // Tests when all if statement conditions are False in lockCook()
+<b class="fc"><i class="no-highlight">363</i>&nbsp;        testPS.lockedCook = null;</b>
+<b class="fc"><i class="no-highlight">364</i>&nbsp;        assertFalse(&quot;The prep station&#39;s slots stack should be empty and it&#39;s lockedCook attribute should be &quot; +</b>
+<b class="fc"><i class="no-highlight">365</i>&nbsp;                &quot;null so False should be returned by testPS.lockCook() but wasn&#39;t&quot;, testPS.lockCook());</b>
+<i class="no-highlight">366</i>&nbsp;
+<i class="no-highlight">367</i>&nbsp;        // Tests when (!slots.isEmpty() = False) and ((lockedCook == null) = False) so (lockedCook != null) = True
+<i class="no-highlight">368</i>&nbsp;        // in lockCook()
+<b class="fc"><i class="no-highlight">369</i>&nbsp;        testPS.lockedCook = GameScreen.cooks[0];</b>
+<b class="fc"><i class="no-highlight">370</i>&nbsp;        assertFalse(&quot;lockCook() should have returned False&quot;,</b>
+<b class="fc"><i class="no-highlight">371</i>&nbsp;                testPS.lockCook());</b>
+<i class="no-highlight">372</i>&nbsp;
+<i class="no-highlight">373</i>&nbsp;        // Tests when (!slots.isEmpty() = True) and ((lockedCook == null) = True) in lockCook()
+<b class="fc"><i class="no-highlight">374</i>&nbsp;        testPS.lockedCook = null;</b>
+<b class="fc"><i class="no-highlight">375</i>&nbsp;        testPS.place(Ingredients.cookedPatty);</b>
+<b class="fc"><i class="no-highlight">376</i>&nbsp;        testPS.place(Ingredients.cooked_bun);</b>
+<b class="fc"><i class="no-highlight">377</i>&nbsp;        GameScreen.cook = new Cook(new Vector2(15, 15), 2);</b>
+<i class="no-highlight">378</i>&nbsp;        // Have to create a cook above otherwise there will be a null pointer exception in PrepStation.slotsToRecipe()
+<b class="fc"><i class="no-highlight">379</i>&nbsp;        assertTrue(&quot;lockCook() should have returned True&quot;,</b>
+<b class="fc"><i class="no-highlight">380</i>&nbsp;                testPS.lockCook());</b>
+<b class="fc"><i class="no-highlight">381</i>&nbsp;        assertSame(&quot;The if branch of (if (lockedCook == null)) should have been taken but hasn&#39;t&quot;,</b>
+<i class="no-highlight">382</i>&nbsp;                testPS.lockedCook,  GameScreen.cook);
+<i class="no-highlight">383</i>&nbsp;
+<i class="no-highlight">384</i>&nbsp;        // Tests when (!slots.isEmpty() = True) and ((lockedCook == null) = False) in lockCook()
+<i class="no-highlight">385</i>&nbsp;        // Don&#39;t need to change the ingredient stack again since there is already a valid recipe on it!
+<b class="fc"><i class="no-highlight">386</i>&nbsp;        testPS.lockedCook = GameScreen.cook;</b>
+<b class="fc"><i class="no-highlight">387</i>&nbsp;        assertTrue(&quot;lockCook() should have returned True&quot;,</b>
+<b class="fc"><i class="no-highlight">388</i>&nbsp;                testPS.lockCook());</b>
+<b class="fc"><i class="no-highlight">389</i>&nbsp;        assertTrue(&quot;The else branch of (if (lockedCook == null)) should have been taken but hasn&#39;t&quot;,</b>
+<i class="no-highlight">390</i>&nbsp;                testPS.lockedCook.locked = true);
+<i class="no-highlight">391</i>&nbsp;
+<i class="no-highlight">392</i>&nbsp;        // Tests when (!slots.isEmpty() = False), (slotsToRecipe() = False)
+<i class="no-highlight">393</i>&nbsp;        // and ((lockedCook != null) = True) in lockCook()
+<b class="fc"><i class="no-highlight">394</i>&nbsp;        testPS.take();</b>
+<b class="fc"><i class="no-highlight">395</i>&nbsp;        testPS.take();</b>
+<i class="no-highlight">396</i>&nbsp;        //lockedCook is already != null
+<b class="fc"><i class="no-highlight">397</i>&nbsp;        assertFalse(&quot;lockCook() should have returned False&quot;, testPS.lockCook());</b>
+<b class="fc"><i class="no-highlight">398</i>&nbsp;        assertNull(&quot;The (if (lockedCook != null)) branch hasn&#39;t been taken but should have been&quot;,</b>
+<i class="no-highlight">399</i>&nbsp;                testPS.lockedCook);
+<i class="no-highlight">400</i>&nbsp;    }
+<i class="no-highlight">401</i>&nbsp;
+<i class="no-highlight">402</i>&nbsp;    @Test
+<i class="no-highlight">403</i>&nbsp;    public void testStationTake(){
+<b class="fc"><i class="no-highlight">404</i>&nbsp;        Vector2 testPos = new Vector2(15,16);</b>
+<b class="fc"><i class="no-highlight">405</i>&nbsp;        PrepStation testPS = new PrepStation(testPos);</b>
+<b class="fc"><i class="no-highlight">406</i>&nbsp;        StationManager.stations.put(testPos, testPS);</b>
+<b class="fc"><i class="no-highlight">407</i>&nbsp;        assertNull(&quot;The ingredient stack should be empty so null should be returned but wasn&#39;t&quot;, testPS.take());</b>
+<i class="no-highlight">408</i>&nbsp;
+<b class="fc"><i class="no-highlight">409</i>&nbsp;        testPS.infinite = true;</b>
+<b class="fc"><i class="no-highlight">410</i>&nbsp;        testPS.place(Ingredients.cookedPatty);</b>
+<b class="fc"><i class="no-highlight">411</i>&nbsp;        testPS.place(Ingredients.cooked_bun);</b>
+<b class="fc"><i class="no-highlight">412</i>&nbsp;        assertTrue(&quot;A new ingredient instance should have been returned but wasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">413</i>&nbsp;                testPS.take() instanceof  Ingredient);</b>
+<i class="no-highlight">414</i>&nbsp;    }
+<i class="no-highlight">415</i>&nbsp;
+<i class="no-highlight">416</i>&nbsp;    /**
+<i class="no-highlight">417</i>&nbsp;     * Tests lots of the checkInteractedTile() cases; some have been covered in above tests
+<i class="no-highlight">418</i>&nbsp;     */
+<i class="no-highlight">419</i>&nbsp;    @Test
+<i class="no-highlight">420</i>&nbsp;    public void testStationManagerCheckInteractedTile() {
+<i class="no-highlight">421</i>&nbsp;        // Can&#39;t test handleStations() because the method would have to be static or something else would
+<i class="no-highlight">422</i>&nbsp;        // have to change but it would impact how other code works
+<i class="no-highlight">423</i>&nbsp;
+<i class="no-highlight">424</i>&nbsp;        // Can&#39;t test checkInteractedTile with the &quot;Bin&quot; string because batch needs to not be null but it would be
+<i class="no-highlight">425</i>&nbsp;
+<i class="no-highlight">426</i>&nbsp;        // placeIngredientStation() is a private method so can&#39;t easily test here
+<i class="no-highlight">427</i>&nbsp;
+<b class="fc"><i class="no-highlight">428</i>&nbsp;        StationManager testSM = new StationManager();</b>
+<i class="no-highlight">429</i>&nbsp;
+<b class="fc"><i class="no-highlight">430</i>&nbsp;        GameScreen.cook = new Cook(new Vector2(15, 15), 2);</b>
+<i class="no-highlight">431</i>&nbsp;
+<i class="no-highlight">432</i>&nbsp;        // Need GameScreen.cook.slots to be the max size (5) or greater
+<b class="fc"><i class="no-highlight">433</i>&nbsp;        GameScreen.cook.heldItems.add(Ingredients.lettuce);</b>
+<b class="fc"><i class="no-highlight">434</i>&nbsp;        GameScreen.cook.heldItems.add(Ingredients.lettuce);</b>
+<b class="fc"><i class="no-highlight">435</i>&nbsp;        GameScreen.cook.heldItems.add(Ingredients.lettuce);</b>
+<b class="fc"><i class="no-highlight">436</i>&nbsp;        GameScreen.cook.heldItems.add(Ingredients.lettuce);</b>
+<b class="fc"><i class="no-highlight">437</i>&nbsp;        GameScreen.cook.heldItems.add(Ingredients.lettuce);</b>
+<i class="no-highlight">438</i>&nbsp;
+<b class="fc"><i class="no-highlight">439</i>&nbsp;        GameScreen.control = new Control(); // GameScreen.control.interact = false currently</b>
+<i class="no-highlight">440</i>&nbsp;
+<b class="fc"><i class="no-highlight">441</i>&nbsp;        Vector2 testPos1 = new Vector2(2, 2);</b>
+<b class="fc"><i class="no-highlight">442</i>&nbsp;        testSM.checkInteractedTile(&quot;Buns&quot;, testPos1);</b>
+<b class="fc"><i class="no-highlight">443</i>&nbsp;        assertNotNull(&quot;A new Ingredient station at position (2,2) should have been created but wasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">444</i>&nbsp;                StationManager.stations.get(testPos1));</b>
+<b class="fc"><i class="no-highlight">445</i>&nbsp;        assertTrue(&quot;A bun ingredient should have been added to the new Ingredient station&#39;s slots but wasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">446</i>&nbsp;                StationManager.stations.get(testPos1).slots.peek() == Ingredients.bun);</b>
+<i class="no-highlight">447</i>&nbsp;
+<i class="no-highlight">448</i>&nbsp;
+<i class="no-highlight">449</i>&nbsp;        // Tests the same as above but with a different ingredient, and when
+<i class="no-highlight">450</i>&nbsp;        // GameScreen.control.interact = true instead of false
+<b class="fc"><i class="no-highlight">451</i>&nbsp;        Vector2 testPos2 = new Vector2(4, 4);</b>
+<b class="fc"><i class="no-highlight">452</i>&nbsp;        GameScreen.control.interact = true;</b>
+<b class="fc"><i class="no-highlight">453</i>&nbsp;        testSM.checkInteractedTile(&quot;Patties&quot;, testPos2);</b>
+<b class="fc"><i class="no-highlight">454</i>&nbsp;        assertNotNull(&quot;A new Ingredient station at position (4,4) should have been created but wasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">455</i>&nbsp;                StationManager.stations.get(testPos2));</b>
+<b class="fc"><i class="no-highlight">456</i>&nbsp;        assertTrue(&quot;An unformed patty ingredient should have been added to the new&quot; +</b>
+<i class="no-highlight">457</i>&nbsp;                        &quot; Ingredient station&#39;s slots but wasn&#39;t&quot;,
+<b class="fc"><i class="no-highlight">458</i>&nbsp;                StationManager.stations.get(testPos2).slots.peek() == Ingredients.unformedPatty);</b>
+<i class="no-highlight">459</i>&nbsp;
+<i class="no-highlight">460</i>&nbsp;        // Tests the same as above but with a different ingredient
+<b class="fc"><i class="no-highlight">461</i>&nbsp;        Vector2 testPos3 = new Vector2(6, 6);</b>
+<b class="fc"><i class="no-highlight">462</i>&nbsp;        testSM.checkInteractedTile(&quot;Lettuces&quot;, testPos3);</b>
+<b class="fc"><i class="no-highlight">463</i>&nbsp;        assertNotNull(&quot;A new Ingredient station at position (6,6) should have been created but wasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">464</i>&nbsp;                StationManager.stations.get(testPos3));</b>
+<b class="fc"><i class="no-highlight">465</i>&nbsp;        assertTrue(&quot;An lettuce ingredient should have been added to the new&quot; +</b>
+<i class="no-highlight">466</i>&nbsp;                        &quot; Ingredient station&#39;s slots but wasn&#39;t&quot;,
+<b class="fc"><i class="no-highlight">467</i>&nbsp;                StationManager.stations.get(testPos3).slots.peek() == Ingredients.lettuce);</b>
+<i class="no-highlight">468</i>&nbsp;
+<i class="no-highlight">469</i>&nbsp;        // Tests the same as above but with a different ingredient
+<b class="fc"><i class="no-highlight">470</i>&nbsp;        Vector2 testPos4 = new Vector2(8, 8);</b>
+<b class="fc"><i class="no-highlight">471</i>&nbsp;        testSM.checkInteractedTile(&quot;Tomatoes&quot;, testPos4);</b>
+<b class="fc"><i class="no-highlight">472</i>&nbsp;        assertNotNull(&quot;A new Ingredient station at position (8,8) should have been created but wasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">473</i>&nbsp;                StationManager.stations.get(testPos4));</b>
+<b class="fc"><i class="no-highlight">474</i>&nbsp;        assertTrue(&quot;A tomato ingredient should have been added to the new&quot; +</b>
+<i class="no-highlight">475</i>&nbsp;                        &quot; Ingredient station&#39;s slots but wasn&#39;t&quot;,
+<b class="fc"><i class="no-highlight">476</i>&nbsp;                StationManager.stations.get(testPos4).slots.peek() == Ingredients.tomato);</b>
+<i class="no-highlight">477</i>&nbsp;
+<i class="no-highlight">478</i>&nbsp;        // Tests the same as above but with a different ingredient
+<b class="fc"><i class="no-highlight">479</i>&nbsp;        Vector2 testPos5 = new Vector2(10, 10);</b>
+<b class="fc"><i class="no-highlight">480</i>&nbsp;        testSM.checkInteractedTile(&quot;Onions&quot;, testPos5);</b>
+<b class="fc"><i class="no-highlight">481</i>&nbsp;        assertNotNull(&quot;A new Ingredient station at position (10,10) should have been created but wasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">482</i>&nbsp;                StationManager.stations.get(testPos5));</b>
+<b class="fc"><i class="no-highlight">483</i>&nbsp;        assertTrue(&quot;An onion ingredient should have been added to the new&quot; +</b>
+<i class="no-highlight">484</i>&nbsp;                        &quot; Ingredient station&#39;s slots but wasn&#39;t&quot;,
+<b class="fc"><i class="no-highlight">485</i>&nbsp;                StationManager.stations.get(testPos5).slots.peek() == Ingredients.onion);</b>
+<i class="no-highlight">486</i>&nbsp;
+<i class="no-highlight">487</i>&nbsp;        // Tests the same as above but with a different ingredient
+<b class="fc"><i class="no-highlight">488</i>&nbsp;        Vector2 testPos6 = new Vector2(12, 12);</b>
+<b class="fc"><i class="no-highlight">489</i>&nbsp;        testSM.checkInteractedTile(&quot;Potatoes&quot;, testPos6);</b>
+<b class="fc"><i class="no-highlight">490</i>&nbsp;        assertNotNull(&quot;A new Ingredient station at position (12,12) should have been created but wasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">491</i>&nbsp;                StationManager.stations.get(testPos6));</b>
+<b class="fc"><i class="no-highlight">492</i>&nbsp;        assertTrue(&quot;A potato ingredient should have been added to the new&quot; +</b>
+<i class="no-highlight">493</i>&nbsp;                        &quot; Ingredient station&#39;s slots but wasn&#39;t&quot;,
+<b class="fc"><i class="no-highlight">494</i>&nbsp;                StationManager.stations.get(testPos6).slots.peek() == Ingredients.potato);</b>
+<i class="no-highlight">495</i>&nbsp;
+<i class="no-highlight">496</i>&nbsp;        // Tests the same as above but with a different ingredient
+<b class="fc"><i class="no-highlight">497</i>&nbsp;        Vector2 testPos7 = new Vector2(14, 14);</b>
+<b class="fc"><i class="no-highlight">498</i>&nbsp;        testSM.checkInteractedTile(&quot;Beans&quot;, testPos7);</b>
+<b class="fc"><i class="no-highlight">499</i>&nbsp;        assertNotNull(&quot;A new Ingredient station at position (14,14) should have been created but wasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">500</i>&nbsp;                StationManager.stations.get(testPos7));</b>
+<b class="fc"><i class="no-highlight">501</i>&nbsp;        assertTrue(&quot;A bean ingredient should have been added to the new&quot; +</b>
+<i class="no-highlight">502</i>&nbsp;                        &quot; Ingredient station&#39;s slots but wasn&#39;t&quot;,
+<b class="fc"><i class="no-highlight">503</i>&nbsp;                StationManager.stations.get(testPos7).slots.peek() == Ingredients.beans);</b>
+<i class="no-highlight">504</i>&nbsp;
+<i class="no-highlight">505</i>&nbsp;        // Tests the same as above but with a different ingredient
+<b class="fc"><i class="no-highlight">506</i>&nbsp;        Vector2 testPos8 = new Vector2(16, 16);</b>
+<b class="fc"><i class="no-highlight">507</i>&nbsp;        testSM.checkInteractedTile(&quot;Cheese&quot;, testPos8);</b>
+<b class="fc"><i class="no-highlight">508</i>&nbsp;        assertNotNull(&quot;A new Ingredient station at position (16, 16) should have been created but wasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">509</i>&nbsp;                StationManager.stations.get(testPos8));</b>
+<b class="fc"><i class="no-highlight">510</i>&nbsp;        assertTrue(&quot;A cheese ingredient should have been added to the new&quot; +</b>
+<i class="no-highlight">511</i>&nbsp;                        &quot; Ingredient station&#39;s slots but wasn&#39;t&quot;,
+<b class="fc"><i class="no-highlight">512</i>&nbsp;                StationManager.stations.get(testPos8).slots.peek() == Ingredients.cheese);</b>
+<i class="no-highlight">513</i>&nbsp;
+<i class="no-highlight">514</i>&nbsp;        // Tests the same as above but with a different ingredient
+<b class="fc"><i class="no-highlight">515</i>&nbsp;        Vector2 testPos9 = new Vector2(18, 18);</b>
+<b class="fc"><i class="no-highlight">516</i>&nbsp;        testSM.checkInteractedTile(&quot;Dough&quot;, testPos9);</b>
+<b class="fc"><i class="no-highlight">517</i>&nbsp;        assertNotNull(&quot;A new Ingredient station at position (18, 18) should have been created but wasn&#39;t&quot;,</b>
+<b class="fc"><i class="no-highlight">518</i>&nbsp;                StationManager.stations.get(testPos9));</b>
+<b class="fc"><i class="no-highlight">519</i>&nbsp;        assertTrue(&quot;A dough ingredient should have been added to the new&quot; +</b>
+<i class="no-highlight">520</i>&nbsp;                        &quot; Ingredient station&#39;s slots but wasn&#39;t&quot;,
+<b class="fc"><i class="no-highlight">521</i>&nbsp;                StationManager.stations.get(testPos9).slots.peek() == Ingredients.dough);</b>
+<i class="no-highlight">522</i>&nbsp;    }
+<i class="no-highlight">523</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
+</div>
+</body>
+</html>

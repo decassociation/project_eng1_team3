@@ -7,10 +7,9 @@
   <title>Coverage Report > ServingStation</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -74,74 +73,74 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.station;
-&nbsp;
-&nbsp;import java.util.Random;
-&nbsp;
-&nbsp;import com.badlogic.gdx.math.Vector2;
-&nbsp;import com.team3gdx.game.entity.Customer;
-&nbsp;import com.team3gdx.game.food.Ingredient;
-&nbsp;import com.team3gdx.game.food.Menu;
-&nbsp;import com.team3gdx.game.food.Recipe;
-&nbsp;import com.team3gdx.game.screen.GameScreen;
-&nbsp;
-&nbsp;public class ServingStation extends Station {
-&nbsp;
-<b class="fc">&nbsp;	String[] possibleOrders = new String[] { &quot;Burger&quot;, &quot;Salad&quot;, &quot;Potato beans&quot;, &quot;Pizza&quot; };</b>
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Configure allowed ingredient to be those on the menu.
-&nbsp;	 */
-<b class="fc">&nbsp;	static Ingredient[] allowedIngredients = new Ingredient[Menu.RECIPES.size()];</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		int i = 0;</b>
-<b class="fc">&nbsp;		for (Recipe recipe : Menu.RECIPES.values()) {</b>
-<b class="fc">&nbsp;			allowedIngredients[i] = new Ingredient(recipe);</b>
-<b class="fc">&nbsp;			i++;</b>
-<b class="fc">&nbsp;		}</b>
-&nbsp;	};
-&nbsp;
-&nbsp;	public ServingStation(Vector2 pos) {
-<b class="fc">&nbsp;		super(pos, 1, false, allowedIngredients, &quot;audio/soundFX/money-collect.mp3&quot;);</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Check if there is a customer waiting, get their order and check if the
-&nbsp;	 * serving station contains it.
-&nbsp;	 */
-&nbsp;	public void serveCustomer() {
-<b class="fc">&nbsp;		Customer waitingCustomer = GameScreen.cc.isCustomerAtPos(new Vector2(pos.x - 1, pos.y));</b>
-<b class="fc">&nbsp;		if (waitingCustomer != null &amp;&amp; waitingCustomer.locked) {</b>
-<b class="fc">&nbsp;			if (GameScreen.currentWaitingCustomer == null) {</b>
-<b class="fc">&nbsp;				waitingCustomer.order = possibleOrders[new Random().nextInt(possibleOrders.length)];</b>
-&nbsp;				//waitingCustomer.arrived();
-<b class="fc">&nbsp;				GameScreen.currentWaitingCustomer = waitingCustomer;</b>
-&nbsp;			}
-<b class="fc">&nbsp;			if (waitingCustomer == GameScreen.currentWaitingCustomer &amp;&amp; !slots.empty()</b>
-<b class="fc">&nbsp;					&amp;&amp; slots.peek().equals(Menu.RECIPES.get(waitingCustomer.order))) {</b>
-<b class="fc">&nbsp;				slots.pop();</b>
-<b class="fc">&nbsp;				GameScreen.cc.delCustomer(waitingCustomer);</b>
-&nbsp;
-&nbsp;				/*  dont spawn new ones on serve
-&nbsp;				if (GameScreen.ENDLESS || GameScreen.currentWave &lt; GameScreen.NUMBER_OF_WAVES - 1){
-&nbsp;					GameScreen.cc.spawnCustomer();
-&nbsp;				}
-&nbsp;				*/
-&nbsp;
-<b class="fc">&nbsp;				GameScreen.cc.totalServed++;</b>
-<b class="fc">&nbsp;				GameScreen.reputationPoints++;</b>
-&nbsp;
-<b class="fc">&nbsp;				GameScreen.currentWave++;</b>
-<b class="fc">&nbsp;				waitingCustomer.locked = false;</b>
-<b class="fc">&nbsp;				GameScreen.currentWaitingCustomer = null;</b>
-&nbsp;			}
-&nbsp;
-&nbsp;		}
-&nbsp;
-&nbsp;	}
-&nbsp;	
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.station;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import java.util.Random;
+<i class="no-highlight">4</i>&nbsp;
+<i class="no-highlight">5</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">6</i>&nbsp;import com.team3gdx.game.entity.Customer;
+<i class="no-highlight">7</i>&nbsp;import com.team3gdx.game.food.Ingredient;
+<i class="no-highlight">8</i>&nbsp;import com.team3gdx.game.food.Menu;
+<i class="no-highlight">9</i>&nbsp;import com.team3gdx.game.food.Recipe;
+<i class="no-highlight">10</i>&nbsp;import com.team3gdx.game.screen.GameScreen;
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;public class ServingStation extends Station {
+<i class="no-highlight">13</i>&nbsp;
+<b class="fc"><i class="no-highlight">14</i>&nbsp;	String[] possibleOrders = new String[] { &quot;Burger&quot;, &quot;Salad&quot;, &quot;Potato beans&quot;, &quot;Pizza&quot; };</b>
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;	/**
+<i class="no-highlight">17</i>&nbsp;	 * Configure allowed ingredient to be those on the menu.
+<i class="no-highlight">18</i>&nbsp;	 */
+<b class="fc"><i class="no-highlight">19</i>&nbsp;	static Ingredient[] allowedIngredients = new Ingredient[Menu.RECIPES.size()];</b>
+<i class="no-highlight">20</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">21</i>&nbsp;		int i = 0;</b>
+<b class="fc"><i class="no-highlight">22</i>&nbsp;		for (Recipe recipe : Menu.RECIPES.values()) {</b>
+<b class="fc"><i class="no-highlight">23</i>&nbsp;			allowedIngredients[i] = new Ingredient(recipe);</b>
+<b class="fc"><i class="no-highlight">24</i>&nbsp;			i++;</b>
+<b class="fc"><i class="no-highlight">25</i>&nbsp;		}</b>
+<i class="no-highlight">26</i>&nbsp;	};
+<i class="no-highlight">27</i>&nbsp;
+<i class="no-highlight">28</i>&nbsp;	public ServingStation(Vector2 pos) {
+<b class="fc"><i class="no-highlight">29</i>&nbsp;		super(pos, 1, false, allowedIngredients, &quot;audio/soundFX/money-collect.mp3&quot;);</b>
+<i class="no-highlight">30</i>&nbsp;	}
+<i class="no-highlight">31</i>&nbsp;
+<i class="no-highlight">32</i>&nbsp;	/**
+<i class="no-highlight">33</i>&nbsp;	 * Check if there is a customer waiting, get their order and check if the
+<i class="no-highlight">34</i>&nbsp;	 * serving station contains it.
+<i class="no-highlight">35</i>&nbsp;	 */
+<i class="no-highlight">36</i>&nbsp;	public void serveCustomer() {
+<b class="fc"><i class="no-highlight">37</i>&nbsp;		Customer waitingCustomer = GameScreen.cc.isCustomerAtPos(new Vector2(pos.x - 1, pos.y));</b>
+<b class="fc"><i class="no-highlight">38</i>&nbsp;		if (waitingCustomer != null &amp;&amp; waitingCustomer.locked) {</b>
+<b class="fc"><i class="no-highlight">39</i>&nbsp;			if (GameScreen.currentWaitingCustomer == null) {</b>
+<b class="fc"><i class="no-highlight">40</i>&nbsp;				waitingCustomer.order = possibleOrders[new Random().nextInt(possibleOrders.length)];</b>
+<i class="no-highlight">41</i>&nbsp;				//waitingCustomer.arrived();
+<b class="fc"><i class="no-highlight">42</i>&nbsp;				GameScreen.currentWaitingCustomer = waitingCustomer;</b>
+<i class="no-highlight">43</i>&nbsp;			}
+<b class="fc"><i class="no-highlight">44</i>&nbsp;			if (waitingCustomer == GameScreen.currentWaitingCustomer &amp;&amp; !slots.empty()</b>
+<b class="fc"><i class="no-highlight">45</i>&nbsp;					&amp;&amp; slots.peek().equals(Menu.RECIPES.get(waitingCustomer.order))) {</b>
+<b class="fc"><i class="no-highlight">46</i>&nbsp;				slots.pop();</b>
+<b class="fc"><i class="no-highlight">47</i>&nbsp;				GameScreen.cc.delCustomer(waitingCustomer);</b>
+<i class="no-highlight">48</i>&nbsp;
+<i class="no-highlight">49</i>&nbsp;				/*  dont spawn new ones on serve
+<i class="no-highlight">50</i>&nbsp;				if (GameScreen.ENDLESS || GameScreen.currentWave &lt; GameScreen.NUMBER_OF_WAVES - 1){
+<i class="no-highlight">51</i>&nbsp;					GameScreen.cc.spawnCustomer();
+<i class="no-highlight">52</i>&nbsp;				}
+<i class="no-highlight">53</i>&nbsp;				*/
+<i class="no-highlight">54</i>&nbsp;
+<b class="fc"><i class="no-highlight">55</i>&nbsp;				GameScreen.cc.totalServed++;</b>
+<b class="fc"><i class="no-highlight">56</i>&nbsp;				GameScreen.reputationPoints++;</b>
+<i class="no-highlight">57</i>&nbsp;
+<b class="fc"><i class="no-highlight">58</i>&nbsp;				GameScreen.currentWave++;</b>
+<b class="fc"><i class="no-highlight">59</i>&nbsp;				waitingCustomer.locked = false;</b>
+<b class="fc"><i class="no-highlight">60</i>&nbsp;				GameScreen.currentWaitingCustomer = null;</b>
+<i class="no-highlight">61</i>&nbsp;			}
+<i class="no-highlight">62</i>&nbsp;
+<i class="no-highlight">63</i>&nbsp;		}
+<i class="no-highlight">64</i>&nbsp;
+<i class="no-highlight">65</i>&nbsp;	}
+<i class="no-highlight">66</i>&nbsp;	
+<i class="no-highlight">67</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -156,15 +155,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

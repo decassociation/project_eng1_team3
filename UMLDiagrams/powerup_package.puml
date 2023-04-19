@@ -44,6 +44,18 @@ PowerupController "1" -- "*" Powerup
 +void applyPowerUp(cook:Cook)
 }
 
++class CleanUp extends Powerup{
+-GameScreen gameScreen
++CleanUp(x:int, y:int, gameScreen:GameScreen)
++void applyPowerUp(cook:Cook)
 }
 
++class nukeLikeCodZombies extends Powerup{
++{static} CustomerController cc
++nukeLikeCodZombies(x:int, y:int)
++void applyPowerUp(cook:Cook)
++void nukeEm()
+}
+
+}
 @enduml

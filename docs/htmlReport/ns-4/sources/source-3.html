@@ -7,10 +7,9 @@
   <title>Coverage Report > Menu</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -74,78 +73,78 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.food;
-&nbsp;
-&nbsp;import java.util.HashMap;
-&nbsp;import java.util.Map;
-&nbsp;
-&nbsp;/**
-&nbsp; * All recipes. See {@link Ingredients} if your recipe requires a new ingredient
-&nbsp; * or an existing with different state.
-&nbsp; * 
-&nbsp; */
-<b class="nc">&nbsp;public class Menu {</b>
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Maps of ingredients in corresponding recipes and steps on what to do with
-&nbsp;	 * them.
-&nbsp;	 */
-<b class="fc">&nbsp;	private static final Map&lt;Ingredient, String&gt; BURGER_STEPS = new HashMap&lt;Ingredient, String&gt;();</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		BURGER_STEPS.put(Ingredients.cooked_bun, &quot;Toast&quot;);</b>
-<b class="fc">&nbsp;		BURGER_STEPS.put(Ingredients.cookedPatty, &quot;Fry&quot;);</b>
-&nbsp;	}
-<b class="fc">&nbsp;	private static final Map&lt;Ingredient, String&gt; BURGER_BURNED_STEPS = new HashMap&lt;Ingredient, String&gt;();</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		BURGER_BURNED_STEPS.put(Ingredients.cooked_bun, &quot;Toast&quot;);</b>
-<b class="fc">&nbsp;		BURGER_BURNED_STEPS.put(Ingredients.burnedPatty, &quot;Fry&quot;);</b>
-&nbsp;	}
-<b class="fc">&nbsp;	private static final Map&lt;Ingredient, String&gt; SALAD_STEPS = new HashMap&lt;Ingredient, String&gt;();</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		SALAD_STEPS.put(Ingredients.lettuceChopped, &quot;Cut&quot;);</b>
-<b class="fc">&nbsp;		SALAD_STEPS.put(Ingredients.tomatoChopped, &quot;Cut&quot;);</b>
-<b class="fc">&nbsp;		SALAD_STEPS.put(Ingredients.onionChopped, &quot;Cut&quot;);</b>
-&nbsp;	}
-&nbsp;
-<b class="fc">&nbsp;	private static final Map&lt;Ingredient, String&gt; POTATO_BEANS_STEPS = new HashMap&lt;Ingredient, String&gt;();</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		POTATO_BEANS_STEPS.put(Ingredients.cooked_potato, &quot;Bake&quot;);</b>
-<b class="fc">&nbsp;		POTATO_BEANS_STEPS.put(Ingredients.cooked_beans, &quot;Heat&quot;);</b>
-&nbsp;	}
-&nbsp;
-<b class="fc">&nbsp;	private static final Map&lt;Ingredient, String&gt; PIZZA_STEPS = new HashMap&lt;Ingredient, String&gt;();</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		PIZZA_STEPS.put(Ingredients.cookedPizzaBase, &quot;Bake&quot;);</b>
-<b class="fc">&nbsp;		PIZZA_STEPS.put(Ingredients.tomatoPaste, &quot;Top&quot;);</b>
-<b class="fc">&nbsp;		PIZZA_STEPS.put(Ingredients.cheese, &quot;Top&quot;);</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Map of recipes
-&nbsp;	 */
-<b class="fc">&nbsp;	public static final Map&lt;String, Recipe&gt; RECIPES = new HashMap&lt;String, Recipe&gt;();</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		RECIPES.put(&quot;Burger&quot;, new Recipe(&quot;Form patty&quot;, Ingredients.unformedPatty, BURGER_STEPS, &quot;serve together&quot;,</b>
-&nbsp;				&quot;burger&quot;, false, null, 32, 32, 0));
-<b class="fc">&nbsp;		RECIPES.put(&quot;Burned burger&quot;, new Recipe(&quot;Form patty&quot;, Ingredients.unformedPatty, BURGER_BURNED_STEPS,</b>
-&nbsp;				&quot;serve together&quot;, &quot;burger_burned&quot;, false, null, 32, 32, 0));
-<b class="fc">&nbsp;		RECIPES.put(&quot;Salad&quot;, new Recipe(&quot;&quot;, null, SALAD_STEPS, &quot;serve together&quot;, &quot;salad&quot;, false, null, 32, 32, 0));</b>
-<b class="fc">&nbsp;		RECIPES.put(&quot;Potato beans&quot;, new Recipe(&quot;&quot;, null, POTATO_BEANS_STEPS, &quot;serve together&quot;, &quot;potato_beans&quot;, false, null, 32, 32, 0));</b>
-<b class="fc">&nbsp;		RECIPES.put(&quot;Pizza&quot;, new Recipe(&quot;Form base&quot;, Ingredients.dough, PIZZA_STEPS, &quot;serve together&quot;,&quot;pizza&quot;, false, null, 32, 32, 0));</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Map of ingredient transformations on preparation station (ingredient -&gt;
-&nbsp;	 * ingredient)
-&nbsp;	 */
-<b class="fc">&nbsp;	public static final Map&lt;Ingredient, Ingredient&gt; INGREDIENT_PREP = new HashMap&lt;Ingredient, Ingredient&gt;();</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		INGREDIENT_PREP.put(Ingredients.unformedPatty, Ingredients.formedPatty);</b>
-<b class="fc">&nbsp;		INGREDIENT_PREP.put(Ingredients.dough, Ingredients.pizzaBase);</b>
-<b class="fc">&nbsp;		INGREDIENT_PREP.put(Ingredients.tomato, Ingredients.tomatoPaste);</b>
-&nbsp;	}
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.food;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import java.util.HashMap;
+<i class="no-highlight">4</i>&nbsp;import java.util.Map;
+<i class="no-highlight">5</i>&nbsp;
+<i class="no-highlight">6</i>&nbsp;/**
+<i class="no-highlight">7</i>&nbsp; * All recipes. See {@link Ingredients} if your recipe requires a new ingredient
+<i class="no-highlight">8</i>&nbsp; * or an existing with different state.
+<i class="no-highlight">9</i>&nbsp; * 
+<i class="no-highlight">10</i>&nbsp; */
+<b class="nc"><i class="no-highlight">11</i>&nbsp;public class Menu {</b>
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;	/**
+<i class="no-highlight">14</i>&nbsp;	 * Maps of ingredients in corresponding recipes and steps on what to do with
+<i class="no-highlight">15</i>&nbsp;	 * them.
+<i class="no-highlight">16</i>&nbsp;	 */
+<b class="fc"><i class="no-highlight">17</i>&nbsp;	private static final Map&lt;Ingredient, String&gt; BURGER_STEPS = new HashMap&lt;Ingredient, String&gt;();</b>
+<i class="no-highlight">18</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">19</i>&nbsp;		BURGER_STEPS.put(Ingredients.cooked_bun, &quot;Toast&quot;);</b>
+<b class="fc"><i class="no-highlight">20</i>&nbsp;		BURGER_STEPS.put(Ingredients.cookedPatty, &quot;Fry&quot;);</b>
+<i class="no-highlight">21</i>&nbsp;	}
+<b class="fc"><i class="no-highlight">22</i>&nbsp;	private static final Map&lt;Ingredient, String&gt; BURGER_BURNED_STEPS = new HashMap&lt;Ingredient, String&gt;();</b>
+<i class="no-highlight">23</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">24</i>&nbsp;		BURGER_BURNED_STEPS.put(Ingredients.cooked_bun, &quot;Toast&quot;);</b>
+<b class="fc"><i class="no-highlight">25</i>&nbsp;		BURGER_BURNED_STEPS.put(Ingredients.burnedPatty, &quot;Fry&quot;);</b>
+<i class="no-highlight">26</i>&nbsp;	}
+<b class="fc"><i class="no-highlight">27</i>&nbsp;	private static final Map&lt;Ingredient, String&gt; SALAD_STEPS = new HashMap&lt;Ingredient, String&gt;();</b>
+<i class="no-highlight">28</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">29</i>&nbsp;		SALAD_STEPS.put(Ingredients.lettuceChopped, &quot;Cut&quot;);</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;		SALAD_STEPS.put(Ingredients.tomatoChopped, &quot;Cut&quot;);</b>
+<b class="fc"><i class="no-highlight">31</i>&nbsp;		SALAD_STEPS.put(Ingredients.onionChopped, &quot;Cut&quot;);</b>
+<i class="no-highlight">32</i>&nbsp;	}
+<i class="no-highlight">33</i>&nbsp;
+<b class="fc"><i class="no-highlight">34</i>&nbsp;	private static final Map&lt;Ingredient, String&gt; POTATO_BEANS_STEPS = new HashMap&lt;Ingredient, String&gt;();</b>
+<i class="no-highlight">35</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">36</i>&nbsp;		POTATO_BEANS_STEPS.put(Ingredients.cooked_potato, &quot;Bake&quot;);</b>
+<b class="fc"><i class="no-highlight">37</i>&nbsp;		POTATO_BEANS_STEPS.put(Ingredients.cooked_beans, &quot;Heat&quot;);</b>
+<i class="no-highlight">38</i>&nbsp;	}
+<i class="no-highlight">39</i>&nbsp;
+<b class="fc"><i class="no-highlight">40</i>&nbsp;	private static final Map&lt;Ingredient, String&gt; PIZZA_STEPS = new HashMap&lt;Ingredient, String&gt;();</b>
+<i class="no-highlight">41</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">42</i>&nbsp;		PIZZA_STEPS.put(Ingredients.cookedPizzaBase, &quot;Bake&quot;);</b>
+<b class="fc"><i class="no-highlight">43</i>&nbsp;		PIZZA_STEPS.put(Ingredients.tomatoPaste, &quot;Top&quot;);</b>
+<b class="fc"><i class="no-highlight">44</i>&nbsp;		PIZZA_STEPS.put(Ingredients.cheese, &quot;Top&quot;);</b>
+<i class="no-highlight">45</i>&nbsp;	}
+<i class="no-highlight">46</i>&nbsp;
+<i class="no-highlight">47</i>&nbsp;	/**
+<i class="no-highlight">48</i>&nbsp;	 * Map of recipes
+<i class="no-highlight">49</i>&nbsp;	 */
+<b class="fc"><i class="no-highlight">50</i>&nbsp;	public static final Map&lt;String, Recipe&gt; RECIPES = new HashMap&lt;String, Recipe&gt;();</b>
+<i class="no-highlight">51</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">52</i>&nbsp;		RECIPES.put(&quot;Burger&quot;, new Recipe(&quot;Form patty&quot;, Ingredients.unformedPatty, BURGER_STEPS, &quot;serve together&quot;,</b>
+<i class="no-highlight">53</i>&nbsp;				&quot;burger&quot;, false, null, 32, 32, 0));
+<b class="fc"><i class="no-highlight">54</i>&nbsp;		RECIPES.put(&quot;Burned burger&quot;, new Recipe(&quot;Form patty&quot;, Ingredients.unformedPatty, BURGER_BURNED_STEPS,</b>
+<i class="no-highlight">55</i>&nbsp;				&quot;serve together&quot;, &quot;burger_burned&quot;, false, null, 32, 32, 0));
+<b class="fc"><i class="no-highlight">56</i>&nbsp;		RECIPES.put(&quot;Salad&quot;, new Recipe(&quot;&quot;, null, SALAD_STEPS, &quot;serve together&quot;, &quot;salad&quot;, false, null, 32, 32, 0));</b>
+<b class="fc"><i class="no-highlight">57</i>&nbsp;		RECIPES.put(&quot;Potato beans&quot;, new Recipe(&quot;&quot;, null, POTATO_BEANS_STEPS, &quot;serve together&quot;, &quot;potato_beans&quot;, false, null, 32, 32, 0));</b>
+<b class="fc"><i class="no-highlight">58</i>&nbsp;		RECIPES.put(&quot;Pizza&quot;, new Recipe(&quot;Form base&quot;, Ingredients.dough, PIZZA_STEPS, &quot;serve together&quot;,&quot;pizza&quot;, false, null, 32, 32, 0));</b>
+<i class="no-highlight">59</i>&nbsp;	}
+<i class="no-highlight">60</i>&nbsp;
+<i class="no-highlight">61</i>&nbsp;	/**
+<i class="no-highlight">62</i>&nbsp;	 * Map of ingredient transformations on preparation station (ingredient -&gt;
+<i class="no-highlight">63</i>&nbsp;	 * ingredient)
+<i class="no-highlight">64</i>&nbsp;	 */
+<b class="fc"><i class="no-highlight">65</i>&nbsp;	public static final Map&lt;Ingredient, Ingredient&gt; INGREDIENT_PREP = new HashMap&lt;Ingredient, Ingredient&gt;();</b>
+<i class="no-highlight">66</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">67</i>&nbsp;		INGREDIENT_PREP.put(Ingredients.unformedPatty, Ingredients.formedPatty);</b>
+<b class="fc"><i class="no-highlight">68</i>&nbsp;		INGREDIENT_PREP.put(Ingredients.dough, Ingredients.pizzaBase);</b>
+<b class="fc"><i class="no-highlight">69</i>&nbsp;		INGREDIENT_PREP.put(Ingredients.tomato, Ingredients.tomatoPaste);</b>
+<i class="no-highlight">70</i>&nbsp;	}
+<i class="no-highlight">71</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -160,15 +159,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

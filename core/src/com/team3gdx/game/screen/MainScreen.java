@@ -360,6 +360,17 @@ public class MainScreen implements Screen {
 	}
 
 	/**
+	 * Update the gameResolution attributes
+	 *
+	 * @param x the new x
+	 * @param y the new y
+	 */
+	public void updateGameResolution(int x, int y){
+		this.gameResolutionX = x;
+		this.gameResolutionY = y;
+	}
+
+	/**
 	 * Resize window
 	 * 
 	 * @param width  - new window width

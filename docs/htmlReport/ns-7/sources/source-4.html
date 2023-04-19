@@ -7,10 +7,9 @@
   <title>Coverage Report > FryingStation</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -74,33 +73,33 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.station;
-&nbsp;
-&nbsp;import com.badlogic.gdx.math.Vector2;
-&nbsp;import com.team3gdx.game.food.Ingredient;
-&nbsp;import com.team3gdx.game.food.Ingredients;
-&nbsp;
-&nbsp;public class FryingStation extends CookingStation {
-&nbsp;
-<b class="fc">&nbsp;	private final static Ingredient[] ALLOWED_INGREDIENTS = { Ingredients.formedPatty, Ingredients.beans};</b>
-&nbsp;
-&nbsp;	public FryingStation(Vector2 pos) {
-<b class="fc">&nbsp;		super(pos, 1, ALLOWED_INGREDIENTS, &quot;particles/flames.party&quot;, &quot;audio/soundFX/frying.mp3&quot;);</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	// dont need to flip beans
-&nbsp;	@Override
-&nbsp;	public boolean place(Ingredient ingredient) {
-<b class="fc">&nbsp;		if (super.place(ingredient)) {</b>
-<b class="fc">&nbsp;			if(ingredient.equals(Ingredients.beans)) ingredient.flipped = true;</b>
-<b class="fc">&nbsp;			return true;</b>
-&nbsp;		}
-&nbsp;
-<b class="fc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.station;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">4</i>&nbsp;import com.team3gdx.game.food.Ingredient;
+<i class="no-highlight">5</i>&nbsp;import com.team3gdx.game.food.Ingredients;
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;public class FryingStation extends CookingStation {
+<i class="no-highlight">8</i>&nbsp;
+<b class="fc"><i class="no-highlight">9</i>&nbsp;	private final static Ingredient[] ALLOWED_INGREDIENTS = { Ingredients.formedPatty, Ingredients.beans};</b>
+<i class="no-highlight">10</i>&nbsp;
+<i class="no-highlight">11</i>&nbsp;	public FryingStation(Vector2 pos) {
+<b class="fc"><i class="no-highlight">12</i>&nbsp;		super(pos, 1, ALLOWED_INGREDIENTS, &quot;particles/flames.party&quot;, &quot;audio/soundFX/frying.mp3&quot;);</b>
+<i class="no-highlight">13</i>&nbsp;	}
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;	// dont need to flip beans
+<i class="no-highlight">16</i>&nbsp;	@Override
+<i class="no-highlight">17</i>&nbsp;	public boolean place(Ingredient ingredient) {
+<b class="fc"><i class="no-highlight">18</i>&nbsp;		if (super.place(ingredient)) {</b>
+<b class="fc"><i class="no-highlight">19</i>&nbsp;			if(ingredient.equals(Ingredients.beans)) ingredient.flipped = true;</b>
+<b class="fc"><i class="no-highlight">20</i>&nbsp;			return true;</b>
+<i class="no-highlight">21</i>&nbsp;		}
+<i class="no-highlight">22</i>&nbsp;
+<b class="fc"><i class="no-highlight">23</i>&nbsp;		return false;</b>
+<i class="no-highlight">24</i>&nbsp;	}
+<i class="no-highlight">25</i>&nbsp;
+<i class="no-highlight">26</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -115,15 +114,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>
