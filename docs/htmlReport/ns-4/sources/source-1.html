@@ -7,10 +7,9 @@
   <title>Coverage Report > Ingredient</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -74,227 +73,227 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.food;
-&nbsp;
-&nbsp;import com.badlogic.gdx.graphics.Color;
-&nbsp;import com.badlogic.gdx.graphics.Texture;
-&nbsp;import com.badlogic.gdx.graphics.g2d.BitmapFont;
-&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-&nbsp;import com.badlogic.gdx.math.Vector2;
-&nbsp;import com.team3gdx.game.entity.Entity;
-&nbsp;import com.team3gdx.game.screen.GameScreen;
-&nbsp;import com.team3gdx.game.screen.GameScreen.STATE;
-&nbsp;
-&nbsp;/**
-&nbsp; * Represents an ingredient.
-&nbsp; * 
-&nbsp; */
-&nbsp;public class Ingredient extends Entity {
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Represents internal states of ingredient.
-&nbsp;	 */
-<b class="fc">&nbsp;	public int slices = 0;</b>
-&nbsp;	private int idealSlices;
-<b class="fc">&nbsp;	public float cookedTime = 0;</b>
-&nbsp;	private float idealCookedTime;
-&nbsp;
-<b class="fc">&nbsp;	public Status status = Status.RAW;</b>
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Represents ongoing states of the ingredient.
-&nbsp;	 */
-<b class="fc">&nbsp;	public boolean cooking = false;</b>
-<b class="fc">&nbsp;	public boolean slicing = false;</b>
-<b class="fc">&nbsp;	public boolean flipped = false;</b>
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Name of ingredient to get texture.
-&nbsp;	 */
-&nbsp;	public String name;
-&nbsp;
-<b class="fc">&nbsp;	private static ShapeRenderer _shapeRenderer = null; //If needing this method you need</b>
-&nbsp;	//Lazy initialisation
-&nbsp;	//Basically leaves the shapeRendered as null until it is needed
-&nbsp;	/**Lazy initialisation
-&nbsp;	 *Basically leaves the shapeRendered as null until it is needed
-&nbsp;	 * When it is needed call the below function which will mean that the shaperender is initialised and
-&nbsp;	 * becomes usable. Until it is necessary however the shaperender stays null and doesn&#39;t cause any errors,
-&nbsp;	 * and handily means that there is less overhead.
-&nbsp;	 */
-&nbsp;
-&nbsp;
-&nbsp;	private static ShapeRenderer getShapeRenderer() {
-<b class="nc">&nbsp;		if (_shapeRenderer == null) {</b>
-<b class="nc">&nbsp;			_shapeRenderer = new ShapeRenderer();</b>
-&nbsp;		}
-<b class="nc">&nbsp;		return _shapeRenderer;</b>
-&nbsp;	}
-&nbsp;
-<b class="fc">&nbsp;	private BitmapFont font = new BitmapFont();</b>
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Sets the appropriate properties.
-&nbsp;	 * 
-&nbsp;	 * @param pos             The (x, y) coordinates of the ingredient.
-&nbsp;	 * @param width           The ingredient&#39;s texture width.
-&nbsp;	 * @param height          The ingredient&#39;s texture height.
-&nbsp;	 * @param name            The name of the ingredient and texture.
-&nbsp;	 * @param idealSlices     The ideal number of times to slice the ingredient.
-&nbsp;	 * @param idealCookedTime The ideal length of time to cook the ingredient.
-&nbsp;	 */
-<b class="fc">&nbsp;	public Ingredient(Vector2 pos, float width, float height, String name, int idealSlices, float idealCookedTime) {</b>
-<b class="fc">&nbsp;		this.pos = pos;</b>
-<b class="fc">&nbsp;		this.width = width;</b>
-<b class="fc">&nbsp;		this.height = height;</b>
-<b class="fc">&nbsp;		this.name = name;</b>
-<b class="fc">&nbsp;		this.texture = new Texture(&quot;items/&quot; + name + &quot;.png&quot;);</b>
-<b class="fc">&nbsp;		this.idealSlices = idealSlices;</b>
-<b class="fc">&nbsp;		this.idealCookedTime = idealCookedTime;</b>
-&nbsp;
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Creates a new instance with identical properties.
-&nbsp;	 * 
-&nbsp;	 * @param ingredient The ingredient to clone.
-&nbsp;	 */
-<b class="fc">&nbsp;	public Ingredient(Ingredient ingredient) {</b>
-<b class="fc">&nbsp;		this.pos = ingredient.pos;</b>
-<b class="fc">&nbsp;		this.width = ingredient.width;</b>
-<b class="fc">&nbsp;		this.height = ingredient.height;</b>
-<b class="fc">&nbsp;		this.name = ingredient.name;</b>
-<b class="fc">&nbsp;		this.texture = ingredient.texture;</b>
-<b class="fc">&nbsp;		this.idealSlices = ingredient.idealSlices;</b>
-<b class="fc">&nbsp;		this.idealCookedTime = ingredient.idealCookedTime;</b>
-<b class="fc">&nbsp;		this.cookedTime = ingredient.cookedTime;</b>
-<b class="fc">&nbsp;		this.slices = ingredient.slices;</b>
-<b class="fc">&nbsp;		this.flipped = ingredient.flipped;</b>
-<b class="fc">&nbsp;		this.status = ingredient.status;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Changes the {@link this#flipped} to true if possible.
-&nbsp;	 * 
-&nbsp;	 * @return A boolean representing if the ingredient was successfully flipped.
-&nbsp;	 */
-&nbsp;	public boolean flip() {
-<b class="fc">&nbsp;		if (cookedTime / idealCookedTime &lt; idealCookedTime * .65f)</b>
-<b class="fc">&nbsp;			return false;</b>
-<b class="fc">&nbsp;		return (flipped = true);</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Begin process of slicing ingredient and show status.
-&nbsp;	 * 
-&nbsp;	 * @param batch {@link SpriteBatch} to render texture and status.
-&nbsp;	 * @param dT    The amount of time to increment by when slicing.
-&nbsp;	 * @return A boolean representing if a complete slice has occurred.
-&nbsp;	 */
-&nbsp;	public boolean slice(SpriteBatch batch, float dT) {
-&nbsp;
-<b class="nc">&nbsp;		getShapeRenderer().setProjectionMatrix(batch.getProjectionMatrix());</b>
-&nbsp;
-<b class="nc">&nbsp;		if (dT / width * width &lt;= width) {</b>
-<b class="nc">&nbsp;			drawStatusBar(dT / width, 0, 1);</b>
-&nbsp;		} else {
-<b class="nc">&nbsp;			slices++;</b>
-<b class="nc">&nbsp;			texture = new Texture(&quot;items/&quot; + name + &quot;_chopped.png&quot;);</b>
-<b class="nc">&nbsp;			return true;</b>
-&nbsp;		}
-&nbsp;
-<b class="nc">&nbsp;		batch.begin();</b>
-<b class="nc">&nbsp;		font.draw(batch, String.valueOf(slices), pos.x * 64 + 64 + 8, pos.y * 64 + 64 + 16);</b>
-<b class="nc">&nbsp;		batch.end();</b>
-&nbsp;
-<b class="nc">&nbsp;		draw(batch);</b>
-<b class="nc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-<b class="fc">&nbsp;	BitmapFont flipText = new BitmapFont();</b>
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Begin process of cooking ingredient and show status.
-&nbsp;	 * 
-&nbsp;	 * @param dT    The amount of time to increment {@link this#cookedTime} by.
-&nbsp;	 * @param batch {@link SpriteBatch} to render texture and status.
-&nbsp;	 * @return A double representing the current {@link this#cookedTime}.
-&nbsp;	 */
-&nbsp;	public double cook(float dT, SpriteBatch batch) {
-<b class="nc">&nbsp;		getShapeRenderer().setProjectionMatrix(batch.getProjectionMatrix());</b>
-<b class="nc">&nbsp;		if (!flipped &amp;&amp; cookedTime / idealCookedTime * width &gt; idealCookedTime * width * .65f) {</b>
-<b class="nc">&nbsp;			batch.begin();</b>
-<b class="nc">&nbsp;			flipText.draw(batch, &quot;Flip [f]&quot;, pos.x, pos.y);</b>
-<b class="nc">&nbsp;			batch.end();</b>
-&nbsp;		}
-<b class="nc">&nbsp;		if (cookedTime / idealCookedTime * width &lt;= width) {</b>
-<b class="nc">&nbsp;			if (GameScreen.state1 == STATE.Continue)</b>
-<b class="nc">&nbsp;				cookedTime += dT;</b>
-<b class="nc">&nbsp;			drawStatusBar(cookedTime / idealCookedTime, idealCookedTime * .65f, idealCookedTime * 1.35f);</b>
-<b class="nc">&nbsp;			if (cookedTime / idealCookedTime * width &gt; idealCookedTime * width * .65f) {</b>
-<b class="nc">&nbsp;				texture = new Texture(&quot;items/&quot; + name + &quot;_cooked.png&quot;);</b>
-<b class="nc">&nbsp;				status = Status.COOKED;</b>
-&nbsp;			}
-&nbsp;		} else {
-<b class="nc">&nbsp;			status = Status.BURNED;</b>
-<b class="nc">&nbsp;			texture = new Texture(&quot;items/&quot; + name + &quot;_burned.png&quot;);</b>
-&nbsp;		}
-&nbsp;
-<b class="nc">&nbsp;		draw(batch);</b>
-<b class="nc">&nbsp;		return cookedTime;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Draw a status bar.
-&nbsp;	 * 
-&nbsp;	 * @param percentage The current progress of the status bar.
-&nbsp;	 * @param optimum    The optimal status to reach (shown by a black bar).
-&nbsp;	 */
-&nbsp;	public void drawStatusBar(float percentage, float optimumLower, float optimumUpper) {
-<b class="nc">&nbsp;		ShapeRenderer shapeRenderer = getShapeRenderer();</b>
-&nbsp;
-<b class="nc">&nbsp;		shapeRenderer.begin(ShapeType.Filled);</b>
-<b class="nc">&nbsp;		shapeRenderer.setColor(Color.WHITE);</b>
-<b class="nc">&nbsp;		shapeRenderer.rect(pos.x - width / 2, pos.y + height + height / 10, width * 2, height / 4);</b>
-&nbsp;
-<b class="nc">&nbsp;		if (percentage * width &lt; optimumLower * width)</b>
-<b class="nc">&nbsp;			shapeRenderer.setColor(Color.RED);</b>
-<b class="nc">&nbsp;		else if (percentage * width &lt; optimumUpper * width)</b>
-<b class="nc">&nbsp;			shapeRenderer.setColor(Color.GREEN);</b>
-&nbsp;		else
-<b class="nc">&nbsp;			shapeRenderer.setColor(Color.RED);</b>
-&nbsp;
-<b class="nc">&nbsp;		shapeRenderer.rect(pos.x - width / 2, pos.y + height + height / 10, percentage * width * 2, height / 5);</b>
-&nbsp;
-<b class="nc">&nbsp;		shapeRenderer.setColor(Color.BLACK);</b>
-<b class="nc">&nbsp;		shapeRenderer.rect(pos.x - width / 2 + optimumLower * width * 2, pos.y + height + height / 10, height / 10,</b>
-&nbsp;				2 * height / 5);
-<b class="nc">&nbsp;		shapeRenderer.rect(pos.x - width / 2 + optimumUpper * width * 2, pos.y + height + height / 10, height / 10,</b>
-&nbsp;				2 * height / 5);
-<b class="nc">&nbsp;		shapeRenderer.end();</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	@Override
-&nbsp;	public boolean equals(Object o) {
-<b class="fc">&nbsp;		if (!(o instanceof Ingredient))</b>
-<b class="nc">&nbsp;			return false;</b>
-&nbsp;
-<b class="fc">&nbsp;		Ingredient compareTo = (Ingredient) o;</b>
-&nbsp;
-<b class="fc">&nbsp;		if (compareTo.name.equals(name) &amp;&amp; compareTo.idealSlices &gt;= idealSlices &amp;&amp; compareTo.status == status)</b>
-<b class="fc">&nbsp;			return true;</b>
-&nbsp;
-<b class="fc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;}
-&nbsp;
-&nbsp;enum Status {
-&nbsp;	RAW, COOKED, BURNED
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.food;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.badlogic.gdx.graphics.Color;
+<i class="no-highlight">4</i>&nbsp;import com.badlogic.gdx.graphics.Texture;
+<i class="no-highlight">5</i>&nbsp;import com.badlogic.gdx.graphics.g2d.BitmapFont;
+<i class="no-highlight">6</i>&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+<i class="no-highlight">7</i>&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+<i class="no-highlight">8</i>&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+<i class="no-highlight">9</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">10</i>&nbsp;import com.team3gdx.game.entity.Entity;
+<i class="no-highlight">11</i>&nbsp;import com.team3gdx.game.screen.GameScreen;
+<i class="no-highlight">12</i>&nbsp;import com.team3gdx.game.screen.GameScreen.STATE;
+<i class="no-highlight">13</i>&nbsp;
+<i class="no-highlight">14</i>&nbsp;/**
+<i class="no-highlight">15</i>&nbsp; * Represents an ingredient.
+<i class="no-highlight">16</i>&nbsp; * 
+<i class="no-highlight">17</i>&nbsp; */
+<i class="no-highlight">18</i>&nbsp;public class Ingredient extends Entity {
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;	/**
+<i class="no-highlight">21</i>&nbsp;	 * Represents internal states of ingredient.
+<i class="no-highlight">22</i>&nbsp;	 */
+<b class="fc"><i class="no-highlight">23</i>&nbsp;	public int slices = 0;</b>
+<i class="no-highlight">24</i>&nbsp;	private int idealSlices;
+<b class="fc"><i class="no-highlight">25</i>&nbsp;	public float cookedTime = 0;</b>
+<i class="no-highlight">26</i>&nbsp;	private float idealCookedTime;
+<i class="no-highlight">27</i>&nbsp;
+<b class="fc"><i class="no-highlight">28</i>&nbsp;	public Status status = Status.RAW;</b>
+<i class="no-highlight">29</i>&nbsp;
+<i class="no-highlight">30</i>&nbsp;	/**
+<i class="no-highlight">31</i>&nbsp;	 * Represents ongoing states of the ingredient.
+<i class="no-highlight">32</i>&nbsp;	 */
+<b class="fc"><i class="no-highlight">33</i>&nbsp;	public boolean cooking = false;</b>
+<b class="fc"><i class="no-highlight">34</i>&nbsp;	public boolean slicing = false;</b>
+<b class="fc"><i class="no-highlight">35</i>&nbsp;	public boolean flipped = false;</b>
+<i class="no-highlight">36</i>&nbsp;
+<i class="no-highlight">37</i>&nbsp;	/**
+<i class="no-highlight">38</i>&nbsp;	 * Name of ingredient to get texture.
+<i class="no-highlight">39</i>&nbsp;	 */
+<i class="no-highlight">40</i>&nbsp;	public String name;
+<i class="no-highlight">41</i>&nbsp;
+<b class="fc"><i class="no-highlight">42</i>&nbsp;	private static ShapeRenderer _shapeRenderer = null; //If needing this method you need</b>
+<i class="no-highlight">43</i>&nbsp;	//Lazy initialisation
+<i class="no-highlight">44</i>&nbsp;	//Basically leaves the shapeRendered as null until it is needed
+<i class="no-highlight">45</i>&nbsp;	/**Lazy initialisation
+<i class="no-highlight">46</i>&nbsp;	 *Basically leaves the shapeRendered as null until it is needed
+<i class="no-highlight">47</i>&nbsp;	 * When it is needed call the below function which will mean that the shaperender is initialised and
+<i class="no-highlight">48</i>&nbsp;	 * becomes usable. Until it is necessary however the shaperender stays null and doesn&#39;t cause any errors,
+<i class="no-highlight">49</i>&nbsp;	 * and handily means that there is less overhead.
+<i class="no-highlight">50</i>&nbsp;	 */
+<i class="no-highlight">51</i>&nbsp;
+<i class="no-highlight">52</i>&nbsp;
+<i class="no-highlight">53</i>&nbsp;	private static ShapeRenderer getShapeRenderer() {
+<b class="nc"><i class="no-highlight">54</i>&nbsp;		if (_shapeRenderer == null) {</b>
+<b class="nc"><i class="no-highlight">55</i>&nbsp;			_shapeRenderer = new ShapeRenderer();</b>
+<i class="no-highlight">56</i>&nbsp;		}
+<b class="nc"><i class="no-highlight">57</i>&nbsp;		return _shapeRenderer;</b>
+<i class="no-highlight">58</i>&nbsp;	}
+<i class="no-highlight">59</i>&nbsp;
+<b class="fc"><i class="no-highlight">60</i>&nbsp;	private BitmapFont font = new BitmapFont();</b>
+<i class="no-highlight">61</i>&nbsp;
+<i class="no-highlight">62</i>&nbsp;	/**
+<i class="no-highlight">63</i>&nbsp;	 * Sets the appropriate properties.
+<i class="no-highlight">64</i>&nbsp;	 * 
+<i class="no-highlight">65</i>&nbsp;	 * @param pos             The (x, y) coordinates of the ingredient.
+<i class="no-highlight">66</i>&nbsp;	 * @param width           The ingredient&#39;s texture width.
+<i class="no-highlight">67</i>&nbsp;	 * @param height          The ingredient&#39;s texture height.
+<i class="no-highlight">68</i>&nbsp;	 * @param name            The name of the ingredient and texture.
+<i class="no-highlight">69</i>&nbsp;	 * @param idealSlices     The ideal number of times to slice the ingredient.
+<i class="no-highlight">70</i>&nbsp;	 * @param idealCookedTime The ideal length of time to cook the ingredient.
+<i class="no-highlight">71</i>&nbsp;	 */
+<b class="fc"><i class="no-highlight">72</i>&nbsp;	public Ingredient(Vector2 pos, float width, float height, String name, int idealSlices, float idealCookedTime) {</b>
+<b class="fc"><i class="no-highlight">73</i>&nbsp;		this.pos = pos;</b>
+<b class="fc"><i class="no-highlight">74</i>&nbsp;		this.width = width;</b>
+<b class="fc"><i class="no-highlight">75</i>&nbsp;		this.height = height;</b>
+<b class="fc"><i class="no-highlight">76</i>&nbsp;		this.name = name;</b>
+<b class="fc"><i class="no-highlight">77</i>&nbsp;		this.texture = new Texture(&quot;items/&quot; + name + &quot;.png&quot;);</b>
+<b class="fc"><i class="no-highlight">78</i>&nbsp;		this.idealSlices = idealSlices;</b>
+<b class="fc"><i class="no-highlight">79</i>&nbsp;		this.idealCookedTime = idealCookedTime;</b>
+<i class="no-highlight">80</i>&nbsp;
+<i class="no-highlight">81</i>&nbsp;	}
+<i class="no-highlight">82</i>&nbsp;
+<i class="no-highlight">83</i>&nbsp;	/**
+<i class="no-highlight">84</i>&nbsp;	 * Creates a new instance with identical properties.
+<i class="no-highlight">85</i>&nbsp;	 * 
+<i class="no-highlight">86</i>&nbsp;	 * @param ingredient The ingredient to clone.
+<i class="no-highlight">87</i>&nbsp;	 */
+<b class="fc"><i class="no-highlight">88</i>&nbsp;	public Ingredient(Ingredient ingredient) {</b>
+<b class="fc"><i class="no-highlight">89</i>&nbsp;		this.pos = ingredient.pos;</b>
+<b class="fc"><i class="no-highlight">90</i>&nbsp;		this.width = ingredient.width;</b>
+<b class="fc"><i class="no-highlight">91</i>&nbsp;		this.height = ingredient.height;</b>
+<b class="fc"><i class="no-highlight">92</i>&nbsp;		this.name = ingredient.name;</b>
+<b class="fc"><i class="no-highlight">93</i>&nbsp;		this.texture = ingredient.texture;</b>
+<b class="fc"><i class="no-highlight">94</i>&nbsp;		this.idealSlices = ingredient.idealSlices;</b>
+<b class="fc"><i class="no-highlight">95</i>&nbsp;		this.idealCookedTime = ingredient.idealCookedTime;</b>
+<b class="fc"><i class="no-highlight">96</i>&nbsp;		this.cookedTime = ingredient.cookedTime;</b>
+<b class="fc"><i class="no-highlight">97</i>&nbsp;		this.slices = ingredient.slices;</b>
+<b class="fc"><i class="no-highlight">98</i>&nbsp;		this.flipped = ingredient.flipped;</b>
+<b class="fc"><i class="no-highlight">99</i>&nbsp;		this.status = ingredient.status;</b>
+<i class="no-highlight">100</i>&nbsp;	}
+<i class="no-highlight">101</i>&nbsp;
+<i class="no-highlight">102</i>&nbsp;	/**
+<i class="no-highlight">103</i>&nbsp;	 * Changes the {@link this#flipped} to true if possible.
+<i class="no-highlight">104</i>&nbsp;	 * 
+<i class="no-highlight">105</i>&nbsp;	 * @return A boolean representing if the ingredient was successfully flipped.
+<i class="no-highlight">106</i>&nbsp;	 */
+<i class="no-highlight">107</i>&nbsp;	public boolean flip() {
+<b class="fc"><i class="no-highlight">108</i>&nbsp;		if (cookedTime / idealCookedTime &lt; idealCookedTime * .65f)</b>
+<b class="fc"><i class="no-highlight">109</i>&nbsp;			return false;</b>
+<b class="fc"><i class="no-highlight">110</i>&nbsp;		return (flipped = true);</b>
+<i class="no-highlight">111</i>&nbsp;	}
+<i class="no-highlight">112</i>&nbsp;
+<i class="no-highlight">113</i>&nbsp;	/**
+<i class="no-highlight">114</i>&nbsp;	 * Begin process of slicing ingredient and show status.
+<i class="no-highlight">115</i>&nbsp;	 * 
+<i class="no-highlight">116</i>&nbsp;	 * @param batch {@link SpriteBatch} to render texture and status.
+<i class="no-highlight">117</i>&nbsp;	 * @param dT    The amount of time to increment by when slicing.
+<i class="no-highlight">118</i>&nbsp;	 * @return A boolean representing if a complete slice has occurred.
+<i class="no-highlight">119</i>&nbsp;	 */
+<i class="no-highlight">120</i>&nbsp;	public boolean slice(SpriteBatch batch, float dT) {
+<i class="no-highlight">121</i>&nbsp;
+<b class="nc"><i class="no-highlight">122</i>&nbsp;		getShapeRenderer().setProjectionMatrix(batch.getProjectionMatrix());</b>
+<i class="no-highlight">123</i>&nbsp;
+<b class="nc"><i class="no-highlight">124</i>&nbsp;		if (dT / width * width &lt;= width) {</b>
+<b class="nc"><i class="no-highlight">125</i>&nbsp;			drawStatusBar(dT / width, 0, 1);</b>
+<i class="no-highlight">126</i>&nbsp;		} else {
+<b class="nc"><i class="no-highlight">127</i>&nbsp;			slices++;</b>
+<b class="nc"><i class="no-highlight">128</i>&nbsp;			texture = new Texture(&quot;items/&quot; + name + &quot;_chopped.png&quot;);</b>
+<b class="nc"><i class="no-highlight">129</i>&nbsp;			return true;</b>
+<i class="no-highlight">130</i>&nbsp;		}
+<i class="no-highlight">131</i>&nbsp;
+<b class="nc"><i class="no-highlight">132</i>&nbsp;		batch.begin();</b>
+<b class="nc"><i class="no-highlight">133</i>&nbsp;		font.draw(batch, String.valueOf(slices), pos.x * 64 + 64 + 8, pos.y * 64 + 64 + 16);</b>
+<b class="nc"><i class="no-highlight">134</i>&nbsp;		batch.end();</b>
+<i class="no-highlight">135</i>&nbsp;
+<b class="nc"><i class="no-highlight">136</i>&nbsp;		draw(batch);</b>
+<b class="nc"><i class="no-highlight">137</i>&nbsp;		return false;</b>
+<i class="no-highlight">138</i>&nbsp;	}
+<i class="no-highlight">139</i>&nbsp;
+<b class="fc"><i class="no-highlight">140</i>&nbsp;	BitmapFont flipText = new BitmapFont();</b>
+<i class="no-highlight">141</i>&nbsp;
+<i class="no-highlight">142</i>&nbsp;	/**
+<i class="no-highlight">143</i>&nbsp;	 * Begin process of cooking ingredient and show status.
+<i class="no-highlight">144</i>&nbsp;	 * 
+<i class="no-highlight">145</i>&nbsp;	 * @param dT    The amount of time to increment {@link this#cookedTime} by.
+<i class="no-highlight">146</i>&nbsp;	 * @param batch {@link SpriteBatch} to render texture and status.
+<i class="no-highlight">147</i>&nbsp;	 * @return A double representing the current {@link this#cookedTime}.
+<i class="no-highlight">148</i>&nbsp;	 */
+<i class="no-highlight">149</i>&nbsp;	public double cook(float dT, SpriteBatch batch) {
+<b class="nc"><i class="no-highlight">150</i>&nbsp;		getShapeRenderer().setProjectionMatrix(batch.getProjectionMatrix());</b>
+<b class="nc"><i class="no-highlight">151</i>&nbsp;		if (!flipped &amp;&amp; cookedTime / idealCookedTime * width &gt; idealCookedTime * width * .65f) {</b>
+<b class="nc"><i class="no-highlight">152</i>&nbsp;			batch.begin();</b>
+<b class="nc"><i class="no-highlight">153</i>&nbsp;			flipText.draw(batch, &quot;Flip [f]&quot;, pos.x, pos.y);</b>
+<b class="nc"><i class="no-highlight">154</i>&nbsp;			batch.end();</b>
+<i class="no-highlight">155</i>&nbsp;		}
+<b class="nc"><i class="no-highlight">156</i>&nbsp;		if (cookedTime / idealCookedTime * width &lt;= width) {</b>
+<b class="nc"><i class="no-highlight">157</i>&nbsp;			if (GameScreen.state1 == STATE.Continue)</b>
+<b class="nc"><i class="no-highlight">158</i>&nbsp;				cookedTime += dT;</b>
+<b class="nc"><i class="no-highlight">159</i>&nbsp;			drawStatusBar(cookedTime / idealCookedTime, idealCookedTime * .65f, idealCookedTime * 1.35f);</b>
+<b class="nc"><i class="no-highlight">160</i>&nbsp;			if (cookedTime / idealCookedTime * width &gt; idealCookedTime * width * .65f) {</b>
+<b class="nc"><i class="no-highlight">161</i>&nbsp;				texture = new Texture(&quot;items/&quot; + name + &quot;_cooked.png&quot;);</b>
+<b class="nc"><i class="no-highlight">162</i>&nbsp;				status = Status.COOKED;</b>
+<i class="no-highlight">163</i>&nbsp;			}
+<i class="no-highlight">164</i>&nbsp;		} else {
+<b class="nc"><i class="no-highlight">165</i>&nbsp;			status = Status.BURNED;</b>
+<b class="nc"><i class="no-highlight">166</i>&nbsp;			texture = new Texture(&quot;items/&quot; + name + &quot;_burned.png&quot;);</b>
+<i class="no-highlight">167</i>&nbsp;		}
+<i class="no-highlight">168</i>&nbsp;
+<b class="nc"><i class="no-highlight">169</i>&nbsp;		draw(batch);</b>
+<b class="nc"><i class="no-highlight">170</i>&nbsp;		return cookedTime;</b>
+<i class="no-highlight">171</i>&nbsp;	}
+<i class="no-highlight">172</i>&nbsp;
+<i class="no-highlight">173</i>&nbsp;	/**
+<i class="no-highlight">174</i>&nbsp;	 * Draw a status bar.
+<i class="no-highlight">175</i>&nbsp;	 * 
+<i class="no-highlight">176</i>&nbsp;	 * @param percentage The current progress of the status bar.
+<i class="no-highlight">177</i>&nbsp;	 * @param optimum    The optimal status to reach (shown by a black bar).
+<i class="no-highlight">178</i>&nbsp;	 */
+<i class="no-highlight">179</i>&nbsp;	public void drawStatusBar(float percentage, float optimumLower, float optimumUpper) {
+<b class="nc"><i class="no-highlight">180</i>&nbsp;		ShapeRenderer shapeRenderer = getShapeRenderer();</b>
+<i class="no-highlight">181</i>&nbsp;
+<b class="nc"><i class="no-highlight">182</i>&nbsp;		shapeRenderer.begin(ShapeType.Filled);</b>
+<b class="nc"><i class="no-highlight">183</i>&nbsp;		shapeRenderer.setColor(Color.WHITE);</b>
+<b class="nc"><i class="no-highlight">184</i>&nbsp;		shapeRenderer.rect(pos.x - width / 2, pos.y + height + height / 10, width * 2, height / 4);</b>
+<i class="no-highlight">185</i>&nbsp;
+<b class="nc"><i class="no-highlight">186</i>&nbsp;		if (percentage * width &lt; optimumLower * width)</b>
+<b class="nc"><i class="no-highlight">187</i>&nbsp;			shapeRenderer.setColor(Color.RED);</b>
+<b class="nc"><i class="no-highlight">188</i>&nbsp;		else if (percentage * width &lt; optimumUpper * width)</b>
+<b class="nc"><i class="no-highlight">189</i>&nbsp;			shapeRenderer.setColor(Color.GREEN);</b>
+<i class="no-highlight">190</i>&nbsp;		else
+<b class="nc"><i class="no-highlight">191</i>&nbsp;			shapeRenderer.setColor(Color.RED);</b>
+<i class="no-highlight">192</i>&nbsp;
+<b class="nc"><i class="no-highlight">193</i>&nbsp;		shapeRenderer.rect(pos.x - width / 2, pos.y + height + height / 10, percentage * width * 2, height / 5);</b>
+<i class="no-highlight">194</i>&nbsp;
+<b class="nc"><i class="no-highlight">195</i>&nbsp;		shapeRenderer.setColor(Color.BLACK);</b>
+<b class="nc"><i class="no-highlight">196</i>&nbsp;		shapeRenderer.rect(pos.x - width / 2 + optimumLower * width * 2, pos.y + height + height / 10, height / 10,</b>
+<i class="no-highlight">197</i>&nbsp;				2 * height / 5);
+<b class="nc"><i class="no-highlight">198</i>&nbsp;		shapeRenderer.rect(pos.x - width / 2 + optimumUpper * width * 2, pos.y + height + height / 10, height / 10,</b>
+<i class="no-highlight">199</i>&nbsp;				2 * height / 5);
+<b class="nc"><i class="no-highlight">200</i>&nbsp;		shapeRenderer.end();</b>
+<i class="no-highlight">201</i>&nbsp;	}
+<i class="no-highlight">202</i>&nbsp;
+<i class="no-highlight">203</i>&nbsp;	@Override
+<i class="no-highlight">204</i>&nbsp;	public boolean equals(Object o) {
+<b class="fc"><i class="no-highlight">205</i>&nbsp;		if (!(o instanceof Ingredient))</b>
+<b class="nc"><i class="no-highlight">206</i>&nbsp;			return false;</b>
+<i class="no-highlight">207</i>&nbsp;
+<b class="fc"><i class="no-highlight">208</i>&nbsp;		Ingredient compareTo = (Ingredient) o;</b>
+<i class="no-highlight">209</i>&nbsp;
+<b class="fc"><i class="no-highlight">210</i>&nbsp;		if (compareTo.name.equals(name) &amp;&amp; compareTo.idealSlices &gt;= idealSlices &amp;&amp; compareTo.status == status)</b>
+<b class="fc"><i class="no-highlight">211</i>&nbsp;			return true;</b>
+<i class="no-highlight">212</i>&nbsp;
+<b class="fc"><i class="no-highlight">213</i>&nbsp;		return false;</b>
+<i class="no-highlight">214</i>&nbsp;	}
+<i class="no-highlight">215</i>&nbsp;
+<i class="no-highlight">216</i>&nbsp;}
+<i class="no-highlight">217</i>&nbsp;
+<i class="no-highlight">218</i>&nbsp;enum Status {
+<i class="no-highlight">219</i>&nbsp;	RAW, COOKED, BURNED
+<i class="no-highlight">220</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -309,15 +308,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

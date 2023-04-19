@@ -4,13 +4,12 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > Powerup</title>
+  <title>Coverage Report > GetBeaned</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -21,7 +20,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.team3gdx.game.powerup</a>
 </div>
 
-<h1>Coverage Summary for Class: Powerup (com.team3gdx.game.powerup)</h1>
+<h1>Coverage Summary for Class: GetBeaned (com.team3gdx.game.powerup)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -40,7 +39,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">Powerup</td>
+  <td class="name">GetBeaned</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -51,18 +50,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    87.5%
+    50%
   </span>
   <span class="absValue">
-    (7/8)
+    (1/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    80%
+    37.5%
   </span>
   <span class="absValue">
-    (16/20)
+    (3/8)
   </span>
 </td>
 </tr>
@@ -74,111 +73,38 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.powerup;
-&nbsp;
-&nbsp;import com.badlogic.gdx.Gdx;
-&nbsp;import com.badlogic.gdx.graphics.Texture;
-&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-&nbsp;import com.badlogic.gdx.math.Intersector;
-&nbsp;import com.badlogic.gdx.math.Rectangle;
-&nbsp;import com.team3gdx.game.entity.Cook;
-&nbsp;
-&nbsp;import java.util.concurrent.ThreadLocalRandom;
-&nbsp;
-&nbsp;public class Powerup {
-&nbsp;
-&nbsp;    private int x;
-&nbsp;    private int y;
-&nbsp;    Texture texture;    // set this in a subclass
-&nbsp;    public Boolean active;
-&nbsp;    private int size;
-&nbsp;
-&nbsp;    /***
-&nbsp;     * Powerup constructor
-&nbsp;     *
-&nbsp;     * @param x the x coordinate
-&nbsp;     * @param y the y coordinate
-&nbsp;     */
-<b class="fc">&nbsp;    public Powerup(int x, int y){</b>
-<b class="fc">&nbsp;        this.x = x;</b>
-<b class="fc">&nbsp;        this.y = y;</b>
-<b class="fc">&nbsp;        active = false;</b>
-<b class="fc">&nbsp;        size = 48;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    /***
-&nbsp;     * Draw the powerup
-&nbsp;     *
-&nbsp;     * @param batch the SpriteBatch to draw to
-&nbsp;     */
-&nbsp;    public void draw(SpriteBatch batch){
-<b class="nc">&nbsp;        if(active) {</b>
-<b class="nc">&nbsp;            batch.begin();</b>
-<b class="nc">&nbsp;            batch.draw(texture, x, y);</b>
-<b class="nc">&nbsp;            batch.end();</b>
-&nbsp;        }
-&nbsp;    }
-&nbsp;
-&nbsp;    /***
-&nbsp;     * Get a rectangle for collision detection
-&nbsp;     *
-&nbsp;     * @return Rectangle object at x and y with a width and height of 48
-&nbsp;     */
-&nbsp;    Rectangle getCollideBox() {
-<b class="fc">&nbsp;        return new Rectangle(x, y, size, size);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    /***
-&nbsp;     * Apply the powerup to a cook that collides with the powerup and then deactivate
-&nbsp;     *
-&nbsp;     * @param cook the cook to check for collision and to apply the powerup to
-&nbsp;     */
-&nbsp;    public void checkCollision(Cook cook){
-<b class="fc">&nbsp;        if(active) {</b>
-<b class="fc">&nbsp;            if (Intersector.overlaps(cook.getCollideBoxAtPosition(cook.getX(), cook.getY()), getCollideBox())) {</b>
-<b class="fc">&nbsp;                applyPowerup(cook);</b>
-<b class="fc">&nbsp;                active = false;</b>
-&nbsp;            }
-&nbsp;        }
-&nbsp;    }
-&nbsp;
-&nbsp;    /***
-&nbsp;     * Set active flag and randomly select location
-&nbsp;     */
-&nbsp;    public void activate(){
-<b class="fc">&nbsp;        x = ThreadLocalRandom.current().nextInt(4*64, 14*64);</b>
-<b class="fc">&nbsp;        y = ThreadLocalRandom.current().nextInt(64, 12*64);</b>
-<b class="fc">&nbsp;        active = true;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    /***
-&nbsp;     * Getter for x
-&nbsp;     *
-&nbsp;     * @return x
-&nbsp;     */
-&nbsp;    public int getX(){
-<b class="fc">&nbsp;        return x;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    /***
-&nbsp;     * Getter for y
-&nbsp;     *
-&nbsp;     * @return y
-&nbsp;     */
-&nbsp;    public int getY(){
-<b class="fc">&nbsp;        return y;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    /***
-&nbsp;     * What to do when a cook collides with the powerup - override this in a subclass
-&nbsp;     *
-&nbsp;     * @param cook the cook which collides with the powerup
-&nbsp;     */
-&nbsp;    public void applyPowerup(Cook cook){
-&nbsp;
-<b class="fc">&nbsp;    }</b>
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.powerup;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.badlogic.gdx.Gdx;
+<i class="no-highlight">4</i>&nbsp;import com.badlogic.gdx.graphics.Texture;
+<i class="no-highlight">5</i>&nbsp;import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+<i class="no-highlight">6</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">7</i>&nbsp;import com.team3gdx.game.entity.Cook;
+<i class="no-highlight">8</i>&nbsp;import com.team3gdx.game.food.Ingredients;
+<i class="no-highlight">9</i>&nbsp;import com.team3gdx.game.screen.GameScreen;
+<i class="no-highlight">10</i>&nbsp;import com.team3gdx.game.station.*;
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;public class GetBeaned extends Powerup{
+<i class="no-highlight">13</i>&nbsp;    private GameScreen gameScreen;
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;    public GetBeaned(int x, int y, GameScreen gameScreen){
+<b class="fc"><i class="no-highlight">16</i>&nbsp;        super(x, y);</b>
+<b class="fc"><i class="no-highlight">17</i>&nbsp;        this.texture = new Texture(Gdx.files.internal(&quot;powerups/orb.png&quot;));</b>
+<b class="fc"><i class="no-highlight">18</i>&nbsp;        this.gameScreen = gameScreen;</b>
+<i class="no-highlight">19</i>&nbsp;    }
+<i class="no-highlight">20</i>&nbsp;
+<i class="no-highlight">21</i>&nbsp;    @Override
+<i class="no-highlight">22</i>&nbsp;    public void applyPowerup(Cook cook){
+<b class="nc"><i class="no-highlight">23</i>&nbsp;        for(Station station: gameScreen.getStationManager().stations.values()){</b>
+<b class="nc"><i class="no-highlight">24</i>&nbsp;            for(int i = 0; i &lt; 4; i++) {</b>
+<b class="nc"><i class="no-highlight">25</i>&nbsp;                if(!station.getClass().equals(IngredientStation.class)) {</b>
+<b class="nc"><i class="no-highlight">26</i>&nbsp;                    station.place(Ingredients.cooked_beans_with_spill);</b>
+<i class="no-highlight">27</i>&nbsp;                }
+<i class="no-highlight">28</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">29</i>&nbsp;        }</b>
+<i class="no-highlight">30</i>&nbsp;    }
+<i class="no-highlight">31</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -193,15 +119,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

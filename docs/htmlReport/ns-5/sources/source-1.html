@@ -4,13 +4,12 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > GetBeaned</title>
+  <title>Coverage Report > CleanUp</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -21,7 +20,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.team3gdx.game.powerup</a>
 </div>
 
-<h1>Coverage Summary for Class: GetBeaned (com.team3gdx.game.powerup)</h1>
+<h1>Coverage Summary for Class: CleanUp (com.team3gdx.game.powerup)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -40,29 +39,29 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">GetBeaned</td>
+  <td class="name">CleanUp</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    50%
   </span>
   <span class="absValue">
-    (0/2)
+    (1/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    33.3%
   </span>
   <span class="absValue">
-    (0/8)
+    (3/9)
   </span>
 </td>
 </tr>
@@ -74,38 +73,39 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.powerup;
-&nbsp;
-&nbsp;import com.badlogic.gdx.Gdx;
-&nbsp;import com.badlogic.gdx.graphics.Texture;
-&nbsp;import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-&nbsp;import com.badlogic.gdx.math.Vector2;
-&nbsp;import com.team3gdx.game.entity.Cook;
-&nbsp;import com.team3gdx.game.food.Ingredients;
-&nbsp;import com.team3gdx.game.screen.GameScreen;
-&nbsp;import com.team3gdx.game.station.*;
-&nbsp;
-&nbsp;public class GetBeaned extends Powerup{
-&nbsp;    private GameScreen gameScreen;
-&nbsp;
-&nbsp;    public GetBeaned(int x, int y, GameScreen gameScreen){
-<b class="nc">&nbsp;        super(x, y);</b>
-<b class="nc">&nbsp;        this.texture = new Texture(Gdx.files.internal(&quot;powerups/getbeaned.png&quot;));</b>
-<b class="nc">&nbsp;        this.gameScreen = gameScreen;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    @Override
-&nbsp;    public void applyPowerup(Cook cook){
-<b class="nc">&nbsp;        for(Station station: gameScreen.getStationManager().stations.values()){</b>
-<b class="nc">&nbsp;            for(int i = 0; i &lt; 4; i++) {</b>
-<b class="nc">&nbsp;                if(!station.getClass().equals(IngredientStation.class)) {</b>
-<b class="nc">&nbsp;                    station.place(Ingredients.cooked_beans_with_spill);</b>
-&nbsp;                }
-&nbsp;            }
-<b class="nc">&nbsp;        }</b>
-&nbsp;    }
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.powerup;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.badlogic.gdx.Gdx;
+<i class="no-highlight">4</i>&nbsp;import com.badlogic.gdx.graphics.Texture;
+<i class="no-highlight">5</i>&nbsp;import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+<i class="no-highlight">6</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">7</i>&nbsp;import com.team3gdx.game.entity.Cook;
+<i class="no-highlight">8</i>&nbsp;import com.team3gdx.game.food.Ingredients;
+<i class="no-highlight">9</i>&nbsp;import com.team3gdx.game.screen.GameScreen;
+<i class="no-highlight">10</i>&nbsp;import com.team3gdx.game.station.*;
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;public class CleanUp extends Powerup{
+<i class="no-highlight">13</i>&nbsp;    private GameScreen gameScreen;
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;    public CleanUp(int x, int y, GameScreen gameScreen){
+<b class="fc"><i class="no-highlight">16</i>&nbsp;        super(x, y);</b>
+<b class="fc"><i class="no-highlight">17</i>&nbsp;        this.texture = new Texture(Gdx.files.internal(&quot;powerups/cleanup.png&quot;));</b>
+<b class="fc"><i class="no-highlight">18</i>&nbsp;        this.gameScreen = gameScreen;</b>
+<i class="no-highlight">19</i>&nbsp;    }
+<i class="no-highlight">20</i>&nbsp;
+<i class="no-highlight">21</i>&nbsp;    @Override
+<i class="no-highlight">22</i>&nbsp;    public void applyPowerup(Cook cook){
+<b class="nc"><i class="no-highlight">23</i>&nbsp;        for(Station station: gameScreen.getStationManager().stations.values()){</b>
+<b class="nc"><i class="no-highlight">24</i>&nbsp;            if(station.getClass().equals(IngredientStation.class)) {</b>
+<b class="nc"><i class="no-highlight">25</i>&nbsp;                IngredientStation ingredientStation = (IngredientStation) station;</b>
+<b class="nc"><i class="no-highlight">26</i>&nbsp;                if(ingredientStation.getIngredient() == Ingredients.cooked_beans_with_spill) {</b>
+<b class="nc"><i class="no-highlight">27</i>&nbsp;                    ingredientStation.setIngredient(null);</b>
+<i class="no-highlight">28</i>&nbsp;                }
+<i class="no-highlight">29</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">30</i>&nbsp;        }</b>
+<i class="no-highlight">31</i>&nbsp;    }
+<i class="no-highlight">32</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -120,15 +120,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

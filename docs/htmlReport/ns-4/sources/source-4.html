@@ -7,10 +7,9 @@
   <title>Coverage Report > Recipe</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -74,179 +73,179 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.food;
-&nbsp;
-&nbsp;import java.util.ArrayList;
-&nbsp;import java.util.Map;
-&nbsp;import java.util.Stack;
-&nbsp;
-&nbsp;import com.badlogic.gdx.graphics.g2d.BitmapFont;
-&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-&nbsp;import com.badlogic.gdx.math.Vector2;
-&nbsp;
-&nbsp;/**
-&nbsp; * Represents a recipe (combination of ingredients and states).
-&nbsp; * 
-&nbsp; */
-&nbsp;public class Recipe extends Ingredient {
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Name of the recipe to get texture.
-&nbsp;	 */
-&nbsp;	public final String name;
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Map of ingredient and instruction on what to do with it.
-&nbsp;	 */
-&nbsp;	public Map&lt;Ingredient, String&gt; ingredientInstructions;
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Whether the recipe has to be made in order (specific order of ingredients).
-&nbsp;	 */
-&nbsp;	private boolean shouldBeOrdered;
-&nbsp;	/**
-&nbsp;	 * Additional instructions.
-&nbsp;	 */
-&nbsp;	private String initialSteps, finalSteps;
-&nbsp;
-&nbsp;	private Ingredient initialIngredient;
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * How much the menu item will cost.
-&nbsp;	 */
-&nbsp;	public float cost;
-&nbsp;
-<b class="fc">&nbsp;	private BitmapFont font = new BitmapFont();</b>
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Sets the appropriate recipe properties.
-&nbsp;	 * 
-&nbsp;	 * @param initialSteps           Preface to the recipe.
-&nbsp;	 * @param initialIngredient      Ingredient to display with the initial step.
-&nbsp;	 * @param ingredientInstructions Map of ingredient and instruction on what to do
-&nbsp;	 *                               with it.
-&nbsp;	 * @param finalSteps             Postface to the recipe.
-&nbsp;	 * @param name                   Name of the recipe to find the correct texture.
-&nbsp;	 * @param shouldBeOrdered        Whether the recipe has to be made in order
-&nbsp;	 *                               (specific order of ingredients).
-&nbsp;	 * @param pos                    The (x, y) coordinates of the ingredient.
-&nbsp;	 * @param width                  The recipe&#39;s texture width.
-&nbsp;	 * @param height                 The recipe&#39;s texture height.
-&nbsp;	 * @param cost                   How much the menu item will cost.
-&nbsp;	 */
-&nbsp;	public Recipe(String initialSteps, Ingredient initialIngredient, Map&lt;Ingredient, String&gt; ingredientInstructions,
-&nbsp;			String finalSteps, String name, boolean shouldBeOrdered, Vector2 pos, float width, float height,
-&nbsp;			float cost) {
-<b class="fc">&nbsp;		super(pos, width, height, name, 0, 0);</b>
-<b class="fc">&nbsp;		this.initialSteps = initialSteps;</b>
-<b class="fc">&nbsp;		this.initialIngredient = initialIngredient;</b>
-<b class="fc">&nbsp;		this.ingredientInstructions = ingredientInstructions;</b>
-<b class="fc">&nbsp;		this.finalSteps = finalSteps;</b>
-<b class="fc">&nbsp;		this.name = name;</b>
-<b class="fc">&nbsp;		this.shouldBeOrdered = shouldBeOrdered;</b>
-<b class="fc">&nbsp;		this.cost = cost;</b>
-&nbsp;	}
-&nbsp;
-<b class="fc">&nbsp;	private static ShapeRenderer _shapeRenderer = null;</b>
-&nbsp;
-&nbsp;	private static ShapeRenderer getShapeRenderer() {
-<b class="nc">&nbsp;		if (_shapeRenderer == null) {</b>
-<b class="nc">&nbsp;			_shapeRenderer = new ShapeRenderer();</b>
-&nbsp;		}
-<b class="nc">&nbsp;		return _shapeRenderer;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Show the recipe as a list of instructions with the corresponding ingredient
-&nbsp;	 * texture displayed next to it.
-&nbsp;	 * 
-&nbsp;	 * @param batch The {@link SpriteBatch} to render the textures.
-&nbsp;	 * @param pos   The (x, y) coordinates for the first instruction.
-&nbsp;	 */
-&nbsp;	public void displayRecipe(SpriteBatch batch, Vector2 pos) {
-<b class="nc">&nbsp;		String completeRecipe = initialSteps + &quot;\n\n&quot;;</b>
-<b class="nc">&nbsp;		int i = -1;</b>
-<b class="nc">&nbsp;		if (initialIngredient != null) {</b>
-<b class="nc">&nbsp;			i = 0;</b>
-&nbsp;			//Ingredient initial = new Ingredient(initialIngredient);
-<b class="nc">&nbsp;			initialIngredient.pos = new Vector2(pos);</b>
-<b class="nc">&nbsp;			initialIngredient.pos.x -= 48;</b>
-<b class="nc">&nbsp;			initialIngredient.pos.y += --i * 2 * font.getLineHeight() + font.getLineHeight();</b>
-<b class="nc">&nbsp;			initialIngredient.draw(batch);</b>
-&nbsp;		}
-<b class="nc">&nbsp;		for (Ingredient ingredient : ingredientInstructions.keySet()) {</b>
-<b class="nc">&nbsp;			completeRecipe += ingredientInstructions.get(ingredient) + &quot; &quot; + ingredient.name + &quot;\n\n&quot;;</b>
-<b class="nc">&nbsp;			ingredient.pos = new Vector2(pos);</b>
-<b class="nc">&nbsp;			ingredient.pos.x -= 48;</b>
-<b class="nc">&nbsp;			ingredient.pos.y += --i * 2 * font.getLineHeight() + font.getLineHeight();</b>
-<b class="nc">&nbsp;			ingredient.draw(batch);</b>
-&nbsp;
-<b class="nc">&nbsp;		}</b>
-&nbsp;
-<b class="nc">&nbsp;		Ingredient result = this;</b>
-<b class="nc">&nbsp;		result.pos = new Vector2(pos);</b>
-<b class="nc">&nbsp;		result.pos.x -= 48;</b>
-<b class="nc">&nbsp;		result.pos.y += --i * 2 * font.getLineHeight() + font.getLineHeight();</b>
-<b class="nc">&nbsp;		result.draw(batch);</b>
-&nbsp;
-<b class="nc">&nbsp;		completeRecipe += finalSteps;</b>
-&nbsp;
-&nbsp;		// Display the instructions.
-<b class="nc">&nbsp;		batch.begin();</b>
-<b class="nc">&nbsp;		font.draw(batch, completeRecipe, pos.x - 16, pos.y);</b>
-<b class="nc">&nbsp;		batch.end();</b>
-&nbsp;
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Check if there is a recipe with the given ingredients.
-&nbsp;	 * 
-&nbsp;	 * @param givenIngredients A Stack of ingredients to compare to recipes.
-&nbsp;	 * @return A boolean to indicate if a recipe exists with the given ingredients.
-&nbsp;	 */
-&nbsp;	public boolean matches(Stack&lt;Ingredient&gt; givenIngredients) {
-<b class="fc">&nbsp;		ArrayList&lt;Ingredient&gt; toCheck = new ArrayList&lt;Ingredient&gt;(ingredientInstructions.keySet());</b>
-<b class="fc">&nbsp;		if (givenIngredients.size() != toCheck.size())</b>
-<b class="fc">&nbsp;			return false;</b>
-<b class="fc">&nbsp;		if (shouldBeOrdered) {</b>
-<b class="nc">&nbsp;			for (int i = 0; i &lt; toCheck.size(); i++)</b>
-<b class="nc">&nbsp;				if (!toCheck.get(i).equals(givenIngredients.get(i)))</b>
-<b class="nc">&nbsp;					return false;</b>
-<b class="nc">&nbsp;			return true;</b>
-&nbsp;		}
-&nbsp;
-<b class="fc">&nbsp;		for (Ingredient ingredient : givenIngredients) {</b>
-<b class="fc">&nbsp;			if (contains(ingredient, toCheck)) {</b>
-<b class="fc">&nbsp;				toCheck.remove(ingredient);</b>
-&nbsp;			}
-<b class="fc">&nbsp;		}</b>
-<b class="fc">&nbsp;		if (toCheck.isEmpty())</b>
-<b class="fc">&nbsp;			return true;</b>
-&nbsp;
-<b class="fc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Check whether the list contains a match with the given ingredient (since we
-&nbsp;	 * use {@link Ingredient#equals(Object)}).
-&nbsp;	 * 
-&nbsp;	 * @param checkIngredient The ingredient to check.
-&nbsp;	 * @param ingredients     The list of ingredients to search through.
-&nbsp;	 * @return A boolean to indicate if the ingredient matches one in the list.
-&nbsp;	 */
-&nbsp;	private boolean contains(Ingredient checkIngredient, ArrayList&lt;Ingredient&gt; ingredients) {
-<b class="fc">&nbsp;		for (Ingredient ingredient : ingredientInstructions.keySet()) {</b>
-<b class="fc">&nbsp;			if (ingredient.equals(checkIngredient)) {</b>
-<b class="fc">&nbsp;				return true;</b>
-&nbsp;			}
-<b class="fc">&nbsp;		}</b>
-&nbsp;
-<b class="fc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.food;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import java.util.ArrayList;
+<i class="no-highlight">4</i>&nbsp;import java.util.Map;
+<i class="no-highlight">5</i>&nbsp;import java.util.Stack;
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;import com.badlogic.gdx.graphics.g2d.BitmapFont;
+<i class="no-highlight">8</i>&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+<i class="no-highlight">9</i>&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+<i class="no-highlight">10</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;/**
+<i class="no-highlight">13</i>&nbsp; * Represents a recipe (combination of ingredients and states).
+<i class="no-highlight">14</i>&nbsp; * 
+<i class="no-highlight">15</i>&nbsp; */
+<i class="no-highlight">16</i>&nbsp;public class Recipe extends Ingredient {
+<i class="no-highlight">17</i>&nbsp;
+<i class="no-highlight">18</i>&nbsp;	/**
+<i class="no-highlight">19</i>&nbsp;	 * Name of the recipe to get texture.
+<i class="no-highlight">20</i>&nbsp;	 */
+<i class="no-highlight">21</i>&nbsp;	public final String name;
+<i class="no-highlight">22</i>&nbsp;
+<i class="no-highlight">23</i>&nbsp;	/**
+<i class="no-highlight">24</i>&nbsp;	 * Map of ingredient and instruction on what to do with it.
+<i class="no-highlight">25</i>&nbsp;	 */
+<i class="no-highlight">26</i>&nbsp;	public Map&lt;Ingredient, String&gt; ingredientInstructions;
+<i class="no-highlight">27</i>&nbsp;
+<i class="no-highlight">28</i>&nbsp;	/**
+<i class="no-highlight">29</i>&nbsp;	 * Whether the recipe has to be made in order (specific order of ingredients).
+<i class="no-highlight">30</i>&nbsp;	 */
+<i class="no-highlight">31</i>&nbsp;	private boolean shouldBeOrdered;
+<i class="no-highlight">32</i>&nbsp;	/**
+<i class="no-highlight">33</i>&nbsp;	 * Additional instructions.
+<i class="no-highlight">34</i>&nbsp;	 */
+<i class="no-highlight">35</i>&nbsp;	private String initialSteps, finalSteps;
+<i class="no-highlight">36</i>&nbsp;
+<i class="no-highlight">37</i>&nbsp;	private Ingredient initialIngredient;
+<i class="no-highlight">38</i>&nbsp;
+<i class="no-highlight">39</i>&nbsp;	/**
+<i class="no-highlight">40</i>&nbsp;	 * How much the menu item will cost.
+<i class="no-highlight">41</i>&nbsp;	 */
+<i class="no-highlight">42</i>&nbsp;	public float cost;
+<i class="no-highlight">43</i>&nbsp;
+<b class="fc"><i class="no-highlight">44</i>&nbsp;	private BitmapFont font = new BitmapFont();</b>
+<i class="no-highlight">45</i>&nbsp;
+<i class="no-highlight">46</i>&nbsp;	/**
+<i class="no-highlight">47</i>&nbsp;	 * Sets the appropriate recipe properties.
+<i class="no-highlight">48</i>&nbsp;	 * 
+<i class="no-highlight">49</i>&nbsp;	 * @param initialSteps           Preface to the recipe.
+<i class="no-highlight">50</i>&nbsp;	 * @param initialIngredient      Ingredient to display with the initial step.
+<i class="no-highlight">51</i>&nbsp;	 * @param ingredientInstructions Map of ingredient and instruction on what to do
+<i class="no-highlight">52</i>&nbsp;	 *                               with it.
+<i class="no-highlight">53</i>&nbsp;	 * @param finalSteps             Postface to the recipe.
+<i class="no-highlight">54</i>&nbsp;	 * @param name                   Name of the recipe to find the correct texture.
+<i class="no-highlight">55</i>&nbsp;	 * @param shouldBeOrdered        Whether the recipe has to be made in order
+<i class="no-highlight">56</i>&nbsp;	 *                               (specific order of ingredients).
+<i class="no-highlight">57</i>&nbsp;	 * @param pos                    The (x, y) coordinates of the ingredient.
+<i class="no-highlight">58</i>&nbsp;	 * @param width                  The recipe&#39;s texture width.
+<i class="no-highlight">59</i>&nbsp;	 * @param height                 The recipe&#39;s texture height.
+<i class="no-highlight">60</i>&nbsp;	 * @param cost                   How much the menu item will cost.
+<i class="no-highlight">61</i>&nbsp;	 */
+<i class="no-highlight">62</i>&nbsp;	public Recipe(String initialSteps, Ingredient initialIngredient, Map&lt;Ingredient, String&gt; ingredientInstructions,
+<i class="no-highlight">63</i>&nbsp;			String finalSteps, String name, boolean shouldBeOrdered, Vector2 pos, float width, float height,
+<i class="no-highlight">64</i>&nbsp;			float cost) {
+<b class="fc"><i class="no-highlight">65</i>&nbsp;		super(pos, width, height, name, 0, 0);</b>
+<b class="fc"><i class="no-highlight">66</i>&nbsp;		this.initialSteps = initialSteps;</b>
+<b class="fc"><i class="no-highlight">67</i>&nbsp;		this.initialIngredient = initialIngredient;</b>
+<b class="fc"><i class="no-highlight">68</i>&nbsp;		this.ingredientInstructions = ingredientInstructions;</b>
+<b class="fc"><i class="no-highlight">69</i>&nbsp;		this.finalSteps = finalSteps;</b>
+<b class="fc"><i class="no-highlight">70</i>&nbsp;		this.name = name;</b>
+<b class="fc"><i class="no-highlight">71</i>&nbsp;		this.shouldBeOrdered = shouldBeOrdered;</b>
+<b class="fc"><i class="no-highlight">72</i>&nbsp;		this.cost = cost;</b>
+<i class="no-highlight">73</i>&nbsp;	}
+<i class="no-highlight">74</i>&nbsp;
+<b class="fc"><i class="no-highlight">75</i>&nbsp;	private static ShapeRenderer _shapeRenderer = null;</b>
+<i class="no-highlight">76</i>&nbsp;
+<i class="no-highlight">77</i>&nbsp;	private static ShapeRenderer getShapeRenderer() {
+<b class="nc"><i class="no-highlight">78</i>&nbsp;		if (_shapeRenderer == null) {</b>
+<b class="nc"><i class="no-highlight">79</i>&nbsp;			_shapeRenderer = new ShapeRenderer();</b>
+<i class="no-highlight">80</i>&nbsp;		}
+<b class="nc"><i class="no-highlight">81</i>&nbsp;		return _shapeRenderer;</b>
+<i class="no-highlight">82</i>&nbsp;	}
+<i class="no-highlight">83</i>&nbsp;
+<i class="no-highlight">84</i>&nbsp;	/**
+<i class="no-highlight">85</i>&nbsp;	 * Show the recipe as a list of instructions with the corresponding ingredient
+<i class="no-highlight">86</i>&nbsp;	 * texture displayed next to it.
+<i class="no-highlight">87</i>&nbsp;	 * 
+<i class="no-highlight">88</i>&nbsp;	 * @param batch The {@link SpriteBatch} to render the textures.
+<i class="no-highlight">89</i>&nbsp;	 * @param pos   The (x, y) coordinates for the first instruction.
+<i class="no-highlight">90</i>&nbsp;	 */
+<i class="no-highlight">91</i>&nbsp;	public void displayRecipe(SpriteBatch batch, Vector2 pos) {
+<b class="nc"><i class="no-highlight">92</i>&nbsp;		String completeRecipe = initialSteps + &quot;\n\n&quot;;</b>
+<b class="nc"><i class="no-highlight">93</i>&nbsp;		int i = -1;</b>
+<b class="nc"><i class="no-highlight">94</i>&nbsp;		if (initialIngredient != null) {</b>
+<b class="nc"><i class="no-highlight">95</i>&nbsp;			i = 0;</b>
+<i class="no-highlight">96</i>&nbsp;			//Ingredient initial = new Ingredient(initialIngredient);
+<b class="nc"><i class="no-highlight">97</i>&nbsp;			initialIngredient.pos = new Vector2(pos);</b>
+<b class="nc"><i class="no-highlight">98</i>&nbsp;			initialIngredient.pos.x -= 48;</b>
+<b class="nc"><i class="no-highlight">99</i>&nbsp;			initialIngredient.pos.y += --i * 2 * font.getLineHeight() + font.getLineHeight();</b>
+<b class="nc"><i class="no-highlight">100</i>&nbsp;			initialIngredient.draw(batch);</b>
+<i class="no-highlight">101</i>&nbsp;		}
+<b class="nc"><i class="no-highlight">102</i>&nbsp;		for (Ingredient ingredient : ingredientInstructions.keySet()) {</b>
+<b class="nc"><i class="no-highlight">103</i>&nbsp;			completeRecipe += ingredientInstructions.get(ingredient) + &quot; &quot; + ingredient.name + &quot;\n\n&quot;;</b>
+<b class="nc"><i class="no-highlight">104</i>&nbsp;			ingredient.pos = new Vector2(pos);</b>
+<b class="nc"><i class="no-highlight">105</i>&nbsp;			ingredient.pos.x -= 48;</b>
+<b class="nc"><i class="no-highlight">106</i>&nbsp;			ingredient.pos.y += --i * 2 * font.getLineHeight() + font.getLineHeight();</b>
+<b class="nc"><i class="no-highlight">107</i>&nbsp;			ingredient.draw(batch);</b>
+<i class="no-highlight">108</i>&nbsp;
+<b class="nc"><i class="no-highlight">109</i>&nbsp;		}</b>
+<i class="no-highlight">110</i>&nbsp;
+<b class="nc"><i class="no-highlight">111</i>&nbsp;		Ingredient result = this;</b>
+<b class="nc"><i class="no-highlight">112</i>&nbsp;		result.pos = new Vector2(pos);</b>
+<b class="nc"><i class="no-highlight">113</i>&nbsp;		result.pos.x -= 48;</b>
+<b class="nc"><i class="no-highlight">114</i>&nbsp;		result.pos.y += --i * 2 * font.getLineHeight() + font.getLineHeight();</b>
+<b class="nc"><i class="no-highlight">115</i>&nbsp;		result.draw(batch);</b>
+<i class="no-highlight">116</i>&nbsp;
+<b class="nc"><i class="no-highlight">117</i>&nbsp;		completeRecipe += finalSteps;</b>
+<i class="no-highlight">118</i>&nbsp;
+<i class="no-highlight">119</i>&nbsp;		// Display the instructions.
+<b class="nc"><i class="no-highlight">120</i>&nbsp;		batch.begin();</b>
+<b class="nc"><i class="no-highlight">121</i>&nbsp;		font.draw(batch, completeRecipe, pos.x - 16, pos.y);</b>
+<b class="nc"><i class="no-highlight">122</i>&nbsp;		batch.end();</b>
+<i class="no-highlight">123</i>&nbsp;
+<i class="no-highlight">124</i>&nbsp;	}
+<i class="no-highlight">125</i>&nbsp;
+<i class="no-highlight">126</i>&nbsp;	/**
+<i class="no-highlight">127</i>&nbsp;	 * Check if there is a recipe with the given ingredients.
+<i class="no-highlight">128</i>&nbsp;	 * 
+<i class="no-highlight">129</i>&nbsp;	 * @param givenIngredients A Stack of ingredients to compare to recipes.
+<i class="no-highlight">130</i>&nbsp;	 * @return A boolean to indicate if a recipe exists with the given ingredients.
+<i class="no-highlight">131</i>&nbsp;	 */
+<i class="no-highlight">132</i>&nbsp;	public boolean matches(Stack&lt;Ingredient&gt; givenIngredients) {
+<b class="fc"><i class="no-highlight">133</i>&nbsp;		ArrayList&lt;Ingredient&gt; toCheck = new ArrayList&lt;Ingredient&gt;(ingredientInstructions.keySet());</b>
+<b class="fc"><i class="no-highlight">134</i>&nbsp;		if (givenIngredients.size() != toCheck.size())</b>
+<b class="fc"><i class="no-highlight">135</i>&nbsp;			return false;</b>
+<b class="fc"><i class="no-highlight">136</i>&nbsp;		if (shouldBeOrdered) {</b>
+<b class="nc"><i class="no-highlight">137</i>&nbsp;			for (int i = 0; i &lt; toCheck.size(); i++)</b>
+<b class="nc"><i class="no-highlight">138</i>&nbsp;				if (!toCheck.get(i).equals(givenIngredients.get(i)))</b>
+<b class="nc"><i class="no-highlight">139</i>&nbsp;					return false;</b>
+<b class="nc"><i class="no-highlight">140</i>&nbsp;			return true;</b>
+<i class="no-highlight">141</i>&nbsp;		}
+<i class="no-highlight">142</i>&nbsp;
+<b class="fc"><i class="no-highlight">143</i>&nbsp;		for (Ingredient ingredient : givenIngredients) {</b>
+<b class="fc"><i class="no-highlight">144</i>&nbsp;			if (contains(ingredient, toCheck)) {</b>
+<b class="fc"><i class="no-highlight">145</i>&nbsp;				toCheck.remove(ingredient);</b>
+<i class="no-highlight">146</i>&nbsp;			}
+<b class="fc"><i class="no-highlight">147</i>&nbsp;		}</b>
+<b class="fc"><i class="no-highlight">148</i>&nbsp;		if (toCheck.isEmpty())</b>
+<b class="fc"><i class="no-highlight">149</i>&nbsp;			return true;</b>
+<i class="no-highlight">150</i>&nbsp;
+<b class="fc"><i class="no-highlight">151</i>&nbsp;		return false;</b>
+<i class="no-highlight">152</i>&nbsp;	}
+<i class="no-highlight">153</i>&nbsp;
+<i class="no-highlight">154</i>&nbsp;	/**
+<i class="no-highlight">155</i>&nbsp;	 * Check whether the list contains a match with the given ingredient (since we
+<i class="no-highlight">156</i>&nbsp;	 * use {@link Ingredient#equals(Object)}).
+<i class="no-highlight">157</i>&nbsp;	 * 
+<i class="no-highlight">158</i>&nbsp;	 * @param checkIngredient The ingredient to check.
+<i class="no-highlight">159</i>&nbsp;	 * @param ingredients     The list of ingredients to search through.
+<i class="no-highlight">160</i>&nbsp;	 * @return A boolean to indicate if the ingredient matches one in the list.
+<i class="no-highlight">161</i>&nbsp;	 */
+<i class="no-highlight">162</i>&nbsp;	private boolean contains(Ingredient checkIngredient, ArrayList&lt;Ingredient&gt; ingredients) {
+<b class="fc"><i class="no-highlight">163</i>&nbsp;		for (Ingredient ingredient : ingredientInstructions.keySet()) {</b>
+<b class="fc"><i class="no-highlight">164</i>&nbsp;			if (ingredient.equals(checkIngredient)) {</b>
+<b class="fc"><i class="no-highlight">165</i>&nbsp;				return true;</b>
+<i class="no-highlight">166</i>&nbsp;			}
+<b class="fc"><i class="no-highlight">167</i>&nbsp;		}</b>
+<i class="no-highlight">168</i>&nbsp;
+<b class="fc"><i class="no-highlight">169</i>&nbsp;		return false;</b>
+<i class="no-highlight">170</i>&nbsp;	}
+<i class="no-highlight">171</i>&nbsp;
+<i class="no-highlight">172</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -261,15 +260,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

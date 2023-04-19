@@ -7,10 +7,9 @@
   <title>Coverage Report > CustomerTests</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -74,144 +73,144 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3.gdx.tests;
-&nbsp;
-&nbsp;import com.badlogic.gdx.Gdx;
-&nbsp;import com.badlogic.gdx.maps.tiled.TiledMap;
-&nbsp;import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-&nbsp;import com.badlogic.gdx.math.Vector2;
-&nbsp;import com.team3gdx.game.entity.Customer;
-&nbsp;import com.team3gdx.game.entity.CustomerController;
-&nbsp;import org.hamcrest.CoreMatchers;
-&nbsp;import org.junit.Rule;
-&nbsp;import org.junit.Test;
-&nbsp;import org.junit.rules.ExpectedException;
-&nbsp;import org.junit.runner.RunWith;
-&nbsp;
-&nbsp;import static org.junit.Assert.*;
-&nbsp;
-&nbsp;@RunWith(GdxTestRunner.class)
-<b class="fc">&nbsp;public class CustomerTests {</b>
-&nbsp;
-&nbsp;    // This tests customer creation through the spawning of a customer
-&nbsp;    @Test
-&nbsp;    public void testCustomerSpawn(){
-&nbsp;
-<b class="fc">&nbsp;        TiledMap map1 = new TmxMapLoader().load(&quot;map/art_map/customertest.tmx&quot;);</b>
-<b class="fc">&nbsp;        CustomerController cc = new CustomerController(map1, &quot;normal&quot;);</b>
-&nbsp;        // Test when no customers exist:
-<b class="fc">&nbsp;        assertTrue(&quot;There should not be any customers spawned/existing but at least one exists&quot;, cc.customers[0]==null</b>
-&nbsp;                &amp;&amp; cc.customers[1]==null &amp;&amp; cc.customers[2]==null &amp;&amp; cc.customers[3]==null &amp;&amp; cc.customers[4]==null);
-<b class="fc">&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 0 but isn&#39;t&quot;, 0, cc.amountActiveCustomers);</b>
-&nbsp;
-&nbsp;        // Test when 1 customer exists
-<b class="fc">&nbsp;        cc.spawnCustomer();</b>
-<b class="fc">&nbsp;        assertTrue(&quot;A customer should have been spawned so X.customers[0] should be of type Customer&quot; +</b>
-&nbsp;                &quot;but is not&quot;, cc.customers[0] instanceof Customer ); // This is highlighted as redundant but ISN&#39;T!
-<b class="fc">&nbsp;        assertTrue(&quot;A single customer should have been spawned but either a customer hasn&#39;t been spawned&quot; +</b>
-&nbsp;                &quot;or multiple customers have been spawned&quot;, cc.customers[0] instanceof Customer
-&nbsp;                &amp;&amp; cc.customers[1]==null &amp;&amp; cc.customers[2]==null &amp;&amp; cc.customers[3]==null &amp;&amp; cc.customers[4]==null);
-&nbsp;                // This is highlighted as redundant but ISN&#39;T!
-<b class="fc">&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 1 but isn&#39;t&quot;, 1, cc.amountActiveCustomers);</b>
-&nbsp;
-&nbsp;        // Test when 2 customers exists
-<b class="fc">&nbsp;        cc.spawnCustomer();</b>
-<b class="fc">&nbsp;        assertTrue(&quot;A customer should have been spawned so X.customers[1] should be of type Customer&quot; +</b>
-&nbsp;                &quot;but is not&quot;, cc.customers[1] instanceof Customer );
-<b class="fc">&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 2 but isn&#39;t&quot;, 2, cc.amountActiveCustomers);</b>
-&nbsp;
-&nbsp;        // Test when 3 customers exists
-<b class="fc">&nbsp;        cc.spawnCustomer();</b>
-<b class="fc">&nbsp;        assertTrue(&quot;A customer should have been spawned so X.customers[2] should be of type Customer&quot; +</b>
-&nbsp;                &quot;but is not&quot;, cc.customers[2] instanceof Customer );
-<b class="fc">&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 3 but isn&#39;t&quot;, 3, cc.amountActiveCustomers);</b>
-&nbsp;
-&nbsp;
-&nbsp;        // Test when 4 customers exists
-<b class="fc">&nbsp;        cc.spawnCustomer();</b>
-<b class="fc">&nbsp;        assertTrue(&quot;A customer should have been spawned so X.customers[3] should be of type Customer&quot; +</b>
-&nbsp;                &quot;but is not&quot;, cc.customers[3] instanceof Customer );
-<b class="fc">&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 4 but isn&#39;t&quot;, 4, cc.amountActiveCustomers);</b>
-&nbsp;
-&nbsp;
-&nbsp;        // Test when 5 customers exists
-<b class="fc">&nbsp;        cc.spawnCustomer();</b>
-<b class="fc">&nbsp;        assertTrue(&quot;A customer should have been spawned so X.customers[4] should be of type Customer&quot; +</b>
-&nbsp;                &quot;but is not&quot;, cc.customers[4] instanceof Customer );
-<b class="fc">&nbsp;        assertTrue(&quot;Max number of customers should have been spawned so there should be a Customer type&quot; +</b>
-&nbsp;                &quot;variable at every index of customers&quot;, cc.customers[0] instanceof Customer
-&nbsp;                &amp;&amp; cc.customers[1] instanceof Customer &amp;&amp; cc.customers[2] instanceof Customer
-&nbsp;                &amp;&amp; cc.customers[3] instanceof Customer &amp;&amp; cc.customers[4] instanceof Customer);
-&nbsp;        // This is highlighted as redundant but ISN&#39;T!
-<b class="fc">&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 5 but isn&#39;t&quot;, 5, cc.amountActiveCustomers);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    @Test
-&nbsp;    public void testCustomerDeletion(){
-<b class="fc">&nbsp;        TiledMap map1 = new TmxMapLoader().load(&quot;map/art_map/customertest.tmx&quot;);</b>
-<b class="fc">&nbsp;        CustomerController cc = new CustomerController(map1, &quot;normal&quot;);</b>
-&nbsp;
-&nbsp;        // Testing the customer deletion method with signature, &#39;public void delCustomer(int num)&#39;:
-<b class="fc">&nbsp;        cc.spawnCustomer();</b>
-<b class="fc">&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 1 but isn&#39;t&quot;, 1, cc.amountActiveCustomers);</b>
-&nbsp;        // A customer has to be locked for it to be deleted (think when a customer is locked it means that they&#39;re ordering)
-<b class="fc">&nbsp;        cc.customers[0].locked = true;</b>
-<b class="fc">&nbsp;        cc.delCustomer(0);</b>
-<b class="fc">&nbsp;        assertNull(&quot;First customer should have been deleted but it hasn&#39;t &quot;, cc.customers[0]);</b>
-<b class="fc">&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 0 but isn&#39;t&quot;, 0, cc.amountActiveCustomers);</b>
-&nbsp;
-&nbsp;        // Testing the customer deletion method with signature, &#39;public void delCustomer(Customer customer)&#39;:
-<b class="fc">&nbsp;        cc.spawnCustomer();</b>
-<b class="fc">&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 1 but isn&#39;t&quot;, 1, cc.amountActiveCustomers);</b>
-<b class="fc">&nbsp;        Customer testCustomer1 = cc.customers[0];</b>
-&nbsp;        // A customer has to be locked for it to be deleted (think when a customer is locked it means that they&#39;re ordering)
-<b class="fc">&nbsp;        testCustomer1.locked = true;</b>
-<b class="fc">&nbsp;        cc.delCustomer(testCustomer1);</b>
-<b class="fc">&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 0 but isn&#39;t&quot;, 0, cc.amountActiveCustomers);</b>
-<b class="fc">&nbsp;        assertNull(&quot;There should be no existing customers but at least one exists&quot;, cc.customers[0]);</b>
-&nbsp;
-&nbsp;    }
-&nbsp;
-&nbsp;    @Test
-&nbsp;    public void testCustomerAtPosition(){
-<b class="fc">&nbsp;        TiledMap map1 = new TmxMapLoader().load(&quot;map/art_map/customertest.tmx&quot;);</b>
-<b class="fc">&nbsp;        CustomerController cc = new CustomerController(map1, &quot;normal&quot;);</b>
-<b class="fc">&nbsp;        cc.spawnCustomer();</b>
-<b class="fc">&nbsp;        Customer testCustomer = cc.customers[0];</b>
-<b class="fc">&nbsp;        testCustomer.posy = 64;</b>
-<b class="fc">&nbsp;        testCustomer.locked = true;</b>
-<b class="fc">&nbsp;        assertEquals(&quot;&quot;, testCustomer, cc.isCustomerAtPos(new Vector2(testCustomer.posx, testCustomer.posy)));</b>
-&nbsp;        // This isn&#39;t going to work because  isCustomerAtPos() doesn&#39;t work as it should really
-&nbsp;
-&nbsp;        // Test when there is no customer to check the position of:
-&nbsp;//        cc.isCustomerAtPos(new Vector2(cc.customers[2].posx, cc.customers[2].posy));
-&nbsp;    }
-&nbsp;
-&nbsp;
-&nbsp;    /** NOTE: There are a few other exceptions that could be thrown by the computeCustomerZone method, but
-&nbsp;     * we would have to create multiple, very specific tile maps to cover all of them. The one tested below is the
-&nbsp;     * first exception that occurs */
-<b class="fc">&nbsp;    @Rule // Used by testIncorrectCustomerZone</b>
-<b class="fc">&nbsp;    public ExpectedException exceptionRule = ExpectedException.none(); // .none() is deprecated</b>
-&nbsp;
-&nbsp;    /**
-&nbsp;     * Tests that the correct exception is thrown when a tilemap is loaded which has no area for customers
-&nbsp;     */
-&nbsp;    @Test
-&nbsp;    public void testIncorrectCustomerZone(){
-<b class="fc">&nbsp;        exceptionRule.expect(IllegalArgumentException.class);</b>
-<b class="fc">&nbsp;        exceptionRule.expectMessage(CoreMatchers.equalTo(&quot;No customer zone was included in the tile map&quot;));</b>
-&nbsp;        /** Have to use &#39;CoreMatchers.equalTo&#39; as the version of Mockito we use doesn&#39;t have the containsString method
-&nbsp;         * that expectMessage(String substring) uses.  We&#39;re using expectMessage(Matcher&lt;String&gt; matcher) instead */
-&nbsp;
-&nbsp;
-<b class="fc">&nbsp;        TiledMap wrongMap = new TmxMapLoader().load(&quot;map/customerTestMap.tmx&quot;);</b>
-<b class="fc">&nbsp;        CustomerController cc = new CustomerController(wrongMap, &quot;normal&quot;);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3.gdx.tests;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.badlogic.gdx.Gdx;
+<i class="no-highlight">4</i>&nbsp;import com.badlogic.gdx.maps.tiled.TiledMap;
+<i class="no-highlight">5</i>&nbsp;import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+<i class="no-highlight">6</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">7</i>&nbsp;import com.team3gdx.game.entity.Customer;
+<i class="no-highlight">8</i>&nbsp;import com.team3gdx.game.entity.CustomerController;
+<i class="no-highlight">9</i>&nbsp;import org.hamcrest.CoreMatchers;
+<i class="no-highlight">10</i>&nbsp;import org.junit.Rule;
+<i class="no-highlight">11</i>&nbsp;import org.junit.Test;
+<i class="no-highlight">12</i>&nbsp;import org.junit.rules.ExpectedException;
+<i class="no-highlight">13</i>&nbsp;import org.junit.runner.RunWith;
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;import static org.junit.Assert.*;
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;@RunWith(GdxTestRunner.class)
+<b class="fc"><i class="no-highlight">18</i>&nbsp;public class CustomerTests {</b>
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;    // This tests customer creation through the spawning of a customer
+<i class="no-highlight">21</i>&nbsp;    @Test
+<i class="no-highlight">22</i>&nbsp;    public void testCustomerSpawn(){
+<i class="no-highlight">23</i>&nbsp;
+<b class="fc"><i class="no-highlight">24</i>&nbsp;        TiledMap map1 = new TmxMapLoader().load(&quot;map/art_map/customertest.tmx&quot;);</b>
+<b class="fc"><i class="no-highlight">25</i>&nbsp;        CustomerController cc = new CustomerController(map1, &quot;normal&quot;);</b>
+<i class="no-highlight">26</i>&nbsp;        // Test when no customers exist:
+<b class="fc"><i class="no-highlight">27</i>&nbsp;        assertTrue(&quot;There should not be any customers spawned/existing but at least one exists&quot;, cc.customers[0]==null</b>
+<i class="no-highlight">28</i>&nbsp;                &amp;&amp; cc.customers[1]==null &amp;&amp; cc.customers[2]==null &amp;&amp; cc.customers[3]==null &amp;&amp; cc.customers[4]==null);
+<b class="fc"><i class="no-highlight">29</i>&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 0 but isn&#39;t&quot;, 0, cc.amountActiveCustomers);</b>
+<i class="no-highlight">30</i>&nbsp;
+<i class="no-highlight">31</i>&nbsp;        // Test when 1 customer exists
+<b class="fc"><i class="no-highlight">32</i>&nbsp;        cc.spawnCustomer();</b>
+<b class="fc"><i class="no-highlight">33</i>&nbsp;        assertTrue(&quot;A customer should have been spawned so X.customers[0] should be of type Customer&quot; +</b>
+<i class="no-highlight">34</i>&nbsp;                &quot;but is not&quot;, cc.customers[0] instanceof Customer ); // This is highlighted as redundant but ISN&#39;T!
+<b class="fc"><i class="no-highlight">35</i>&nbsp;        assertTrue(&quot;A single customer should have been spawned but either a customer hasn&#39;t been spawned&quot; +</b>
+<i class="no-highlight">36</i>&nbsp;                &quot;or multiple customers have been spawned&quot;, cc.customers[0] instanceof Customer
+<i class="no-highlight">37</i>&nbsp;                &amp;&amp; cc.customers[1]==null &amp;&amp; cc.customers[2]==null &amp;&amp; cc.customers[3]==null &amp;&amp; cc.customers[4]==null);
+<i class="no-highlight">38</i>&nbsp;                // This is highlighted as redundant but ISN&#39;T!
+<b class="fc"><i class="no-highlight">39</i>&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 1 but isn&#39;t&quot;, 1, cc.amountActiveCustomers);</b>
+<i class="no-highlight">40</i>&nbsp;
+<i class="no-highlight">41</i>&nbsp;        // Test when 2 customers exists
+<b class="fc"><i class="no-highlight">42</i>&nbsp;        cc.spawnCustomer();</b>
+<b class="fc"><i class="no-highlight">43</i>&nbsp;        assertTrue(&quot;A customer should have been spawned so X.customers[1] should be of type Customer&quot; +</b>
+<i class="no-highlight">44</i>&nbsp;                &quot;but is not&quot;, cc.customers[1] instanceof Customer );
+<b class="fc"><i class="no-highlight">45</i>&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 2 but isn&#39;t&quot;, 2, cc.amountActiveCustomers);</b>
+<i class="no-highlight">46</i>&nbsp;
+<i class="no-highlight">47</i>&nbsp;        // Test when 3 customers exists
+<b class="fc"><i class="no-highlight">48</i>&nbsp;        cc.spawnCustomer();</b>
+<b class="fc"><i class="no-highlight">49</i>&nbsp;        assertTrue(&quot;A customer should have been spawned so X.customers[2] should be of type Customer&quot; +</b>
+<i class="no-highlight">50</i>&nbsp;                &quot;but is not&quot;, cc.customers[2] instanceof Customer );
+<b class="fc"><i class="no-highlight">51</i>&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 3 but isn&#39;t&quot;, 3, cc.amountActiveCustomers);</b>
+<i class="no-highlight">52</i>&nbsp;
+<i class="no-highlight">53</i>&nbsp;
+<i class="no-highlight">54</i>&nbsp;        // Test when 4 customers exists
+<b class="fc"><i class="no-highlight">55</i>&nbsp;        cc.spawnCustomer();</b>
+<b class="fc"><i class="no-highlight">56</i>&nbsp;        assertTrue(&quot;A customer should have been spawned so X.customers[3] should be of type Customer&quot; +</b>
+<i class="no-highlight">57</i>&nbsp;                &quot;but is not&quot;, cc.customers[3] instanceof Customer );
+<b class="fc"><i class="no-highlight">58</i>&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 4 but isn&#39;t&quot;, 4, cc.amountActiveCustomers);</b>
+<i class="no-highlight">59</i>&nbsp;
+<i class="no-highlight">60</i>&nbsp;
+<i class="no-highlight">61</i>&nbsp;        // Test when 5 customers exists
+<b class="fc"><i class="no-highlight">62</i>&nbsp;        cc.spawnCustomer();</b>
+<b class="fc"><i class="no-highlight">63</i>&nbsp;        assertTrue(&quot;A customer should have been spawned so X.customers[4] should be of type Customer&quot; +</b>
+<i class="no-highlight">64</i>&nbsp;                &quot;but is not&quot;, cc.customers[4] instanceof Customer );
+<b class="fc"><i class="no-highlight">65</i>&nbsp;        assertTrue(&quot;Max number of customers should have been spawned so there should be a Customer type&quot; +</b>
+<i class="no-highlight">66</i>&nbsp;                &quot;variable at every index of customers&quot;, cc.customers[0] instanceof Customer
+<i class="no-highlight">67</i>&nbsp;                &amp;&amp; cc.customers[1] instanceof Customer &amp;&amp; cc.customers[2] instanceof Customer
+<i class="no-highlight">68</i>&nbsp;                &amp;&amp; cc.customers[3] instanceof Customer &amp;&amp; cc.customers[4] instanceof Customer);
+<i class="no-highlight">69</i>&nbsp;        // This is highlighted as redundant but ISN&#39;T!
+<b class="fc"><i class="no-highlight">70</i>&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 5 but isn&#39;t&quot;, 5, cc.amountActiveCustomers);</b>
+<i class="no-highlight">71</i>&nbsp;    }
+<i class="no-highlight">72</i>&nbsp;
+<i class="no-highlight">73</i>&nbsp;    @Test
+<i class="no-highlight">74</i>&nbsp;    public void testCustomerDeletion(){
+<b class="fc"><i class="no-highlight">75</i>&nbsp;        TiledMap map1 = new TmxMapLoader().load(&quot;map/art_map/customertest.tmx&quot;);</b>
+<b class="fc"><i class="no-highlight">76</i>&nbsp;        CustomerController cc = new CustomerController(map1, &quot;normal&quot;);</b>
+<i class="no-highlight">77</i>&nbsp;
+<i class="no-highlight">78</i>&nbsp;        // Testing the customer deletion method with signature, &#39;public void delCustomer(int num)&#39;:
+<b class="fc"><i class="no-highlight">79</i>&nbsp;        cc.spawnCustomer();</b>
+<b class="fc"><i class="no-highlight">80</i>&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 1 but isn&#39;t&quot;, 1, cc.amountActiveCustomers);</b>
+<i class="no-highlight">81</i>&nbsp;        // A customer has to be locked for it to be deleted (think when a customer is locked it means that they&#39;re ordering)
+<b class="fc"><i class="no-highlight">82</i>&nbsp;        cc.customers[0].locked = true;</b>
+<b class="fc"><i class="no-highlight">83</i>&nbsp;        cc.delCustomer(0);</b>
+<b class="fc"><i class="no-highlight">84</i>&nbsp;        assertNull(&quot;First customer should have been deleted but it hasn&#39;t &quot;, cc.customers[0]);</b>
+<b class="fc"><i class="no-highlight">85</i>&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 0 but isn&#39;t&quot;, 0, cc.amountActiveCustomers);</b>
+<i class="no-highlight">86</i>&nbsp;
+<i class="no-highlight">87</i>&nbsp;        // Testing the customer deletion method with signature, &#39;public void delCustomer(Customer customer)&#39;:
+<b class="fc"><i class="no-highlight">88</i>&nbsp;        cc.spawnCustomer();</b>
+<b class="fc"><i class="no-highlight">89</i>&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 1 but isn&#39;t&quot;, 1, cc.amountActiveCustomers);</b>
+<b class="fc"><i class="no-highlight">90</i>&nbsp;        Customer testCustomer1 = cc.customers[0];</b>
+<i class="no-highlight">91</i>&nbsp;        // A customer has to be locked for it to be deleted (think when a customer is locked it means that they&#39;re ordering)
+<b class="fc"><i class="no-highlight">92</i>&nbsp;        testCustomer1.locked = true;</b>
+<b class="fc"><i class="no-highlight">93</i>&nbsp;        cc.delCustomer(testCustomer1);</b>
+<b class="fc"><i class="no-highlight">94</i>&nbsp;        assertEquals(&quot;Number of active customers (amountActiveCustomers) should be 0 but isn&#39;t&quot;, 0, cc.amountActiveCustomers);</b>
+<b class="fc"><i class="no-highlight">95</i>&nbsp;        assertNull(&quot;There should be no existing customers but at least one exists&quot;, cc.customers[0]);</b>
+<i class="no-highlight">96</i>&nbsp;
+<i class="no-highlight">97</i>&nbsp;    }
+<i class="no-highlight">98</i>&nbsp;
+<i class="no-highlight">99</i>&nbsp;    @Test
+<i class="no-highlight">100</i>&nbsp;    public void testCustomerAtPosition(){
+<b class="fc"><i class="no-highlight">101</i>&nbsp;        TiledMap map1 = new TmxMapLoader().load(&quot;map/art_map/customertest.tmx&quot;);</b>
+<b class="fc"><i class="no-highlight">102</i>&nbsp;        CustomerController cc = new CustomerController(map1, &quot;normal&quot;);</b>
+<b class="fc"><i class="no-highlight">103</i>&nbsp;        cc.spawnCustomer();</b>
+<b class="fc"><i class="no-highlight">104</i>&nbsp;        Customer testCustomer = cc.customers[0];</b>
+<b class="fc"><i class="no-highlight">105</i>&nbsp;        testCustomer.posy = 64;</b>
+<b class="fc"><i class="no-highlight">106</i>&nbsp;        testCustomer.locked = true;</b>
+<b class="fc"><i class="no-highlight">107</i>&nbsp;        assertEquals(&quot;&quot;, testCustomer, cc.isCustomerAtPos(new Vector2(testCustomer.posx, testCustomer.posy)));</b>
+<i class="no-highlight">108</i>&nbsp;        // This isn&#39;t going to work because  isCustomerAtPos() doesn&#39;t work as it should really
+<i class="no-highlight">109</i>&nbsp;
+<i class="no-highlight">110</i>&nbsp;        // Test when there is no customer to check the position of:
+<i class="no-highlight">111</i>&nbsp;//        cc.isCustomerAtPos(new Vector2(cc.customers[2].posx, cc.customers[2].posy));
+<i class="no-highlight">112</i>&nbsp;    }
+<i class="no-highlight">113</i>&nbsp;
+<i class="no-highlight">114</i>&nbsp;
+<i class="no-highlight">115</i>&nbsp;    /** NOTE: There are a few other exceptions that could be thrown by the computeCustomerZone method, but
+<i class="no-highlight">116</i>&nbsp;     * we would have to create multiple, very specific tile maps to cover all of them. The one tested below is the
+<i class="no-highlight">117</i>&nbsp;     * first exception that occurs */
+<b class="fc"><i class="no-highlight">118</i>&nbsp;    @Rule // Used by testIncorrectCustomerZone</b>
+<b class="fc"><i class="no-highlight">119</i>&nbsp;    public ExpectedException exceptionRule = ExpectedException.none(); // .none() is deprecated</b>
+<i class="no-highlight">120</i>&nbsp;
+<i class="no-highlight">121</i>&nbsp;    /**
+<i class="no-highlight">122</i>&nbsp;     * Tests that the correct exception is thrown when a tilemap is loaded which has no area for customers
+<i class="no-highlight">123</i>&nbsp;     */
+<i class="no-highlight">124</i>&nbsp;    @Test
+<i class="no-highlight">125</i>&nbsp;    public void testIncorrectCustomerZone(){
+<b class="fc"><i class="no-highlight">126</i>&nbsp;        exceptionRule.expect(IllegalArgumentException.class);</b>
+<b class="fc"><i class="no-highlight">127</i>&nbsp;        exceptionRule.expectMessage(CoreMatchers.equalTo(&quot;No customer zone was included in the tile map&quot;));</b>
+<i class="no-highlight">128</i>&nbsp;        /** Have to use &#39;CoreMatchers.equalTo&#39; as the version of Mockito we use doesn&#39;t have the containsString method
+<i class="no-highlight">129</i>&nbsp;         * that expectMessage(String substring) uses.  We&#39;re using expectMessage(Matcher&lt;String&gt; matcher) instead */
+<i class="no-highlight">130</i>&nbsp;
+<i class="no-highlight">131</i>&nbsp;
+<b class="fc"><i class="no-highlight">132</i>&nbsp;        TiledMap wrongMap = new TmxMapLoader().load(&quot;map/customerTestMap.tmx&quot;);</b>
+<b class="fc"><i class="no-highlight">133</i>&nbsp;        CustomerController cc = new CustomerController(wrongMap, &quot;normal&quot;);</b>
+<i class="no-highlight">134</i>&nbsp;    }
+<i class="no-highlight">135</i>&nbsp;
+<i class="no-highlight">136</i>&nbsp;
+<i class="no-highlight">137</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -226,15 +225,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>
