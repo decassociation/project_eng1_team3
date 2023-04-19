@@ -42,6 +42,8 @@ public class Tutorial {
 		stages.add(new PosTextPair(new Vector2(6 * 64, 8 * 64),
 				" [Preparation station] to form patties and prepare the order... "));
 		stages.add(new PosTextPair(new Vector2(3 * 64, 9 * 64), " to then serve the customer in the shortest time. "));
+		stages.add(new PosTextPair(new Vector2(3 * 64, 9 * 64), " You can also find powerups in the kitchen, there are five mystery powerups. "));
+		stages.add(new PosTextPair(new Vector2(3 * 64, 9 * 64), " There is a speedboost, a bean explosion, reputation buff, customer auto server and a kitchen cleanup powerup. "));
 		stages.add(new PosTextPair(GameScreen.cook.pos, " Goodluck! "));
 	}
 
