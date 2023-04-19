@@ -224,7 +224,7 @@ public class GameScreen implements Screen {
 		control = new Control();
 		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
 		map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
+		if (!testSave) tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
 		constructCollisionData(map1);
 		cc = new CustomerController(map1, difficulty);
 		cc.spawnCustomer();

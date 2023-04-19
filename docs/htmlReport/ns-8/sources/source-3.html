@@ -7,10 +7,9 @@
   <title>Coverage Report > Control</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -74,136 +73,136 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.util;
-&nbsp;
-&nbsp;import com.badlogic.gdx.Gdx;
-&nbsp;import com.badlogic.gdx.Input.Keys;
-&nbsp;import com.badlogic.gdx.InputAdapter;
-&nbsp;import com.badlogic.gdx.InputProcessor;
-&nbsp;
-<b class="fc">&nbsp;public class Control extends InputAdapter implements InputProcessor {</b>
-&nbsp;
-&nbsp;	public boolean up, down, left, right;
-&nbsp;	public boolean del;
-&nbsp;
-&nbsp;	public boolean interact, drop, flip;
-&nbsp;	public boolean tab, shift;
-&nbsp;
-&nbsp;	@Override
-&nbsp;	public boolean keyDown(int keyCode) {
-<b class="nc">&nbsp;		switch (keyCode) {</b>
-&nbsp;		case Keys.DOWN:
-<b class="nc">&nbsp;			down = true;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.UP:
-<b class="nc">&nbsp;			up = true;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.LEFT:
-<b class="nc">&nbsp;			left = true;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.RIGHT:
-<b class="nc">&nbsp;			right = true;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.W:
-<b class="nc">&nbsp;			up = true;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.A:
-<b class="nc">&nbsp;			left = true;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.S:
-<b class="nc">&nbsp;			down = true;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.D:
-<b class="nc">&nbsp;			right = true;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.DEL:
-<b class="nc">&nbsp;			del = true;</b>
-&nbsp;			break;
-&nbsp;		}
-<b class="nc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	@Override
-&nbsp;	public boolean keyUp(int keycode) {
-<b class="nc">&nbsp;		switch (keycode) {</b>
-&nbsp;		case Keys.DOWN:
-<b class="nc">&nbsp;			down = false;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.UP:
-<b class="nc">&nbsp;			up = false;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.LEFT:
-<b class="nc">&nbsp;			left = false;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.RIGHT:
-<b class="nc">&nbsp;			right = false;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.W:
-<b class="nc">&nbsp;			up = false;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.A:
-<b class="nc">&nbsp;			left = false;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.S:
-<b class="nc">&nbsp;			down = false;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.D:
-<b class="nc">&nbsp;			right = false;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.DEL:
-<b class="nc">&nbsp;			del = false;</b>
-&nbsp;		case Keys.Q:
-<b class="nc">&nbsp;			interact = true;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.E:
-<b class="nc">&nbsp;			drop = true;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.F:
-<b class="nc">&nbsp;			flip = true;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.TAB:
-<b class="nc">&nbsp;			tab = true;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.SHIFT_LEFT:
-<b class="nc">&nbsp;			shift = true;</b>
-<b class="nc">&nbsp;			break;</b>
-&nbsp;		case Keys.ESCAPE:
-&nbsp;			break;
-&nbsp;		}
-<b class="nc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	@Override
-&nbsp;	public boolean keyTyped(char character) {
-<b class="nc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	@Override
-&nbsp;	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-<b class="nc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	@Override
-&nbsp;	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-<b class="nc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	@Override
-&nbsp;	public boolean touchDragged(int screenX, int screenY, int pointer) {
-<b class="nc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	@Override
-&nbsp;	public boolean mouseMoved(int screenX, int screenY) {
-<b class="nc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	public boolean scrolled(int amount) {
-<b class="nc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.util;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.badlogic.gdx.Gdx;
+<i class="no-highlight">4</i>&nbsp;import com.badlogic.gdx.Input.Keys;
+<i class="no-highlight">5</i>&nbsp;import com.badlogic.gdx.InputAdapter;
+<i class="no-highlight">6</i>&nbsp;import com.badlogic.gdx.InputProcessor;
+<i class="no-highlight">7</i>&nbsp;
+<b class="fc"><i class="no-highlight">8</i>&nbsp;public class Control extends InputAdapter implements InputProcessor {</b>
+<i class="no-highlight">9</i>&nbsp;
+<i class="no-highlight">10</i>&nbsp;	public boolean up, down, left, right;
+<i class="no-highlight">11</i>&nbsp;	public boolean del;
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;	public boolean interact, drop, flip;
+<i class="no-highlight">14</i>&nbsp;	public boolean tab, shift;
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;	@Override
+<i class="no-highlight">17</i>&nbsp;	public boolean keyDown(int keyCode) {
+<b class="nc"><i class="no-highlight">18</i>&nbsp;		switch (keyCode) {</b>
+<i class="no-highlight">19</i>&nbsp;		case Keys.DOWN:
+<b class="nc"><i class="no-highlight">20</i>&nbsp;			down = true;</b>
+<b class="nc"><i class="no-highlight">21</i>&nbsp;			break;</b>
+<i class="no-highlight">22</i>&nbsp;		case Keys.UP:
+<b class="nc"><i class="no-highlight">23</i>&nbsp;			up = true;</b>
+<b class="nc"><i class="no-highlight">24</i>&nbsp;			break;</b>
+<i class="no-highlight">25</i>&nbsp;		case Keys.LEFT:
+<b class="nc"><i class="no-highlight">26</i>&nbsp;			left = true;</b>
+<b class="nc"><i class="no-highlight">27</i>&nbsp;			break;</b>
+<i class="no-highlight">28</i>&nbsp;		case Keys.RIGHT:
+<b class="nc"><i class="no-highlight">29</i>&nbsp;			right = true;</b>
+<b class="nc"><i class="no-highlight">30</i>&nbsp;			break;</b>
+<i class="no-highlight">31</i>&nbsp;		case Keys.W:
+<b class="nc"><i class="no-highlight">32</i>&nbsp;			up = true;</b>
+<b class="nc"><i class="no-highlight">33</i>&nbsp;			break;</b>
+<i class="no-highlight">34</i>&nbsp;		case Keys.A:
+<b class="nc"><i class="no-highlight">35</i>&nbsp;			left = true;</b>
+<b class="nc"><i class="no-highlight">36</i>&nbsp;			break;</b>
+<i class="no-highlight">37</i>&nbsp;		case Keys.S:
+<b class="nc"><i class="no-highlight">38</i>&nbsp;			down = true;</b>
+<b class="nc"><i class="no-highlight">39</i>&nbsp;			break;</b>
+<i class="no-highlight">40</i>&nbsp;		case Keys.D:
+<b class="nc"><i class="no-highlight">41</i>&nbsp;			right = true;</b>
+<b class="nc"><i class="no-highlight">42</i>&nbsp;			break;</b>
+<i class="no-highlight">43</i>&nbsp;		case Keys.DEL:
+<b class="nc"><i class="no-highlight">44</i>&nbsp;			del = true;</b>
+<i class="no-highlight">45</i>&nbsp;			break;
+<i class="no-highlight">46</i>&nbsp;		}
+<b class="nc"><i class="no-highlight">47</i>&nbsp;		return false;</b>
+<i class="no-highlight">48</i>&nbsp;	}
+<i class="no-highlight">49</i>&nbsp;
+<i class="no-highlight">50</i>&nbsp;	@Override
+<i class="no-highlight">51</i>&nbsp;	public boolean keyUp(int keycode) {
+<b class="nc"><i class="no-highlight">52</i>&nbsp;		switch (keycode) {</b>
+<i class="no-highlight">53</i>&nbsp;		case Keys.DOWN:
+<b class="nc"><i class="no-highlight">54</i>&nbsp;			down = false;</b>
+<b class="nc"><i class="no-highlight">55</i>&nbsp;			break;</b>
+<i class="no-highlight">56</i>&nbsp;		case Keys.UP:
+<b class="nc"><i class="no-highlight">57</i>&nbsp;			up = false;</b>
+<b class="nc"><i class="no-highlight">58</i>&nbsp;			break;</b>
+<i class="no-highlight">59</i>&nbsp;		case Keys.LEFT:
+<b class="nc"><i class="no-highlight">60</i>&nbsp;			left = false;</b>
+<b class="nc"><i class="no-highlight">61</i>&nbsp;			break;</b>
+<i class="no-highlight">62</i>&nbsp;		case Keys.RIGHT:
+<b class="nc"><i class="no-highlight">63</i>&nbsp;			right = false;</b>
+<b class="nc"><i class="no-highlight">64</i>&nbsp;			break;</b>
+<i class="no-highlight">65</i>&nbsp;		case Keys.W:
+<b class="nc"><i class="no-highlight">66</i>&nbsp;			up = false;</b>
+<b class="nc"><i class="no-highlight">67</i>&nbsp;			break;</b>
+<i class="no-highlight">68</i>&nbsp;		case Keys.A:
+<b class="nc"><i class="no-highlight">69</i>&nbsp;			left = false;</b>
+<b class="nc"><i class="no-highlight">70</i>&nbsp;			break;</b>
+<i class="no-highlight">71</i>&nbsp;		case Keys.S:
+<b class="nc"><i class="no-highlight">72</i>&nbsp;			down = false;</b>
+<b class="nc"><i class="no-highlight">73</i>&nbsp;			break;</b>
+<i class="no-highlight">74</i>&nbsp;		case Keys.D:
+<b class="nc"><i class="no-highlight">75</i>&nbsp;			right = false;</b>
+<b class="nc"><i class="no-highlight">76</i>&nbsp;			break;</b>
+<i class="no-highlight">77</i>&nbsp;		case Keys.DEL:
+<b class="nc"><i class="no-highlight">78</i>&nbsp;			del = false;</b>
+<i class="no-highlight">79</i>&nbsp;		case Keys.Q:
+<b class="nc"><i class="no-highlight">80</i>&nbsp;			interact = true;</b>
+<b class="nc"><i class="no-highlight">81</i>&nbsp;			break;</b>
+<i class="no-highlight">82</i>&nbsp;		case Keys.E:
+<b class="nc"><i class="no-highlight">83</i>&nbsp;			drop = true;</b>
+<b class="nc"><i class="no-highlight">84</i>&nbsp;			break;</b>
+<i class="no-highlight">85</i>&nbsp;		case Keys.F:
+<b class="nc"><i class="no-highlight">86</i>&nbsp;			flip = true;</b>
+<b class="nc"><i class="no-highlight">87</i>&nbsp;			break;</b>
+<i class="no-highlight">88</i>&nbsp;		case Keys.TAB:
+<b class="nc"><i class="no-highlight">89</i>&nbsp;			tab = true;</b>
+<b class="nc"><i class="no-highlight">90</i>&nbsp;			break;</b>
+<i class="no-highlight">91</i>&nbsp;		case Keys.SHIFT_LEFT:
+<b class="nc"><i class="no-highlight">92</i>&nbsp;			shift = true;</b>
+<b class="nc"><i class="no-highlight">93</i>&nbsp;			break;</b>
+<i class="no-highlight">94</i>&nbsp;		case Keys.ESCAPE:
+<i class="no-highlight">95</i>&nbsp;			break;
+<i class="no-highlight">96</i>&nbsp;		}
+<b class="nc"><i class="no-highlight">97</i>&nbsp;		return false;</b>
+<i class="no-highlight">98</i>&nbsp;	}
+<i class="no-highlight">99</i>&nbsp;
+<i class="no-highlight">100</i>&nbsp;	@Override
+<i class="no-highlight">101</i>&nbsp;	public boolean keyTyped(char character) {
+<b class="nc"><i class="no-highlight">102</i>&nbsp;		return false;</b>
+<i class="no-highlight">103</i>&nbsp;	}
+<i class="no-highlight">104</i>&nbsp;
+<i class="no-highlight">105</i>&nbsp;	@Override
+<i class="no-highlight">106</i>&nbsp;	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+<b class="nc"><i class="no-highlight">107</i>&nbsp;		return false;</b>
+<i class="no-highlight">108</i>&nbsp;	}
+<i class="no-highlight">109</i>&nbsp;
+<i class="no-highlight">110</i>&nbsp;	@Override
+<i class="no-highlight">111</i>&nbsp;	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+<b class="nc"><i class="no-highlight">112</i>&nbsp;		return false;</b>
+<i class="no-highlight">113</i>&nbsp;	}
+<i class="no-highlight">114</i>&nbsp;
+<i class="no-highlight">115</i>&nbsp;	@Override
+<i class="no-highlight">116</i>&nbsp;	public boolean touchDragged(int screenX, int screenY, int pointer) {
+<b class="nc"><i class="no-highlight">117</i>&nbsp;		return false;</b>
+<i class="no-highlight">118</i>&nbsp;	}
+<i class="no-highlight">119</i>&nbsp;
+<i class="no-highlight">120</i>&nbsp;	@Override
+<i class="no-highlight">121</i>&nbsp;	public boolean mouseMoved(int screenX, int screenY) {
+<b class="nc"><i class="no-highlight">122</i>&nbsp;		return false;</b>
+<i class="no-highlight">123</i>&nbsp;	}
+<i class="no-highlight">124</i>&nbsp;
+<i class="no-highlight">125</i>&nbsp;	public boolean scrolled(int amount) {
+<b class="nc"><i class="no-highlight">126</i>&nbsp;		return false;</b>
+<i class="no-highlight">127</i>&nbsp;	}
+<i class="no-highlight">128</i>&nbsp;
+<i class="no-highlight">129</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -218,15 +217,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

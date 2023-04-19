@@ -48,7 +48,7 @@ public class Tutorial {
 	/**
 	 * Represents if the tutorial has been finished.
 	 */
-	public static boolean complete = true;
+	public static boolean complete = false;
 	/**
 	 * Represents the current stage of the tutorial.
 	 */

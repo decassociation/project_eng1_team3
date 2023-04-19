@@ -7,10 +7,9 @@
   <title>Coverage Report > CustomerController</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -51,18 +50,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    75%
+    66.7%
   </span>
   <span class="absValue">
-    (6/8)
+    (6/9)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    68.5%
+    66.7%
   </span>
   <span class="absValue">
-    (74/108)
+    (74/111)
   </span>
 </td>
 </tr>
@@ -74,246 +73,255 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.entity;
-&nbsp;
-&nbsp;import java.util.*;
-&nbsp;import java.util.concurrent.ThreadLocalRandom;
-&nbsp;
-&nbsp;import com.badlogic.gdx.graphics.g2d.Batch;
-&nbsp;import com.badlogic.gdx.maps.MapProperties;
-&nbsp;import com.badlogic.gdx.maps.tiled.TiledMap;
-&nbsp;import com.badlogic.gdx.maps.tiled.TiledMapTile;
-&nbsp;import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-&nbsp;import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-&nbsp;import com.badlogic.gdx.math.Vector2;
-&nbsp;
-&nbsp;public class CustomerController {
-&nbsp;	int lockout;
-&nbsp;	public int amountActiveCustomers;
-&nbsp;	ArrayList&lt;ArrayList&lt;Integer&gt;&gt; customerCells;
-<b class="fc">&nbsp;	public Customer[] customers = new Customer[5];</b>
-<b class="fc">&nbsp;	Customer[] leavingcustomers = new Customer[5];</b>
-&nbsp;	TiledMap gameMap;
-&nbsp;	int top;
-&nbsp;	int bottom;
-&nbsp;	int xCoordinate;
-&nbsp;	private long timeOfLastCustomer;
-&nbsp;	private int timeUntilNext;
-&nbsp;	private int spawnMultiple;
-&nbsp;	public int totalServed;
-&nbsp;	private String difficulty;
-&nbsp;	private HashMap&lt;String, Float&gt; difficultyMultipliers;
-&nbsp;
-<b class="fc">&nbsp;	public CustomerController(TiledMap map, String difficulty) {</b>
-<b class="fc">&nbsp;		this.gameMap = map;</b>
-<b class="fc">&nbsp;		computeCustomerZone(gameMap);</b>
-<b class="fc">&nbsp;		amountActiveCustomers = 0;</b>
-<b class="fc">&nbsp;		lockout = 0;</b>
-<b class="fc">&nbsp;		totalServed = 0;</b>
-&nbsp;
-<b class="fc">&nbsp;		this.difficulty = difficulty;</b>
-<b class="fc">&nbsp;		difficultyMultipliers = new HashMap&lt;&gt;();</b>
-<b class="fc">&nbsp;		difficultyMultipliers.put(&quot;easy&quot;, 1.25f);</b>
-<b class="fc">&nbsp;		difficultyMultipliers.put(&quot;normal&quot;, 1f);</b>
-<b class="fc">&nbsp;		difficultyMultipliers.put(&quot;hard&quot;, 0.75f);</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Check whether the customer zone is correct in the tile map, and construct
-&nbsp;	 * data structures for it
-&nbsp;	 * 
-&nbsp;	 * @param gameMap - The game tilemap
-&nbsp;	 */
-&nbsp;	private void computeCustomerZone(TiledMap gameMap) {
-&nbsp;		// ==============================================================================================================
-<b class="fc">&nbsp;		TiledMapTileLayer botlayer = (TiledMapTileLayer) gameMap.getLayers().get(0);</b>
-<b class="fc">&nbsp;		customerCells = new ArrayList&lt;&gt;();</b>
-<b class="fc">&nbsp;		int mapheight = botlayer.getHeight();</b>
-<b class="fc">&nbsp;		int mapwidth = botlayer.getWidth();</b>
-<b class="fc">&nbsp;		for (int y = 0; y &lt; mapheight; y++) {</b>
-<b class="fc">&nbsp;			for (int x = 0; x &lt; mapwidth; x++) {</b>
-<b class="fc">&nbsp;				Cell cel1 = botlayer.getCell(x, y);</b>
-<b class="fc">&nbsp;				if (cel1 != null) {</b>
-<b class="fc">&nbsp;					TiledMapTile til1 = cel1.getTile();</b>
-<b class="fc">&nbsp;					MapProperties mp1 = til1.getProperties();</b>
-<b class="fc">&nbsp;					Object value = mp1.get(&quot;customer_zone&quot;);</b>
-<b class="fc">&nbsp;					boolean isCustomerZone = value != null &amp;&amp; (boolean) value;</b>
-<b class="fc">&nbsp;					if (isCustomerZone) {</b>
-<b class="fc">&nbsp;						ArrayList&lt;Integer&gt; e = new ArrayList&lt;&gt;();</b>
-<b class="fc">&nbsp;						e.add(x);</b>
-<b class="fc">&nbsp;						e.add(y);</b>
-<b class="fc">&nbsp;						customerCells.add(e);</b>
-&nbsp;					}
-&nbsp;				}
-&nbsp;			}
-&nbsp;		}
-&nbsp;		// ^Scan tilemap for Customer zone
-&nbsp;		// tile==========================================================================
-<b class="fc">&nbsp;		if (customerCells.size() == 0) {</b>
-<b class="fc">&nbsp;			throw new IllegalArgumentException(&quot;No customer zone was included in the tile map&quot;);</b>
-&nbsp;		}
-&nbsp;		// ^If no Customer zone tiles exist throw
-&nbsp;		// exception==============================================================
-<b class="fc">&nbsp;		Integer[] xvalues = new Integer[customerCells.size()];</b>
-<b class="fc">&nbsp;		Integer[] yvalues = new Integer[customerCells.size()];</b>
-<b class="fc">&nbsp;		int ctr = 0;</b>
-<b class="fc">&nbsp;		for (ArrayList&lt;Integer&gt; xypair : customerCells) {</b>
-<b class="fc">&nbsp;			xvalues[ctr] = xypair.get(0);</b>
-<b class="fc">&nbsp;			yvalues[ctr] = xypair.get(1);</b>
-<b class="fc">&nbsp;			ctr++;</b>
-<b class="fc">&nbsp;		}</b>
-&nbsp;		// ^Split x y pairs into 2 separate
-&nbsp;		// arrays=======================================================================
-<b class="fc">&nbsp;		Set&lt;Integer&gt; uniquexvalues = new HashSet&lt;&gt;(Arrays.asList(xvalues));</b>
-<b class="fc">&nbsp;		if (uniquexvalues.size() != 2) {</b>
-<b class="nc">&nbsp;			throw new IllegalArgumentException(&quot;Customer zone must be a 2 wide rectangle leading to bottom of map&quot;);</b>
-&nbsp;		}
-&nbsp;		// ^Throw exception if more than 2 unique x values exist - the rectangle is not
-&nbsp;		// 2 wide===========================
-<b class="fc">&nbsp;		ArrayList&lt;Integer&gt; yvalueslist = new ArrayList&lt;&gt;(Arrays.asList(yvalues));</b>
-<b class="fc">&nbsp;		if (!yvalueslist.contains(0)) {</b>
-<b class="nc">&nbsp;			throw new IllegalArgumentException(&quot;Customer zone must extend to the bottom of the map&quot;);</b>
-&nbsp;		}
-&nbsp;		// ^Throw exception if the customer zone tile list does not contain tiles at the
-&nbsp;		// bottom index====================
-<b class="fc">&nbsp;		int ymax = Collections.max(yvalueslist);</b>
-<b class="fc">&nbsp;		Integer[] uniquexvaluesarray = uniquexvalues.toArray(new Integer[] {});</b>
-<b class="fc">&nbsp;		for (Integer unx : uniquexvaluesarray) {</b>
-<b class="fc">&nbsp;			for (int i = ymax; i &gt; 0; i--) {</b>
-<b class="fc">&nbsp;				ArrayList&lt;Integer&gt; templist = new ArrayList&lt;&gt;();</b>
-<b class="fc">&nbsp;				templist.add(unx);</b>
-<b class="fc">&nbsp;				templist.add(i);</b>
-<b class="fc">&nbsp;				if (!customerCells.contains(templist)) {</b>
-<b class="nc">&nbsp;					throw new IllegalArgumentException(&quot;Customer zone must be a filled rectangle&quot;);</b>
-&nbsp;				}
-&nbsp;			}
-&nbsp;		}
-&nbsp;		// ^Throw exception if the customer zone is not a filled rectangle. It does this
-&nbsp;		// by looking from the maximum=====
-&nbsp;		// y value downwards to check if a tile exists all the way down to zero, on both
-&nbsp;		// columns.
-<b class="fc">&nbsp;		this.top = ymax;</b>
-<b class="fc">&nbsp;		this.bottom = 0;</b>
-<b class="fc">&nbsp;		this.xCoordinate = xvalues[0]; // We can do this because the search scans left to right, 0th value will be left</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	public Customer spawnCustomer() {
-<b class="fc">&nbsp;		timeOfLastCustomer = System.currentTimeMillis();</b>
-<b class="fc">&nbsp;		timeUntilNext = ThreadLocalRandom.current().nextInt((int) (28000 * difficultyMultipliers.get(difficulty)), (int) (40001 * difficultyMultipliers.get(difficulty)));</b>
-&nbsp;
-<b class="fc">&nbsp;		for (int i = 0; i &lt; this.customers.length; i++) {</b>
-<b class="fc">&nbsp;			if (customers[i] == null) {</b>
-<b class="fc">&nbsp;				customers[i] = new Customer(this.xCoordinate, this.bottom, this.top - i, i);</b>
-<b class="fc">&nbsp;				amountActiveCustomers += 1;</b>
-<b class="fc">&nbsp;				return customers[i];</b>
-&nbsp;			}
-&nbsp;		}
-<b class="nc">&nbsp;		return null;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	public void delCustomer(int num) {
-<b class="fc">&nbsp;		if (this.customers[num].locked) {</b>
-<b class="fc">&nbsp;			amountActiveCustomers -= 1;</b>
-<b class="fc">&nbsp;			this.leavingcustomers[num] = this.customers[num];</b>
-<b class="fc">&nbsp;			this.leavingcustomers[num].setTargetsquare(-1);</b>
-<b class="fc">&nbsp;			this.customers[num] = null;</b>
-&nbsp;		}
-&nbsp;	}
-&nbsp;
-&nbsp;	public void delCustomer(Customer customer) {
-<b class="fc">&nbsp;		for (int i = 0; i &lt; this.customers.length; i++) {</b>
-<b class="fc">&nbsp;			if (customers[i] == customer) {</b>
-<b class="fc">&nbsp;				delCustomer(i);</b>
-&nbsp;				return;
-&nbsp;			}
-&nbsp;		}
-&nbsp;
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Draw top of customers
-&nbsp;	 * 
-&nbsp;	 * @param b1 - spritebatch to render with
-&nbsp;	 */
-&nbsp;	public void drawCustTop(Batch b1) {
-<b class="nc">&nbsp;		for (Customer c : this.customers) {</b>
-<b class="nc">&nbsp;			if (c != null) {</b>
-<b class="nc">&nbsp;				c.renderCustomersBot(b1);</b>
-&nbsp;			}
-&nbsp;		}
-<b class="nc">&nbsp;		for (Customer c : this.leavingcustomers) {</b>
-<b class="nc">&nbsp;			if (c != null) {</b>
-<b class="nc">&nbsp;				c.renderCustomersBot(b1);</b>
-&nbsp;			}
-&nbsp;		}
-<b class="nc">&nbsp;		for (Customer c : this.customers) {</b>
-<b class="nc">&nbsp;			if (c != null) {</b>
-<b class="nc">&nbsp;				c.renderCustomersTop(b1);</b>
-&nbsp;			}
-&nbsp;		}
-<b class="nc">&nbsp;		for (Customer c : this.leavingcustomers) {</b>
-<b class="nc">&nbsp;			if (c != null) {</b>
-<b class="nc">&nbsp;				c.renderCustomersTop(b1);</b>
-&nbsp;			}
-&nbsp;		}
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Update customers
-&nbsp;	 */
-&nbsp;	public void updateCustomers() {
-&nbsp;		// spawn new if it has been long enough
-<b class="nc">&nbsp;		if(System.currentTimeMillis() - timeOfLastCustomer &gt;= timeUntilNext){</b>
-<b class="nc">&nbsp;			spawnCustomer();</b>
-&nbsp;
-&nbsp;			//random chance for second
-<b class="nc">&nbsp;			if(totalServed &gt; 3) {</b>
-<b class="nc">&nbsp;				spawnMultiple = ThreadLocalRandom.current().nextInt(0, 4);</b>
-<b class="nc">&nbsp;				if (spawnMultiple == 0) spawnCustomer();</b>
-&nbsp;			}
-&nbsp;
-&nbsp;			//random chance for third
-<b class="nc">&nbsp;			if(totalServed &gt; 10) {</b>
-<b class="nc">&nbsp;				spawnMultiple = ThreadLocalRandom.current().nextInt(0, 10);</b>
-<b class="nc">&nbsp;				if (spawnMultiple == 0) spawnCustomer();</b>
-&nbsp;			}
-&nbsp;		}
-&nbsp;
-<b class="nc">&nbsp;		for (Customer c : this.customers) {</b>
-<b class="nc">&nbsp;			if (c != null) {</b>
-<b class="nc">&nbsp;				c.stepTarget();</b>
-&nbsp;			}
-&nbsp;		}
-<b class="nc">&nbsp;		int ctr = 0;</b>
-<b class="nc">&nbsp;		for (Customer c : this.leavingcustomers) {</b>
-<b class="nc">&nbsp;			if (c != null) {</b>
-<b class="nc">&nbsp;				c.stepTarget();</b>
-<b class="nc">&nbsp;				if (c.readyfordeletion) {</b>
-<b class="nc">&nbsp;					this.leavingcustomers[ctr] = null;</b>
-&nbsp;				}
-&nbsp;			}
-<b class="nc">&nbsp;			ctr++;</b>
-&nbsp;		}
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Check if any of the customers is at one position
-&nbsp;	 * 
-&nbsp;	 * @param pos - vector position
-&nbsp;	 * @return null if no customers are at that position, return the customer that
-&nbsp;	 *         is at that position
-&nbsp;	 */
-&nbsp;	public Customer isCustomerAtPos(Vector2 pos) {
-<b class="fc">&nbsp;		for (Customer customer : customers)</b>
-<b class="fc">&nbsp;			if (customer != null &amp;&amp; Math.ceil(customer.posx / 64f) == pos.x &amp;&amp; Math.ceil(customer.posy / 64f) == pos.y</b>
-&nbsp;					&amp;&amp; customer.locked)
-<b class="fc">&nbsp;				return customer;</b>
-<b class="fc">&nbsp;		return null;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.entity;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import java.util.*;
+<i class="no-highlight">4</i>&nbsp;import java.util.concurrent.ThreadLocalRandom;
+<i class="no-highlight">5</i>&nbsp;
+<i class="no-highlight">6</i>&nbsp;import com.badlogic.gdx.graphics.g2d.Batch;
+<i class="no-highlight">7</i>&nbsp;import com.badlogic.gdx.maps.MapProperties;
+<i class="no-highlight">8</i>&nbsp;import com.badlogic.gdx.maps.tiled.TiledMap;
+<i class="no-highlight">9</i>&nbsp;import com.badlogic.gdx.maps.tiled.TiledMapTile;
+<i class="no-highlight">10</i>&nbsp;import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+<i class="no-highlight">11</i>&nbsp;import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+<i class="no-highlight">12</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">13</i>&nbsp;
+<i class="no-highlight">14</i>&nbsp;public class CustomerController {
+<i class="no-highlight">15</i>&nbsp;	int lockout;
+<i class="no-highlight">16</i>&nbsp;	public int amountActiveCustomers;
+<i class="no-highlight">17</i>&nbsp;	ArrayList&lt;ArrayList&lt;Integer&gt;&gt; customerCells;
+<b class="fc"><i class="no-highlight">18</i>&nbsp;	public Customer[] customers = new Customer[5];</b>
+<b class="fc"><i class="no-highlight">19</i>&nbsp;	Customer[] leavingcustomers = new Customer[5];</b>
+<i class="no-highlight">20</i>&nbsp;	TiledMap gameMap;
+<i class="no-highlight">21</i>&nbsp;	int top;
+<i class="no-highlight">22</i>&nbsp;	int bottom;
+<i class="no-highlight">23</i>&nbsp;	int xCoordinate;
+<i class="no-highlight">24</i>&nbsp;	private long timeOfLastCustomer;
+<i class="no-highlight">25</i>&nbsp;	private int timeUntilNext;
+<i class="no-highlight">26</i>&nbsp;	private int spawnMultiple;
+<i class="no-highlight">27</i>&nbsp;	public int totalServed;
+<i class="no-highlight">28</i>&nbsp;	private String difficulty;
+<i class="no-highlight">29</i>&nbsp;	private HashMap&lt;String, Float&gt; difficultyMultipliers;
+<i class="no-highlight">30</i>&nbsp;
+<b class="fc"><i class="no-highlight">31</i>&nbsp;	public CustomerController(TiledMap map, String difficulty) {</b>
+<b class="fc"><i class="no-highlight">32</i>&nbsp;		this.gameMap = map;</b>
+<b class="fc"><i class="no-highlight">33</i>&nbsp;		computeCustomerZone(gameMap);</b>
+<b class="fc"><i class="no-highlight">34</i>&nbsp;		amountActiveCustomers = 0;</b>
+<b class="fc"><i class="no-highlight">35</i>&nbsp;		lockout = 0;</b>
+<b class="fc"><i class="no-highlight">36</i>&nbsp;		totalServed = 0;</b>
+<i class="no-highlight">37</i>&nbsp;
+<b class="fc"><i class="no-highlight">38</i>&nbsp;		this.difficulty = difficulty;</b>
+<b class="fc"><i class="no-highlight">39</i>&nbsp;		difficultyMultipliers = new HashMap&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">40</i>&nbsp;		difficultyMultipliers.put(&quot;easy&quot;, 1.25f);</b>
+<b class="fc"><i class="no-highlight">41</i>&nbsp;		difficultyMultipliers.put(&quot;normal&quot;, 1f);</b>
+<b class="fc"><i class="no-highlight">42</i>&nbsp;		difficultyMultipliers.put(&quot;hard&quot;, 0.75f);</b>
+<i class="no-highlight">43</i>&nbsp;	}
+<i class="no-highlight">44</i>&nbsp;
+<i class="no-highlight">45</i>&nbsp;	/**
+<i class="no-highlight">46</i>&nbsp;	 * Check whether the customer zone is correct in the tile map, and construct
+<i class="no-highlight">47</i>&nbsp;	 * data structures for it
+<i class="no-highlight">48</i>&nbsp;	 * 
+<i class="no-highlight">49</i>&nbsp;	 * @param gameMap - The game tilemap
+<i class="no-highlight">50</i>&nbsp;	 */
+<i class="no-highlight">51</i>&nbsp;	private void computeCustomerZone(TiledMap gameMap) {
+<i class="no-highlight">52</i>&nbsp;		// ==============================================================================================================
+<b class="fc"><i class="no-highlight">53</i>&nbsp;		TiledMapTileLayer botlayer = (TiledMapTileLayer) gameMap.getLayers().get(0);</b>
+<b class="fc"><i class="no-highlight">54</i>&nbsp;		customerCells = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">55</i>&nbsp;		int mapheight = botlayer.getHeight();</b>
+<b class="fc"><i class="no-highlight">56</i>&nbsp;		int mapwidth = botlayer.getWidth();</b>
+<b class="fc"><i class="no-highlight">57</i>&nbsp;		for (int y = 0; y &lt; mapheight; y++) {</b>
+<b class="fc"><i class="no-highlight">58</i>&nbsp;			for (int x = 0; x &lt; mapwidth; x++) {</b>
+<b class="fc"><i class="no-highlight">59</i>&nbsp;				Cell cel1 = botlayer.getCell(x, y);</b>
+<b class="fc"><i class="no-highlight">60</i>&nbsp;				if (cel1 != null) {</b>
+<b class="fc"><i class="no-highlight">61</i>&nbsp;					TiledMapTile til1 = cel1.getTile();</b>
+<b class="fc"><i class="no-highlight">62</i>&nbsp;					MapProperties mp1 = til1.getProperties();</b>
+<b class="fc"><i class="no-highlight">63</i>&nbsp;					Object value = mp1.get(&quot;customer_zone&quot;);</b>
+<b class="fc"><i class="no-highlight">64</i>&nbsp;					boolean isCustomerZone = value != null &amp;&amp; (boolean) value;</b>
+<b class="fc"><i class="no-highlight">65</i>&nbsp;					if (isCustomerZone) {</b>
+<b class="fc"><i class="no-highlight">66</i>&nbsp;						ArrayList&lt;Integer&gt; e = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">67</i>&nbsp;						e.add(x);</b>
+<b class="fc"><i class="no-highlight">68</i>&nbsp;						e.add(y);</b>
+<b class="fc"><i class="no-highlight">69</i>&nbsp;						customerCells.add(e);</b>
+<i class="no-highlight">70</i>&nbsp;					}
+<i class="no-highlight">71</i>&nbsp;				}
+<i class="no-highlight">72</i>&nbsp;			}
+<i class="no-highlight">73</i>&nbsp;		}
+<i class="no-highlight">74</i>&nbsp;		// ^Scan tilemap for Customer zone
+<i class="no-highlight">75</i>&nbsp;		// tile==========================================================================
+<b class="fc"><i class="no-highlight">76</i>&nbsp;		if (customerCells.size() == 0) {</b>
+<b class="fc"><i class="no-highlight">77</i>&nbsp;			throw new IllegalArgumentException(&quot;No customer zone was included in the tile map&quot;);</b>
+<i class="no-highlight">78</i>&nbsp;		}
+<i class="no-highlight">79</i>&nbsp;		// ^If no Customer zone tiles exist throw
+<i class="no-highlight">80</i>&nbsp;		// exception==============================================================
+<b class="fc"><i class="no-highlight">81</i>&nbsp;		Integer[] xvalues = new Integer[customerCells.size()];</b>
+<b class="fc"><i class="no-highlight">82</i>&nbsp;		Integer[] yvalues = new Integer[customerCells.size()];</b>
+<b class="fc"><i class="no-highlight">83</i>&nbsp;		int ctr = 0;</b>
+<b class="fc"><i class="no-highlight">84</i>&nbsp;		for (ArrayList&lt;Integer&gt; xypair : customerCells) {</b>
+<b class="fc"><i class="no-highlight">85</i>&nbsp;			xvalues[ctr] = xypair.get(0);</b>
+<b class="fc"><i class="no-highlight">86</i>&nbsp;			yvalues[ctr] = xypair.get(1);</b>
+<b class="fc"><i class="no-highlight">87</i>&nbsp;			ctr++;</b>
+<b class="fc"><i class="no-highlight">88</i>&nbsp;		}</b>
+<i class="no-highlight">89</i>&nbsp;		// ^Split x y pairs into 2 separate
+<i class="no-highlight">90</i>&nbsp;		// arrays=======================================================================
+<b class="fc"><i class="no-highlight">91</i>&nbsp;		Set&lt;Integer&gt; uniquexvalues = new HashSet&lt;&gt;(Arrays.asList(xvalues));</b>
+<b class="fc"><i class="no-highlight">92</i>&nbsp;		if (uniquexvalues.size() != 2) {</b>
+<b class="nc"><i class="no-highlight">93</i>&nbsp;			throw new IllegalArgumentException(&quot;Customer zone must be a 2 wide rectangle leading to bottom of map&quot;);</b>
+<i class="no-highlight">94</i>&nbsp;		}
+<i class="no-highlight">95</i>&nbsp;		// ^Throw exception if more than 2 unique x values exist - the rectangle is not
+<i class="no-highlight">96</i>&nbsp;		// 2 wide===========================
+<b class="fc"><i class="no-highlight">97</i>&nbsp;		ArrayList&lt;Integer&gt; yvalueslist = new ArrayList&lt;&gt;(Arrays.asList(yvalues));</b>
+<b class="fc"><i class="no-highlight">98</i>&nbsp;		if (!yvalueslist.contains(0)) {</b>
+<b class="nc"><i class="no-highlight">99</i>&nbsp;			throw new IllegalArgumentException(&quot;Customer zone must extend to the bottom of the map&quot;);</b>
+<i class="no-highlight">100</i>&nbsp;		}
+<i class="no-highlight">101</i>&nbsp;		// ^Throw exception if the customer zone tile list does not contain tiles at the
+<i class="no-highlight">102</i>&nbsp;		// bottom index====================
+<b class="fc"><i class="no-highlight">103</i>&nbsp;		int ymax = Collections.max(yvalueslist);</b>
+<b class="fc"><i class="no-highlight">104</i>&nbsp;		Integer[] uniquexvaluesarray = uniquexvalues.toArray(new Integer[] {});</b>
+<b class="fc"><i class="no-highlight">105</i>&nbsp;		for (Integer unx : uniquexvaluesarray) {</b>
+<b class="fc"><i class="no-highlight">106</i>&nbsp;			for (int i = ymax; i &gt; 0; i--) {</b>
+<b class="fc"><i class="no-highlight">107</i>&nbsp;				ArrayList&lt;Integer&gt; templist = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i class="no-highlight">108</i>&nbsp;				templist.add(unx);</b>
+<b class="fc"><i class="no-highlight">109</i>&nbsp;				templist.add(i);</b>
+<b class="fc"><i class="no-highlight">110</i>&nbsp;				if (!customerCells.contains(templist)) {</b>
+<b class="nc"><i class="no-highlight">111</i>&nbsp;					throw new IllegalArgumentException(&quot;Customer zone must be a filled rectangle&quot;);</b>
+<i class="no-highlight">112</i>&nbsp;				}
+<i class="no-highlight">113</i>&nbsp;			}
+<i class="no-highlight">114</i>&nbsp;		}
+<i class="no-highlight">115</i>&nbsp;		// ^Throw exception if the customer zone is not a filled rectangle. It does this
+<i class="no-highlight">116</i>&nbsp;		// by looking from the maximum=====
+<i class="no-highlight">117</i>&nbsp;		// y value downwards to check if a tile exists all the way down to zero, on both
+<i class="no-highlight">118</i>&nbsp;		// columns.
+<b class="fc"><i class="no-highlight">119</i>&nbsp;		this.top = ymax;</b>
+<b class="fc"><i class="no-highlight">120</i>&nbsp;		this.bottom = 0;</b>
+<b class="fc"><i class="no-highlight">121</i>&nbsp;		this.xCoordinate = xvalues[0]; // We can do this because the search scans left to right, 0th value will be left</b>
+<i class="no-highlight">122</i>&nbsp;	}
+<i class="no-highlight">123</i>&nbsp;
+<i class="no-highlight">124</i>&nbsp;	public Customer spawnCustomer() {
+<b class="fc"><i class="no-highlight">125</i>&nbsp;		timeOfLastCustomer = System.currentTimeMillis();</b>
+<b class="fc"><i class="no-highlight">126</i>&nbsp;		timeUntilNext = ThreadLocalRandom.current().nextInt((int) (28000 * difficultyMultipliers.get(difficulty)), (int) (40001 * difficultyMultipliers.get(difficulty)));</b>
+<i class="no-highlight">127</i>&nbsp;
+<b class="fc"><i class="no-highlight">128</i>&nbsp;		for (int i = 0; i &lt; this.customers.length; i++) {</b>
+<b class="fc"><i class="no-highlight">129</i>&nbsp;			if (customers[i] == null) {</b>
+<b class="fc"><i class="no-highlight">130</i>&nbsp;				customers[i] = new Customer(this.xCoordinate, this.bottom, this.top - i, i);</b>
+<b class="fc"><i class="no-highlight">131</i>&nbsp;				amountActiveCustomers += 1;</b>
+<b class="fc"><i class="no-highlight">132</i>&nbsp;				return customers[i];</b>
+<i class="no-highlight">133</i>&nbsp;			}
+<i class="no-highlight">134</i>&nbsp;		}
+<b class="nc"><i class="no-highlight">135</i>&nbsp;		return null;</b>
+<i class="no-highlight">136</i>&nbsp;	}
+<i class="no-highlight">137</i>&nbsp;
+<i class="no-highlight">138</i>&nbsp;	public void delCustomer(int num) {
+<b class="fc"><i class="no-highlight">139</i>&nbsp;		if (this.customers[num].locked) {</b>
+<b class="fc"><i class="no-highlight">140</i>&nbsp;			amountActiveCustomers -= 1;</b>
+<b class="fc"><i class="no-highlight">141</i>&nbsp;			this.leavingcustomers[num] = this.customers[num];</b>
+<b class="fc"><i class="no-highlight">142</i>&nbsp;			this.leavingcustomers[num].setTargetsquare(-1);</b>
+<b class="fc"><i class="no-highlight">143</i>&nbsp;			this.customers[num] = null;</b>
+<i class="no-highlight">144</i>&nbsp;		}
+<i class="no-highlight">145</i>&nbsp;	}
+<i class="no-highlight">146</i>&nbsp;
+<i class="no-highlight">147</i>&nbsp;	public void nukeCustomer(int num) {
+<b class="nc"><i class="no-highlight">148</i>&nbsp;		if (this.customers[num].locked) {</b>
+<b class="nc"><i class="no-highlight">149</i>&nbsp;			amountActiveCustomers -= 1;</b>
+<i class="no-highlight">150</i>&nbsp;
+<b class="nc"><i class="no-highlight">151</i>&nbsp;			this.customers[num] = null;</b>
+<i class="no-highlight">152</i>&nbsp;		}
+<i class="no-highlight">153</i>&nbsp;	}
+<i class="no-highlight">154</i>&nbsp;
+<i class="no-highlight">155</i>&nbsp;
+<i class="no-highlight">156</i>&nbsp;	public void delCustomer(Customer customer) {
+<b class="fc"><i class="no-highlight">157</i>&nbsp;		for (int i = 0; i &lt; this.customers.length; i++) {</b>
+<b class="fc"><i class="no-highlight">158</i>&nbsp;			if (customers[i] == customer) {</b>
+<b class="fc"><i class="no-highlight">159</i>&nbsp;				delCustomer(i);</b>
+<i class="no-highlight">160</i>&nbsp;				return;
+<i class="no-highlight">161</i>&nbsp;			}
+<i class="no-highlight">162</i>&nbsp;		}
+<i class="no-highlight">163</i>&nbsp;
+<i class="no-highlight">164</i>&nbsp;	}
+<i class="no-highlight">165</i>&nbsp;
+<i class="no-highlight">166</i>&nbsp;	/**
+<i class="no-highlight">167</i>&nbsp;	 * Draw top of customers
+<i class="no-highlight">168</i>&nbsp;	 * 
+<i class="no-highlight">169</i>&nbsp;	 * @param b1 - spritebatch to render with
+<i class="no-highlight">170</i>&nbsp;	 */
+<i class="no-highlight">171</i>&nbsp;	public void drawCustTop(Batch b1) {
+<b class="nc"><i class="no-highlight">172</i>&nbsp;		for (Customer c : this.customers) {</b>
+<b class="nc"><i class="no-highlight">173</i>&nbsp;			if (c != null) {</b>
+<b class="nc"><i class="no-highlight">174</i>&nbsp;				c.renderCustomersBot(b1);</b>
+<i class="no-highlight">175</i>&nbsp;			}
+<i class="no-highlight">176</i>&nbsp;		}
+<b class="nc"><i class="no-highlight">177</i>&nbsp;		for (Customer c : this.leavingcustomers) {</b>
+<b class="nc"><i class="no-highlight">178</i>&nbsp;			if (c != null) {</b>
+<b class="nc"><i class="no-highlight">179</i>&nbsp;				c.renderCustomersBot(b1);</b>
+<i class="no-highlight">180</i>&nbsp;			}
+<i class="no-highlight">181</i>&nbsp;		}
+<b class="nc"><i class="no-highlight">182</i>&nbsp;		for (Customer c : this.customers) {</b>
+<b class="nc"><i class="no-highlight">183</i>&nbsp;			if (c != null) {</b>
+<b class="nc"><i class="no-highlight">184</i>&nbsp;				c.renderCustomersTop(b1);</b>
+<i class="no-highlight">185</i>&nbsp;			}
+<i class="no-highlight">186</i>&nbsp;		}
+<b class="nc"><i class="no-highlight">187</i>&nbsp;		for (Customer c : this.leavingcustomers) {</b>
+<b class="nc"><i class="no-highlight">188</i>&nbsp;			if (c != null) {</b>
+<b class="nc"><i class="no-highlight">189</i>&nbsp;				c.renderCustomersTop(b1);</b>
+<i class="no-highlight">190</i>&nbsp;			}
+<i class="no-highlight">191</i>&nbsp;		}
+<i class="no-highlight">192</i>&nbsp;	}
+<i class="no-highlight">193</i>&nbsp;
+<i class="no-highlight">194</i>&nbsp;	/**
+<i class="no-highlight">195</i>&nbsp;	 * Update customers
+<i class="no-highlight">196</i>&nbsp;	 */
+<i class="no-highlight">197</i>&nbsp;	public void updateCustomers() {
+<i class="no-highlight">198</i>&nbsp;		// spawn new if it has been long enough
+<b class="nc"><i class="no-highlight">199</i>&nbsp;		if(System.currentTimeMillis() - timeOfLastCustomer &gt;= timeUntilNext){</b>
+<b class="nc"><i class="no-highlight">200</i>&nbsp;			spawnCustomer();</b>
+<i class="no-highlight">201</i>&nbsp;
+<i class="no-highlight">202</i>&nbsp;			//random chance for second
+<b class="nc"><i class="no-highlight">203</i>&nbsp;			if(totalServed &gt; 3) {</b>
+<b class="nc"><i class="no-highlight">204</i>&nbsp;				spawnMultiple = ThreadLocalRandom.current().nextInt(0, 4);</b>
+<b class="nc"><i class="no-highlight">205</i>&nbsp;				if (spawnMultiple == 0) spawnCustomer();</b>
+<i class="no-highlight">206</i>&nbsp;			}
+<i class="no-highlight">207</i>&nbsp;
+<i class="no-highlight">208</i>&nbsp;			//random chance for third
+<b class="nc"><i class="no-highlight">209</i>&nbsp;			if(totalServed &gt; 10) {</b>
+<b class="nc"><i class="no-highlight">210</i>&nbsp;				spawnMultiple = ThreadLocalRandom.current().nextInt(0, 10);</b>
+<b class="nc"><i class="no-highlight">211</i>&nbsp;				if (spawnMultiple == 0) spawnCustomer();</b>
+<i class="no-highlight">212</i>&nbsp;			}
+<i class="no-highlight">213</i>&nbsp;		}
+<i class="no-highlight">214</i>&nbsp;
+<b class="nc"><i class="no-highlight">215</i>&nbsp;		for (Customer c : this.customers) {</b>
+<b class="nc"><i class="no-highlight">216</i>&nbsp;			if (c != null) {</b>
+<b class="nc"><i class="no-highlight">217</i>&nbsp;				c.stepTarget();</b>
+<i class="no-highlight">218</i>&nbsp;			}
+<i class="no-highlight">219</i>&nbsp;		}
+<b class="nc"><i class="no-highlight">220</i>&nbsp;		int ctr = 0;</b>
+<b class="nc"><i class="no-highlight">221</i>&nbsp;		for (Customer c : this.leavingcustomers) {</b>
+<b class="nc"><i class="no-highlight">222</i>&nbsp;			if (c != null) {</b>
+<b class="nc"><i class="no-highlight">223</i>&nbsp;				c.stepTarget();</b>
+<b class="nc"><i class="no-highlight">224</i>&nbsp;				if (c.readyfordeletion) {</b>
+<b class="nc"><i class="no-highlight">225</i>&nbsp;					this.leavingcustomers[ctr] = null;</b>
+<i class="no-highlight">226</i>&nbsp;				}
+<i class="no-highlight">227</i>&nbsp;			}
+<b class="nc"><i class="no-highlight">228</i>&nbsp;			ctr++;</b>
+<i class="no-highlight">229</i>&nbsp;		}
+<i class="no-highlight">230</i>&nbsp;	}
+<i class="no-highlight">231</i>&nbsp;
+<i class="no-highlight">232</i>&nbsp;	/**
+<i class="no-highlight">233</i>&nbsp;	 * Check if any of the customers is at one position
+<i class="no-highlight">234</i>&nbsp;	 * 
+<i class="no-highlight">235</i>&nbsp;	 * @param pos - vector position
+<i class="no-highlight">236</i>&nbsp;	 * @return null if no customers are at that position, return the customer that
+<i class="no-highlight">237</i>&nbsp;	 *         is at that position
+<i class="no-highlight">238</i>&nbsp;	 */
+<i class="no-highlight">239</i>&nbsp;	public Customer isCustomerAtPos(Vector2 pos) {
+<b class="fc"><i class="no-highlight">240</i>&nbsp;		for (Customer customer : customers)</b>
+<b class="fc"><i class="no-highlight">241</i>&nbsp;			if (customer != null &amp;&amp; Math.ceil(customer.posx / 64f) == pos.x &amp;&amp; Math.ceil(customer.posy / 64f) == pos.y</b>
+<i class="no-highlight">242</i>&nbsp;					&amp;&amp; customer.locked)
+<b class="fc"><i class="no-highlight">243</i>&nbsp;				return customer;</b>
+<b class="fc"><i class="no-highlight">244</i>&nbsp;		return null;</b>
+<i class="no-highlight">245</i>&nbsp;	}
+<i class="no-highlight">246</i>&nbsp;
+<i class="no-highlight">247</i>&nbsp;
+<i class="no-highlight">248</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -328,15 +336,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

@@ -7,10 +7,9 @@
   <title>Coverage Report > PrepStation</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -59,10 +58,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    52.1%
+    68.8%
   </span>
   <span class="absValue">
-    (25/48)
+    (33/48)
   </span>
 </td>
 </tr>
@@ -74,138 +73,138 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.station;
-&nbsp;
-&nbsp;import com.badlogic.gdx.graphics.Color;
-&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-&nbsp;import com.badlogic.gdx.math.Vector2;
-&nbsp;import com.team3gdx.game.food.Ingredient;
-&nbsp;import com.team3gdx.game.food.Menu;
-&nbsp;import com.team3gdx.game.food.Recipe;
-&nbsp;import com.team3gdx.game.screen.GameScreen;
-&nbsp;
-&nbsp;public class PrepStation extends Station {
-&nbsp;
-<b class="fc">&nbsp;	public float progress = 0;</b>
-&nbsp;
-&nbsp;	public PrepStation(Vector2 pos) {
-<b class="fc">&nbsp;		super(pos, 5, false, null, null);</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Check if the current ingredients are part of a recipe or an ingredient can be
-&nbsp;	 * formed to another begin progress on creating it.
-&nbsp;	 * 
-&nbsp;	 * @return A boolean representing whether the transformation happens.
-&nbsp;	 */
-&nbsp;	public boolean slotsToRecipe() {
-<b class="fc">&nbsp;		for (Recipe recipe : Menu.RECIPES.values()) {</b>
-<b class="fc">&nbsp;			if (recipe.matches(slots)) {</b>
-<b class="fc">&nbsp;				if (progress == 1) {</b>
-&nbsp;//					progress = 0;
-<b class="fc">&nbsp;					slots.clear();</b>
-<b class="fc">&nbsp;					slots.add(recipe);</b>
-&nbsp;				}
-<b class="fc">&nbsp;				return true;</b>
-&nbsp;			}
-&nbsp;
-<b class="fc">&nbsp;		}</b>
-&nbsp;
-<b class="fc">&nbsp;		if (ingredientMatch(slots.peek()) != null) {</b>
-<b class="fc">&nbsp;			if (progress == 1) {</b>
-&nbsp;//				progress = 0;
-<b class="fc">&nbsp;				slots.add(ingredientMatch(slots.pop()));</b>
-&nbsp;			}
-&nbsp;
-<b class="fc">&nbsp;			return true;</b>
-&nbsp;		}
-&nbsp;
-<b class="fc">&nbsp;		GameScreen.cook.locked = false;</b>
-<b class="fc">&nbsp;		slots.peek().slicing = false;</b>
-&nbsp;
-<b class="fc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Lock currently interacting cook to station.
-&nbsp;	 * 
-&nbsp;	 * @return A boolean indicating if the cook was locked.
-&nbsp;	 */
-&nbsp;	public boolean lockCook() {
-<b class="fc">&nbsp;		if (!slots.isEmpty() &amp;&amp; slotsToRecipe()) {</b>
-<b class="nc">&nbsp;			if (lockedCook == null) {</b>
-<b class="nc">&nbsp;				GameScreen.cook.locked = true;</b>
-<b class="nc">&nbsp;				lockedCook = GameScreen.cook;</b>
-&nbsp;			} else {
-<b class="nc">&nbsp;				lockedCook.locked = true;</b>
-&nbsp;			}
-<b class="nc">&nbsp;			return true;</b>
-&nbsp;		}
-<b class="fc">&nbsp;		if (lockedCook != null) {</b>
-<b class="nc">&nbsp;			lockedCook.locked = false;</b>
-<b class="nc">&nbsp;			lockedCook = null;</b>
-<b class="nc">&nbsp;			progress = 0;</b>
-&nbsp;		}
-&nbsp;
-<b class="fc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-<b class="fc">&nbsp;	private static ShapeRenderer shapeRenderer = null;</b>
-&nbsp;
-&nbsp;	private static ShapeRenderer getShapeRenderer() {
-<b class="nc">&nbsp;		if (shapeRenderer == null) {</b>
-<b class="nc">&nbsp;			shapeRenderer = new ShapeRenderer();</b>
-&nbsp;		}
-<b class="nc">&nbsp;		return shapeRenderer;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Update and display the progress bar.
-&nbsp;	 * 
-&nbsp;	 * @param batch
-&nbsp;	 * @param delta The amount to update the progress bar by.
-&nbsp;	 */
-&nbsp;	public void updateProgress(SpriteBatch batch, float delta) {
-<b class="nc">&nbsp;		if (progress &lt; 1)</b>
-<b class="nc">&nbsp;			progress += delta;</b>
-&nbsp;		else {
-<b class="nc">&nbsp;			progress = 1;</b>
-<b class="nc">&nbsp;			slotsToRecipe();</b>
-&nbsp;		}
-<b class="nc">&nbsp;		drawStatusBar(batch);</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	private void drawStatusBar(SpriteBatch batch) {
-<b class="nc">&nbsp;		getShapeRenderer().setProjectionMatrix(batch.getProjectionMatrix());</b>
-<b class="nc">&nbsp;		getShapeRenderer().begin(ShapeType.Filled);</b>
-<b class="nc">&nbsp;		getShapeRenderer().setColor(Color.WHITE);</b>
-<b class="nc">&nbsp;		getShapeRenderer().rect(pos.x * 64, pos.y * 64 + 64 + 64 / 10, 64, 64 / 8);</b>
-<b class="nc">&nbsp;		getShapeRenderer().setColor(Color.GREEN);</b>
-<b class="nc">&nbsp;		getShapeRenderer().rect(pos.x * 64, pos.y * 64 + 64 + 64 / 10, progress * 64, 64 / 10);</b>
-<b class="nc">&nbsp;		getShapeRenderer().end();</b>
-&nbsp;
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Check whether the ingredient can be formed into another.
-&nbsp;	 * 
-&nbsp;	 * @param toMatch The ingredient to transform.
-&nbsp;	 * @return The ingredient that is formed.
-&nbsp;	 */
-&nbsp;	private Ingredient ingredientMatch(Ingredient toMatch) {
-<b class="fc">&nbsp;		for (Ingredient ingredient : Menu.INGREDIENT_PREP.keySet()) {</b>
-<b class="fc">&nbsp;			if (ingredient.equals(toMatch)) {</b>
-<b class="fc">&nbsp;				return new Ingredient (Menu.INGREDIENT_PREP.get(ingredient));</b>
-&nbsp;			}
-<b class="fc">&nbsp;		}</b>
-&nbsp;
-<b class="fc">&nbsp;		return null;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.station;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.badlogic.gdx.graphics.Color;
+<i class="no-highlight">4</i>&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+<i class="no-highlight">5</i>&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+<i class="no-highlight">6</i>&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+<i class="no-highlight">7</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">8</i>&nbsp;import com.team3gdx.game.food.Ingredient;
+<i class="no-highlight">9</i>&nbsp;import com.team3gdx.game.food.Menu;
+<i class="no-highlight">10</i>&nbsp;import com.team3gdx.game.food.Recipe;
+<i class="no-highlight">11</i>&nbsp;import com.team3gdx.game.screen.GameScreen;
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;public class PrepStation extends Station {
+<i class="no-highlight">14</i>&nbsp;
+<b class="fc"><i class="no-highlight">15</i>&nbsp;	public float progress = 0;</b>
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;	public PrepStation(Vector2 pos) {
+<b class="fc"><i class="no-highlight">18</i>&nbsp;		super(pos, 5, false, null, null);</b>
+<i class="no-highlight">19</i>&nbsp;	}
+<i class="no-highlight">20</i>&nbsp;
+<i class="no-highlight">21</i>&nbsp;	/**
+<i class="no-highlight">22</i>&nbsp;	 * Check if the current ingredients are part of a recipe or an ingredient can be
+<i class="no-highlight">23</i>&nbsp;	 * formed to another begin progress on creating it.
+<i class="no-highlight">24</i>&nbsp;	 * 
+<i class="no-highlight">25</i>&nbsp;	 * @return A boolean representing whether the transformation happens.
+<i class="no-highlight">26</i>&nbsp;	 */
+<i class="no-highlight">27</i>&nbsp;	public boolean slotsToRecipe() {
+<b class="fc"><i class="no-highlight">28</i>&nbsp;		for (Recipe recipe : Menu.RECIPES.values()) {</b>
+<b class="fc"><i class="no-highlight">29</i>&nbsp;			if (recipe.matches(slots)) {</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;				if (progress == 1) {</b>
+<i class="no-highlight">31</i>&nbsp;//					progress = 0;
+<b class="fc"><i class="no-highlight">32</i>&nbsp;					slots.clear();</b>
+<b class="fc"><i class="no-highlight">33</i>&nbsp;					slots.add(recipe);</b>
+<i class="no-highlight">34</i>&nbsp;				}
+<b class="fc"><i class="no-highlight">35</i>&nbsp;				return true;</b>
+<i class="no-highlight">36</i>&nbsp;			}
+<i class="no-highlight">37</i>&nbsp;
+<b class="fc"><i class="no-highlight">38</i>&nbsp;		}</b>
+<i class="no-highlight">39</i>&nbsp;
+<b class="fc"><i class="no-highlight">40</i>&nbsp;		if (ingredientMatch(slots.peek()) != null) {</b>
+<b class="fc"><i class="no-highlight">41</i>&nbsp;			if (progress == 1) {</b>
+<i class="no-highlight">42</i>&nbsp;//				progress = 0;
+<b class="fc"><i class="no-highlight">43</i>&nbsp;				slots.add(ingredientMatch(slots.pop()));</b>
+<i class="no-highlight">44</i>&nbsp;			}
+<i class="no-highlight">45</i>&nbsp;
+<b class="fc"><i class="no-highlight">46</i>&nbsp;			return true;</b>
+<i class="no-highlight">47</i>&nbsp;		}
+<i class="no-highlight">48</i>&nbsp;
+<b class="fc"><i class="no-highlight">49</i>&nbsp;		GameScreen.cook.locked = false;</b>
+<b class="fc"><i class="no-highlight">50</i>&nbsp;		slots.peek().slicing = false;</b>
+<i class="no-highlight">51</i>&nbsp;
+<b class="fc"><i class="no-highlight">52</i>&nbsp;		return false;</b>
+<i class="no-highlight">53</i>&nbsp;	}
+<i class="no-highlight">54</i>&nbsp;
+<i class="no-highlight">55</i>&nbsp;	/**
+<i class="no-highlight">56</i>&nbsp;	 * Lock currently interacting cook to station.
+<i class="no-highlight">57</i>&nbsp;	 * 
+<i class="no-highlight">58</i>&nbsp;	 * @return A boolean indicating if the cook was locked.
+<i class="no-highlight">59</i>&nbsp;	 */
+<i class="no-highlight">60</i>&nbsp;	public boolean lockCook() {
+<b class="fc"><i class="no-highlight">61</i>&nbsp;		if (!slots.isEmpty() &amp;&amp; slotsToRecipe()) {</b>
+<b class="fc"><i class="no-highlight">62</i>&nbsp;			if (lockedCook == null) {</b>
+<b class="fc"><i class="no-highlight">63</i>&nbsp;				GameScreen.cook.locked = true;</b>
+<b class="fc"><i class="no-highlight">64</i>&nbsp;				lockedCook = GameScreen.cook;</b>
+<i class="no-highlight">65</i>&nbsp;			} else {
+<b class="fc"><i class="no-highlight">66</i>&nbsp;				lockedCook.locked = true;</b>
+<i class="no-highlight">67</i>&nbsp;			}
+<b class="fc"><i class="no-highlight">68</i>&nbsp;			return true;</b>
+<i class="no-highlight">69</i>&nbsp;		}
+<b class="fc"><i class="no-highlight">70</i>&nbsp;		if (lockedCook != null) {</b>
+<b class="fc"><i class="no-highlight">71</i>&nbsp;			lockedCook.locked = false;</b>
+<b class="fc"><i class="no-highlight">72</i>&nbsp;			lockedCook = null;</b>
+<b class="fc"><i class="no-highlight">73</i>&nbsp;			progress = 0;</b>
+<i class="no-highlight">74</i>&nbsp;		}
+<i class="no-highlight">75</i>&nbsp;
+<b class="fc"><i class="no-highlight">76</i>&nbsp;		return false;</b>
+<i class="no-highlight">77</i>&nbsp;	}
+<i class="no-highlight">78</i>&nbsp;
+<b class="fc"><i class="no-highlight">79</i>&nbsp;	private static ShapeRenderer shapeRenderer = null;</b>
+<i class="no-highlight">80</i>&nbsp;
+<i class="no-highlight">81</i>&nbsp;	private static ShapeRenderer getShapeRenderer() {
+<b class="nc"><i class="no-highlight">82</i>&nbsp;		if (shapeRenderer == null) {</b>
+<b class="nc"><i class="no-highlight">83</i>&nbsp;			shapeRenderer = new ShapeRenderer();</b>
+<i class="no-highlight">84</i>&nbsp;		}
+<b class="nc"><i class="no-highlight">85</i>&nbsp;		return shapeRenderer;</b>
+<i class="no-highlight">86</i>&nbsp;	}
+<i class="no-highlight">87</i>&nbsp;
+<i class="no-highlight">88</i>&nbsp;	/**
+<i class="no-highlight">89</i>&nbsp;	 * Update and display the progress bar.
+<i class="no-highlight">90</i>&nbsp;	 * 
+<i class="no-highlight">91</i>&nbsp;	 * @param batch
+<i class="no-highlight">92</i>&nbsp;	 * @param delta The amount to update the progress bar by.
+<i class="no-highlight">93</i>&nbsp;	 */
+<i class="no-highlight">94</i>&nbsp;	public void updateProgress(SpriteBatch batch, float delta) {
+<b class="nc"><i class="no-highlight">95</i>&nbsp;		if (progress &lt; 1)</b>
+<b class="nc"><i class="no-highlight">96</i>&nbsp;			progress += delta;</b>
+<i class="no-highlight">97</i>&nbsp;		else {
+<b class="nc"><i class="no-highlight">98</i>&nbsp;			progress = 1;</b>
+<b class="nc"><i class="no-highlight">99</i>&nbsp;			slotsToRecipe();</b>
+<i class="no-highlight">100</i>&nbsp;		}
+<b class="nc"><i class="no-highlight">101</i>&nbsp;		drawStatusBar(batch);</b>
+<i class="no-highlight">102</i>&nbsp;	}
+<i class="no-highlight">103</i>&nbsp;
+<i class="no-highlight">104</i>&nbsp;	private void drawStatusBar(SpriteBatch batch) {
+<b class="nc"><i class="no-highlight">105</i>&nbsp;		getShapeRenderer().setProjectionMatrix(batch.getProjectionMatrix());</b>
+<b class="nc"><i class="no-highlight">106</i>&nbsp;		getShapeRenderer().begin(ShapeType.Filled);</b>
+<b class="nc"><i class="no-highlight">107</i>&nbsp;		getShapeRenderer().setColor(Color.WHITE);</b>
+<b class="nc"><i class="no-highlight">108</i>&nbsp;		getShapeRenderer().rect(pos.x * 64, pos.y * 64 + 64 + 64 / 10, 64, 64 / 8);</b>
+<b class="nc"><i class="no-highlight">109</i>&nbsp;		getShapeRenderer().setColor(Color.GREEN);</b>
+<b class="nc"><i class="no-highlight">110</i>&nbsp;		getShapeRenderer().rect(pos.x * 64, pos.y * 64 + 64 + 64 / 10, progress * 64, 64 / 10);</b>
+<b class="nc"><i class="no-highlight">111</i>&nbsp;		getShapeRenderer().end();</b>
+<i class="no-highlight">112</i>&nbsp;
+<i class="no-highlight">113</i>&nbsp;	}
+<i class="no-highlight">114</i>&nbsp;
+<i class="no-highlight">115</i>&nbsp;	/**
+<i class="no-highlight">116</i>&nbsp;	 * Check whether the ingredient can be formed into another.
+<i class="no-highlight">117</i>&nbsp;	 * 
+<i class="no-highlight">118</i>&nbsp;	 * @param toMatch The ingredient to transform.
+<i class="no-highlight">119</i>&nbsp;	 * @return The ingredient that is formed.
+<i class="no-highlight">120</i>&nbsp;	 */
+<i class="no-highlight">121</i>&nbsp;	private Ingredient ingredientMatch(Ingredient toMatch) {
+<b class="fc"><i class="no-highlight">122</i>&nbsp;		for (Ingredient ingredient : Menu.INGREDIENT_PREP.keySet()) {</b>
+<b class="fc"><i class="no-highlight">123</i>&nbsp;			if (ingredient.equals(toMatch)) {</b>
+<b class="fc"><i class="no-highlight">124</i>&nbsp;				return new Ingredient (Menu.INGREDIENT_PREP.get(ingredient));</b>
+<i class="no-highlight">125</i>&nbsp;			}
+<b class="fc"><i class="no-highlight">126</i>&nbsp;		}</b>
+<i class="no-highlight">127</i>&nbsp;
+<b class="fc"><i class="no-highlight">128</i>&nbsp;		return null;</b>
+<i class="no-highlight">129</i>&nbsp;	}
+<i class="no-highlight">130</i>&nbsp;
+<i class="no-highlight">131</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -220,15 +219,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>
