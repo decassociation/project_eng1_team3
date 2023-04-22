@@ -946,6 +946,12 @@ public class GameScreen implements Screen {
 	public StationManager getStationManager(){
 		return stationManager;
 	}
+	public Long getTimePlayed(){
+		return startTime - timeOnStartup;
+	}
+	public void incStartTime(Long l){
+		startTime += l;
+	}
 
 	/**
 	 * Load all of the stations at once instead of when viewed

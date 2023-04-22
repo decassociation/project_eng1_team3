@@ -7,6 +7,7 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.team3gdx.game.MainGameClass;
 import com.team3gdx.game.screen.GameScreen;
 import com.team3gdx.game.screen.MainScreen;
+import com.team3gdx.game.screen.Tutorial;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -200,5 +201,45 @@ public class SaveLoadTests {
         prefs.clear();
         prefs.flush();
     }
+
+    @Test
+    public void testSaveLoadTutorialCompletion(){
+        setUpEnvironment();
+
+        Boolean tutorialComplete = Tutorial.complete;
+
+        gameScreen.changeScreen(GameScreen.STATE.main); // save the game
+        Tutorial.complete = !tutorialComplete;  // change static tutorial complete boolean, this should revert on load
+
+        // load
+        GameScreen gameScreen1 = new GameScreen(game, ms, true);
+        assertTrue(Tutorial.complete == tutorialComplete);
+
+        // reset save file
+        Preferences prefs = Gdx.app.getPreferences("testSave");
+        prefs.clear();
+        prefs.flush();
+    }
+
+    @Test
+    public void testSaveLoadTimePlayed(){
+        setUpEnvironment();
+
+        Long timePlayed = gameScreen.getTimePlayed();
+        Long toAdd = 7357l;
+        gameScreen.incStartTime(toAdd);
+
+        gameScreen.changeScreen(GameScreen.STATE.main); // save the game
+
+        // load
+        GameScreen gameScreen1 = new GameScreen(game, ms, true);
+        assertTrue(gameScreen.getTimePlayed() == timePlayed + toAdd);
+
+        // reset save file
+        Preferences prefs = Gdx.app.getPreferences("testSave");
+        prefs.clear();
+        prefs.flush();
+    }
+
 
 }
