@@ -185,6 +185,7 @@ public class GameScreen implements Screen {
 		secondBaking = false;
 		secondCutting = false;
 		saveFile = "save";
+		startTime = System.currentTimeMillis();
 	}
 
 	public GameScreen(MainGameClass game, MainScreen ms, String difficulty) {
@@ -211,6 +212,7 @@ public class GameScreen implements Screen {
 		secondBaking = false;
 		secondCutting = false;
 		saveFile = "save";
+		startTime = System.currentTimeMillis();
 	}
 
 	// load saved game
@@ -247,6 +249,8 @@ public class GameScreen implements Screen {
 		cook = cooks[currentCookIndex];
 		secondBaking = prefs.getBoolean("secondBaking", false);
 		secondCutting = prefs.getBoolean("secondCutting", false);
+		Tutorial.complete = prefs.getBoolean("tutorialComplete", false);
+		startTime = prefs.getLong("lastTimeOnStartup") - prefs.getLong("lastStartTime") + System.currentTimeMillis();
 	}
 
 	/***
@@ -270,7 +274,7 @@ public class GameScreen implements Screen {
 		stationManager.stations.get(new Vector2(11, 8)).active = secondCutting;	// deactivate second cutting station
 
 		// =======================================START=FRAME=TIMER======================================================
-		startTime = System.currentTimeMillis();
+		//startTime = System.currentTimeMillis();
 		timeOnStartup = startTime;
 		tempThenTime = startTime;
 		// =======================================SET=POSITIONS=OF=SLIDERS===============================================
@@ -681,6 +685,9 @@ public class GameScreen implements Screen {
 			prefs.putBoolean("thirdChef", thirdChef);
 			prefs.putBoolean("secondBaking", secondBaking);
 			prefs.putBoolean("secondCutting", secondCutting);
+			prefs.putBoolean("tutorialComplete", Tutorial.complete);
+			prefs.putLong("lastTimeOnStartup", timeOnStartup);
+			prefs.putLong("lastStartTime", startTime);
 			prefs.flush();
 
 			game.gameMusic.dispose();
