@@ -116,7 +116,7 @@ public class GameScreen implements Screen {
 	}
 
 	public enum STATE {
-		Pause, Continue, main, audio, shop
+		Pause, Continue, main, audio, shop, Tutorial
 	}
 
 	public static STATE state1;
@@ -289,7 +289,8 @@ public class GameScreen implements Screen {
 		uiCamera.setToOrtho(false, gameResolutionX, gameResolutionY);
 		worldCamera.setToOrtho(false, gameResolutionX, gameResolutionY);
 		// ======================================SET=INITAL=STATE========================================================
-		state1 = STATE.Continue;
+		if (Tutorial.complete) state1 = STATE.Continue;
+		else state1 = STATE.Tutorial;
 		// ======================================START=VIEWPORTS=========================================================
 		worldViewport = new FitViewport(gameResolutionX, gameResolutionY, worldCamera);
 		uiViewport = new FitViewport(gameResolutionX, gameResolutionY, uiCamera);
@@ -634,6 +635,7 @@ public class GameScreen implements Screen {
 			}
 			Tutorial.drawBox(game.batch, delta * 20);
 		} else {
+			if(state1 == STATE.Tutorial) state1 = STATE.Continue;
 			if (Math.abs(worldCamera.position.x - cook.pos.x) < 2
 					&& Math.abs(worldCamera.position.y - cook.pos.y) < 2) {
 				worldCamera.position.x = cook.pos.x;
@@ -732,6 +734,9 @@ public class GameScreen implements Screen {
 			Gdx.input.setInputProcessor(stage3);
 			stage3.act();
 			stage3.draw();
+		}
+		if(state1 == STATE.Tutorial){
+			thenTime = System.currentTimeMillis() - timeOnStartup;
 		}
 	}
 
