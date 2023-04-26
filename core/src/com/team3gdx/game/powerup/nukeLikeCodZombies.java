@@ -35,35 +35,31 @@ public class nukeLikeCodZombies extends Powerup{
         explosion3 = new Texture(Gdx.files.internal("powerups/explosion3.png"));
     }
 
+
+    /**
+     * Applies the powerup, not so much to the cook but to the game, but the powerup class requires
+     * a cook variable to be passed in.
+     * @param cook
+     */
     @Override
     public void applyPowerup(Cook cook){
         System.out.println("delling people");
-        int dels = GameScreen.cc.amountActiveCustomers;
         for(int x = 0; x < 5; x++){
             try {
                 GameScreen.cc.nukeCustomer(x);
                 boom.play();
             } catch (Exception e) {
-                System.out.println("error");
+                System.out.println("error"); //This shouldn't ever actually be triggered, but it's there incase and will prevent the game from crashing.
             }
         }
     }
+
+    /**
+     * Essentially the same as the powerup, but was used for testing.
+     */
+
     public void nukeEm(){
         System.out.println("delling people");
-        stage = 0;
-//        int dels = GameScreen.cc.amountActiveCustomers;
-//       // try {
-//            System.out.println(GameScreen.cc.amountActiveCustomers);
-//            for(int x = 0; x < dels; x++){
-//                String zones = (GameScreen.cc.customers[x].posx + "," + GameScreen.cc.customers[x].posy);
-//
-//                System.out.println(x);
-//                GameScreen.cc.nukeCustomer(x);
-//                System.out.println("delling customer " + x);
-//            }
-////        } catch (Exception e){
-////            System.out.println("error");
-////        }
         for(int x = 0; x < 5; x++){
             try {
                 GameScreen.cc.nukeCustomer(x);
@@ -72,34 +68,7 @@ public class nukeLikeCodZombies extends Powerup{
                 System.out.println("error");
             }
         }
-
-
-
-
     }
-    public int nukeStage(){
-
-        return stage;
-    }
-
-    public void nukeAnimation(SpriteBatch b){
-        if(nukeStage() == 0){
-            for(int a = 0; a < nukeZones.size(); a ++ ){
-                String splitter = nukeZones.get(a);
-                String[] split = splitter.split(",");
-                int xval = Integer.parseInt(split[0]);
-                int yval = Integer.parseInt(split[1]);
-                b.begin();
-                b.draw(explosion1, xval, yval);
-                b.end();
-            }
-
-        }
-
-
-    }
-
-
 
 
 
