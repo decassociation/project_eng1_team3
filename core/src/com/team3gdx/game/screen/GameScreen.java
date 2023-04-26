@@ -527,9 +527,10 @@ public class GameScreen implements Screen {
 
 
 		// ====================================Nuke=Stuff===============================================================
+		/*
 		if(Gdx.input.isKeyJustPressed(Input.Keys.M)){
 			nuker.nukeEm();
-		}
+		}*/
 
 
 

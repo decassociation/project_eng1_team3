@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.team3.gdx.tests.SaveLoadTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-22T14:05:39" hostname="GAMING-PC" time="0.251">
-  <properties/>
-  <testcase name="testSaveLoadTimePlayed" classname="com.team3.gdx.tests.SaveLoadTests" time="0.251"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
