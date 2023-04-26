@@ -70,7 +70,6 @@ public class Tutorial {
 	 * and handily means that there is less overhead.
 	 */
 
-
 	private static ShapeRenderer getShapeRenderer() {
 		if (shapeRenderer == null) {
 			shapeRenderer = new ShapeRenderer();

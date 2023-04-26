@@ -76,7 +76,6 @@ public class GameScreen implements Screen {
 	Texture vControl;
 	Texture vButton;
 	Texture SHOP;
-	Texture BUYCHEF2;
 	Texture BUYCHEF3;
 	Texture BUYBAKINGSTATION;
 	Texture BUYCUTTINGSTATION;
@@ -103,10 +102,6 @@ public class GameScreen implements Screen {
 	public Boolean secondCutting;
 	OrthographicCamera uiCamera;
 	public static OrthographicCamera worldCamera;
-
-	//TESTING NUKE
-	nukeLikeCodZombies nuker = new nukeLikeCodZombies(0,0);
-
 
 
 	public static Customer currentWaitingCustomer = null;
@@ -142,7 +137,6 @@ public class GameScreen implements Screen {
 	TiledMapRenderer tiledMapRenderer;
 	public TiledMap map1;
 	public static Cook[] cooks = new Cook[2];
-	//public static ArrayList<Cook> cooks = new ArrayList<>();
 	public static int currentCookIndex = 0;
 	public static Cook cook;
 	public static CustomerController cc;
@@ -157,8 +151,10 @@ public class GameScreen implements Screen {
 	/**
 	 * Constructor to initialise game screen;
 	 * 
-	 * @param game - Main entry point class
-	 * @param ms   - Title screen class
+	 * @param game 			- Main entry point class
+	 * @param ms   			- Title screen class
+	 * @param difficulty	- Chosen game difficulty
+	 * @param num_waves 	- Chosen number of waves
 	 */
 	public GameScreen(MainGameClass game, MainScreen ms, String difficulty, int num_waves) {
 		this.game = game;
@@ -172,7 +168,6 @@ public class GameScreen implements Screen {
 		cooks[1] = new Cook(new Vector2(64 * 5, 64 * 5), 2);
 		cook = cooks[currentCookIndex];
 		control = new Control();
-		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
 		map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
 		constructCollisionData(map1);
@@ -200,7 +195,6 @@ public class GameScreen implements Screen {
 		cooks[1] = new Cook(new Vector2(64 * 5, 64 * 5), 2);
 		cook = cooks[currentCookIndex];
 		control = new Control();
-		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
 		map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
 		constructCollisionData(map1);
@@ -225,7 +219,6 @@ public class GameScreen implements Screen {
 		this.difficulty = prefs.getString("difficulty", "normal");
 		this.calculateBoxMaths();
 		control = new Control();
-		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
 		map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
 		if (!testSave) tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
 		constructCollisionData(map1);
@@ -274,7 +267,6 @@ public class GameScreen implements Screen {
 		stationManager.stations.get(new Vector2(11, 8)).active = secondCutting;	// deactivate second cutting station
 
 		// =======================================START=FRAME=TIMER======================================================
-		//startTime = System.currentTimeMillis();
 		timeOnStartup = startTime;
 		tempThenTime = startTime;
 		// =======================================SET=POSITIONS=OF=SLIDERS===============================================
@@ -312,7 +304,6 @@ public class GameScreen implements Screen {
 		AUDIO = new Texture(Gdx.files.internal("uielements/audio.png"));
 		audioEdit = new Texture(Gdx.files.internal("uielements/background.png"));
 		SHOP = new Texture(Gdx.files.internal("uielements/shop.png"));
-		//BUYCHEF2 = new Texture(Gdx.files.internal("uielements/buychef2.png"));
 		BUYCHEF3 = new Texture(Gdx.files.internal("uielements/buychef3.png"));
 		BUYBAKINGSTATION = new Texture(Gdx.files.internal("uielements/buyBakingStation.png"));
 		BUYCUTTINGSTATION = new Texture(Gdx.files.internal("uielements/buyCuttingStation.png"));
@@ -324,7 +315,6 @@ public class GameScreen implements Screen {
 		rs2 = new Button(new TextureRegionDrawable(RESUME));
 		btms = new Button(new TextureRegionDrawable(BACKTOMAINSCREEN));
 		shop = new Button(new TextureRegionDrawable(SHOP));
-		//buyChef2 = new Button(new TextureRegionDrawable(BUYCHEF2));
 		buyChef3 = new Button(new TextureRegionDrawable(BUYCHEF3));
 		buyBakingStation = new Button(new TextureRegionDrawable(BUYBAKINGSTATION));
 		buyCuttingStation = new Button(new TextureRegionDrawable(BUYCUTTINGSTATION));
@@ -341,7 +331,6 @@ public class GameScreen implements Screen {
 				ad.getY());
 		btms.setSize(buttonwidth, buttonheight);
 		shop.setSize(buttonwidth, buttonheight);
-		//buyChef2.setSize(buttonwidth, buttonheight);
 		buyChef3.setSize(buttonwidth, buttonheight);
 		buyBakingStation.setSize(buttonwidth, buttonheight);
 		buyCuttingStation.setSize(buttonwidth, buttonheight);
@@ -522,32 +511,6 @@ public class GameScreen implements Screen {
 		// =========================================CHECK=GAME=OVER======================================================
 		checkGameOver();
 
-
-
-
-
-		// ====================================Nuke=Stuff===============================================================
-		/*
-		if(Gdx.input.isKeyJustPressed(Input.Keys.M)){
-			nuker.nukeEm();
-		}*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 
     /**
@@ -572,16 +535,13 @@ public class GameScreen implements Screen {
 		control.shift = false;
 	}
 
+	/**
+	 * Checks if a customer has exceeded maximum waiting time
+	 */
 	private void checkCustomerWaitTime() { //Removes a customer if wait time is exceeded
 		for(Customer customer: cc.customers) {
 			if (customer != null && customer.waitTime() > MAX_WAIT_TIME && customer.locked) {
 				cc.delCustomer(customer);
-
-			/*  dont spawn new ones on timeout
-			if (ENDLESS || currentWave < NUMBER_OF_WAVES - 1) {
-				cc.spawnCustomer();
-			}
-			*/
 
 				currentWave++;
 				reputationPoints--;
@@ -692,7 +652,6 @@ public class GameScreen implements Screen {
 			prefs.flush();
 
 			game.gameMusic.dispose();
-			//game.resetGameScreen();
 			game.setScreen(game.getMainScreen());
 
 		}
@@ -794,7 +753,6 @@ public class GameScreen implements Screen {
 				if (s < 0.01) {
 					s = 0;
 				}
-				// game.sound.setVolume(game.soundid, s);
 				MainGameClass.gameVolumeScale = s;
 			}
 		}
@@ -926,12 +884,14 @@ public class GameScreen implements Screen {
 		sr.end();
 	}
 
+	/**
+	 * Checks if the game should be in a game over state
+	 */
 	public void checkGameOver() {
 		if (currentWave == NUMBER_OF_WAVES || reputationPoints == 0) {
 			if (ENDLESS) {
 				game.getLeaderBoardScreen().addLeaderBoardData("PLAYER1", cc.totalServed);
 			}
-			//game.resetGameScreen();
 			this.resetStatic();
 			game.setScreen(game.getLeaderBoardScreen());
 		}
