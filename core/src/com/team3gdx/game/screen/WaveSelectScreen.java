@@ -3,6 +3,7 @@ package com.team3gdx.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -60,6 +61,10 @@ public class WaveSelectScreen implements Screen {
         this.ms = ms;
         this.buttonwidth = (float) Gdx.graphics.getWidth() / 3;
         this.buttonheight = (float) Gdx.graphics.getHeight() / 6;
+        font = new BitmapFont(Gdx.files.internal("uielements/font.fnt"), Gdx.files.internal("uielements/font.png"),
+                false);
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font.getData().setScale(7f, 7f);
 
         waves = 5;
 
@@ -171,7 +176,7 @@ public class WaveSelectScreen implements Screen {
 
         game.batch.begin();
         game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        game.font.draw(game.batch, Integer.toString(waves) + " waves", Gdx.graphics.getWidth() / 7f, 17 * Gdx.graphics.getHeight() / 20f);
+        font.draw(game.batch, Integer.toString(waves) + " waves", Gdx.graphics.getWidth() / 20f, 17 * Gdx.graphics.getHeight() / 20f);
         game.batch.end();
         stage.act();
         stage.draw();
