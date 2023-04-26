@@ -30,21 +30,21 @@ public class Station {
 	 */
 	public Vector2 pos;
 
-	/*
+	/**
 	 * The station's slots to hold ingredients.
 	 */
 	public Stack<Ingredient> slots;
-	/*
+	/**
 	 * Indicates if the station has an unlimited supply of ingredients.
 	 */
 	public boolean infinite;
 
-	/*
+	/**
 	 * The number of slots on the station.
 	 */
 	protected int numberOfSlots;
 
-	/*
+	/**
 	 * The cook that is currently locked to the station.
 	 */
 	public Cook lockedCook;
