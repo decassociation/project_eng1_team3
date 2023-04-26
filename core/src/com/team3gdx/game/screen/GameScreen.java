@@ -651,6 +651,7 @@ public class GameScreen implements Screen {
 			prefs.putLong("lastStartTime", startTime);
 			prefs.flush();
 
+			currentWaitingCustomer = null;
 			game.gameMusic.dispose();
 			game.setScreen(game.getMainScreen());
 
