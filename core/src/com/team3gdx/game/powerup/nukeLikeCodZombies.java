@@ -5,13 +5,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.team3gdx.game.entity.Cook;
 import com.team3gdx.game.entity.CustomerController;
+import com.team3gdx.game.food.Ingredients;
 import com.team3gdx.game.screen.GameScreen;
 import com.badlogic.gdx.audio.Sound;
+import com.team3gdx.game.station.IngredientStation;
+import com.team3gdx.game.station.ServingStation;
+import com.team3gdx.game.station.Station;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class nukeLikeCodZombies extends Powerup{
+    public GameScreen gameScreen;
     public static CustomerController cc;
     public int stage;
     public ArrayList<String> nukeZones;
@@ -47,6 +52,7 @@ public class nukeLikeCodZombies extends Powerup{
                 System.out.println("error");
             }
         }
+        GameScreen.currentWaitingCustomer = null;
     }
     public void nukeEm(){
         System.out.println("delling people");
