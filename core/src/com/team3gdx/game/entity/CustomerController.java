@@ -121,6 +121,10 @@ public class CustomerController {
 		this.xCoordinate = xvalues[0]; // We can do this because the search scans left to right, 0th value will be left
 	}
 
+	/**
+	 * Creates a new customer
+	 * @return null if there are no potential customers, customers[i] if a new customer has been created
+	 */
 	public Customer spawnCustomer() {
 		timeOfLastCustomer = System.currentTimeMillis();
 		timeUntilNext = ThreadLocalRandom.current().nextInt((int) (28000 * difficultyMultipliers.get(difficulty)), (int) (40001 * difficultyMultipliers.get(difficulty)));
@@ -135,6 +139,10 @@ public class CustomerController {
 		return null;
 	}
 
+	/**
+	 * Deletes customer at position customers[num]
+	 * @param num - The index of the customer to be deleted
+	 */
 	public void delCustomer(int num) {
 		if (this.customers[num].locked) {
 			amountActiveCustomers -= 1;
@@ -144,6 +152,10 @@ public class CustomerController {
 		}
 	}
 
+	/**
+	 * Nukes the customer at position customers[num]
+	 * @param num - The index of the customer to be nuked
+	 */
 	public void nukeCustomer(int num) {
 		if (this.customers[num].locked) {
 			amountActiveCustomers -= 1;
@@ -152,7 +164,10 @@ public class CustomerController {
 		}
 	}
 
-
+	/**
+	 * Deletes the customer passed into the method
+	 * @param customer - The customer to be deleted
+	 */
 	public void delCustomer(Customer customer) {
 		for (int i = 0; i < this.customers.length; i++) {
 			if (customers[i] == customer) {
