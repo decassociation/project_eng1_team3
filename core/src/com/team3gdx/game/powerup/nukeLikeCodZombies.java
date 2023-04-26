@@ -52,6 +52,7 @@ public class nukeLikeCodZombies extends Powerup{
                 System.out.println("error"); //This shouldn't ever actually be triggered, but it's there incase and will prevent the game from crashing.
             }
         }
+        GameScreen.currentWaitingCustomer = null;
     }
 
     /**
