@@ -54,6 +54,13 @@ public class DifficultySelectScreen implements Screen {
 
     BitmapFont font;
 
+    /**
+     * Constructor to initialise the difficulty select screen
+     * @param game  - Main entry point class
+     * @param ms    - Title screen class
+     * @param waves - Chosen number of waves
+     */
+
     public DifficultySelectScreen(MainGameClass game, MainScreen ms, int waves){
         this.game = game;
         this.ms = ms;
@@ -156,6 +163,9 @@ public class DifficultySelectScreen implements Screen {
         }
     }
 
+    /**
+     * Defines actions to be done when wave select screen is shown
+     */
     @Override
     public void show() {
         state = STATE.none;
@@ -170,6 +180,10 @@ public class DifficultySelectScreen implements Screen {
         stage.addActor(go);
     }
 
+    /**
+     * Render method for the wave select screen
+     * @param delta - The time in seconds since the last render.
+     */
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 0);

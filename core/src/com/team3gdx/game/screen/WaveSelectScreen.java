@@ -50,6 +50,11 @@ public class WaveSelectScreen implements Screen {
 
     BitmapFont font;
 
+    /**
+     *  Constructor to initialise the wave select screen
+     * @param game - Main entry point class
+     * @param ms   - Title screen class
+     */
     public WaveSelectScreen(MainGameClass game, MainScreen ms){
         this.game = game;
         this.ms = ms;
@@ -133,11 +138,13 @@ public class WaveSelectScreen implements Screen {
 
         if (state == STATE.main) {
             game.gameMusic.dispose();
-            //game.resetGameScreen();
             game.setScreen(game.getMainScreen());
         }
     }
 
+    /**
+     * Defines actions to be done when wave select screen is shown
+     */
     @Override
     public void show() {
         state = STATE.none;
@@ -152,6 +159,10 @@ public class WaveSelectScreen implements Screen {
         stage.addActor(go);
     }
 
+    /**
+     * Render method for the wave select screen
+     * @param delta - The time in seconds since the last render.
+     */
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 0);
