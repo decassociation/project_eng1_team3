@@ -162,4 +162,9 @@ public class Station {
 		interactSound.play();
 	}
 
+	public void clearStation() {
+		while(!slots.empty()) {
+			slots.pop();
+		}
+	}
 }

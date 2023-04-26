@@ -1,9 +1,7 @@
 package com.team3.gdx.tests;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.team3gdx.game.MainGameClass;
 import com.team3gdx.game.screen.GameScreen;
 import com.team3gdx.game.screen.MainScreen;

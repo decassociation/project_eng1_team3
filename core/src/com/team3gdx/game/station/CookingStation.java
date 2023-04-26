@@ -109,5 +109,4 @@ public class CookingStation extends Station {
 			slots.peek().flip();
 
 	}
-
 }

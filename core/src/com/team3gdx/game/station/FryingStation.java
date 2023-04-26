@@ -23,4 +23,6 @@ public class FryingStation extends CookingStation {
 		return false;
 	}
 
+
+
 }

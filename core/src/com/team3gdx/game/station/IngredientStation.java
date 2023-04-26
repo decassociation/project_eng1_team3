@@ -18,6 +18,10 @@ public class IngredientStation extends Station {
 
 	}
 
+	public void clearStation() {
+		//override station cleanup, don't remove
+	}
+
 	public void setIngredient(Object o) {
 		slots.push((Ingredient) o);
 	}
