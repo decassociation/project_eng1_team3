@@ -23,7 +23,7 @@ public class ServingStation extends Station {
 			allowedIngredients[i] = new Ingredient(recipe);
 			i++;
 		}
-	};
+	}
 
 	public ServingStation(Vector2 pos) {
 		super(pos, 1, false, allowedIngredients, "audio/soundFX/money-collect.mp3");
@@ -38,19 +38,12 @@ public class ServingStation extends Station {
 		if (waitingCustomer != null && waitingCustomer.locked) {
 			if (GameScreen.currentWaitingCustomer == null) {
 				waitingCustomer.order = possibleOrders[new Random().nextInt(possibleOrders.length)];
-				//waitingCustomer.arrived();
 				GameScreen.currentWaitingCustomer = waitingCustomer;
 			}
 			if (waitingCustomer == GameScreen.currentWaitingCustomer && !slots.empty()
 					&& slots.peek().equals(Menu.RECIPES.get(waitingCustomer.order))) {
 				slots.pop();
 				GameScreen.cc.delCustomer(waitingCustomer);
-
-				/*  dont spawn new ones on serve
-				if (GameScreen.ENDLESS || GameScreen.currentWave < GameScreen.NUMBER_OF_WAVES - 1){
-					GameScreen.cc.spawnCustomer();
-				}
-				*/
 
 				GameScreen.cc.totalServed++;
 				GameScreen.reputationPoints++;

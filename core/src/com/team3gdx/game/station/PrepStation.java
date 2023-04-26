@@ -28,7 +28,6 @@ public class PrepStation extends Station {
 		for (Recipe recipe : Menu.RECIPES.values()) {
 			if (recipe.matches(slots)) {
 				if (progress == 1) {
-//					progress = 0;
 					slots.clear();
 					slots.add(recipe);
 				}
@@ -39,7 +38,6 @@ public class PrepStation extends Station {
 
 		if (ingredientMatch(slots.peek()) != null) {
 			if (progress == 1) {
-//				progress = 0;
 				slots.add(ingredientMatch(slots.pop()));
 			}
 
@@ -88,7 +86,7 @@ public class PrepStation extends Station {
 	/**
 	 * Update and display the progress bar.
 	 * 
-	 * @param batch
+	 * @param batch The sprite batch
 	 * @param delta The amount to update the progress bar by.
 	 */
 	public void updateProgress(SpriteBatch batch, float delta) {
