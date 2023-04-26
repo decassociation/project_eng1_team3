@@ -108,6 +108,12 @@ public class miniWorldTest implements Screen {
 
     boolean showIngs;
 
+
+    /**
+     * Sets up the test world to have necessary environmental variables and resources/
+     * @param game
+     */
+
     public miniWorldTest(MainGameClass game) {
         this.game = game;
 
@@ -137,6 +143,9 @@ public class miniWorldTest implements Screen {
     }
 
 
+    /**
+     *Handles setting up UI and game depending elements
+     */
 
     public void show() {
         // =======================================START=FRAME=TIMER======================================================
@@ -175,25 +184,21 @@ public class miniWorldTest implements Screen {
                 super.touchUp(event, x, y, pointer, button);
             }
         });
-//
-//
-//
-//
-//           stage.addActor(mn);
-//        stage2.addActor(rs);
-//        stage2.addActor(btms);
-//        stage2.addActor(ad);
+
 
     }
 
+
+    /**
+     * Does the rendering, commented into sections
+     * @param delta
+     */
     @Override
     public void render(float delta) {
 
         // TODO Auto-generated method stub
         ScreenUtils.clear(250, 0, 0, 150);
-//        game.batch.setProjectionMatrix(camera.combined);
 
-        //background = new Texture(Gdx.files.internal("testingimage.png"));
 
 
         // =====================================CLEAR=SCREEN=============================================================
@@ -232,6 +237,11 @@ public class miniWorldTest implements Screen {
 
     }
 
+    /**
+     * Breaks down customer testing functions
+     * Allows for customer rotation and general showing
+     */
+
     public void custDrawTesting(){
         game.batch.begin();
         cc.drawCustTop(game.batch);
@@ -246,6 +256,10 @@ public class miniWorldTest implements Screen {
         }
     }
 
+    /**
+     * Breaks down chef testing functions
+     * Allows for customer rotation and seperate drawing of top/ bottom of chef, which are rendered seperately
+     */
     public void cookDrawTesting(){
 
 
@@ -272,6 +286,13 @@ public class miniWorldTest implements Screen {
     }
 
 
+    /**
+     * Tests the cook holding items
+     * -picking up
+     * -dropping
+     * -holding multiple items
+     */
+
     public void testCookHolding(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.U)){
             cooks[1].pickUpItem(testIng);
@@ -286,6 +307,10 @@ public class miniWorldTest implements Screen {
 
     }
 
+    /**
+     * tests the drawing of the actual items that the chefs hold
+     * -can be toggled to show flexibility
+     */
     private void drawHeldItems() {
         if(showIngs) {
             for (Cook ck : cooks) {
