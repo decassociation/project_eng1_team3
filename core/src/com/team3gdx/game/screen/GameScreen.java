@@ -145,7 +145,7 @@ public class GameScreen implements Screen {
 	public String difficulty;
 	String saveFile;
 
-
+	// new
 	PowerupController powerupController = new PowerupController(this);
 
 	/**
@@ -183,6 +183,14 @@ public class GameScreen implements Screen {
 		startTime = System.currentTimeMillis();
 	}
 
+
+	/**
+	 * New endless mode
+	 *
+	 * @param game
+	 * @param ms
+	 * @param difficulty
+	 */
 	public GameScreen(MainGameClass game, MainScreen ms, String difficulty) {
 		this.game = game;
 		this.ms = ms;
@@ -209,7 +217,13 @@ public class GameScreen implements Screen {
 		startTime = System.currentTimeMillis();
 	}
 
-	// load saved game
+	/**
+	 * New load game
+	 *
+	 * @param game
+	 * @param ms
+	 * @param testSave
+	 */
 	public GameScreen(MainGameClass game, MainScreen ms, Boolean testSave) {
 		if(testSave) saveFile = "testSave";
 		else saveFile = "save";
@@ -473,6 +487,7 @@ public class GameScreen implements Screen {
 		cc.drawCustTop(game.batch); // todo fix customer z ordering
 		game.batch.end();
 		// =====================================UPDATE=POWERUPS==========================================================
+		// new stuff
 		powerupController.updatePowerups(game.batch, cook);
 		// ==================================MOVE=COOK===================================================================
 		tempTime = System.currentTimeMillis();
@@ -635,7 +650,7 @@ public class GameScreen implements Screen {
 	 */
 	public void changeScreen(STATE state1) {
 		if (state1 == STATE.main) {
-			// SAVE THE GAME
+			// NEW - SAVE THE GAME
 			Preferences prefs = Gdx.app.getPreferences(saveFile);
 			prefs.putInteger("reputationPoints", reputationPoints);
 			prefs.putBoolean("ENDLESS", ENDLESS);
@@ -697,12 +712,18 @@ public class GameScreen implements Screen {
 			cc.updateCustomers();
 			thenTime = System.currentTimeMillis() - timeOnStartup;
 		}
+		/**
+		 * new shop
+		 */
 		if(state1 == STATE.shop){
 			thenTime = System.currentTimeMillis() - timeOnStartup;
 			Gdx.input.setInputProcessor(stage3);
 			stage3.act();
 			stage3.draw();
 		}
+		/**
+		 * new - tutorial pauses the game
+		 */
 		if(state1 == STATE.Tutorial){
 			thenTime = System.currentTimeMillis() - timeOnStartup;
 		}

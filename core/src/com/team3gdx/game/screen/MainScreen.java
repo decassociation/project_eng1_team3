@@ -275,11 +275,17 @@ public class MainScreen implements Screen {
 			game.setScreen(game.getWaveSelectScreen());
 		}
 
+		/**
+		 * new - load game
+		 */
 		if (state == STATE.load_game) {
 			game.mainScreenMusic.dispose();
 			game.setScreen(new GameScreen(game, game.getMainScreen(), false));
 		}
 
+		/**
+		 * New endless mode
+		 */
 		if (state == STATE.endless_game) {
 			game.mainScreenMusic.dispose();
 			game.setScreen(new DifficultySelectScreen(game, game.getMainScreen(), -1));

@@ -210,6 +210,7 @@ public class CustomerController {
 	 * Update customers
 	 */
 	public void updateCustomers() {
+		// new spawning behaviour
 		// spawn new if it has been long enough
 		if(System.currentTimeMillis() - timeOfLastCustomer >= timeUntilNext){
 			spawnCustomer();

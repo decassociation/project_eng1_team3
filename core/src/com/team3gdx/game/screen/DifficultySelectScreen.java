@@ -17,6 +17,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3gdx.game.MainGameClass;
 import org.w3c.dom.Text;
 
+/**
+ * New difficulty selection screen
+ */
 public class DifficultySelectScreen implements Screen {
 
     final MainGameClass game;

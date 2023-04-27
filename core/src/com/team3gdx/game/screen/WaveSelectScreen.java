@@ -17,6 +17,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3gdx.game.MainGameClass;
 
+/**
+ * New - select number of customers for scenario mode
+ */
 public class WaveSelectScreen implements Screen {
 
     final MainGameClass game;
