@@ -2,13 +2,17 @@ package com.team3gdx.game.powerup;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Vector2;
 import com.team3gdx.game.entity.Cook;
 import com.team3gdx.game.food.Ingredients;
 import com.team3gdx.game.screen.GameScreen;
-import com.team3gdx.game.station.*;
+import com.team3gdx.game.station.IngredientStation;
+import com.team3gdx.game.station.Station;
+import com.team3gdx.game.station.StationManager;
 
+/**
+ * This powerup adds spilled beans to all stations.
+ * New
+ */
 public class GetBeaned extends Powerup{
     private GameScreen gameScreen;
 
@@ -18,6 +22,7 @@ public class GetBeaned extends Powerup{
         this.gameScreen = gameScreen;
     }
 
+    // This method is called when the powerup is used, and it adds spilled beans to all stations.
     @Override
     public void applyPowerup(Cook cook){
         for(Station station: StationManager.stations.values()){
