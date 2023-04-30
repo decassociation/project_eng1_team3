@@ -8,7 +8,7 @@
 ---------------------------
 <h2>ENG1 - Assessment 2</h2>
 <h3>Releases</h3>
-https://github.com/decassociation/project_eng1_team3/releases/tag/v1.0.1
+https://github.com/decassociation/project_eng1_team3/releases/tag/v1.1.2
 <h3>Credits</h3>
 <h4>DecAssociation - Team members</h4>
 <p>★Poppy Fynes - pf693@york.ac.uk</p>
