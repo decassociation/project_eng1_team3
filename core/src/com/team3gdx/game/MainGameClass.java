@@ -30,6 +30,8 @@ public class MainGameClass extends Game {
 		// ====================================MUSIC=INITIALISATION======================================================
 		musicVolumeScale = 0.4f;
 		gameVolumeScale = 0.4f;
+		System.out.println("Working Directory = " + System.getProperty("user.dir"));
+
 		mainScreenMusic = Gdx.audio.newMusic(Gdx.files.internal("uielements/MainScreenMusic.ogg"));
 		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("uielements/GameMusic.ogg"));
 		mainScreenMusic.setLooping(false);
