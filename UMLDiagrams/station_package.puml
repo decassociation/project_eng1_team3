@@ -36,6 +36,8 @@ StationManager "1" -- "*" Station
 
 +class IngredientStation extends Station{
 +IngredientStation(pos:Vector2, ingredient:Ingredient)
++Ingredient getIngredient()
++Ingredient setIngredient(o:Object)
 }
 
 +class PrepStation extends Station{

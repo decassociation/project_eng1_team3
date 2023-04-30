@@ -7,10 +7,9 @@
   <title>Coverage Report > Entity</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -74,34 +73,34 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.entity;
-&nbsp;
-&nbsp;import com.badlogic.gdx.graphics.Texture;
-&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-&nbsp;import com.badlogic.gdx.math.Vector2;
-&nbsp;
-<b class="fc">&nbsp;public class Entity {</b>
-&nbsp;
-&nbsp;	public Vector2 pos;
-&nbsp;
-&nbsp;	public Texture texture;
-&nbsp;
-&nbsp;	public float width;
-&nbsp;	public float height;
-&nbsp;
-&nbsp;	public float speed;
-&nbsp;
-<b class="fc">&nbsp;	float dirX = 0;</b>
-<b class="fc">&nbsp;	float dirY = 0;</b>
-&nbsp;
-&nbsp;	public void draw(SpriteBatch batch) {
-<b class="nc">&nbsp;		batch.begin();</b>
-<b class="nc">&nbsp;		batch.draw(texture, pos.x, pos.y, width, height);</b>
-<b class="nc">&nbsp;		batch.end();</b>
-&nbsp;	}
-&nbsp;
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.entity;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.badlogic.gdx.graphics.Texture;
+<i class="no-highlight">4</i>&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+<i class="no-highlight">5</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">6</i>&nbsp;
+<b class="fc"><i class="no-highlight">7</i>&nbsp;public class Entity {</b>
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;	public Vector2 pos;
+<i class="no-highlight">10</i>&nbsp;
+<i class="no-highlight">11</i>&nbsp;	public Texture texture;
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;	public float width;
+<i class="no-highlight">14</i>&nbsp;	public float height;
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;	public float speed;
+<i class="no-highlight">17</i>&nbsp;
+<b class="fc"><i class="no-highlight">18</i>&nbsp;	float dirX = 0;</b>
+<b class="fc"><i class="no-highlight">19</i>&nbsp;	float dirY = 0;</b>
+<i class="no-highlight">20</i>&nbsp;
+<i class="no-highlight">21</i>&nbsp;	public void draw(SpriteBatch batch) {
+<b class="nc"><i class="no-highlight">22</i>&nbsp;		batch.begin();</b>
+<b class="nc"><i class="no-highlight">23</i>&nbsp;		batch.draw(texture, pos.x, pos.y, width, height);</b>
+<b class="nc"><i class="no-highlight">24</i>&nbsp;		batch.end();</b>
+<i class="no-highlight">25</i>&nbsp;	}
+<i class="no-highlight">26</i>&nbsp;
+<i class="no-highlight">27</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -116,15 +115,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

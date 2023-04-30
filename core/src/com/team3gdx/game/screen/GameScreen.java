@@ -76,7 +76,6 @@ public class GameScreen implements Screen {
 	Texture vControl;
 	Texture vButton;
 	Texture SHOP;
-	Texture BUYCHEF2;
 	Texture BUYCHEF3;
 	Texture BUYBAKINGSTATION;
 	Texture BUYCUTTINGSTATION;
@@ -104,10 +103,6 @@ public class GameScreen implements Screen {
 	OrthographicCamera uiCamera;
 	public static OrthographicCamera worldCamera;
 
-	//TESTING NUKE
-	nukeLikeCodZombies nuker = new nukeLikeCodZombies(0,0);
-
-
 
 	public static Customer currentWaitingCustomer = null;
 
@@ -116,7 +111,7 @@ public class GameScreen implements Screen {
 	}
 
 	public enum STATE {
-		Pause, Continue, main, audio, shop
+		Pause, Continue, main, audio, shop, Tutorial
 	}
 
 	public static STATE state1;
@@ -142,7 +137,6 @@ public class GameScreen implements Screen {
 	TiledMapRenderer tiledMapRenderer;
 	public TiledMap map1;
 	public static Cook[] cooks = new Cook[2];
-	//public static ArrayList<Cook> cooks = new ArrayList<>();
 	public static int currentCookIndex = 0;
 	public static Cook cook;
 	public static CustomerController cc;
@@ -151,13 +145,16 @@ public class GameScreen implements Screen {
 	public String difficulty;
 	String saveFile;
 
+	// new
 	PowerupController powerupController = new PowerupController(this);
 
 	/**
 	 * Constructor to initialise game screen;
 	 * 
-	 * @param game - Main entry point class
-	 * @param ms   - Title screen class
+	 * @param game 			- Main entry point class
+	 * @param ms   			- Title screen class
+	 * @param difficulty	- Chosen game difficulty
+	 * @param num_waves 	- Chosen number of waves
 	 */
 	public GameScreen(MainGameClass game, MainScreen ms, String difficulty, int num_waves) {
 		this.game = game;
@@ -171,7 +168,6 @@ public class GameScreen implements Screen {
 		cooks[1] = new Cook(new Vector2(64 * 5, 64 * 5), 2);
 		cook = cooks[currentCookIndex];
 		control = new Control();
-		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
 		map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
 		constructCollisionData(map1);
@@ -184,8 +180,17 @@ public class GameScreen implements Screen {
 		secondBaking = false;
 		secondCutting = false;
 		saveFile = "save";
+		startTime = System.currentTimeMillis();
 	}
 
+
+	/**
+	 * New endless mode
+	 *
+	 * @param game
+	 * @param ms
+	 * @param difficulty
+	 */
 	public GameScreen(MainGameClass game, MainScreen ms, String difficulty) {
 		this.game = game;
 		this.ms = ms;
@@ -198,7 +203,6 @@ public class GameScreen implements Screen {
 		cooks[1] = new Cook(new Vector2(64 * 5, 64 * 5), 2);
 		cook = cooks[currentCookIndex];
 		control = new Control();
-		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
 		map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
 		constructCollisionData(map1);
@@ -210,9 +214,16 @@ public class GameScreen implements Screen {
 		secondBaking = false;
 		secondCutting = false;
 		saveFile = "save";
+		startTime = System.currentTimeMillis();
 	}
 
-	// load saved game
+	/**
+	 * New load game
+	 *
+	 * @param game
+	 * @param ms
+	 * @param testSave
+	 */
 	public GameScreen(MainGameClass game, MainScreen ms, Boolean testSave) {
 		if(testSave) saveFile = "testSave";
 		else saveFile = "save";
@@ -222,9 +233,8 @@ public class GameScreen implements Screen {
 		this.difficulty = prefs.getString("difficulty", "normal");
 		this.calculateBoxMaths();
 		control = new Control();
-		// map = new TmxMapLoader().load("map/art_map/prototype_map.tmx");
 		map1 = new TmxMapLoader().load("map/art_map/customertest.tmx");
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
+		if (!testSave) tiledMapRenderer = new OrthogonalTiledMapRenderer(map1);
 		constructCollisionData(map1);
 		cc = new CustomerController(map1, difficulty);
 		cc.spawnCustomer();
@@ -246,6 +256,8 @@ public class GameScreen implements Screen {
 		cook = cooks[currentCookIndex];
 		secondBaking = prefs.getBoolean("secondBaking", false);
 		secondCutting = prefs.getBoolean("secondCutting", false);
+		Tutorial.complete = prefs.getBoolean("tutorialComplete", false);
+		startTime = prefs.getLong("lastTimeOnStartup") - prefs.getLong("lastStartTime") + System.currentTimeMillis();
 	}
 
 	/***
@@ -269,7 +281,6 @@ public class GameScreen implements Screen {
 		stationManager.stations.get(new Vector2(11, 8)).active = secondCutting;	// deactivate second cutting station
 
 		// =======================================START=FRAME=TIMER======================================================
-		startTime = System.currentTimeMillis();
 		timeOnStartup = startTime;
 		tempThenTime = startTime;
 		// =======================================SET=POSITIONS=OF=SLIDERS===============================================
@@ -288,7 +299,8 @@ public class GameScreen implements Screen {
 		uiCamera.setToOrtho(false, gameResolutionX, gameResolutionY);
 		worldCamera.setToOrtho(false, gameResolutionX, gameResolutionY);
 		// ======================================SET=INITAL=STATE========================================================
-		state1 = STATE.Continue;
+		if (Tutorial.complete) state1 = STATE.Continue;
+		else state1 = STATE.Tutorial;
 		// ======================================START=VIEWPORTS=========================================================
 		worldViewport = new FitViewport(gameResolutionX, gameResolutionY, worldCamera);
 		uiViewport = new FitViewport(gameResolutionX, gameResolutionY, uiCamera);
@@ -306,7 +318,6 @@ public class GameScreen implements Screen {
 		AUDIO = new Texture(Gdx.files.internal("uielements/audio.png"));
 		audioEdit = new Texture(Gdx.files.internal("uielements/background.png"));
 		SHOP = new Texture(Gdx.files.internal("uielements/shop.png"));
-		//BUYCHEF2 = new Texture(Gdx.files.internal("uielements/buychef2.png"));
 		BUYCHEF3 = new Texture(Gdx.files.internal("uielements/buychef3.png"));
 		BUYBAKINGSTATION = new Texture(Gdx.files.internal("uielements/buyBakingStation.png"));
 		BUYCUTTINGSTATION = new Texture(Gdx.files.internal("uielements/buyCuttingStation.png"));
@@ -318,7 +329,6 @@ public class GameScreen implements Screen {
 		rs2 = new Button(new TextureRegionDrawable(RESUME));
 		btms = new Button(new TextureRegionDrawable(BACKTOMAINSCREEN));
 		shop = new Button(new TextureRegionDrawable(SHOP));
-		//buyChef2 = new Button(new TextureRegionDrawable(BUYCHEF2));
 		buyChef3 = new Button(new TextureRegionDrawable(BUYCHEF3));
 		buyBakingStation = new Button(new TextureRegionDrawable(BUYBAKINGSTATION));
 		buyCuttingStation = new Button(new TextureRegionDrawable(BUYCUTTINGSTATION));
@@ -335,7 +345,6 @@ public class GameScreen implements Screen {
 				ad.getY());
 		btms.setSize(buttonwidth, buttonheight);
 		shop.setSize(buttonwidth, buttonheight);
-		//buyChef2.setSize(buttonwidth, buttonheight);
 		buyChef3.setSize(buttonwidth, buttonheight);
 		buyBakingStation.setSize(buttonwidth, buttonheight);
 		buyCuttingStation.setSize(buttonwidth, buttonheight);
@@ -442,19 +451,6 @@ public class GameScreen implements Screen {
 	 */
 
 	public void render(float delta) {
-
-
-
-		if(Gdx.input.isKeyJustPressed(Input.Keys.M)){
-			nuker.nukeEm();
-		}
-
-
-
-
-
-
-
 		// =====================================CLEAR=SCREEN=============================================================
 		ScreenUtils.clear(0, 0, 0, 0);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -491,6 +487,7 @@ public class GameScreen implements Screen {
 		cc.drawCustTop(game.batch); // todo fix customer z ordering
 		game.batch.end();
 		// =====================================UPDATE=POWERUPS==========================================================
+		// new stuff
 		powerupController.updatePowerups(game.batch, cook);
 		// ==================================MOVE=COOK===================================================================
 		tempTime = System.currentTimeMillis();
@@ -553,16 +550,13 @@ public class GameScreen implements Screen {
 		control.shift = false;
 	}
 
+	/**
+	 * Checks if a customer has exceeded maximum waiting time
+	 */
 	private void checkCustomerWaitTime() { //Removes a customer if wait time is exceeded
 		for(Customer customer: cc.customers) {
 			if (customer != null && customer.waitTime() > MAX_WAIT_TIME && customer.locked) {
 				cc.delCustomer(customer);
-
-			/*  dont spawn new ones on timeout
-			if (ENDLESS || currentWave < NUMBER_OF_WAVES - 1) {
-				cc.spawnCustomer();
-			}
-			*/
 
 				currentWave++;
 				reputationPoints--;
@@ -621,6 +615,7 @@ public class GameScreen implements Screen {
 			}
 			Tutorial.drawBox(game.batch, delta * 20);
 		} else {
+			if(state1 == STATE.Tutorial) state1 = STATE.Continue;
 			if (Math.abs(worldCamera.position.x - cook.pos.x) < 2
 					&& Math.abs(worldCamera.position.y - cook.pos.y) < 2) {
 				worldCamera.position.x = cook.pos.x;
@@ -655,7 +650,7 @@ public class GameScreen implements Screen {
 	 */
 	public void changeScreen(STATE state1) {
 		if (state1 == STATE.main) {
-			// SAVE THE GAME
+			// NEW - SAVE THE GAME
 			Preferences prefs = Gdx.app.getPreferences(saveFile);
 			prefs.putInteger("reputationPoints", reputationPoints);
 			prefs.putBoolean("ENDLESS", ENDLESS);
@@ -666,10 +661,13 @@ public class GameScreen implements Screen {
 			prefs.putBoolean("thirdChef", thirdChef);
 			prefs.putBoolean("secondBaking", secondBaking);
 			prefs.putBoolean("secondCutting", secondCutting);
+			prefs.putBoolean("tutorialComplete", Tutorial.complete);
+			prefs.putLong("lastTimeOnStartup", timeOnStartup);
+			prefs.putLong("lastStartTime", startTime);
 			prefs.flush();
 
+			currentWaitingCustomer = null;
 			game.gameMusic.dispose();
-			//game.resetGameScreen();
 			game.setScreen(game.getMainScreen());
 
 		}
@@ -714,11 +712,20 @@ public class GameScreen implements Screen {
 			cc.updateCustomers();
 			thenTime = System.currentTimeMillis() - timeOnStartup;
 		}
+		/**
+		 * new shop
+		 */
 		if(state1 == STATE.shop){
 			thenTime = System.currentTimeMillis() - timeOnStartup;
 			Gdx.input.setInputProcessor(stage3);
 			stage3.act();
 			stage3.draw();
+		}
+		/**
+		 * new - tutorial pauses the game
+		 */
+		if(state1 == STATE.Tutorial){
+			thenTime = System.currentTimeMillis() - timeOnStartup;
 		}
 	}
 
@@ -768,7 +775,6 @@ public class GameScreen implements Screen {
 				if (s < 0.01) {
 					s = 0;
 				}
-				// game.sound.setVolume(game.soundid, s);
 				MainGameClass.gameVolumeScale = s;
 			}
 		}
@@ -900,12 +906,14 @@ public class GameScreen implements Screen {
 		sr.end();
 	}
 
+	/**
+	 * Checks if the game should be in a game over state
+	 */
 	public void checkGameOver() {
 		if (currentWave == NUMBER_OF_WAVES || reputationPoints == 0) {
 			if (ENDLESS) {
 				game.getLeaderBoardScreen().addLeaderBoardData("PLAYER1", cc.totalServed);
 			}
-			//game.resetGameScreen();
 			this.resetStatic();
 			game.setScreen(game.getLeaderBoardScreen());
 		}
@@ -920,6 +928,12 @@ public class GameScreen implements Screen {
 	}
 	public StationManager getStationManager(){
 		return stationManager;
+	}
+	public Long getTimePlayed(){
+		return startTime - timeOnStartup;
+	}
+	public void incStartTime(Long l){
+		startTime += l;
 	}
 
 	/**

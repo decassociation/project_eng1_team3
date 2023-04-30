@@ -17,6 +17,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3gdx.game.MainGameClass;
 import org.w3c.dom.Text;
 
+/**
+ * New difficulty selection screen
+ */
 public class DifficultySelectScreen implements Screen {
 
     final MainGameClass game;
@@ -54,6 +57,13 @@ public class DifficultySelectScreen implements Screen {
 
     BitmapFont font;
 
+    /**
+     * Constructor to initialise the difficulty select screen
+     * @param game  - Main entry point class
+     * @param ms    - Title screen class
+     * @param waves - Chosen number of waves
+     */
+
     public DifficultySelectScreen(MainGameClass game, MainScreen ms, int waves){
         this.game = game;
         this.ms = ms;
@@ -62,6 +72,11 @@ public class DifficultySelectScreen implements Screen {
         this.buttonheight = (float) Gdx.graphics.getHeight() / 6;
 
         difficulty = "normal";
+
+        font = new BitmapFont(Gdx.files.internal("uielements/font.fnt"), Gdx.files.internal("uielements/font.png"),
+                false);
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font.getData().setScale(7f, 7f);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -156,6 +171,9 @@ public class DifficultySelectScreen implements Screen {
         }
     }
 
+    /**
+     * Defines actions to be done when wave select screen is shown
+     */
     @Override
     public void show() {
         state = STATE.none;
@@ -170,6 +188,10 @@ public class DifficultySelectScreen implements Screen {
         stage.addActor(go);
     }
 
+    /**
+     * Render method for the wave select screen
+     * @param delta - The time in seconds since the last render.
+     */
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 0);
@@ -178,7 +200,7 @@ public class DifficultySelectScreen implements Screen {
 
         game.batch.begin();
         game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        game.font.draw(game.batch, "Difficulty: " + difficulty, Gdx.graphics.getWidth() / 7f, 17 * Gdx.graphics.getHeight() / 20f);
+        font.draw(game.batch, difficulty, Gdx.graphics.getWidth() / 20f, 17 * Gdx.graphics.getHeight() / 20f);
         game.batch.end();
         stage.act();
         stage.draw();

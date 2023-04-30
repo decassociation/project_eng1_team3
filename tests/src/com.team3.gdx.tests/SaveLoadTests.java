@@ -5,6 +5,7 @@ import com.badlogic.gdx.Preferences;
 import com.team3gdx.game.MainGameClass;
 import com.team3gdx.game.screen.GameScreen;
 import com.team3gdx.game.screen.MainScreen;
+import com.team3gdx.game.screen.Tutorial;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -12,10 +13,21 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(GdxTestRunner.class)
 public class SaveLoadTests {
+    MainGameClass game;
+    MainScreen ms;
+    GameScreen gameScreen;
+
+    private void setUpEnvironment(){
+        game = new MainGameClass();
+        game.gameMusic = Gdx.audio.newMusic(Gdx.files.internal("uielements/GameMusic.ogg"));
+        ms = new MainScreen(game);
+        ms.updateGameResolution(1600, 900);
+        gameScreen = new GameScreen(game, ms, true);
+    }
+
     @Test
     public void testSaveLoadReputationPoints(){
-        MainGameClass game = new MainGameClass();
-        GameScreen gameScreen = new GameScreen(game, game.getMainScreen(), true);
+        setUpEnvironment();
 
         int initRepPoints = gameScreen.getReputationPoints();
         int toAdd = 7357;
@@ -24,7 +36,7 @@ public class SaveLoadTests {
         gameScreen.changeScreen(GameScreen.STATE.main); // save the game
 
         // load
-        GameScreen gameScreen1 = new GameScreen(game, game.getMainScreen(), true);
+        GameScreen gameScreen1 = new GameScreen(game, ms, true);
         assertTrue(gameScreen1.getReputationPoints() == initRepPoints + toAdd);
 
         // reset save file
@@ -35,8 +47,7 @@ public class SaveLoadTests {
 
     @Test
     public void testSaveLoadTotalServed(){
-        MainGameClass game = new MainGameClass();
-        GameScreen gameScreen = new GameScreen(game, new MainScreen(new MainGameClass()), true);
+        setUpEnvironment();
 
         int totalServed = gameScreen.cc.totalServed;
         int toAdd = 7357;
@@ -45,7 +56,7 @@ public class SaveLoadTests {
         gameScreen.changeScreen(GameScreen.STATE.main); // save the game
 
         // load
-        GameScreen gameScreen1 = new GameScreen(game, game.getMainScreen(), true);
+        GameScreen gameScreen1 = new GameScreen(game, ms, true);
         assertTrue(gameScreen1.cc.totalServed == totalServed + toAdd);
 
         // reset save file
@@ -56,8 +67,7 @@ public class SaveLoadTests {
 
     @Test
     public void testSaveLoadCurrentWave(){
-        MainGameClass game = new MainGameClass();
-        GameScreen gameScreen = new GameScreen(game, game.getMainScreen(), true);
+        setUpEnvironment();
 
         int currentWave = gameScreen.currentWave;
         int toAdd = 7357;
@@ -66,7 +76,7 @@ public class SaveLoadTests {
         gameScreen.changeScreen(GameScreen.STATE.main); // save the game
 
         // load
-        GameScreen gameScreen1 = new GameScreen(game, game.getMainScreen(), true);
+        GameScreen gameScreen1 = new GameScreen(game, ms, true);
         assertTrue(gameScreen1.currentWave == currentWave + toAdd);
 
         // reset save file
@@ -77,8 +87,7 @@ public class SaveLoadTests {
 
     @Test
     public void testSaveLoadNumberOfWaves(){
-        MainGameClass game = new MainGameClass();
-        GameScreen gameScreen = new GameScreen(game, game.getMainScreen(), true);
+        setUpEnvironment();
 
         int numberOfWaves = gameScreen.NUMBER_OF_WAVES;
         int toAdd = 7357;
@@ -87,7 +96,7 @@ public class SaveLoadTests {
         gameScreen.changeScreen(GameScreen.STATE.main); // save the game
 
         // load
-        GameScreen gameScreen1 = new GameScreen(game, game.getMainScreen(), true);
+        GameScreen gameScreen1 = new GameScreen(game, ms, true);
         assertTrue(gameScreen1.NUMBER_OF_WAVES == numberOfWaves + toAdd);
 
         // reset save file
@@ -98,8 +107,7 @@ public class SaveLoadTests {
 
     @Test
     public void testSaveLoadEndless(){
-        MainGameClass game = new MainGameClass();
-        GameScreen gameScreen = new GameScreen(game, game.getMainScreen(), true);
+        setUpEnvironment();
 
         Boolean endless = gameScreen.ENDLESS;
         gameScreen.ENDLESS = !endless;
@@ -107,7 +115,7 @@ public class SaveLoadTests {
         gameScreen.changeScreen(GameScreen.STATE.main); // save the game
 
         // load
-        GameScreen gameScreen1 = new GameScreen(game, game.getMainScreen(), true);
+        GameScreen gameScreen1 = new GameScreen(game, ms, true);
         assertTrue(gameScreen1.ENDLESS == !endless);
 
         // reset save file
@@ -118,8 +126,7 @@ public class SaveLoadTests {
 
     @Test
     public void testSaveLoadThirdChef(){
-        MainGameClass game = new MainGameClass();
-        GameScreen gameScreen = new GameScreen(game, game.getMainScreen(), true);
+        setUpEnvironment();
 
         Boolean thirdChef = gameScreen.thirdChef;
         gameScreen.thirdChef = !thirdChef;
@@ -127,7 +134,7 @@ public class SaveLoadTests {
         gameScreen.changeScreen(GameScreen.STATE.main); // save the game
 
         // load
-        GameScreen gameScreen1 = new GameScreen(game, game.getMainScreen(), true);
+        GameScreen gameScreen1 = new GameScreen(game, ms, true);
         assertTrue(gameScreen1.thirdChef == !thirdChef);
 
         // reset save file
@@ -137,8 +144,7 @@ public class SaveLoadTests {
     }
     @Test
     public void testSaveLoadSecondBaking(){
-        MainGameClass game = new MainGameClass();
-        GameScreen gameScreen = new GameScreen(game, game.getMainScreen(), true);
+        setUpEnvironment();
 
         Boolean secondBaking = gameScreen.secondBaking;
         gameScreen.secondBaking = !secondBaking;
@@ -146,7 +152,7 @@ public class SaveLoadTests {
         gameScreen.changeScreen(GameScreen.STATE.main); // save the game
 
         // load
-        GameScreen gameScreen1 = new GameScreen(game, game.getMainScreen(), true);
+        GameScreen gameScreen1 = new GameScreen(game, ms, true);
         assertTrue(gameScreen1.secondBaking == !secondBaking);
 
         // reset save file
@@ -157,8 +163,7 @@ public class SaveLoadTests {
 
     @Test
     public void testSaveLoadSecondCutting(){
-        MainGameClass game = new MainGameClass();
-        GameScreen gameScreen = new GameScreen(game, game.getMainScreen(), true);
+        setUpEnvironment();
 
         Boolean secondCutting = gameScreen.secondCutting;
         gameScreen.secondCutting = !secondCutting;
@@ -166,7 +171,7 @@ public class SaveLoadTests {
         gameScreen.changeScreen(GameScreen.STATE.main); // save the game
 
         // load
-        GameScreen gameScreen1 = new GameScreen(game, game.getMainScreen(), true);
+        GameScreen gameScreen1 = new GameScreen(game, ms, true);
         assertTrue(gameScreen1.secondCutting == !secondCutting);
 
         // reset save file
@@ -177,8 +182,7 @@ public class SaveLoadTests {
 
     @Test
     public void testSaveLoadDifficulty(){
-        MainGameClass game = new MainGameClass();
-        GameScreen gameScreen = new GameScreen(game, game.getMainScreen(), true);
+        setUpEnvironment();
 
         String difficulty = gameScreen.difficulty;
         if(difficulty != "normal") gameScreen.difficulty = "normal";
@@ -187,7 +191,7 @@ public class SaveLoadTests {
         gameScreen.changeScreen(GameScreen.STATE.main); // save the game
 
         // load
-        GameScreen gameScreen1 = new GameScreen(game, game.getMainScreen(), true);
+        GameScreen gameScreen1 = new GameScreen(game, ms, true);
         assertTrue(gameScreen1.difficulty != difficulty);
 
         // reset save file
@@ -195,5 +199,45 @@ public class SaveLoadTests {
         prefs.clear();
         prefs.flush();
     }
+
+    @Test
+    public void testSaveLoadTutorialCompletion(){
+        setUpEnvironment();
+
+        Boolean tutorialComplete = Tutorial.complete;
+
+        gameScreen.changeScreen(GameScreen.STATE.main); // save the game
+        Tutorial.complete = !tutorialComplete;  // change static tutorial complete boolean, this should revert on load
+
+        // load
+        GameScreen gameScreen1 = new GameScreen(game, ms, true);
+        assertTrue(Tutorial.complete == tutorialComplete);
+
+        // reset save file
+        Preferences prefs = Gdx.app.getPreferences("testSave");
+        prefs.clear();
+        prefs.flush();
+    }
+
+    @Test
+    public void testSaveLoadTimePlayed(){
+        setUpEnvironment();
+
+        Long timePlayed = gameScreen.getTimePlayed();
+        Long toAdd = 7357l;
+        gameScreen.incStartTime(toAdd);
+
+        gameScreen.changeScreen(GameScreen.STATE.main); // save the game
+
+        // load
+        GameScreen gameScreen1 = new GameScreen(game, ms, true);
+        assertTrue(gameScreen.getTimePlayed() == timePlayed + toAdd);
+
+        // reset save file
+        Preferences prefs = Gdx.app.getPreferences("testSave");
+        prefs.clear();
+        prefs.flush();
+    }
+
 
 }

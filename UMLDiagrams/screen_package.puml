@@ -125,7 +125,7 @@ Tutorial *-- PosTextPair
 ~enum STATE.main, STATE.audio,
 STATE.leaderboard, STATE.new_game,
 STATE.endless_game, STATE.credits,
-STATE.testing
+STATE.testing, STATE.load_game
 ~STATE state
 +MainScreen(final game: MainGameClass)
 +void changeScreen(state:STATE)
@@ -150,6 +150,7 @@ STATE.testing
 +{static} CollisionTile[][] CLTiles
 ~Viewport uiViewport, worldViewport
 ~Stage stage, stage2, stage3
++Boolean thirdChef, secondBaking, secondCutting
 ~OrthographicCamera uiCamera
 +{static} OrthographicCamera worldCamera
 +{static} Customer currentWaitingCustomer
@@ -168,7 +169,8 @@ STATE.testing
 +{static} CustomerController cc
 ~InputMultiplexer multi
 ~StationManager stationManager
-~String difficulty
++String difficulty
+~String saveFile
 ~PowerupController
 ~{static} ShapeRenderer _selectedPlayerBox
 +{static} final float MAX_WAIT_TIME
@@ -176,7 +178,7 @@ STATE.testing
 +enum STATE.Pause, STATE.Continue, STATE.main, STATE.audio, STATE.shop
 +void addReputationPoints(i:int)
 +GameScreen(game:MainGameClass, ms:MainScreen, difficulty:String, num_waves:int)
-+GameScreen(game:MainGameClass, ms:MainScreen, difficulty:String)
++GameScreen(game:MainGameClass, ms:MainScreen, difficulty:String, testSave:Boolean)
 -void setShopButtonPositions()
 +void show()
 -{static} ShapeRenderer getSelectedPlayerBox()

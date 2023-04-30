@@ -7,10 +7,9 @@
   <title>Coverage Report > CookingStation</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -74,120 +73,120 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.station;
-&nbsp;
-&nbsp;import com.badlogic.gdx.Gdx;
-&nbsp;import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-&nbsp;import com.badlogic.gdx.math.Vector2;
-&nbsp;import com.team3gdx.game.food.Ingredient;
-&nbsp;import com.team3gdx.game.screen.GameScreen;
-&nbsp;import com.team3gdx.game.screen.GameScreen.STATE;
-&nbsp;
-&nbsp;public class CookingStation extends Station {
-&nbsp;
-&nbsp;	ParticleEffect[] pES;
-&nbsp;
-&nbsp;	public CookingStation(Vector2 pos, int numberOfSlots, Ingredient[] allowedIngredients, String particlePath,
-&nbsp;			String soundPath) {
-<b class="fc">&nbsp;		super(pos, numberOfSlots, false, allowedIngredients, &quot;audio/soundFX/frying.mp3&quot;);</b>
-<b class="fc">&nbsp;		createParticleEmitter(pos, particlePath);</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Create particle effects above the station.
-&nbsp;	 * 
-&nbsp;	 * @param pos          The position of the particles.
-&nbsp;	 * @param particlePath The path to the particle effect&#39;s behaviour.
-&nbsp;	 */
-&nbsp;	protected void createParticleEmitter(Vector2 pos, String particlePath) {
-<b class="fc">&nbsp;		pES = new ParticleEffect[numberOfSlots];</b>
-<b class="fc">&nbsp;		for (int i = 0; i &lt; numberOfSlots; i++) {</b>
-<b class="fc">&nbsp;			ParticleEffect pE = new ParticleEffect();</b>
-<b class="fc">&nbsp;			pE.load(Gdx.files.internal(particlePath), Gdx.files.internal(&quot;particles/&quot;));</b>
-&nbsp;
-<b class="fc">&nbsp;			pE.getEmitters().first().setPosition(16 + pos.x * 64 + ((i * 32) % 64),</b>
-<b class="fc">&nbsp;					Math.floorDiv((i * 32), 64) * 32 + pos.y * 64 + 16);</b>
-<b class="fc">&nbsp;			pE.start();</b>
-<b class="fc">&nbsp;			pES[i] = pE;</b>
-&nbsp;		}
-&nbsp;
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Render the particles.
-&nbsp;	 * 
-&nbsp;	 * @param batch
-&nbsp;	 * @param slotIndex The slot to draw the particle effects at (which slot is
-&nbsp;	 *                  active).
-&nbsp;	 */
-&nbsp;	public void drawParticles(SpriteBatch batch, int slotIndex) {
-<b class="nc">&nbsp;		batch.begin();</b>
-<b class="nc">&nbsp;		if (GameScreen.state1 == STATE.Continue)</b>
-<b class="nc">&nbsp;			pES[slotIndex].update(Gdx.graphics.getDeltaTime());</b>
-<b class="nc">&nbsp;		pES[slotIndex].draw(batch);</b>
-<b class="nc">&nbsp;		if (pES[slotIndex].isComplete())</b>
-<b class="nc">&nbsp;			pES[slotIndex].reset();</b>
-&nbsp;
-<b class="nc">&nbsp;		batch.end();</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Lock the current cook at the station.
-&nbsp;	 * 
-&nbsp;	 * @return A boolean indicating if the cook was successfully locked.
-&nbsp;	 */
-&nbsp;	public boolean lockCook() {
-<b class="fc">&nbsp;		if (!slots.isEmpty()) {</b>
-<b class="fc">&nbsp;			if (lockedCook == null) {</b>
-<b class="fc">&nbsp;				GameScreen.cook.locked = true;</b>
-<b class="fc">&nbsp;				lockedCook = GameScreen.cook;</b>
-&nbsp;			} else {
-<b class="fc">&nbsp;				lockedCook.locked = true;</b>
-&nbsp;			}
-<b class="fc">&nbsp;			return true;</b>
-&nbsp;		}
-<b class="fc">&nbsp;		if (lockedCook != null) {</b>
-<b class="fc">&nbsp;			lockedCook.locked = false;</b>
-<b class="fc">&nbsp;			lockedCook = null;</b>
-&nbsp;		}
-&nbsp;
-<b class="fc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Check interactions with the cooking station.
-&nbsp;	 * 
-&nbsp;	 * @param batch
-&nbsp;	 */
-&nbsp;	public void checkCookingStation(SpriteBatch batch) {
-<b class="fc">&nbsp;		if (!slots.empty() &amp;&amp; !GameScreen.cook.full() &amp;&amp; slots.peek().flipped)</b>
-<b class="nc">&nbsp;			drawText(batch, &quot;Take [q]&quot;, new Vector2(pos.x * 64, pos.y * 64 - 16));</b>
-&nbsp;		else
-<b class="fc">&nbsp;			drawDropText(batch);</b>
-&nbsp;
-<b class="fc">&nbsp;		if (GameScreen.control.interact) {</b>
-<b class="nc">&nbsp;			if (!slots.empty() &amp;&amp; !GameScreen.cook.full()) {</b>
-<b class="nc">&nbsp;				if (slots.peek().flipped) {</b>
-<b class="nc">&nbsp;					GameScreen.cook.pickUpItem(take());</b>
-&nbsp;				}
-&nbsp;
-&nbsp;				return;
-&nbsp;			}
-&nbsp;		}
-<b class="fc">&nbsp;		if (GameScreen.control.drop) {</b>
-<b class="nc">&nbsp;			if (!GameScreen.cook.heldItems.empty() &amp;&amp; place(GameScreen.cook.heldItems.peek())) {</b>
-<b class="nc">&nbsp;				GameScreen.cook.dropItem();</b>
-<b class="nc">&nbsp;				slots.peek().cooking = true;</b>
-&nbsp;			}
-&nbsp;		}
-<b class="fc">&nbsp;		if (!slots.empty() &amp;&amp; GameScreen.control.flip)</b>
-<b class="nc">&nbsp;			slots.peek().flip();</b>
-&nbsp;
-&nbsp;	}
-&nbsp;
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.station;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.badlogic.gdx.Gdx;
+<i class="no-highlight">4</i>&nbsp;import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+<i class="no-highlight">5</i>&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+<i class="no-highlight">6</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">7</i>&nbsp;import com.team3gdx.game.food.Ingredient;
+<i class="no-highlight">8</i>&nbsp;import com.team3gdx.game.screen.GameScreen;
+<i class="no-highlight">9</i>&nbsp;import com.team3gdx.game.screen.GameScreen.STATE;
+<i class="no-highlight">10</i>&nbsp;
+<i class="no-highlight">11</i>&nbsp;public class CookingStation extends Station {
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;	ParticleEffect[] pES;
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;	public CookingStation(Vector2 pos, int numberOfSlots, Ingredient[] allowedIngredients, String particlePath,
+<i class="no-highlight">16</i>&nbsp;			String soundPath) {
+<b class="fc"><i class="no-highlight">17</i>&nbsp;		super(pos, numberOfSlots, false, allowedIngredients, &quot;audio/soundFX/frying.mp3&quot;);</b>
+<b class="fc"><i class="no-highlight">18</i>&nbsp;		createParticleEmitter(pos, particlePath);</b>
+<i class="no-highlight">19</i>&nbsp;	}
+<i class="no-highlight">20</i>&nbsp;
+<i class="no-highlight">21</i>&nbsp;	/**
+<i class="no-highlight">22</i>&nbsp;	 * Create particle effects above the station.
+<i class="no-highlight">23</i>&nbsp;	 * 
+<i class="no-highlight">24</i>&nbsp;	 * @param pos          The position of the particles.
+<i class="no-highlight">25</i>&nbsp;	 * @param particlePath The path to the particle effect&#39;s behaviour.
+<i class="no-highlight">26</i>&nbsp;	 */
+<i class="no-highlight">27</i>&nbsp;	protected void createParticleEmitter(Vector2 pos, String particlePath) {
+<b class="fc"><i class="no-highlight">28</i>&nbsp;		pES = new ParticleEffect[numberOfSlots];</b>
+<b class="fc"><i class="no-highlight">29</i>&nbsp;		for (int i = 0; i &lt; numberOfSlots; i++) {</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;			ParticleEffect pE = new ParticleEffect();</b>
+<b class="fc"><i class="no-highlight">31</i>&nbsp;			pE.load(Gdx.files.internal(particlePath), Gdx.files.internal(&quot;particles/&quot;));</b>
+<i class="no-highlight">32</i>&nbsp;
+<b class="fc"><i class="no-highlight">33</i>&nbsp;			pE.getEmitters().first().setPosition(16 + pos.x * 64 + ((i * 32) % 64),</b>
+<b class="fc"><i class="no-highlight">34</i>&nbsp;					Math.floorDiv((i * 32), 64) * 32 + pos.y * 64 + 16);</b>
+<b class="fc"><i class="no-highlight">35</i>&nbsp;			pE.start();</b>
+<b class="fc"><i class="no-highlight">36</i>&nbsp;			pES[i] = pE;</b>
+<i class="no-highlight">37</i>&nbsp;		}
+<i class="no-highlight">38</i>&nbsp;
+<i class="no-highlight">39</i>&nbsp;	}
+<i class="no-highlight">40</i>&nbsp;
+<i class="no-highlight">41</i>&nbsp;	/**
+<i class="no-highlight">42</i>&nbsp;	 * Render the particles.
+<i class="no-highlight">43</i>&nbsp;	 * 
+<i class="no-highlight">44</i>&nbsp;	 * @param batch
+<i class="no-highlight">45</i>&nbsp;	 * @param slotIndex The slot to draw the particle effects at (which slot is
+<i class="no-highlight">46</i>&nbsp;	 *                  active).
+<i class="no-highlight">47</i>&nbsp;	 */
+<i class="no-highlight">48</i>&nbsp;	public void drawParticles(SpriteBatch batch, int slotIndex) {
+<b class="nc"><i class="no-highlight">49</i>&nbsp;		batch.begin();</b>
+<b class="nc"><i class="no-highlight">50</i>&nbsp;		if (GameScreen.state1 == STATE.Continue)</b>
+<b class="nc"><i class="no-highlight">51</i>&nbsp;			pES[slotIndex].update(Gdx.graphics.getDeltaTime());</b>
+<b class="nc"><i class="no-highlight">52</i>&nbsp;		pES[slotIndex].draw(batch);</b>
+<b class="nc"><i class="no-highlight">53</i>&nbsp;		if (pES[slotIndex].isComplete())</b>
+<b class="nc"><i class="no-highlight">54</i>&nbsp;			pES[slotIndex].reset();</b>
+<i class="no-highlight">55</i>&nbsp;
+<b class="nc"><i class="no-highlight">56</i>&nbsp;		batch.end();</b>
+<i class="no-highlight">57</i>&nbsp;	}
+<i class="no-highlight">58</i>&nbsp;
+<i class="no-highlight">59</i>&nbsp;	/**
+<i class="no-highlight">60</i>&nbsp;	 * Lock the current cook at the station.
+<i class="no-highlight">61</i>&nbsp;	 * 
+<i class="no-highlight">62</i>&nbsp;	 * @return A boolean indicating if the cook was successfully locked.
+<i class="no-highlight">63</i>&nbsp;	 */
+<i class="no-highlight">64</i>&nbsp;	public boolean lockCook() {
+<b class="fc"><i class="no-highlight">65</i>&nbsp;		if (!slots.isEmpty()) {</b>
+<b class="fc"><i class="no-highlight">66</i>&nbsp;			if (lockedCook == null) {</b>
+<b class="fc"><i class="no-highlight">67</i>&nbsp;				GameScreen.cook.locked = true;</b>
+<b class="fc"><i class="no-highlight">68</i>&nbsp;				lockedCook = GameScreen.cook;</b>
+<i class="no-highlight">69</i>&nbsp;			} else {
+<b class="fc"><i class="no-highlight">70</i>&nbsp;				lockedCook.locked = true;</b>
+<i class="no-highlight">71</i>&nbsp;			}
+<b class="fc"><i class="no-highlight">72</i>&nbsp;			return true;</b>
+<i class="no-highlight">73</i>&nbsp;		}
+<b class="fc"><i class="no-highlight">74</i>&nbsp;		if (lockedCook != null) {</b>
+<b class="fc"><i class="no-highlight">75</i>&nbsp;			lockedCook.locked = false;</b>
+<b class="fc"><i class="no-highlight">76</i>&nbsp;			lockedCook = null;</b>
+<i class="no-highlight">77</i>&nbsp;		}
+<i class="no-highlight">78</i>&nbsp;
+<b class="fc"><i class="no-highlight">79</i>&nbsp;		return false;</b>
+<i class="no-highlight">80</i>&nbsp;	}
+<i class="no-highlight">81</i>&nbsp;
+<i class="no-highlight">82</i>&nbsp;	/**
+<i class="no-highlight">83</i>&nbsp;	 * Check interactions with the cooking station.
+<i class="no-highlight">84</i>&nbsp;	 * 
+<i class="no-highlight">85</i>&nbsp;	 * @param batch
+<i class="no-highlight">86</i>&nbsp;	 */
+<i class="no-highlight">87</i>&nbsp;	public void checkCookingStation(SpriteBatch batch) {
+<b class="fc"><i class="no-highlight">88</i>&nbsp;		if (!slots.empty() &amp;&amp; !GameScreen.cook.full() &amp;&amp; slots.peek().flipped)</b>
+<b class="nc"><i class="no-highlight">89</i>&nbsp;			drawText(batch, &quot;Take [q]&quot;, new Vector2(pos.x * 64, pos.y * 64 - 16));</b>
+<i class="no-highlight">90</i>&nbsp;		else
+<b class="fc"><i class="no-highlight">91</i>&nbsp;			drawDropText(batch);</b>
+<i class="no-highlight">92</i>&nbsp;
+<b class="fc"><i class="no-highlight">93</i>&nbsp;		if (GameScreen.control.interact) {</b>
+<b class="nc"><i class="no-highlight">94</i>&nbsp;			if (!slots.empty() &amp;&amp; !GameScreen.cook.full()) {</b>
+<b class="nc"><i class="no-highlight">95</i>&nbsp;				if (slots.peek().flipped) {</b>
+<b class="nc"><i class="no-highlight">96</i>&nbsp;					GameScreen.cook.pickUpItem(take());</b>
+<i class="no-highlight">97</i>&nbsp;				}
+<i class="no-highlight">98</i>&nbsp;
+<i class="no-highlight">99</i>&nbsp;				return;
+<i class="no-highlight">100</i>&nbsp;			}
+<i class="no-highlight">101</i>&nbsp;		}
+<b class="fc"><i class="no-highlight">102</i>&nbsp;		if (GameScreen.control.drop) {</b>
+<b class="nc"><i class="no-highlight">103</i>&nbsp;			if (!GameScreen.cook.heldItems.empty() &amp;&amp; place(GameScreen.cook.heldItems.peek())) {</b>
+<b class="nc"><i class="no-highlight">104</i>&nbsp;				GameScreen.cook.dropItem();</b>
+<b class="nc"><i class="no-highlight">105</i>&nbsp;				slots.peek().cooking = true;</b>
+<i class="no-highlight">106</i>&nbsp;			}
+<i class="no-highlight">107</i>&nbsp;		}
+<b class="fc"><i class="no-highlight">108</i>&nbsp;		if (!slots.empty() &amp;&amp; GameScreen.control.flip)</b>
+<b class="nc"><i class="no-highlight">109</i>&nbsp;			slots.peek().flip();</b>
+<i class="no-highlight">110</i>&nbsp;
+<i class="no-highlight">111</i>&nbsp;	}
+<i class="no-highlight">112</i>&nbsp;
+<i class="no-highlight">113</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -202,15 +201,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

@@ -9,6 +9,9 @@ import com.team3gdx.game.entity.Cook;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * New - powerups. All code in this package is new
+ */
 public class Powerup {
 
     private int x;

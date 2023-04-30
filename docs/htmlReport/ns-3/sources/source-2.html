@@ -7,10 +7,9 @@
   <title>Coverage Report > Customer</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -74,140 +73,140 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.entity;
-&nbsp;
-&nbsp;import com.badlogic.gdx.graphics.Texture;
-&nbsp;import com.badlogic.gdx.graphics.g2d.Batch;
-&nbsp;import com.badlogic.gdx.graphics.g2d.TextureRegion;
-&nbsp;
-&nbsp;public class Customer {
-&nbsp;	int targetsquare;
-&nbsp;	public int posx;
-&nbsp;	public int posy;
-&nbsp;	Texture textf;
-&nbsp;	Texture textb;
-&nbsp;	Texture textr;
-&nbsp;	Texture textl;
-&nbsp;
-&nbsp;	TextureRegion[][] custpartsf;
-&nbsp;	TextureRegion[][] custpartsb;
-&nbsp;	TextureRegion[][] custpartsr;
-&nbsp;	TextureRegion[][] custpartsl;
-&nbsp;	TextureRegion[][] currentcustparts;
-&nbsp;	int startposx;
-&nbsp;	int targetpixel;
-&nbsp;	public boolean locked;
-&nbsp;	public boolean readyfordeletion;
-&nbsp;
-&nbsp;	private long arrivalTime;
-&nbsp;
-<b class="fc">&nbsp;	public String order = &quot;&quot;;</b>
-<b class="fc">&nbsp;	private int custNumber = 0;</b>
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Constructor for customer class
-&nbsp;	 * @param x - x starting pixel coordinate
-&nbsp;	 * @param y - y starting pixel coordinate
-&nbsp;	 * @param tg - target y cell coordinate - not in pixels
-&nbsp;	 * @param custno - customer number - changes texture
-&nbsp;	 */
-<b class="fc">&nbsp;	public Customer(int x, int y, int tg, int custno) {</b>
-<b class="fc">&nbsp;		targetsquare = tg;</b>
-<b class="fc">&nbsp;		textf = new Texture(&quot;entities/cust&quot; + custno + &quot;f.png&quot;);</b>
-<b class="fc">&nbsp;		textb = new Texture(&quot;entities/cust&quot; + custno + &quot;b.png&quot;);</b>
-<b class="fc">&nbsp;		textr = new Texture(&quot;entities/cust&quot; + custno + &quot;r.png&quot;);</b>
-<b class="fc">&nbsp;		textl = new Texture(&quot;entities/cust&quot; + custno + &quot;l.png&quot;);</b>
-&nbsp;
-<b class="fc">&nbsp;		custpartsf = TextureRegion.split(textf, 32, 32);</b>
-<b class="fc">&nbsp;		custpartsb = TextureRegion.split(textb, 32, 32);</b>
-<b class="fc">&nbsp;		custpartsr = TextureRegion.split(textr, 32, 32);</b>
-<b class="fc">&nbsp;		custpartsl = TextureRegion.split(textl, 32, 32);</b>
-&nbsp;
-<b class="fc">&nbsp;		currentcustparts = custpartsb;</b>
-&nbsp;
-<b class="fc">&nbsp;		posx = x * 64;</b>
-<b class="fc">&nbsp;		posy = y * 64;</b>
-<b class="fc">&nbsp;		startposx = posx;</b>
-<b class="fc">&nbsp;		locked = false;</b>
-<b class="fc">&nbsp;		custNumber = custno;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	public int getCustNumber(){
-<b class="nc">&nbsp;		return custNumber;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Set arrival time as cook has arrived
-&nbsp;	 */
-&nbsp;	public void arrived() {
-<b class="nc">&nbsp;		arrivalTime = System.currentTimeMillis();</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Check amount of time waited in ms
-&nbsp;	 * @return amount of time waited in ms
-&nbsp;	 */
-&nbsp;	public long waitTime() {
-<b class="nc">&nbsp;		return System.currentTimeMillis() - arrivalTime;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Render top of customer
-&nbsp;	 * @param b - spritebatch to render with
-&nbsp;	 */
-&nbsp;	public void renderCustomersTop(Batch b) {
-<b class="nc">&nbsp;		b.draw(currentcustparts[0][0], posx, posy + 64, 64, 64);</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Render bottom of customer
-&nbsp;	 * @param b - spritebatch to render with
-&nbsp;	 */
-&nbsp;	public void renderCustomersBot(Batch b) {
-<b class="nc">&nbsp;		b.draw(currentcustparts[1][0], posx, posy, 64, 64);</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Set target square location
-&nbsp;	 * @param tg - tile y coordinate of target square
-&nbsp;	 */
-&nbsp;	public void setTargetsquare(int tg) {
-<b class="fc">&nbsp;		targetsquare = tg;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Move towards customer target tile
-&nbsp;	 */
-&nbsp;	public void stepTarget() {
-<b class="nc">&nbsp;		targetpixel = 32 + (targetsquare * 64);</b>
-<b class="nc">&nbsp;		if (posy &lt; targetpixel) {</b>
-<b class="nc">&nbsp;			posy++;</b>
-<b class="nc">&nbsp;		} else if (posy &gt; targetpixel) {</b>
-<b class="nc">&nbsp;			posy--;</b>
-<b class="nc">&nbsp;			currentcustparts = custpartsf;</b>
-&nbsp;		}
-<b class="nc">&nbsp;		if (posy == targetpixel) {</b>
-<b class="nc">&nbsp;			if (targetpixel &gt; 0) {</b>
-<b class="nc">&nbsp;				if (!locked) arrived();</b>
-<b class="nc">&nbsp;				posx = startposx + 64;</b>
-<b class="nc">&nbsp;				locked = true;</b>
-<b class="nc">&nbsp;				currentcustparts = custpartsr;</b>
-&nbsp;			} else {
-<b class="nc">&nbsp;				readyfordeletion = true;</b>
-&nbsp;			}
-&nbsp;		}
-&nbsp;	}
-&nbsp;	public void setFront(){
-<b class="nc">&nbsp;		currentcustparts = custpartsf;</b>
-&nbsp;
-&nbsp;	}
-&nbsp;	public void setBack(){
-<b class="nc">&nbsp;		currentcustparts = custpartsb;</b>
-&nbsp;
-&nbsp;	}
-&nbsp;
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.entity;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.badlogic.gdx.graphics.Texture;
+<i class="no-highlight">4</i>&nbsp;import com.badlogic.gdx.graphics.g2d.Batch;
+<i class="no-highlight">5</i>&nbsp;import com.badlogic.gdx.graphics.g2d.TextureRegion;
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;public class Customer {
+<i class="no-highlight">8</i>&nbsp;	int targetsquare;
+<i class="no-highlight">9</i>&nbsp;	public int posx;
+<i class="no-highlight">10</i>&nbsp;	public int posy;
+<i class="no-highlight">11</i>&nbsp;	Texture textf;
+<i class="no-highlight">12</i>&nbsp;	Texture textb;
+<i class="no-highlight">13</i>&nbsp;	Texture textr;
+<i class="no-highlight">14</i>&nbsp;	Texture textl;
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;	TextureRegion[][] custpartsf;
+<i class="no-highlight">17</i>&nbsp;	TextureRegion[][] custpartsb;
+<i class="no-highlight">18</i>&nbsp;	TextureRegion[][] custpartsr;
+<i class="no-highlight">19</i>&nbsp;	TextureRegion[][] custpartsl;
+<i class="no-highlight">20</i>&nbsp;	TextureRegion[][] currentcustparts;
+<i class="no-highlight">21</i>&nbsp;	int startposx;
+<i class="no-highlight">22</i>&nbsp;	int targetpixel;
+<i class="no-highlight">23</i>&nbsp;	public boolean locked;
+<i class="no-highlight">24</i>&nbsp;	public boolean readyfordeletion;
+<i class="no-highlight">25</i>&nbsp;
+<i class="no-highlight">26</i>&nbsp;	private long arrivalTime;
+<i class="no-highlight">27</i>&nbsp;
+<b class="fc"><i class="no-highlight">28</i>&nbsp;	public String order = &quot;&quot;;</b>
+<b class="fc"><i class="no-highlight">29</i>&nbsp;	private int custNumber = 0;</b>
+<i class="no-highlight">30</i>&nbsp;
+<i class="no-highlight">31</i>&nbsp;	/**
+<i class="no-highlight">32</i>&nbsp;	 * Constructor for customer class
+<i class="no-highlight">33</i>&nbsp;	 * @param x - x starting pixel coordinate
+<i class="no-highlight">34</i>&nbsp;	 * @param y - y starting pixel coordinate
+<i class="no-highlight">35</i>&nbsp;	 * @param tg - target y cell coordinate - not in pixels
+<i class="no-highlight">36</i>&nbsp;	 * @param custno - customer number - changes texture
+<i class="no-highlight">37</i>&nbsp;	 */
+<b class="fc"><i class="no-highlight">38</i>&nbsp;	public Customer(int x, int y, int tg, int custno) {</b>
+<b class="fc"><i class="no-highlight">39</i>&nbsp;		targetsquare = tg;</b>
+<b class="fc"><i class="no-highlight">40</i>&nbsp;		textf = new Texture(&quot;entities/cust&quot; + custno + &quot;f.png&quot;);</b>
+<b class="fc"><i class="no-highlight">41</i>&nbsp;		textb = new Texture(&quot;entities/cust&quot; + custno + &quot;b.png&quot;);</b>
+<b class="fc"><i class="no-highlight">42</i>&nbsp;		textr = new Texture(&quot;entities/cust&quot; + custno + &quot;r.png&quot;);</b>
+<b class="fc"><i class="no-highlight">43</i>&nbsp;		textl = new Texture(&quot;entities/cust&quot; + custno + &quot;l.png&quot;);</b>
+<i class="no-highlight">44</i>&nbsp;
+<b class="fc"><i class="no-highlight">45</i>&nbsp;		custpartsf = TextureRegion.split(textf, 32, 32);</b>
+<b class="fc"><i class="no-highlight">46</i>&nbsp;		custpartsb = TextureRegion.split(textb, 32, 32);</b>
+<b class="fc"><i class="no-highlight">47</i>&nbsp;		custpartsr = TextureRegion.split(textr, 32, 32);</b>
+<b class="fc"><i class="no-highlight">48</i>&nbsp;		custpartsl = TextureRegion.split(textl, 32, 32);</b>
+<i class="no-highlight">49</i>&nbsp;
+<b class="fc"><i class="no-highlight">50</i>&nbsp;		currentcustparts = custpartsb;</b>
+<i class="no-highlight">51</i>&nbsp;
+<b class="fc"><i class="no-highlight">52</i>&nbsp;		posx = x * 64;</b>
+<b class="fc"><i class="no-highlight">53</i>&nbsp;		posy = y * 64;</b>
+<b class="fc"><i class="no-highlight">54</i>&nbsp;		startposx = posx;</b>
+<b class="fc"><i class="no-highlight">55</i>&nbsp;		locked = false;</b>
+<b class="fc"><i class="no-highlight">56</i>&nbsp;		custNumber = custno;</b>
+<i class="no-highlight">57</i>&nbsp;	}
+<i class="no-highlight">58</i>&nbsp;
+<i class="no-highlight">59</i>&nbsp;	public int getCustNumber(){
+<b class="nc"><i class="no-highlight">60</i>&nbsp;		return custNumber;</b>
+<i class="no-highlight">61</i>&nbsp;	}
+<i class="no-highlight">62</i>&nbsp;
+<i class="no-highlight">63</i>&nbsp;	/**
+<i class="no-highlight">64</i>&nbsp;	 * Set arrival time as cook has arrived
+<i class="no-highlight">65</i>&nbsp;	 */
+<i class="no-highlight">66</i>&nbsp;	public void arrived() {
+<b class="nc"><i class="no-highlight">67</i>&nbsp;		arrivalTime = System.currentTimeMillis();</b>
+<i class="no-highlight">68</i>&nbsp;	}
+<i class="no-highlight">69</i>&nbsp;
+<i class="no-highlight">70</i>&nbsp;	/**
+<i class="no-highlight">71</i>&nbsp;	 * Check amount of time waited in ms
+<i class="no-highlight">72</i>&nbsp;	 * @return amount of time waited in ms
+<i class="no-highlight">73</i>&nbsp;	 */
+<i class="no-highlight">74</i>&nbsp;	public long waitTime() {
+<b class="nc"><i class="no-highlight">75</i>&nbsp;		return System.currentTimeMillis() - arrivalTime;</b>
+<i class="no-highlight">76</i>&nbsp;	}
+<i class="no-highlight">77</i>&nbsp;
+<i class="no-highlight">78</i>&nbsp;	/**
+<i class="no-highlight">79</i>&nbsp;	 * Render top of customer
+<i class="no-highlight">80</i>&nbsp;	 * @param b - spritebatch to render with
+<i class="no-highlight">81</i>&nbsp;	 */
+<i class="no-highlight">82</i>&nbsp;	public void renderCustomersTop(Batch b) {
+<b class="nc"><i class="no-highlight">83</i>&nbsp;		b.draw(currentcustparts[0][0], posx, posy + 64, 64, 64);</b>
+<i class="no-highlight">84</i>&nbsp;	}
+<i class="no-highlight">85</i>&nbsp;
+<i class="no-highlight">86</i>&nbsp;	/**
+<i class="no-highlight">87</i>&nbsp;	 * Render bottom of customer
+<i class="no-highlight">88</i>&nbsp;	 * @param b - spritebatch to render with
+<i class="no-highlight">89</i>&nbsp;	 */
+<i class="no-highlight">90</i>&nbsp;	public void renderCustomersBot(Batch b) {
+<b class="nc"><i class="no-highlight">91</i>&nbsp;		b.draw(currentcustparts[1][0], posx, posy, 64, 64);</b>
+<i class="no-highlight">92</i>&nbsp;	}
+<i class="no-highlight">93</i>&nbsp;
+<i class="no-highlight">94</i>&nbsp;	/**
+<i class="no-highlight">95</i>&nbsp;	 * Set target square location
+<i class="no-highlight">96</i>&nbsp;	 * @param tg - tile y coordinate of target square
+<i class="no-highlight">97</i>&nbsp;	 */
+<i class="no-highlight">98</i>&nbsp;	public void setTargetsquare(int tg) {
+<b class="fc"><i class="no-highlight">99</i>&nbsp;		targetsquare = tg;</b>
+<i class="no-highlight">100</i>&nbsp;	}
+<i class="no-highlight">101</i>&nbsp;
+<i class="no-highlight">102</i>&nbsp;	/**
+<i class="no-highlight">103</i>&nbsp;	 * Move towards customer target tile
+<i class="no-highlight">104</i>&nbsp;	 */
+<i class="no-highlight">105</i>&nbsp;	public void stepTarget() {
+<b class="nc"><i class="no-highlight">106</i>&nbsp;		targetpixel = 32 + (targetsquare * 64);</b>
+<b class="nc"><i class="no-highlight">107</i>&nbsp;		if (posy &lt; targetpixel) {</b>
+<b class="nc"><i class="no-highlight">108</i>&nbsp;			posy++;</b>
+<b class="nc"><i class="no-highlight">109</i>&nbsp;		} else if (posy &gt; targetpixel) {</b>
+<b class="nc"><i class="no-highlight">110</i>&nbsp;			posy--;</b>
+<b class="nc"><i class="no-highlight">111</i>&nbsp;			currentcustparts = custpartsf;</b>
+<i class="no-highlight">112</i>&nbsp;		}
+<b class="nc"><i class="no-highlight">113</i>&nbsp;		if (posy == targetpixel) {</b>
+<b class="nc"><i class="no-highlight">114</i>&nbsp;			if (targetpixel &gt; 0) {</b>
+<b class="nc"><i class="no-highlight">115</i>&nbsp;				if (!locked) arrived();</b>
+<b class="nc"><i class="no-highlight">116</i>&nbsp;				posx = startposx + 64;</b>
+<b class="nc"><i class="no-highlight">117</i>&nbsp;				locked = true;</b>
+<b class="nc"><i class="no-highlight">118</i>&nbsp;				currentcustparts = custpartsr;</b>
+<i class="no-highlight">119</i>&nbsp;			} else {
+<b class="nc"><i class="no-highlight">120</i>&nbsp;				readyfordeletion = true;</b>
+<i class="no-highlight">121</i>&nbsp;			}
+<i class="no-highlight">122</i>&nbsp;		}
+<i class="no-highlight">123</i>&nbsp;	}
+<i class="no-highlight">124</i>&nbsp;	public void setFront(){
+<b class="nc"><i class="no-highlight">125</i>&nbsp;		currentcustparts = custpartsf;</b>
+<i class="no-highlight">126</i>&nbsp;
+<i class="no-highlight">127</i>&nbsp;	}
+<i class="no-highlight">128</i>&nbsp;	public void setBack(){
+<b class="nc"><i class="no-highlight">129</i>&nbsp;		currentcustparts = custpartsb;</b>
+<i class="no-highlight">130</i>&nbsp;
+<i class="no-highlight">131</i>&nbsp;	}
+<i class="no-highlight">132</i>&nbsp;
+<i class="no-highlight">133</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -222,15 +221,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

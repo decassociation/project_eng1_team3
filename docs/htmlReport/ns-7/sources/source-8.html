@@ -7,10 +7,9 @@
   <title>Coverage Report > Station</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -51,18 +50,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    62.5%
+    75%
   </span>
   <span class="absValue">
-    (5/8)
+    (6/8)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    64.9%
+    81.1%
   </span>
   <span class="absValue">
-    (24/37)
+    (30/37)
   </span>
 </td>
 </tr>
@@ -74,172 +73,172 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.station;
-&nbsp;
-&nbsp;import java.util.Stack;
-&nbsp;
-&nbsp;import com.badlogic.gdx.Gdx;
-&nbsp;import com.badlogic.gdx.audio.Music;
-&nbsp;import com.badlogic.gdx.graphics.g2d.BitmapFont;
-&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-&nbsp;import com.badlogic.gdx.math.Vector2;
-&nbsp;import com.team3gdx.game.MainGameClass;
-&nbsp;import com.team3gdx.game.entity.Cook;
-&nbsp;import com.team3gdx.game.food.Ingredient;
-&nbsp;import com.team3gdx.game.screen.GameScreen;
-&nbsp;
-&nbsp;/**
-&nbsp; * Represents a station.
-&nbsp; * 
-&nbsp; */
-&nbsp;public class Station {
-&nbsp;
-<b class="fc">&nbsp;	private Music interactSound = Gdx.audio.newMusic(Gdx.files.internal(&quot;audio/soundFX/chopping.mp3&quot;));;</b>
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * A list of allowed ingredients in the station&#39;s slots.
-&nbsp;	 */
-&nbsp;	public Ingredient[] allowedIngredients;
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * The (x, y) coordinates of the station.
-&nbsp;	 */
-&nbsp;	public Vector2 pos;
-&nbsp;
-&nbsp;	/*
-&nbsp;	 * The station&#39;s slots to hold ingredients.
-&nbsp;	 */
-&nbsp;	public Stack&lt;Ingredient&gt; slots;
-&nbsp;	/*
-&nbsp;	 * Indicates if the station has an unlimited supply of ingredients.
-&nbsp;	 */
-&nbsp;	public boolean infinite;
-&nbsp;
-&nbsp;	/*
-&nbsp;	 * The number of slots on the station.
-&nbsp;	 */
-&nbsp;	protected int numberOfSlots;
-&nbsp;
-&nbsp;	/*
-&nbsp;	 * The cook that is currently locked to the station.
-&nbsp;	 */
-&nbsp;	public Cook lockedCook;
-&nbsp;
-<b class="fc">&nbsp;	private BitmapFont font = new BitmapFont();</b>
-&nbsp;
-&nbsp;	public boolean active;
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * 
-&nbsp;	 * @param pos                The (x, y) coordinates of the station.
-&nbsp;	 * @param numberOfSlots      The number of slots on the station.
-&nbsp;	 * @param infinite           Indicates if the station has an unlimited supply of
-&nbsp;	 *                           ingredients.
-&nbsp;	 * @param allowedIngredients A list of allowed ingredients in the station&#39;s
-&nbsp;	 *                           slots.
-&nbsp;	 */
-&nbsp;	public Station(Vector2 pos, int numberOfSlots, boolean infinite, Ingredient[] allowedIngredients,
-<b class="fc">&nbsp;			String soundPath) {</b>
-<b class="fc">&nbsp;		this.pos = pos;</b>
-<b class="fc">&nbsp;		this.numberOfSlots = numberOfSlots;</b>
-<b class="fc">&nbsp;		this.infinite = infinite;</b>
-<b class="fc">&nbsp;		this.allowedIngredients = allowedIngredients;</b>
-<b class="fc">&nbsp;		slots = new Stack&lt;Ingredient&gt;();</b>
-<b class="fc">&nbsp;		if (soundPath != null)</b>
-<b class="fc">&nbsp;			interactSound = Gdx.audio.newMusic(Gdx.files.internal(soundPath));</b>
-<b class="fc">&nbsp;		active = true;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Places an ingredient in the station&#39;s top slot.
-&nbsp;	 * 
-&nbsp;	 * @param ingredient The ingredient to be placed.
-&nbsp;	 * @return A boolean to indicate if the ingredient was successfully placed.
-&nbsp;	 */
-&nbsp;	public boolean place(Ingredient ingredient) {
-<b class="fc">&nbsp;		if (((slots.size() &lt; numberOfSlots &amp;&amp; isAllowed(ingredient)) || infinite) &amp;&amp; active) {</b>
-<b class="fc">&nbsp;			ingredient.pos = pos;</b>
-<b class="fc">&nbsp;			slots.push(ingredient);</b>
-<b class="fc">&nbsp;			return true;</b>
-&nbsp;		}
-&nbsp;
-<b class="fc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Check if the ingredient can be placed on the station.
-&nbsp;	 * 
-&nbsp;	 * @param droppedIngredient The ingredient to check.
-&nbsp;	 * @return A boolean to indicate if the ingredient was allowed.
-&nbsp;	 */
-&nbsp;	public boolean isAllowed(Ingredient droppedIngredient) {
-<b class="fc">&nbsp;		if (allowedIngredients == null)</b>
-<b class="fc">&nbsp;			return true;</b>
-<b class="fc">&nbsp;		for (Ingredient ingredient : allowedIngredients) {</b>
-<b class="fc">&nbsp;			if (ingredient.equals(droppedIngredient) &amp;&amp; slots.size() &lt; numberOfSlots)</b>
-<b class="fc">&nbsp;				return true;</b>
-&nbsp;		}
-&nbsp;
-<b class="fc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Take the ingredient from the top slot.
-&nbsp;	 * 
-&nbsp;	 * @return The ingredient taken if successful, null otherwise.
-&nbsp;	 */
-&nbsp;	public Ingredient take() {
-<b class="nc">&nbsp;		if (slots.empty() || !active)</b>
-<b class="nc">&nbsp;			return null;</b>
-<b class="nc">&nbsp;		interactSound.stop();</b>
-<b class="nc">&nbsp;		if (!infinite) {</b>
-<b class="nc">&nbsp;			return slots.pop();</b>
-&nbsp;		}
-&nbsp;
-<b class="nc">&nbsp;		return new Ingredient(slots.peek());</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Display text indicating to take the ingredient.
-&nbsp;	 * 
-&nbsp;	 * @param pos The position to draw at.
-&nbsp;	 */
-&nbsp;	public void drawTakeText(SpriteBatch batch) {
-<b class="fc">&nbsp;		if (!slots.empty() &amp;&amp; !GameScreen.cook.full() &amp;&amp; active) {</b>
-<b class="nc">&nbsp;			drawText(batch, &quot;Take [q]&quot;, new Vector2(pos.x * 64, pos.y * 64 - 16));</b>
-&nbsp;		}
-&nbsp;
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Display text indicating to drop an item in the station&#39;s slot.
-&nbsp;	 * 
-&nbsp;	 * @param pos The position of the station.
-&nbsp;	 */
-&nbsp;	public void drawDropText(SpriteBatch batch) {
-<b class="fc">&nbsp;		if (GameScreen.cook.heldItems.size() &gt; 0 &amp;&amp; isAllowed(GameScreen.cook.heldItems.peek()) &amp;&amp; active) {</b>
-<b class="nc">&nbsp;			drawText(batch, &quot;Drop [e]&quot;, new Vector2(pos.x * 64, pos.y * 64));</b>
-&nbsp;		}
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * 
-&nbsp;	 * @param text Text to be drawn.
-&nbsp;	 * @param pos  Position to draw at.
-&nbsp;	 */
-&nbsp;	public void drawText(SpriteBatch batch, String text, Vector2 pos) {
-<b class="nc">&nbsp;		batch.begin();</b>
-<b class="nc">&nbsp;		font.draw(batch, text, pos.x, pos.y);</b>
-<b class="nc">&nbsp;		batch.end();</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	public void interactSound() {
-<b class="nc">&nbsp;		interactSound.setVolume(MainGameClass.gameVolumeScale);</b>
-<b class="nc">&nbsp;		interactSound.play();</b>
-&nbsp;	}
-&nbsp;
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.station;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import java.util.Stack;
+<i class="no-highlight">4</i>&nbsp;
+<i class="no-highlight">5</i>&nbsp;import com.badlogic.gdx.Gdx;
+<i class="no-highlight">6</i>&nbsp;import com.badlogic.gdx.audio.Music;
+<i class="no-highlight">7</i>&nbsp;import com.badlogic.gdx.graphics.g2d.BitmapFont;
+<i class="no-highlight">8</i>&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+<i class="no-highlight">9</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">10</i>&nbsp;import com.team3gdx.game.MainGameClass;
+<i class="no-highlight">11</i>&nbsp;import com.team3gdx.game.entity.Cook;
+<i class="no-highlight">12</i>&nbsp;import com.team3gdx.game.food.Ingredient;
+<i class="no-highlight">13</i>&nbsp;import com.team3gdx.game.screen.GameScreen;
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;/**
+<i class="no-highlight">16</i>&nbsp; * Represents a station.
+<i class="no-highlight">17</i>&nbsp; * 
+<i class="no-highlight">18</i>&nbsp; */
+<i class="no-highlight">19</i>&nbsp;public class Station {
+<i class="no-highlight">20</i>&nbsp;
+<b class="fc"><i class="no-highlight">21</i>&nbsp;	private Music interactSound = Gdx.audio.newMusic(Gdx.files.internal(&quot;audio/soundFX/chopping.mp3&quot;));;</b>
+<i class="no-highlight">22</i>&nbsp;
+<i class="no-highlight">23</i>&nbsp;	/**
+<i class="no-highlight">24</i>&nbsp;	 * A list of allowed ingredients in the station&#39;s slots.
+<i class="no-highlight">25</i>&nbsp;	 */
+<i class="no-highlight">26</i>&nbsp;	public Ingredient[] allowedIngredients;
+<i class="no-highlight">27</i>&nbsp;
+<i class="no-highlight">28</i>&nbsp;	/**
+<i class="no-highlight">29</i>&nbsp;	 * The (x, y) coordinates of the station.
+<i class="no-highlight">30</i>&nbsp;	 */
+<i class="no-highlight">31</i>&nbsp;	public Vector2 pos;
+<i class="no-highlight">32</i>&nbsp;
+<i class="no-highlight">33</i>&nbsp;	/*
+<i class="no-highlight">34</i>&nbsp;	 * The station&#39;s slots to hold ingredients.
+<i class="no-highlight">35</i>&nbsp;	 */
+<i class="no-highlight">36</i>&nbsp;	public Stack&lt;Ingredient&gt; slots;
+<i class="no-highlight">37</i>&nbsp;	/*
+<i class="no-highlight">38</i>&nbsp;	 * Indicates if the station has an unlimited supply of ingredients.
+<i class="no-highlight">39</i>&nbsp;	 */
+<i class="no-highlight">40</i>&nbsp;	public boolean infinite;
+<i class="no-highlight">41</i>&nbsp;
+<i class="no-highlight">42</i>&nbsp;	/*
+<i class="no-highlight">43</i>&nbsp;	 * The number of slots on the station.
+<i class="no-highlight">44</i>&nbsp;	 */
+<i class="no-highlight">45</i>&nbsp;	protected int numberOfSlots;
+<i class="no-highlight">46</i>&nbsp;
+<i class="no-highlight">47</i>&nbsp;	/*
+<i class="no-highlight">48</i>&nbsp;	 * The cook that is currently locked to the station.
+<i class="no-highlight">49</i>&nbsp;	 */
+<i class="no-highlight">50</i>&nbsp;	public Cook lockedCook;
+<i class="no-highlight">51</i>&nbsp;
+<b class="fc"><i class="no-highlight">52</i>&nbsp;	private BitmapFont font = new BitmapFont();</b>
+<i class="no-highlight">53</i>&nbsp;
+<i class="no-highlight">54</i>&nbsp;	public boolean active;
+<i class="no-highlight">55</i>&nbsp;
+<i class="no-highlight">56</i>&nbsp;	/**
+<i class="no-highlight">57</i>&nbsp;	 * 
+<i class="no-highlight">58</i>&nbsp;	 * @param pos                The (x, y) coordinates of the station.
+<i class="no-highlight">59</i>&nbsp;	 * @param numberOfSlots      The number of slots on the station.
+<i class="no-highlight">60</i>&nbsp;	 * @param infinite           Indicates if the station has an unlimited supply of
+<i class="no-highlight">61</i>&nbsp;	 *                           ingredients.
+<i class="no-highlight">62</i>&nbsp;	 * @param allowedIngredients A list of allowed ingredients in the station&#39;s
+<i class="no-highlight">63</i>&nbsp;	 *                           slots.
+<i class="no-highlight">64</i>&nbsp;	 */
+<i class="no-highlight">65</i>&nbsp;	public Station(Vector2 pos, int numberOfSlots, boolean infinite, Ingredient[] allowedIngredients,
+<b class="fc"><i class="no-highlight">66</i>&nbsp;			String soundPath) {</b>
+<b class="fc"><i class="no-highlight">67</i>&nbsp;		this.pos = pos;</b>
+<b class="fc"><i class="no-highlight">68</i>&nbsp;		this.numberOfSlots = numberOfSlots;</b>
+<b class="fc"><i class="no-highlight">69</i>&nbsp;		this.infinite = infinite;</b>
+<b class="fc"><i class="no-highlight">70</i>&nbsp;		this.allowedIngredients = allowedIngredients;</b>
+<b class="fc"><i class="no-highlight">71</i>&nbsp;		slots = new Stack&lt;Ingredient&gt;();</b>
+<b class="fc"><i class="no-highlight">72</i>&nbsp;		if (soundPath != null)</b>
+<b class="fc"><i class="no-highlight">73</i>&nbsp;			interactSound = Gdx.audio.newMusic(Gdx.files.internal(soundPath));</b>
+<b class="fc"><i class="no-highlight">74</i>&nbsp;		active = true;</b>
+<i class="no-highlight">75</i>&nbsp;	}
+<i class="no-highlight">76</i>&nbsp;
+<i class="no-highlight">77</i>&nbsp;	/**
+<i class="no-highlight">78</i>&nbsp;	 * Places an ingredient in the station&#39;s top slot.
+<i class="no-highlight">79</i>&nbsp;	 * 
+<i class="no-highlight">80</i>&nbsp;	 * @param ingredient The ingredient to be placed.
+<i class="no-highlight">81</i>&nbsp;	 * @return A boolean to indicate if the ingredient was successfully placed.
+<i class="no-highlight">82</i>&nbsp;	 */
+<i class="no-highlight">83</i>&nbsp;	public boolean place(Ingredient ingredient) {
+<b class="fc"><i class="no-highlight">84</i>&nbsp;		if (((slots.size() &lt; numberOfSlots &amp;&amp; isAllowed(ingredient)) || infinite) &amp;&amp; active) {</b>
+<b class="fc"><i class="no-highlight">85</i>&nbsp;			ingredient.pos = pos;</b>
+<b class="fc"><i class="no-highlight">86</i>&nbsp;			slots.push(ingredient);</b>
+<b class="fc"><i class="no-highlight">87</i>&nbsp;			return true;</b>
+<i class="no-highlight">88</i>&nbsp;		}
+<i class="no-highlight">89</i>&nbsp;
+<b class="fc"><i class="no-highlight">90</i>&nbsp;		return false;</b>
+<i class="no-highlight">91</i>&nbsp;	}
+<i class="no-highlight">92</i>&nbsp;
+<i class="no-highlight">93</i>&nbsp;	/**
+<i class="no-highlight">94</i>&nbsp;	 * Check if the ingredient can be placed on the station.
+<i class="no-highlight">95</i>&nbsp;	 * 
+<i class="no-highlight">96</i>&nbsp;	 * @param droppedIngredient The ingredient to check.
+<i class="no-highlight">97</i>&nbsp;	 * @return A boolean to indicate if the ingredient was allowed.
+<i class="no-highlight">98</i>&nbsp;	 */
+<i class="no-highlight">99</i>&nbsp;	public boolean isAllowed(Ingredient droppedIngredient) {
+<b class="fc"><i class="no-highlight">100</i>&nbsp;		if (allowedIngredients == null)</b>
+<b class="fc"><i class="no-highlight">101</i>&nbsp;			return true;</b>
+<b class="fc"><i class="no-highlight">102</i>&nbsp;		for (Ingredient ingredient : allowedIngredients) {</b>
+<b class="fc"><i class="no-highlight">103</i>&nbsp;			if (ingredient.equals(droppedIngredient) &amp;&amp; slots.size() &lt; numberOfSlots)</b>
+<b class="fc"><i class="no-highlight">104</i>&nbsp;				return true;</b>
+<i class="no-highlight">105</i>&nbsp;		}
+<i class="no-highlight">106</i>&nbsp;
+<b class="fc"><i class="no-highlight">107</i>&nbsp;		return false;</b>
+<i class="no-highlight">108</i>&nbsp;	}
+<i class="no-highlight">109</i>&nbsp;
+<i class="no-highlight">110</i>&nbsp;	/**
+<i class="no-highlight">111</i>&nbsp;	 * Take the ingredient from the top slot.
+<i class="no-highlight">112</i>&nbsp;	 * 
+<i class="no-highlight">113</i>&nbsp;	 * @return The ingredient taken if successful, null otherwise.
+<i class="no-highlight">114</i>&nbsp;	 */
+<i class="no-highlight">115</i>&nbsp;	public Ingredient take() {
+<b class="fc"><i class="no-highlight">116</i>&nbsp;		if (slots.empty() || !active)</b>
+<b class="fc"><i class="no-highlight">117</i>&nbsp;			return null;</b>
+<b class="fc"><i class="no-highlight">118</i>&nbsp;		interactSound.stop();</b>
+<b class="fc"><i class="no-highlight">119</i>&nbsp;		if (!infinite) {</b>
+<b class="fc"><i class="no-highlight">120</i>&nbsp;			return slots.pop();</b>
+<i class="no-highlight">121</i>&nbsp;		}
+<i class="no-highlight">122</i>&nbsp;
+<b class="fc"><i class="no-highlight">123</i>&nbsp;		return new Ingredient(slots.peek());</b>
+<i class="no-highlight">124</i>&nbsp;	}
+<i class="no-highlight">125</i>&nbsp;
+<i class="no-highlight">126</i>&nbsp;	/**
+<i class="no-highlight">127</i>&nbsp;	 * Display text indicating to take the ingredient.
+<i class="no-highlight">128</i>&nbsp;	 * 
+<i class="no-highlight">129</i>&nbsp;	 * @param pos The position to draw at.
+<i class="no-highlight">130</i>&nbsp;	 */
+<i class="no-highlight">131</i>&nbsp;	public void drawTakeText(SpriteBatch batch) {
+<b class="fc"><i class="no-highlight">132</i>&nbsp;		if (!slots.empty() &amp;&amp; !GameScreen.cook.full() &amp;&amp; active) {</b>
+<b class="nc"><i class="no-highlight">133</i>&nbsp;			drawText(batch, &quot;Take [q]&quot;, new Vector2(pos.x * 64, pos.y * 64 - 16));</b>
+<i class="no-highlight">134</i>&nbsp;		}
+<i class="no-highlight">135</i>&nbsp;
+<i class="no-highlight">136</i>&nbsp;	}
+<i class="no-highlight">137</i>&nbsp;
+<i class="no-highlight">138</i>&nbsp;	/**
+<i class="no-highlight">139</i>&nbsp;	 * Display text indicating to drop an item in the station&#39;s slot.
+<i class="no-highlight">140</i>&nbsp;	 * 
+<i class="no-highlight">141</i>&nbsp;	 * @param pos The position of the station.
+<i class="no-highlight">142</i>&nbsp;	 */
+<i class="no-highlight">143</i>&nbsp;	public void drawDropText(SpriteBatch batch) {
+<b class="fc"><i class="no-highlight">144</i>&nbsp;		if (GameScreen.cook.heldItems.size() &gt; 0 &amp;&amp; isAllowed(GameScreen.cook.heldItems.peek()) &amp;&amp; active) {</b>
+<b class="nc"><i class="no-highlight">145</i>&nbsp;			drawText(batch, &quot;Drop [e]&quot;, new Vector2(pos.x * 64, pos.y * 64));</b>
+<i class="no-highlight">146</i>&nbsp;		}
+<i class="no-highlight">147</i>&nbsp;	}
+<i class="no-highlight">148</i>&nbsp;
+<i class="no-highlight">149</i>&nbsp;	/**
+<i class="no-highlight">150</i>&nbsp;	 * 
+<i class="no-highlight">151</i>&nbsp;	 * @param text Text to be drawn.
+<i class="no-highlight">152</i>&nbsp;	 * @param pos  Position to draw at.
+<i class="no-highlight">153</i>&nbsp;	 */
+<i class="no-highlight">154</i>&nbsp;	public void drawText(SpriteBatch batch, String text, Vector2 pos) {
+<b class="nc"><i class="no-highlight">155</i>&nbsp;		batch.begin();</b>
+<b class="nc"><i class="no-highlight">156</i>&nbsp;		font.draw(batch, text, pos.x, pos.y);</b>
+<b class="nc"><i class="no-highlight">157</i>&nbsp;		batch.end();</b>
+<i class="no-highlight">158</i>&nbsp;	}
+<i class="no-highlight">159</i>&nbsp;
+<i class="no-highlight">160</i>&nbsp;	public void interactSound() {
+<b class="nc"><i class="no-highlight">161</i>&nbsp;		interactSound.setVolume(MainGameClass.gameVolumeScale);</b>
+<b class="nc"><i class="no-highlight">162</i>&nbsp;		interactSound.play();</b>
+<i class="no-highlight">163</i>&nbsp;	}
+<i class="no-highlight">164</i>&nbsp;
+<i class="no-highlight">165</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -254,15 +253,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

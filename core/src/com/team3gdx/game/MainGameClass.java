@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.team3gdx.game.screen.*;
-import com.team3gdx.game.util.AudioController;
 
 public class MainGameClass extends Game {
 	public SpriteBatch batch;
@@ -19,12 +18,10 @@ public class MainGameClass extends Game {
 	public static float musicVolumeScale;
 	public static float gameVolumeScale;
 	private MainScreen mainScreen1;
-	private GameScreen gameScreen1;
 	private LeaderBoard leaderBoardScreen1;
 	private WaveSelectScreen waveSelectScreen1;
 	private CreditScreen CreditScreen1;
 	public miniWorldTest miniWorldTest1;
-	public AudioController sounds;
 	public ShapeRenderer shapeRenderer;
 
 
@@ -48,7 +45,6 @@ public class MainGameClass extends Game {
 		font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		// ====================================GAME=SCREEN=INITIALISATION================================================
 		mainScreen1 = new MainScreen(this);
-		//gameScreen1 = new GameScreen(this, mainScreen1);
 		leaderBoardScreen1 = new LeaderBoard(this, mainScreen1);
 		waveSelectScreen1 = new WaveSelectScreen(this, mainScreen1);
 		CreditScreen1 = new CreditScreen(this);
@@ -61,12 +57,6 @@ public class MainGameClass extends Game {
 		return mainScreen1;
 	}
 
-	/*
-	public GameScreen getGameScreen() {
-		return gameScreen1;
-	}
-	 */
-
 	public LeaderBoard getLeaderBoardScreen() {
 		return leaderBoardScreen1;
 	}
@@ -74,12 +64,6 @@ public class MainGameClass extends Game {
 	public WaveSelectScreen getWaveSelectScreen() { return waveSelectScreen1;}
 
 	public miniWorldTest getTestingScreen() { return miniWorldTest1;}
-
-	/*
-	public void resetGameScreen() {
-		this.gameScreen1 = new GameScreen(this, mainScreen1);
-	}
-	 */
 
 	@Override
 	public void render() {

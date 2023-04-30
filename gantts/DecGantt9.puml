@@ -1,0 +1,25 @@
+@startgantt
+
+Project starts 2023-2-15
+
+[Code Inspection] starts 2023-2-15 and lasts 4 days and is colored in green
+[Setting up GitHub and CI documents] starts 2023-2-15 and lasts 7 days and is colored in green
+[Start planning testing for next week] starts 2023-2-15 and lasts 7 days and is colored in green
+
+[Testing old code] starts 2023-2-22 and ends 2023-3-22 and is colored in green
+[Work on website and document review] starts 2023-2-22 and lasts 7 days and is colored in green
+
+[Working on Risk Assessment] starts 2023-2-29 and ends 2023-3-15 and is colored in green
+
+[Writing Up Old Testing] starts 2023-3-22 and ends 2023-3-30 and is colored in green
+
+[Writing New Code] starts 2023-3-22  and ends 2023-4-15 and is colored in green
+
+[Testing New Code] starts 2023-4-8 and ends 2023-4-19 and is colored in green
+
+[Testing New Code!] starts 2023-4-19 and ends 2023-4-20 and displays on same row as [Testing New Code]
+
+[Write Up New Testing] starts 2023-4-19 and ends 2023-4-25
+
+
+@endgantt

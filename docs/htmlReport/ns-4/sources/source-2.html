@@ -7,10 +7,9 @@
   <title>Coverage Report > Ingredients</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -74,95 +73,95 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.food;
-&nbsp;
-&nbsp;import com.badlogic.gdx.Gdx;
-&nbsp;import com.badlogic.gdx.graphics.Texture;
-&nbsp;import com.badlogic.gdx.math.Vector2;
-&nbsp;
-&nbsp;/**
-&nbsp; * All available ingredient.
-&nbsp; * 
-&nbsp; */
-<b class="nc">&nbsp;public class Ingredients {</b>
-&nbsp;
-&nbsp;	// Meats.
-<b class="fc">&nbsp;	public static Ingredient unformedPatty = new Ingredient(null, 32, 32, &quot;unformed_patty&quot;, 0, .5f);</b>
-<b class="fc">&nbsp;	public static Ingredient formedPatty = new Ingredient(null, 32, 32, &quot;patty&quot;, 0, .5f);</b>
-<b class="fc">&nbsp;	public static Ingredient cookedPatty = new Ingredient(null, 32, 32, &quot;patty&quot;, 0, .5f);</b>
-&nbsp;	// Cooked meats.
-&nbsp;	static {
-<b class="fc">&nbsp;		cookedPatty.status = Status.COOKED;</b>
-<b class="fc">&nbsp;		cookedPatty.flipped = true;</b>
-&nbsp;	}
-<b class="fc">&nbsp;	public static Ingredient burnedPatty = new Ingredient(null, 32, 32, &quot;patty&quot;, 0, .5f);</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		burnedPatty.status = Status.BURNED;</b>
-<b class="fc">&nbsp;		burnedPatty.flipped = true;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	// Vegetables.
-<b class="fc">&nbsp;	public static Ingredient lettuce = new Ingredient(null, 32, 32, &quot;lettuce&quot;, 1, 0);</b>
-<b class="fc">&nbsp;	public static Ingredient tomato = new Ingredient(null, 32, 32, &quot;tomato&quot;, 1, 0);</b>
-<b class="fc">&nbsp;	public static Ingredient onion = new Ingredient(null, 32, 32, &quot;onion&quot;, 1, 0);</b>
-&nbsp;	// Chopped vegetables.
-<b class="fc">&nbsp;	public static Ingredient lettuceChopped = new Ingredient(null, 32, 32, &quot;lettuce&quot;, 1, 0);</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		lettuceChopped.slices = 1;</b>
-&nbsp;	}
-<b class="fc">&nbsp;	public static Ingredient tomatoChopped = new Ingredient(null, 32, 32, &quot;tomato&quot;, 1, 0);</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		tomatoChopped.slices = 1;</b>
-&nbsp;	}
-<b class="fc">&nbsp;	public static Ingredient onionChopped = new Ingredient(null, 32, 32, &quot;onion&quot;, 1, 0);</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		onionChopped.slices = 1;</b>
-&nbsp;	}
-&nbsp;
-<b class="fc">&nbsp;	public static Ingredient tomatoPaste = new Ingredient(null, 32, 32, &quot;tomato_paste&quot;, 1, 0);</b>
-&nbsp;
-&nbsp;	// Breads.
-<b class="fc">&nbsp;	public static Ingredient bun = new Ingredient(new Vector2(0, 0), 32, 32, &quot;burger_bun&quot;, 0, .5f);</b>
-&nbsp;	// Toasted breads.
-<b class="fc">&nbsp;	public static Ingredient cooked_bun = new Ingredient(new Vector2(0, 0), 32, 32, &quot;burger_bun&quot;, 0, .5f);</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		cooked_bun.status = Status.COOKED;</b>
-<b class="fc">&nbsp;		cooked_bun.flipped = true;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	// Potatoes
-<b class="fc">&nbsp;	public static Ingredient potato = new Ingredient(new Vector2(0, 0), 32, 32, &quot;potato&quot;, 0, .5f);</b>
-&nbsp;	// Baked potatoes
-<b class="fc">&nbsp;	public static Ingredient cooked_potato = new Ingredient(new Vector2(0, 0), 32, 32, &quot;potato&quot;, 0, .5f);</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		cooked_potato.status = Status.COOKED;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	// Beans
-<b class="fc">&nbsp;	public static Ingredient beans = new Ingredient(new Vector2(0, 0), 32, 32, &quot;beans&quot;, 0, .5f);</b>
-&nbsp;	// Baked beans
-<b class="fc">&nbsp;	public static Ingredient cooked_beans = new Ingredient(new Vector2(0, 0), 32, 32, &quot;beans&quot;, 0, .5f);</b>
-<b class="fc">&nbsp;	public static Ingredient cooked_beans_with_spill = new Ingredient(new Vector2(0, 0), 32, 32, &quot;beans&quot;, 0, .5f);</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		cooked_beans.status = Status.COOKED;</b>
-<b class="fc">&nbsp;		cooked_beans.texture = new Texture(&quot;items/&quot; + cooked_beans.name + &quot;_cooked.png&quot;);</b>
-<b class="fc">&nbsp;		cooked_beans_with_spill.status = Status.COOKED;</b>
-<b class="fc">&nbsp;		cooked_beans_with_spill.texture = new Texture(&quot;items/&quot; + cooked_beans_with_spill.name + &quot;pill.png&quot;);</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	// Cheese
-<b class="fc">&nbsp;	public static Ingredient cheese = new Ingredient(new Vector2(0, 0), 32, 32, &quot;cheese&quot;, 0, .5f);</b>
-&nbsp;
-&nbsp;	// Dough and pizza base
-<b class="fc">&nbsp;	public static Ingredient dough = new Ingredient(null, 32, 32, &quot;dough&quot;, 0, .5f);</b>
-<b class="fc">&nbsp;	public static Ingredient pizzaBase = new Ingredient(null, 32, 32, &quot;pizza_base&quot;, 0, .5f);</b>
-<b class="fc">&nbsp;	public static Ingredient cookedPizzaBase = new Ingredient(null, 32, 32, &quot;pizza_base&quot;, 0, .5f);</b>
-&nbsp;	static {
-<b class="fc">&nbsp;		cookedPizzaBase.status = Status.COOKED;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.food;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.badlogic.gdx.Gdx;
+<i class="no-highlight">4</i>&nbsp;import com.badlogic.gdx.graphics.Texture;
+<i class="no-highlight">5</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;/**
+<i class="no-highlight">8</i>&nbsp; * All available ingredient.
+<i class="no-highlight">9</i>&nbsp; * 
+<i class="no-highlight">10</i>&nbsp; */
+<b class="nc"><i class="no-highlight">11</i>&nbsp;public class Ingredients {</b>
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;	// Meats.
+<b class="fc"><i class="no-highlight">14</i>&nbsp;	public static Ingredient unformedPatty = new Ingredient(null, 32, 32, &quot;unformed_patty&quot;, 0, .5f);</b>
+<b class="fc"><i class="no-highlight">15</i>&nbsp;	public static Ingredient formedPatty = new Ingredient(null, 32, 32, &quot;patty&quot;, 0, .5f);</b>
+<b class="fc"><i class="no-highlight">16</i>&nbsp;	public static Ingredient cookedPatty = new Ingredient(null, 32, 32, &quot;patty&quot;, 0, .5f);</b>
+<i class="no-highlight">17</i>&nbsp;	// Cooked meats.
+<i class="no-highlight">18</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">19</i>&nbsp;		cookedPatty.status = Status.COOKED;</b>
+<b class="fc"><i class="no-highlight">20</i>&nbsp;		cookedPatty.flipped = true;</b>
+<i class="no-highlight">21</i>&nbsp;	}
+<b class="fc"><i class="no-highlight">22</i>&nbsp;	public static Ingredient burnedPatty = new Ingredient(null, 32, 32, &quot;patty&quot;, 0, .5f);</b>
+<i class="no-highlight">23</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">24</i>&nbsp;		burnedPatty.status = Status.BURNED;</b>
+<b class="fc"><i class="no-highlight">25</i>&nbsp;		burnedPatty.flipped = true;</b>
+<i class="no-highlight">26</i>&nbsp;	}
+<i class="no-highlight">27</i>&nbsp;
+<i class="no-highlight">28</i>&nbsp;	// Vegetables.
+<b class="fc"><i class="no-highlight">29</i>&nbsp;	public static Ingredient lettuce = new Ingredient(null, 32, 32, &quot;lettuce&quot;, 1, 0);</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;	public static Ingredient tomato = new Ingredient(null, 32, 32, &quot;tomato&quot;, 1, 0);</b>
+<b class="fc"><i class="no-highlight">31</i>&nbsp;	public static Ingredient onion = new Ingredient(null, 32, 32, &quot;onion&quot;, 1, 0);</b>
+<i class="no-highlight">32</i>&nbsp;	// Chopped vegetables.
+<b class="fc"><i class="no-highlight">33</i>&nbsp;	public static Ingredient lettuceChopped = new Ingredient(null, 32, 32, &quot;lettuce&quot;, 1, 0);</b>
+<i class="no-highlight">34</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">35</i>&nbsp;		lettuceChopped.slices = 1;</b>
+<i class="no-highlight">36</i>&nbsp;	}
+<b class="fc"><i class="no-highlight">37</i>&nbsp;	public static Ingredient tomatoChopped = new Ingredient(null, 32, 32, &quot;tomato&quot;, 1, 0);</b>
+<i class="no-highlight">38</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">39</i>&nbsp;		tomatoChopped.slices = 1;</b>
+<i class="no-highlight">40</i>&nbsp;	}
+<b class="fc"><i class="no-highlight">41</i>&nbsp;	public static Ingredient onionChopped = new Ingredient(null, 32, 32, &quot;onion&quot;, 1, 0);</b>
+<i class="no-highlight">42</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">43</i>&nbsp;		onionChopped.slices = 1;</b>
+<i class="no-highlight">44</i>&nbsp;	}
+<i class="no-highlight">45</i>&nbsp;
+<b class="fc"><i class="no-highlight">46</i>&nbsp;	public static Ingredient tomatoPaste = new Ingredient(null, 32, 32, &quot;tomato_paste&quot;, 1, 0);</b>
+<i class="no-highlight">47</i>&nbsp;
+<i class="no-highlight">48</i>&nbsp;	// Breads.
+<b class="fc"><i class="no-highlight">49</i>&nbsp;	public static Ingredient bun = new Ingredient(new Vector2(0, 0), 32, 32, &quot;burger_bun&quot;, 0, .5f);</b>
+<i class="no-highlight">50</i>&nbsp;	// Toasted breads.
+<b class="fc"><i class="no-highlight">51</i>&nbsp;	public static Ingredient cooked_bun = new Ingredient(new Vector2(0, 0), 32, 32, &quot;burger_bun&quot;, 0, .5f);</b>
+<i class="no-highlight">52</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">53</i>&nbsp;		cooked_bun.status = Status.COOKED;</b>
+<b class="fc"><i class="no-highlight">54</i>&nbsp;		cooked_bun.flipped = true;</b>
+<i class="no-highlight">55</i>&nbsp;	}
+<i class="no-highlight">56</i>&nbsp;
+<i class="no-highlight">57</i>&nbsp;	// Potatoes
+<b class="fc"><i class="no-highlight">58</i>&nbsp;	public static Ingredient potato = new Ingredient(new Vector2(0, 0), 32, 32, &quot;potato&quot;, 0, .5f);</b>
+<i class="no-highlight">59</i>&nbsp;	// Baked potatoes
+<b class="fc"><i class="no-highlight">60</i>&nbsp;	public static Ingredient cooked_potato = new Ingredient(new Vector2(0, 0), 32, 32, &quot;potato&quot;, 0, .5f);</b>
+<i class="no-highlight">61</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">62</i>&nbsp;		cooked_potato.status = Status.COOKED;</b>
+<i class="no-highlight">63</i>&nbsp;	}
+<i class="no-highlight">64</i>&nbsp;
+<i class="no-highlight">65</i>&nbsp;	// Beans
+<b class="fc"><i class="no-highlight">66</i>&nbsp;	public static Ingredient beans = new Ingredient(new Vector2(0, 0), 32, 32, &quot;beans&quot;, 0, .5f);</b>
+<i class="no-highlight">67</i>&nbsp;	// Baked beans
+<b class="fc"><i class="no-highlight">68</i>&nbsp;	public static Ingredient cooked_beans = new Ingredient(new Vector2(0, 0), 32, 32, &quot;beans&quot;, 0, .5f);</b>
+<b class="fc"><i class="no-highlight">69</i>&nbsp;	public static Ingredient cooked_beans_with_spill = new Ingredient(new Vector2(0, 0), 32, 32, &quot;beans&quot;, 0, .5f);</b>
+<i class="no-highlight">70</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">71</i>&nbsp;		cooked_beans.status = Status.COOKED;</b>
+<b class="fc"><i class="no-highlight">72</i>&nbsp;		cooked_beans.texture = new Texture(&quot;items/&quot; + cooked_beans.name + &quot;_cooked.png&quot;);</b>
+<b class="fc"><i class="no-highlight">73</i>&nbsp;		cooked_beans_with_spill.status = Status.COOKED;</b>
+<b class="fc"><i class="no-highlight">74</i>&nbsp;		cooked_beans_with_spill.texture = new Texture(&quot;items/&quot; + cooked_beans_with_spill.name + &quot;pill.png&quot;);</b>
+<i class="no-highlight">75</i>&nbsp;	}
+<i class="no-highlight">76</i>&nbsp;
+<i class="no-highlight">77</i>&nbsp;	// Cheese
+<b class="fc"><i class="no-highlight">78</i>&nbsp;	public static Ingredient cheese = new Ingredient(new Vector2(0, 0), 32, 32, &quot;cheese&quot;, 0, .5f);</b>
+<i class="no-highlight">79</i>&nbsp;
+<i class="no-highlight">80</i>&nbsp;	// Dough and pizza base
+<b class="fc"><i class="no-highlight">81</i>&nbsp;	public static Ingredient dough = new Ingredient(null, 32, 32, &quot;dough&quot;, 0, .5f);</b>
+<b class="fc"><i class="no-highlight">82</i>&nbsp;	public static Ingredient pizzaBase = new Ingredient(null, 32, 32, &quot;pizza_base&quot;, 0, .5f);</b>
+<b class="fc"><i class="no-highlight">83</i>&nbsp;	public static Ingredient cookedPizzaBase = new Ingredient(null, 32, 32, &quot;pizza_base&quot;, 0, .5f);</b>
+<i class="no-highlight">84</i>&nbsp;	static {
+<b class="fc"><i class="no-highlight">85</i>&nbsp;		cookedPizzaBase.status = Status.COOKED;</b>
+<i class="no-highlight">86</i>&nbsp;	}
+<i class="no-highlight">87</i>&nbsp;
+<i class="no-highlight">88</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -177,15 +176,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

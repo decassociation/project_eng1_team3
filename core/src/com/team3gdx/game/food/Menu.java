@@ -31,6 +31,9 @@ public class Menu {
 		SALAD_STEPS.put(Ingredients.onionChopped, "Cut");
 	}
 
+	/**
+	 * New recipes
+	 */
 	private static final Map<Ingredient, String> POTATO_BEANS_STEPS = new HashMap<Ingredient, String>();
 	static {
 		POTATO_BEANS_STEPS.put(Ingredients.cooked_potato, "Bake");

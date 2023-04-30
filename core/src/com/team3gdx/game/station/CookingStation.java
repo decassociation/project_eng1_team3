@@ -12,6 +12,14 @@ public class CookingStation extends Station {
 
 	ParticleEffect[] pES;
 
+	/**
+	 * Adds station specific parameters
+	 * @param pos
+	 * @param numberOfSlots
+	 * @param allowedIngredients
+	 * @param particlePath
+	 * @param soundPath
+	 */
 	public CookingStation(Vector2 pos, int numberOfSlots, Ingredient[] allowedIngredients, String particlePath,
 			String soundPath) {
 		super(pos, numberOfSlots, false, allowedIngredients, "audio/soundFX/frying.mp3");

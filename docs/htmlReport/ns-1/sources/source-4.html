@@ -7,10 +7,9 @@
   <title>Coverage Report > GdxTestRunner</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -51,18 +50,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    55.6%
+    100%
   </span>
   <span class="absValue">
-    (5/9)
+    (4/4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    78.6%
+    91.3%
   </span>
   <span class="absValue">
-    (22/28)
+    (21/23)
   </span>
 </td>
 </tr>
@@ -74,108 +73,108 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;/*******************************************************************************
-&nbsp; * Copyright 2015 See AUTHORS file.
-&nbsp; *
-&nbsp; * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
-&nbsp; * you may not use this file except in compliance with the License.
-&nbsp; * You may obtain a copy of the License at
-&nbsp; *
-&nbsp; * http://www.apache.org/licenses/LICENSE-2.0
-&nbsp; *
-&nbsp; * Unless required by applicable law or agreed to in writing, software
-&nbsp; * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
-&nbsp; * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-&nbsp; * See the License for the specific language governing permissions and
-&nbsp; * limitations under the License.
-&nbsp; ******************************************************************************/
-&nbsp;
-&nbsp;package com.team3.gdx.tests;
-&nbsp;
-&nbsp;import java.util.HashMap;
-&nbsp;import java.util.Map;
-&nbsp;
-&nbsp;import org.junit.runner.notification.RunNotifier;
-&nbsp;import org.junit.runners.BlockJUnit4ClassRunner;
-&nbsp;import org.junit.runners.model.FrameworkMethod;
-&nbsp;import org.junit.runners.model.InitializationError;
-&nbsp;
-&nbsp;import com.badlogic.gdx.Gdx;
-&nbsp;import com.badlogic.gdx.graphics.GL20;
-&nbsp;import static org.mockito.Mockito.mock;
-&nbsp;
-&nbsp;import com.badlogic.gdx.ApplicationListener;
-&nbsp;import com.badlogic.gdx.backends.headless.HeadlessApplication;
-&nbsp;import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
-&nbsp;
-&nbsp;public class GdxTestRunner extends BlockJUnit4ClassRunner implements ApplicationListener {
-&nbsp;
-<b class="fc">&nbsp;	private Map&lt;FrameworkMethod, RunNotifier&gt; invokeInRender = new HashMap&lt;FrameworkMethod, RunNotifier&gt;();</b>
-&nbsp;
-&nbsp;	public GdxTestRunner(Class&lt;?&gt; klass) throws InitializationError {
-<b class="fc">&nbsp;		super(klass);</b>
-<b class="fc">&nbsp;		HeadlessApplicationConfiguration conf = new HeadlessApplicationConfiguration();</b>
-&nbsp;
-<b class="fc">&nbsp;		new HeadlessApplication(this, conf);</b>
-<b class="fc">&nbsp;		Gdx.gl = mock(GL20.class);</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	@Override
-&nbsp;	public void create() {
-<b class="fc">&nbsp;	}</b>
-&nbsp;
-&nbsp;	@Override
-&nbsp;	public void resume() {
-<b class="nc">&nbsp;	}</b>
-&nbsp;
-&nbsp;	@Override
-&nbsp;	public void render() {
-<b class="fc">&nbsp;		synchronized (invokeInRender) {</b>
-<b class="fc">&nbsp;			for (Map.Entry&lt;FrameworkMethod, RunNotifier&gt; each : invokeInRender.entrySet()) {</b>
-<b class="fc">&nbsp;				super.runChild(each.getKey(), each.getValue());</b>
-<b class="fc">&nbsp;			}</b>
-<b class="fc">&nbsp;			invokeInRender.clear();</b>
-<b class="fc">&nbsp;		}</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	@Override
-&nbsp;	public void resize(int width, int height) {
-<b class="nc">&nbsp;	}</b>
-&nbsp;
-&nbsp;	@Override
-&nbsp;	public void pause() {
-<b class="nc">&nbsp;	}</b>
-&nbsp;
-&nbsp;	@Override
-&nbsp;	public void dispose() {
-<b class="nc">&nbsp;	}</b>
-&nbsp;
-&nbsp;	@Override
-&nbsp;	protected void runChild(FrameworkMethod method, RunNotifier notifier) {
-<b class="fc">&nbsp;		synchronized (invokeInRender) {</b>
-&nbsp;			// add for invoking in render phase, where gl context is available
-<b class="fc">&nbsp;			invokeInRender.put(method, notifier);</b>
-<b class="fc">&nbsp;		}</b>
-&nbsp;		// wait until that test was invoked
-<b class="fc">&nbsp;		waitUntilInvokedInRenderMethod();</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	private void waitUntilInvokedInRenderMethod() {
-&nbsp;		try {
-&nbsp;			while (true) {
-<b class="fc">&nbsp;				Thread.sleep(10);</b>
-<b class="fc">&nbsp;				synchronized (invokeInRender) {</b>
-<b class="fc">&nbsp;					if (invokeInRender.isEmpty())</b>
-<b class="fc">&nbsp;						break;</b>
-<b class="fc">&nbsp;				}</b>
-&nbsp;			}
-<b class="nc">&nbsp;		} catch (InterruptedException e) {</b>
-<b class="nc">&nbsp;			e.printStackTrace();</b>
-<b class="fc">&nbsp;		}</b>
-&nbsp;	}
-&nbsp;
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;/*******************************************************************************
+<i class="no-highlight">2</i>&nbsp; * Copyright 2015 See AUTHORS file.
+<i class="no-highlight">3</i>&nbsp; *
+<i class="no-highlight">4</i>&nbsp; * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+<i class="no-highlight">5</i>&nbsp; * you may not use this file except in compliance with the License.
+<i class="no-highlight">6</i>&nbsp; * You may obtain a copy of the License at
+<i class="no-highlight">7</i>&nbsp; *
+<i class="no-highlight">8</i>&nbsp; * http://www.apache.org/licenses/LICENSE-2.0
+<i class="no-highlight">9</i>&nbsp; *
+<i class="no-highlight">10</i>&nbsp; * Unless required by applicable law or agreed to in writing, software
+<i class="no-highlight">11</i>&nbsp; * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+<i class="no-highlight">12</i>&nbsp; * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+<i class="no-highlight">13</i>&nbsp; * See the License for the specific language governing permissions and
+<i class="no-highlight">14</i>&nbsp; * limitations under the License.
+<i class="no-highlight">15</i>&nbsp; ******************************************************************************/
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;package com.team3.gdx.tests;
+<i class="no-highlight">18</i>&nbsp;
+<i class="no-highlight">19</i>&nbsp;import java.util.HashMap;
+<i class="no-highlight">20</i>&nbsp;import java.util.Map;
+<i class="no-highlight">21</i>&nbsp;
+<i class="no-highlight">22</i>&nbsp;import org.junit.runner.notification.RunNotifier;
+<i class="no-highlight">23</i>&nbsp;import org.junit.runners.BlockJUnit4ClassRunner;
+<i class="no-highlight">24</i>&nbsp;import org.junit.runners.model.FrameworkMethod;
+<i class="no-highlight">25</i>&nbsp;import org.junit.runners.model.InitializationError;
+<i class="no-highlight">26</i>&nbsp;
+<i class="no-highlight">27</i>&nbsp;import com.badlogic.gdx.Gdx;
+<i class="no-highlight">28</i>&nbsp;import com.badlogic.gdx.graphics.GL20;
+<i class="no-highlight">29</i>&nbsp;import static org.mockito.Mockito.mock;
+<i class="no-highlight">30</i>&nbsp;
+<i class="no-highlight">31</i>&nbsp;import com.badlogic.gdx.ApplicationListener;
+<i class="no-highlight">32</i>&nbsp;import com.badlogic.gdx.backends.headless.HeadlessApplication;
+<i class="no-highlight">33</i>&nbsp;import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
+<i class="no-highlight">34</i>&nbsp;
+<i class="no-highlight">35</i>&nbsp;public class GdxTestRunner extends BlockJUnit4ClassRunner implements ApplicationListener {
+<i class="no-highlight">36</i>&nbsp;
+<b class="fc"><i class="no-highlight">37</i>&nbsp;	private Map&lt;FrameworkMethod, RunNotifier&gt; invokeInRender = new HashMap&lt;FrameworkMethod, RunNotifier&gt;();</b>
+<i class="no-highlight">38</i>&nbsp;
+<i class="no-highlight">39</i>&nbsp;	public GdxTestRunner(Class&lt;?&gt; klass) throws InitializationError {
+<b class="fc"><i class="no-highlight">40</i>&nbsp;		super(klass);</b>
+<b class="fc"><i class="no-highlight">41</i>&nbsp;		HeadlessApplicationConfiguration conf = new HeadlessApplicationConfiguration();</b>
+<i class="no-highlight">42</i>&nbsp;
+<b class="fc"><i class="no-highlight">43</i>&nbsp;		new HeadlessApplication(this, conf);</b>
+<b class="fc"><i class="no-highlight">44</i>&nbsp;		Gdx.gl = mock(GL20.class);</b>
+<i class="no-highlight">45</i>&nbsp;	}
+<i class="no-highlight">46</i>&nbsp;
+<i class="no-highlight">47</i>&nbsp;	@Override
+<i class="no-highlight">48</i>&nbsp;	public void create() {
+<i class="no-highlight">49</i>&nbsp;	}
+<i class="no-highlight">50</i>&nbsp;
+<i class="no-highlight">51</i>&nbsp;	@Override
+<i class="no-highlight">52</i>&nbsp;	public void resume() {
+<i class="no-highlight">53</i>&nbsp;	}
+<i class="no-highlight">54</i>&nbsp;
+<i class="no-highlight">55</i>&nbsp;	@Override
+<i class="no-highlight">56</i>&nbsp;	public void render() {
+<b class="fc"><i class="no-highlight">57</i>&nbsp;		synchronized (invokeInRender) {</b>
+<b class="fc"><i class="no-highlight">58</i>&nbsp;			for (Map.Entry&lt;FrameworkMethod, RunNotifier&gt; each : invokeInRender.entrySet()) {</b>
+<b class="fc"><i class="no-highlight">59</i>&nbsp;				super.runChild(each.getKey(), each.getValue());</b>
+<b class="fc"><i class="no-highlight">60</i>&nbsp;			}</b>
+<b class="fc"><i class="no-highlight">61</i>&nbsp;			invokeInRender.clear();</b>
+<b class="fc"><i class="no-highlight">62</i>&nbsp;		}</b>
+<i class="no-highlight">63</i>&nbsp;	}
+<i class="no-highlight">64</i>&nbsp;
+<i class="no-highlight">65</i>&nbsp;	@Override
+<i class="no-highlight">66</i>&nbsp;	public void resize(int width, int height) {
+<i class="no-highlight">67</i>&nbsp;	}
+<i class="no-highlight">68</i>&nbsp;
+<i class="no-highlight">69</i>&nbsp;	@Override
+<i class="no-highlight">70</i>&nbsp;	public void pause() {
+<i class="no-highlight">71</i>&nbsp;	}
+<i class="no-highlight">72</i>&nbsp;
+<i class="no-highlight">73</i>&nbsp;	@Override
+<i class="no-highlight">74</i>&nbsp;	public void dispose() {
+<i class="no-highlight">75</i>&nbsp;	}
+<i class="no-highlight">76</i>&nbsp;
+<i class="no-highlight">77</i>&nbsp;	@Override
+<i class="no-highlight">78</i>&nbsp;	protected void runChild(FrameworkMethod method, RunNotifier notifier) {
+<b class="fc"><i class="no-highlight">79</i>&nbsp;		synchronized (invokeInRender) {</b>
+<i class="no-highlight">80</i>&nbsp;			// add for invoking in render phase, where gl context is available
+<b class="fc"><i class="no-highlight">81</i>&nbsp;			invokeInRender.put(method, notifier);</b>
+<b class="fc"><i class="no-highlight">82</i>&nbsp;		}</b>
+<i class="no-highlight">83</i>&nbsp;		// wait until that test was invoked
+<b class="fc"><i class="no-highlight">84</i>&nbsp;		waitUntilInvokedInRenderMethod();</b>
+<i class="no-highlight">85</i>&nbsp;	}
+<i class="no-highlight">86</i>&nbsp;
+<i class="no-highlight">87</i>&nbsp;	private void waitUntilInvokedInRenderMethod() {
+<i class="no-highlight">88</i>&nbsp;		try {
+<i class="no-highlight">89</i>&nbsp;			while (true) {
+<b class="fc"><i class="no-highlight">90</i>&nbsp;				Thread.sleep(10);</b>
+<b class="fc"><i class="no-highlight">91</i>&nbsp;				synchronized (invokeInRender) {</b>
+<b class="fc"><i class="no-highlight">92</i>&nbsp;					if (invokeInRender.isEmpty())</b>
+<b class="fc"><i class="no-highlight">93</i>&nbsp;						break;</b>
+<b class="fc"><i class="no-highlight">94</i>&nbsp;				}</b>
+<i class="no-highlight">95</i>&nbsp;			}
+<b class="nc"><i class="no-highlight">96</i>&nbsp;		} catch (InterruptedException e) {</b>
+<b class="nc"><i class="no-highlight">97</i>&nbsp;			e.printStackTrace();</b>
+<b class="fc"><i class="no-highlight">98</i>&nbsp;		}</b>
+<i class="no-highlight">99</i>&nbsp;	}
+<i class="no-highlight">100</i>&nbsp;
+<i class="no-highlight">101</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -190,15 +189,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

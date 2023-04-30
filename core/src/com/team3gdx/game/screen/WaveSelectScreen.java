@@ -3,6 +3,7 @@ package com.team3gdx.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -16,6 +17,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3gdx.game.MainGameClass;
 
+/**
+ * New - select number of customers for scenario mode
+ */
 public class WaveSelectScreen implements Screen {
 
     final MainGameClass game;
@@ -50,11 +54,20 @@ public class WaveSelectScreen implements Screen {
 
     BitmapFont font;
 
+    /**
+     *  Constructor to initialise the wave select screen
+     * @param game - Main entry point class
+     * @param ms   - Title screen class
+     */
     public WaveSelectScreen(MainGameClass game, MainScreen ms){
         this.game = game;
         this.ms = ms;
         this.buttonwidth = (float) Gdx.graphics.getWidth() / 3;
         this.buttonheight = (float) Gdx.graphics.getHeight() / 6;
+        font = new BitmapFont(Gdx.files.internal("uielements/font.fnt"), Gdx.files.internal("uielements/font.png"),
+                false);
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        font.getData().setScale(7f, 7f);
 
         waves = 5;
 
@@ -133,11 +146,13 @@ public class WaveSelectScreen implements Screen {
 
         if (state == STATE.main) {
             game.gameMusic.dispose();
-            //game.resetGameScreen();
             game.setScreen(game.getMainScreen());
         }
     }
 
+    /**
+     * Defines actions to be done when wave select screen is shown
+     */
     @Override
     public void show() {
         state = STATE.none;
@@ -152,6 +167,10 @@ public class WaveSelectScreen implements Screen {
         stage.addActor(go);
     }
 
+    /**
+     * Render method for the wave select screen
+     * @param delta - The time in seconds since the last render.
+     */
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 0);
@@ -160,7 +179,7 @@ public class WaveSelectScreen implements Screen {
 
         game.batch.begin();
         game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        game.font.draw(game.batch, Integer.toString(waves) + " waves", Gdx.graphics.getWidth() / 7f, 17 * Gdx.graphics.getHeight() / 20f);
+        font.draw(game.batch, Integer.toString(waves) + " waves", Gdx.graphics.getWidth() / 20f, 17 * Gdx.graphics.getHeight() / 20f);
         game.batch.end();
         stage.act();
         stage.draw();

@@ -7,10 +7,9 @@
   <title>Coverage Report > IngredientTests</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -74,57 +73,57 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3.gdx.tests;
-&nbsp;
-&nbsp;import com.team3gdx.game.food.Ingredient;
-&nbsp;import com.team3gdx.game.food.Ingredients;
-&nbsp;import org.junit.Test;
-&nbsp;import org.junit.runner.RunWith;
-&nbsp;
-&nbsp;import java.util.Stack;
-&nbsp;
-&nbsp;import static org.junit.Assert.*;
-&nbsp;
-&nbsp;/**
-&nbsp; * Tests Ingredient.java and Ingredients.java without testing interactions with any cooking stations
-&nbsp; * NOT SURE IF ANYMORE OF Ingredient.java can be tested as methods take a SpriteBatch parameter
-&nbsp; */
-&nbsp;@RunWith(GdxTestRunner.class)
-<b class="fc">&nbsp;public class IngredientTests {</b>
-&nbsp;
-&nbsp;    @Test
-&nbsp;    public void testIngredientClone(){
-<b class="fc">&nbsp;        Ingredient formedPattyClone = new Ingredient(Ingredients.formedPatty);</b>
-<b class="fc">&nbsp;        assertEquals(&quot;The cloned formedPatty ingredient should be the same as the original but isn&#39;t&quot;,</b>
-&nbsp;                Ingredients.formedPatty, formedPattyClone);
-&nbsp;    }
-&nbsp;
-&nbsp;    @Test
-&nbsp;    public void testFlip(){
-<b class="fc">&nbsp;        Ingredient formedPattyClone = new Ingredient(Ingredients.formedPatty);</b>
-<b class="fc">&nbsp;        assertFalse(&quot;The cloned formedPatty ingredient flip check should be false&quot;,</b>
-<b class="fc">&nbsp;                formedPattyClone.flip());</b>
-<b class="fc">&nbsp;        assertFalse(&quot;The cloned formedPatty ingredient should not be flipped&quot;,</b>
-&nbsp;                formedPattyClone.flipped);
-&nbsp;
-<b class="fc">&nbsp;        formedPattyClone.cookedTime = 20;</b>
-&nbsp;
-<b class="fc">&nbsp;        assertTrue(&quot;The cloned formedPatty ingredient flip check should be true&quot;,</b>
-<b class="fc">&nbsp;                formedPattyClone.flip());</b>
-<b class="fc">&nbsp;        assertTrue(&quot;The cloned formedPatty ingredient should be flipped&quot;,</b>
-&nbsp;                formedPattyClone.flipped);
-&nbsp;
-&nbsp;    }
-&nbsp;
-&nbsp;    @Test
-&nbsp;    public void testEquals(){
-<b class="fc">&nbsp;        Ingredient formedPattyClone = new Ingredient(Ingredients.formedPatty);</b>
-<b class="fc">&nbsp;        assertTrue(&quot;formedPatty clone should be exactly the same as the origninal&quot;,</b>
-<b class="fc">&nbsp;                formedPattyClone.equals(Ingredients.formedPatty));</b>
-&nbsp;    }
-&nbsp;
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3.gdx.tests;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.team3gdx.game.food.Ingredient;
+<i class="no-highlight">4</i>&nbsp;import com.team3gdx.game.food.Ingredients;
+<i class="no-highlight">5</i>&nbsp;import org.junit.Test;
+<i class="no-highlight">6</i>&nbsp;import org.junit.runner.RunWith;
+<i class="no-highlight">7</i>&nbsp;
+<i class="no-highlight">8</i>&nbsp;import java.util.Stack;
+<i class="no-highlight">9</i>&nbsp;
+<i class="no-highlight">10</i>&nbsp;import static org.junit.Assert.*;
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;/**
+<i class="no-highlight">13</i>&nbsp; * Tests Ingredient.java and Ingredients.java without testing interactions with any cooking stations
+<i class="no-highlight">14</i>&nbsp; * NOT SURE IF ANYMORE OF Ingredient.java can be tested as methods take a SpriteBatch parameter
+<i class="no-highlight">15</i>&nbsp; */
+<i class="no-highlight">16</i>&nbsp;@RunWith(GdxTestRunner.class)
+<b class="fc"><i class="no-highlight">17</i>&nbsp;public class IngredientTests {</b>
+<i class="no-highlight">18</i>&nbsp;
+<i class="no-highlight">19</i>&nbsp;    @Test
+<i class="no-highlight">20</i>&nbsp;    public void testIngredientClone(){
+<b class="fc"><i class="no-highlight">21</i>&nbsp;        Ingredient formedPattyClone = new Ingredient(Ingredients.formedPatty);</b>
+<b class="fc"><i class="no-highlight">22</i>&nbsp;        assertEquals(&quot;The cloned formedPatty ingredient should be the same as the original but isn&#39;t&quot;,</b>
+<i class="no-highlight">23</i>&nbsp;                Ingredients.formedPatty, formedPattyClone);
+<i class="no-highlight">24</i>&nbsp;    }
+<i class="no-highlight">25</i>&nbsp;
+<i class="no-highlight">26</i>&nbsp;    @Test
+<i class="no-highlight">27</i>&nbsp;    public void testFlip(){
+<b class="fc"><i class="no-highlight">28</i>&nbsp;        Ingredient formedPattyClone = new Ingredient(Ingredients.formedPatty);</b>
+<b class="fc"><i class="no-highlight">29</i>&nbsp;        assertFalse(&quot;The cloned formedPatty ingredient flip check should be false&quot;,</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;                formedPattyClone.flip());</b>
+<b class="fc"><i class="no-highlight">31</i>&nbsp;        assertFalse(&quot;The cloned formedPatty ingredient should not be flipped&quot;,</b>
+<i class="no-highlight">32</i>&nbsp;                formedPattyClone.flipped);
+<i class="no-highlight">33</i>&nbsp;
+<b class="fc"><i class="no-highlight">34</i>&nbsp;        formedPattyClone.cookedTime = 20;</b>
+<i class="no-highlight">35</i>&nbsp;
+<b class="fc"><i class="no-highlight">36</i>&nbsp;        assertTrue(&quot;The cloned formedPatty ingredient flip check should be true&quot;,</b>
+<b class="fc"><i class="no-highlight">37</i>&nbsp;                formedPattyClone.flip());</b>
+<b class="fc"><i class="no-highlight">38</i>&nbsp;        assertTrue(&quot;The cloned formedPatty ingredient should be flipped&quot;,</b>
+<i class="no-highlight">39</i>&nbsp;                formedPattyClone.flipped);
+<i class="no-highlight">40</i>&nbsp;
+<i class="no-highlight">41</i>&nbsp;    }
+<i class="no-highlight">42</i>&nbsp;
+<i class="no-highlight">43</i>&nbsp;    @Test
+<i class="no-highlight">44</i>&nbsp;    public void testEquals(){
+<b class="fc"><i class="no-highlight">45</i>&nbsp;        Ingredient formedPattyClone = new Ingredient(Ingredients.formedPatty);</b>
+<b class="fc"><i class="no-highlight">46</i>&nbsp;        assertTrue(&quot;formedPatty clone should be exactly the same as the origninal&quot;,</b>
+<b class="fc"><i class="no-highlight">47</i>&nbsp;                formedPattyClone.equals(Ingredients.formedPatty));</b>
+<i class="no-highlight">48</i>&nbsp;    }
+<i class="no-highlight">49</i>&nbsp;
+<i class="no-highlight">50</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -139,15 +138,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

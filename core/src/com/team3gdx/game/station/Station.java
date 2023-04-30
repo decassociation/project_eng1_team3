@@ -157,6 +157,9 @@ public class Station {
 		batch.end();
 	}
 
+	/**
+	 * prepares and plays the interact sound when used
+	 */
 	public void interactSound() {
 		interactSound.setVolume(MainGameClass.gameVolumeScale);
 		interactSound.play();

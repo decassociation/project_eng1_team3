@@ -7,10 +7,9 @@
   <title>Coverage Report > CuttingStation</title>
   <style type="text/css">
     @import "../../css/coverage.css";
-    @import "../../css/idea.min.css";
+    @import "../../css/highlight-idea.css";
   </style>
-  <script type="text/javascript" src="../../js/highlight.min.js"></script>
-  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
 </head>
 
 <body>
@@ -74,66 +73,66 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.team3gdx.game.station;
-&nbsp;
-&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-&nbsp;import com.badlogic.gdx.math.Vector2;
-&nbsp;import com.team3gdx.game.food.Ingredient;
-&nbsp;import com.team3gdx.game.food.Ingredients;
-&nbsp;import com.team3gdx.game.screen.GameScreen;
-&nbsp;
-&nbsp;public class CuttingStation extends Station {
-&nbsp;
-<b class="fc">&nbsp;	private final static Ingredient[] ALLOWED_INGREDIENTS = { Ingredients.lettuce, Ingredients.tomato,</b>
-&nbsp;			Ingredients.onion };
-&nbsp;
-&nbsp;	public float currentCutTime;
-&nbsp;
-&nbsp;	public CuttingStation(Vector2 pos, float timeBetweenCuts) {
-<b class="fc">&nbsp;		super(pos, 1, false, ALLOWED_INGREDIENTS, &quot;audio/soundFX/chopping.mp3&quot;);</b>
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Slices the ingredient in slot if cook is interacting.
-&nbsp;	 * 
-&nbsp;	 * @param batch
-&nbsp;	 * @param time
-&nbsp;	 */
-&nbsp;	public void interact(SpriteBatch batch, float dT) {
-<b class="nc">&nbsp;		currentCutTime += dT;</b>
-<b class="nc">&nbsp;		if (slots.peek().slice(batch, currentCutTime)) {</b>
-<b class="nc">&nbsp;			currentCutTime = 0;</b>
-&nbsp;		}
-&nbsp;	}
-&nbsp;
-&nbsp;	/**
-&nbsp;	 * Lock interacting cook at station.
-&nbsp;	 * 
-&nbsp;	 * @return A boolean indicating if the cook was successfully locked.
-&nbsp;	 */
-&nbsp;	public boolean lockCook() {
-<b class="fc">&nbsp;		if (!slots.isEmpty()) {</b>
-<b class="fc">&nbsp;			if (lockedCook == null) {</b>
-<b class="fc">&nbsp;				GameScreen.cook.locked = true;</b>
-<b class="fc">&nbsp;				lockedCook = GameScreen.cook;</b>
-&nbsp;			} else {
-<b class="fc">&nbsp;				lockedCook.locked = true;</b>
-&nbsp;			}
-<b class="fc">&nbsp;			slots.peek().slicing = true;</b>
-&nbsp;
-<b class="fc">&nbsp;			return true;</b>
-&nbsp;		}
-<b class="fc">&nbsp;		if (lockedCook != null) {</b>
-<b class="fc">&nbsp;			lockedCook.locked = false;</b>
-<b class="fc">&nbsp;			lockedCook = null;</b>
-<b class="fc">&nbsp;			currentCutTime = 0;</b>
-&nbsp;		}
-&nbsp;
-<b class="fc">&nbsp;		return false;</b>
-&nbsp;	}
-&nbsp;
-&nbsp;}
-</code>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.team3gdx.game.station;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+<i class="no-highlight">4</i>&nbsp;import com.badlogic.gdx.math.Vector2;
+<i class="no-highlight">5</i>&nbsp;import com.team3gdx.game.food.Ingredient;
+<i class="no-highlight">6</i>&nbsp;import com.team3gdx.game.food.Ingredients;
+<i class="no-highlight">7</i>&nbsp;import com.team3gdx.game.screen.GameScreen;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;public class CuttingStation extends Station {
+<i class="no-highlight">10</i>&nbsp;
+<b class="fc"><i class="no-highlight">11</i>&nbsp;	private final static Ingredient[] ALLOWED_INGREDIENTS = { Ingredients.lettuce, Ingredients.tomato,</b>
+<i class="no-highlight">12</i>&nbsp;			Ingredients.onion };
+<i class="no-highlight">13</i>&nbsp;
+<i class="no-highlight">14</i>&nbsp;	public float currentCutTime;
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;	public CuttingStation(Vector2 pos, float timeBetweenCuts) {
+<b class="fc"><i class="no-highlight">17</i>&nbsp;		super(pos, 1, false, ALLOWED_INGREDIENTS, &quot;audio/soundFX/chopping.mp3&quot;);</b>
+<i class="no-highlight">18</i>&nbsp;	}
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;	/**
+<i class="no-highlight">21</i>&nbsp;	 * Slices the ingredient in slot if cook is interacting.
+<i class="no-highlight">22</i>&nbsp;	 * 
+<i class="no-highlight">23</i>&nbsp;	 * @param batch
+<i class="no-highlight">24</i>&nbsp;	 * @param time
+<i class="no-highlight">25</i>&nbsp;	 */
+<i class="no-highlight">26</i>&nbsp;	public void interact(SpriteBatch batch, float dT) {
+<b class="nc"><i class="no-highlight">27</i>&nbsp;		currentCutTime += dT;</b>
+<b class="nc"><i class="no-highlight">28</i>&nbsp;		if (slots.peek().slice(batch, currentCutTime)) {</b>
+<b class="nc"><i class="no-highlight">29</i>&nbsp;			currentCutTime = 0;</b>
+<i class="no-highlight">30</i>&nbsp;		}
+<i class="no-highlight">31</i>&nbsp;	}
+<i class="no-highlight">32</i>&nbsp;
+<i class="no-highlight">33</i>&nbsp;	/**
+<i class="no-highlight">34</i>&nbsp;	 * Lock interacting cook at station.
+<i class="no-highlight">35</i>&nbsp;	 * 
+<i class="no-highlight">36</i>&nbsp;	 * @return A boolean indicating if the cook was successfully locked.
+<i class="no-highlight">37</i>&nbsp;	 */
+<i class="no-highlight">38</i>&nbsp;	public boolean lockCook() {
+<b class="fc"><i class="no-highlight">39</i>&nbsp;		if (!slots.isEmpty()) {</b>
+<b class="fc"><i class="no-highlight">40</i>&nbsp;			if (lockedCook == null) {</b>
+<b class="fc"><i class="no-highlight">41</i>&nbsp;				GameScreen.cook.locked = true;</b>
+<b class="fc"><i class="no-highlight">42</i>&nbsp;				lockedCook = GameScreen.cook;</b>
+<i class="no-highlight">43</i>&nbsp;			} else {
+<b class="fc"><i class="no-highlight">44</i>&nbsp;				lockedCook.locked = true;</b>
+<i class="no-highlight">45</i>&nbsp;			}
+<b class="fc"><i class="no-highlight">46</i>&nbsp;			slots.peek().slicing = true;</b>
+<i class="no-highlight">47</i>&nbsp;
+<b class="fc"><i class="no-highlight">48</i>&nbsp;			return true;</b>
+<i class="no-highlight">49</i>&nbsp;		}
+<b class="fc"><i class="no-highlight">50</i>&nbsp;		if (lockedCook != null) {</b>
+<b class="fc"><i class="no-highlight">51</i>&nbsp;			lockedCook.locked = false;</b>
+<b class="fc"><i class="no-highlight">52</i>&nbsp;			lockedCook = null;</b>
+<b class="fc"><i class="no-highlight">53</i>&nbsp;			currentCutTime = 0;</b>
+<i class="no-highlight">54</i>&nbsp;		}
+<i class="no-highlight">55</i>&nbsp;
+<b class="fc"><i class="no-highlight">56</i>&nbsp;		return false;</b>
+<i class="no-highlight">57</i>&nbsp;	}
+<i class="no-highlight">58</i>&nbsp;
+<i class="no-highlight">59</i>&nbsp;}
+</div>
 </pre>
 </div>
 
@@ -148,15 +147,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     @*/
 
     if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
     }
 })();
 </script>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-28 10:16</div>
+    <div style="float:right;">generated on 2023-04-19 10:51</div>
 </div>
 </body>
 </html>

@@ -272,16 +272,20 @@ public class MainScreen implements Screen {
 		}
 		if (state == STATE.new_game) {
 			game.mainScreenMusic.dispose();
-			//game.setScreen(new GameScreen(game, game.getMainScreen(), 5));
 			game.setScreen(game.getWaveSelectScreen());
 		}
 
+		/**
+		 * new - load game
+		 */
 		if (state == STATE.load_game) {
 			game.mainScreenMusic.dispose();
-			//game.setScreen(new GameScreen(game, game.getMainScreen(), 5));
 			game.setScreen(new GameScreen(game, game.getMainScreen(), false));
 		}
 
+		/**
+		 * New endless mode
+		 */
 		if (state == STATE.endless_game) {
 			game.mainScreenMusic.dispose();
 			game.setScreen(new DifficultySelectScreen(game, game.getMainScreen(), -1));
@@ -357,6 +361,17 @@ public class MainScreen implements Screen {
 				MainGameClass.gameVolumeScale = s;
 			}
 		}
+	}
+
+	/**
+	 * Update the gameResolution attributes
+	 *
+	 * @param x the new x
+	 * @param y the new y
+	 */
+	public void updateGameResolution(int x, int y){
+		this.gameResolutionX = x;
+		this.gameResolutionY = y;
 	}
 
 	/**

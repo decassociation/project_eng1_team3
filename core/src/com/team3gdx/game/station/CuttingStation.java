@@ -8,11 +8,19 @@ import com.team3gdx.game.screen.GameScreen;
 
 public class CuttingStation extends Station {
 
+	/**
+	 * Sets the allowed ingredients for this station
+	 */
 	private final static Ingredient[] ALLOWED_INGREDIENTS = { Ingredients.lettuce, Ingredients.tomato,
 			Ingredients.onion };
 
 	public float currentCutTime;
 
+	/**
+	 * sets cutting station specific parameters
+	 * @param pos
+	 * @param timeBetweenCuts
+	 */
 	public CuttingStation(Vector2 pos, float timeBetweenCuts) {
 		super(pos, 1, false, ALLOWED_INGREDIENTS, "audio/soundFX/chopping.mp3");
 	}
